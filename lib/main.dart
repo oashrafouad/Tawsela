@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
@@ -29,7 +30,7 @@ class TawselaApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
 
       debugShowCheckedModeBanner: false,
-      home: const PassengerMainScreen(),
+      home: const DriverSignUp(),
     );
   }
 }

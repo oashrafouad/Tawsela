@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tawsela_app/generated/l10n.dart';
 
 Color kGreenButtons=const Color(0xff28AA45);
 Color kWhite=const Color(0xffF5F5F5);
@@ -19,6 +20,7 @@ List<Color>linesColors=[
     const Color(0xFFDEBB78),
     ];
 
-const Color noColor=Color.fromARGB(0,0,0,0);    
+const Color noColor=Color.fromARGB(0,0,0,0);   
+List<String>titlesAboveUploadImgButton=[S().personalImage,S().licenseImg,S().idCardImg]; 
 
 

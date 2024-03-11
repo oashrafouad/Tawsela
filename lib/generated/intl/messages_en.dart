@@ -38,7 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
         "hawatam": MessageLookupByLibrary.simpleMessage("Hawatem"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "idCardImg": MessageLookupByLibrary.simpleMessage("ID Card"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "licenseImg": MessageLookupByLibrary.simpleMessage("License Image"),
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("Microbuses Lines Guide"),
         "or": MessageLookupByLibrary.simpleMessage("OR"),
@@ -52,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "showAll": MessageLookupByLibrary.simpleMessage("Show All"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Register"),
+        "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
+            "Open a driver account by submitting\nSome additional information"),
         "singInApple":
             MessageLookupByLibrary.simpleMessage("Sing in with Apple"),
         "singInFaceBook":

@@ -5,6 +5,7 @@ import 'package:tawsela_app/constants.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
+    
     super.key,
     this.onTap,
     this.text = '',

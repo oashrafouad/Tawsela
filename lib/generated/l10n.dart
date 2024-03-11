@@ -389,6 +389,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Open a driver account by submitting\nSome additional information`
+  String get signUpDriverMsg {
+    return Intl.message(
+      'Open a driver account by submitting\nSome additional information',
+      name: 'signUpDriverMsg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `License Image`
+  String get licenseImg {
+    return Intl.message(
+      'License Image',
+      name: 'licenseImg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ID Card`
+  String get idCardImg {
+    return Intl.message(
+      'ID Card',
+      name: 'idCardImg',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

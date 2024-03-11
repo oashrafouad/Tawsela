@@ -32,7 +32,13 @@
     "clickSelectThisLocation":"انقر لتحديد هذا المكان",
     "home":"المنزل",
     "whereUwantoGo":"عايز تروح فين؟",
-    "hawatam":"الحواتم"
+    "hawatam":"الحواتم",
+        "signUpDriverMsg": "افتح حساب سائق بتقديم\nبعض المعلومات الإضافية",
+        "licenseImg": "صورة الرخصة",
+        "idCardImg": "صورة البطاقة"
+    
+    
+    
 
 
 

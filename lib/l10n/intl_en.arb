@@ -33,7 +33,10 @@
     "clickSelectThisLocation":"Click to select this location",
     "home":"Home",
     "whereUwantoGo":"Where You want to go?",
-    "hawatam":"Hawatem"
+    "hawatam":"Hawatem",
+    "signUpDriverMsg":"Open a driver account by submitting\nSome additional information",
+    "licenseImg":"License Image",
+    "idCardImg":"ID Card"
 
 
 

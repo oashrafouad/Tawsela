@@ -40,7 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
         "hawatam": MessageLookupByLibrary.simpleMessage("الحواتم"),
         "home": MessageLookupByLibrary.simpleMessage("المنزل"),
+        "idCardImg": MessageLookupByLibrary.simpleMessage("صورة البطاقة"),
         "lastName": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
+        "licenseImg": MessageLookupByLibrary.simpleMessage("صورة الرخصة"),
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("دليل الخطوط"),
         "or": MessageLookupByLibrary.simpleMessage("أو"),
@@ -54,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "showAll": MessageLookupByLibrary.simpleMessage("اظهار الجميع"),
         "signIn": MessageLookupByLibrary.simpleMessage(" تسجيل"),
         "signUp": MessageLookupByLibrary.simpleMessage("تسجيل"),
+        "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
+            "افتح حساب سائق بتقديم\nبعض المعلومات الإضافية"),
         "singInApple": MessageLookupByLibrary.simpleMessage("سجل بحساب آبل"),
         "singInFaceBook":
             MessageLookupByLibrary.simpleMessage("سجل بحساب فيسبوك"),
