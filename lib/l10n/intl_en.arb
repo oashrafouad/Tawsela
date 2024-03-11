@@ -1,1 +1,45 @@
-{}
+{
+    "title": "Welcome to the app",
+    "appName": "Tawsela 🚌",
+    "descriptions": 
+        "Tawseela will help you go anywhere in",
+    "firstName":"First Name",
+    "lastName":"Last Name",
+    "verifyCode":"Verification Code",
+    "email":"E-mail (otpinal)",
+    "phoneNum":"Mobile Number",
+    "passengerSignUpTitle":"Fill in the following information to create \nyour account",
+     "MicrobusGuideStationAppBarTitle" :"Microbus Guide Line",
+     "smsVerificationScreenTitle": "You will receive a message containing the verification code\nPlease write it here.",
+     "continuee":"Continue",
+     "verifycode":"verifycode"
+     ,"singInFaceBook":"Sing in with Facebook",
+     "singInGoogle":"Sing in with Google",
+     "singInApple":"Sing in with Apple"
+     ,"or":"OR",
+     "welcomeMsg":"Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you"
+    ,"sendCodeAgain":"Send code again"
+    ,"uploadImg":"Upload Image",
+    "signIn":"Sign In",
+    "signUp":"Register",
+    "personalImage":"Personal Image",
+    "editProfile":"Edit Profile",
+    "save":"Save"
+    ,"edit":"Edit",
+    "add":"Add"
+    ,"showAll":"Show All",
+    "favPlaces":"Favorite Places",
+    "microbusesLinesGuide":"Microbuses Lines Guide",
+    "clickSelectThisLocation":"Click to select this location",
+    "home":"Home",
+    "whereUwantoGo":"Where You want to go?",
+    "hawatam":"Hawatem"
+
+
+
+
+    
+    
+  
+    
+  }

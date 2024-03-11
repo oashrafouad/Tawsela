@@ -49,6 +49,346 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Welcome to the app`
+  String get title {
+    return Intl.message(
+      'Welcome to the app',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tawsela 🚌`
+  String get appName {
+    return Intl.message(
+      'Tawsela 🚌',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tawseela will help you go anywhere in`
+  String get descriptions {
+    return Intl.message(
+      'Tawseela will help you go anywhere in',
+      name: 'descriptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First Name`
+  String get firstName {
+    return Intl.message(
+      'First Name',
+      name: 'firstName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get lastName {
+    return Intl.message(
+      'Last Name',
+      name: 'lastName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verification Code`
+  String get verifyCode {
+    return Intl.message(
+      'Verification Code',
+      name: 'verifyCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E-mail (otpinal)`
+  String get email {
+    return Intl.message(
+      'E-mail (otpinal)',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mobile Number`
+  String get phoneNum {
+    return Intl.message(
+      'Mobile Number',
+      name: 'phoneNum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fill in the following information to create \nyour account`
+  String get passengerSignUpTitle {
+    return Intl.message(
+      'Fill in the following information to create \nyour account',
+      name: 'passengerSignUpTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Microbus Guide Line`
+  String get MicrobusGuideStationAppBarTitle {
+    return Intl.message(
+      'Microbus Guide Line',
+      name: 'MicrobusGuideStationAppBarTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will receive a message containing the verification code\nPlease write it here.`
+  String get smsVerificationScreenTitle {
+    return Intl.message(
+      'You will receive a message containing the verification code\nPlease write it here.',
+      name: 'smsVerificationScreenTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get continuee {
+    return Intl.message(
+      'Continue',
+      name: 'continuee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `verifycode`
+  String get verifycode {
+    return Intl.message(
+      'verifycode',
+      name: 'verifycode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sing in with Facebook`
+  String get singInFaceBook {
+    return Intl.message(
+      'Sing in with Facebook',
+      name: 'singInFaceBook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sing in with Google`
+  String get singInGoogle {
+    return Intl.message(
+      'Sing in with Google',
+      name: 'singInGoogle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sing in with Apple`
+  String get singInApple {
+    return Intl.message(
+      'Sing in with Apple',
+      name: 'singInApple',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OR`
+  String get or {
+    return Intl.message(
+      'OR',
+      name: 'or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you`
+  String get welcomeMsg {
+    return Intl.message(
+      'Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you',
+      name: 'welcomeMsg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send code again`
+  String get sendCodeAgain {
+    return Intl.message(
+      'Send code again',
+      name: 'sendCodeAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Image`
+  String get uploadImg {
+    return Intl.message(
+      'Upload Image',
+      name: 'uploadImg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign In`
+  String get signIn {
+    return Intl.message(
+      'Sign In',
+      name: 'signIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get signUp {
+    return Intl.message(
+      'Register',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Image`
+  String get personalImage {
+    return Intl.message(
+      'Personal Image',
+      name: 'personalImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get editProfile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'editProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get edit {
+    return Intl.message(
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show All`
+  String get showAll {
+    return Intl.message(
+      'Show All',
+      name: 'showAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite Places`
+  String get favPlaces {
+    return Intl.message(
+      'Favorite Places',
+      name: 'favPlaces',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Microbuses Lines Guide`
+  String get microbusesLinesGuide {
+    return Intl.message(
+      'Microbuses Lines Guide',
+      name: 'microbusesLinesGuide',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click to select this location`
+  String get clickSelectThisLocation {
+    return Intl.message(
+      'Click to select this location',
+      name: 'clickSelectThisLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Where You want to go?`
+  String get whereUwantoGo {
+    return Intl.message(
+      'Where You want to go?',
+      name: 'whereUwantoGo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hawatem`
+  String get hawatam {
+    return Intl.message(
+      'Hawatem',
+      name: 'hawatam',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -57,6 +397,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
     ];
   }
 
