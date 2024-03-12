@@ -390,10 +390,10 @@ class S {
     );
   }
 
-  /// `Open a driver account by submitting\nSome additional information`
+  /// `Open a driver account by submitting Some\nadditional information`
   String get signUpDriverMsg {
     return Intl.message(
-      'Open a driver account by submitting\nSome additional information',
+      'Open a driver account by submitting Some\nadditional information',
       name: 'signUpDriverMsg',
       desc: '',
       args: [],
@@ -415,6 +415,106 @@ class S {
     return Intl.message(
       'ID Card',
       name: 'idCardImg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose On Map`
+  String get chooseOnMap {
+    return Intl.message(
+      'Choose On Map',
+      name: 'chooseOnMap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recently Visited`
+  String get recentlyVisited {
+    return Intl.message(
+      'Recently Visited',
+      name: 'recentlyVisited',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favourite`
+  String get favourite {
+    return Intl.message(
+      'Favourite',
+      name: 'favourite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specify a location to pick up passengers`
+  String get specifyASpecificLocationToPickUpPassengers {
+    return Intl.message(
+      'Specify a location to pick up passengers',
+      name: 'specifyASpecificLocationToPickUpPassengers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To edit the name and profile picture, contact technical support`
+  String get ToEditTheNameAndProfilePictureContactTechnicalSupport {
+    return Intl.message(
+      'To edit the name and profile picture, contact technical support',
+      name: 'ToEditTheNameAndProfilePictureContactTechnicalSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to driver mode`
+  String get switchDriverMode {
+    return Intl.message(
+      'Switch to driver mode',
+      name: 'switchDriverMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to passenger mode`
+  String get switchPassengermode {
+    return Intl.message(
+      'Switch to passenger mode',
+      name: 'switchPassengermode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trips`
+  String get numberoftrips {
+    return Intl.message(
+      'Trips',
+      name: 'numberoftrips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip`
+  String get trip {
+    return Intl.message(
+      'Trip',
+      name: 'trip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip Log`
+  String get tripLog {
+    return Intl.message(
+      'Trip Log',
+      name: 'tripLog',
       desc: '',
       args: [],
     );

@@ -24,8 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Microbus Guide Line"),
+        "ToEditTheNameAndProfilePictureContactTechnicalSupport":
+            MessageLookupByLibrary.simpleMessage(
+                "To edit the name and profile picture, contact technical support"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "appName": MessageLookupByLibrary.simpleMessage("Tawsela 🚌"),
+        "chooseOnMap": MessageLookupByLibrary.simpleMessage("Choose On Map"),
         "clickSelectThisLocation": MessageLookupByLibrary.simpleMessage(
             "Click to select this location"),
         "continuee": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -35,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "email": MessageLookupByLibrary.simpleMessage("E-mail (otpinal)"),
         "favPlaces": MessageLookupByLibrary.simpleMessage("Favorite Places"),
+        "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
         "hawatam": MessageLookupByLibrary.simpleMessage("Hawatem"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -43,11 +48,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "licenseImg": MessageLookupByLibrary.simpleMessage("License Image"),
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("Microbuses Lines Guide"),
+        "numberoftrips": MessageLookupByLibrary.simpleMessage("Trips"),
         "or": MessageLookupByLibrary.simpleMessage("OR"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
             "Fill in the following information to create \nyour account"),
         "personalImage": MessageLookupByLibrary.simpleMessage("Personal Image"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("Mobile Number"),
+        "recentlyVisited":
+            MessageLookupByLibrary.simpleMessage("Recently Visited"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "sendCodeAgain":
             MessageLookupByLibrary.simpleMessage("Send code again"),
@@ -55,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Register"),
         "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
-            "Open a driver account by submitting\nSome additional information"),
+            "Open a driver account by submitting Some\nadditional information"),
         "singInApple":
             MessageLookupByLibrary.simpleMessage("Sing in with Apple"),
         "singInFaceBook":
@@ -64,7 +72,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sing in with Google"),
         "smsVerificationScreenTitle": MessageLookupByLibrary.simpleMessage(
             "You will receive a message containing the verification code\nPlease write it here."),
+        "specifyASpecificLocationToPickUpPassengers":
+            MessageLookupByLibrary.simpleMessage(
+                "Specify a location to pick up passengers"),
+        "switchDriverMode":
+            MessageLookupByLibrary.simpleMessage("Switch to driver mode"),
+        "switchPassengermode":
+            MessageLookupByLibrary.simpleMessage("Switch to passenger mode"),
         "title": MessageLookupByLibrary.simpleMessage("Welcome to the app"),
+        "trip": MessageLookupByLibrary.simpleMessage("Trip"),
+        "tripLog": MessageLookupByLibrary.simpleMessage("Trip Log"),
         "uploadImg": MessageLookupByLibrary.simpleMessage("Upload Image"),
         "verifyCode": MessageLookupByLibrary.simpleMessage("Verification Code"),
         "verifycode": MessageLookupByLibrary.simpleMessage("verifycode"),

@@ -5,8 +5,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
 
-class passengerPickupLocation extends StatelessWidget {
-  const passengerPickupLocation({super.key});
+class DriverPickupLocation extends StatelessWidget {
+  const DriverPickupLocation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class passengerPickupLocation extends StatelessWidget {
             },
             constraints: const BoxConstraints(maxWidth: 400),
             leading: const Icon(Icons.search),
-            hintText: S.of(context).whereUwantoGo,
+            hintText: S.of(context).specifyASpecificLocationToPickUpPassengers,
             hintStyle: MaterialStateProperty.all(TextStyle(
                 fontFamily: font, fontSize: 16, fontWeight: FontWeight.w400)),
             padding: const MaterialStatePropertyAll<EdgeInsets>(

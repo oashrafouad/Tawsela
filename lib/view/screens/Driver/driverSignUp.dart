@@ -17,7 +17,7 @@ class DriverSignUp extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 100),
+            padding: const EdgeInsets.symmetric(vertical: 100,horizontal: 16),
             child: Text(
               S.of(context).signUpDriverMsg,
               style: TextStyle(

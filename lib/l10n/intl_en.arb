@@ -34,9 +34,19 @@
     "home":"Home",
     "whereUwantoGo":"Where You want to go?",
     "hawatam":"Hawatem",
-    "signUpDriverMsg":"Open a driver account by submitting\nSome additional information",
+    "signUpDriverMsg":"Open a driver account by submitting Some\nadditional information",
     "licenseImg":"License Image",
-    "idCardImg":"ID Card"
+    "idCardImg":"ID Card",
+    "chooseOnMap":"Choose On Map",
+    "recentlyVisited":"Recently Visited",
+    "favourite":"Favourite",
+    "specifyASpecificLocationToPickUpPassengers":"Specify a location to pick up passengers",
+    "ToEditTheNameAndProfilePictureContactTechnicalSupport":"To edit the name and profile picture, contact technical support",
+    "switchDriverMode":"Switch to driver mode",
+    "switchPassengermode":"Switch to passenger mode",
+    "numberoftrips":"Trips",
+    "trip":"Trip",
+    "tripLog":"Trip Log"
 
 
 

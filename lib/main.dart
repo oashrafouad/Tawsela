@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tawsela_app/view/screens/Driver/driverPickupLocation.dart';
+import 'package:tawsela_app/view/screens/Driver/driverProfile.dart';
 import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
+import 'package:tawsela_app/view/screens/Driver/driverEditProfile.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
@@ -30,7 +34,7 @@ class TawselaApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
 
       debugShowCheckedModeBanner: false,
-      home: const DriverSignUp(),
+      home: const DriverProfile(),
     );
   }
 }

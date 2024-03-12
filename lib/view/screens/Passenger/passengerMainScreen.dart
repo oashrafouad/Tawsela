@@ -1,9 +1,4 @@
-
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/helper/displayLines.dart';
@@ -33,8 +28,8 @@ class PassengerMainScreen extends StatelessWidget {
                   child: SizedBox(
                     // width: 360,
                     // height: 241,
-                    child:
-                        Image.asset(fit: BoxFit.fill, 'assets/images/header.jpg'),
+                    child: Image.asset(
+                        fit: BoxFit.fill, 'assets/images/header.jpg'),
                   ),
                 ),
                 InkWell(
@@ -42,16 +37,17 @@ class PassengerMainScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PassengerProfile()),
+                          builder: (context) => const PassengerProfile()),
                     );
                     // print('goto to Profile passenger');
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16,vertical:  16.0),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                             radius: 25,
                             backgroundImage:
                                 AssetImage('assets/images/avatar.jpg'),
@@ -155,12 +151,8 @@ class PassengerMainScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 children: [
                   for (int i = 1; i <= 17; i++)
-                    if (i >= 1 && i < 10 ||
-                        i == 11 ||
-                        i == 15 ||
-                        i == 17) //available Lines in faiyum
-                        //randomColor=randomColorsGenerator(),
-                      Padding(
+                    if (i >= 1 && i < 10 || i == 11 || i == 15 || i == 17)
+                      Padding( 
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: CustomCircleContainer(
                           onTap: () {
@@ -180,9 +172,7 @@ class PassengerMainScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Color(0xbf923025)
-            //Color(0xbf1f6f64)
-            // SizedBox(height: 64,)
+           
           ],
         ),
       ),

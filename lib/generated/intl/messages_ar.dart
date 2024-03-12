@@ -24,8 +24,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("دليل خط"),
+        "ToEditTheNameAndProfilePictureContactTechnicalSupport":
+            MessageLookupByLibrary.simpleMessage(
+                "لتعديل الاسم والصورة الشخصية كلم الدعم الفني"),
         "add": MessageLookupByLibrary.simpleMessage("اضف"),
         "appName": MessageLookupByLibrary.simpleMessage("توصيلة 🚌"),
+        "chooseOnMap":
+            MessageLookupByLibrary.simpleMessage("اختار على الخريطة"),
         "clickSelectThisLocation":
             MessageLookupByLibrary.simpleMessage("انقر لتحديد هذا المكان"),
         "continuee": MessageLookupByLibrary.simpleMessage("استمرار"),
@@ -37,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email":
             MessageLookupByLibrary.simpleMessage("البريد الإلكتروني (اختياري)"),
         "favPlaces": MessageLookupByLibrary.simpleMessage("الأماكن المفضلة"),
+        "favourite": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
         "hawatam": MessageLookupByLibrary.simpleMessage("الحواتم"),
         "home": MessageLookupByLibrary.simpleMessage("المنزل"),
@@ -45,11 +51,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "licenseImg": MessageLookupByLibrary.simpleMessage("صورة الرخصة"),
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("دليل الخطوط"),
+        "numberoftrips": MessageLookupByLibrary.simpleMessage("عدد الرحلات"),
         "or": MessageLookupByLibrary.simpleMessage("أو"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
             "املأ البيانات الآتية لتسجيل\nحسابك"),
         "personalImage": MessageLookupByLibrary.simpleMessage("الصورة الشخصية"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("رقم الهاتف المحمول"),
+        "recentlyVisited":
+            MessageLookupByLibrary.simpleMessage("تمت زيارته مؤخرًا"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
         "sendCodeAgain":
             MessageLookupByLibrary.simpleMessage("ارسل الكود مرة اخرى"),
@@ -64,7 +73,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "singInGoogle": MessageLookupByLibrary.simpleMessage("سجل بحساب جوجل"),
         "smsVerificationScreenTitle": MessageLookupByLibrary.simpleMessage(
             "هتوصلك رسالة موجود فيها كود التحقق\nالرجاء كتابته هنا"),
+        "specifyASpecificLocationToPickUpPassengers":
+            MessageLookupByLibrary.simpleMessage(
+                "حدد مكان معين لإستقبال الركاب"),
+        "switchDriverMode":
+            MessageLookupByLibrary.simpleMessage("تبديل لوضع السائق"),
+        "switchPassengermode":
+            MessageLookupByLibrary.simpleMessage("تبديل لوضع الراكب"),
         "title": MessageLookupByLibrary.simpleMessage("اهلًا بيك في تطبيق"),
+        "trip": MessageLookupByLibrary.simpleMessage("رحلة"),
+        "tripLog": MessageLookupByLibrary.simpleMessage("سجل الرحلات"),
         "uploadImg": MessageLookupByLibrary.simpleMessage("رفع صورة"),
         "verifyCode": MessageLookupByLibrary.simpleMessage("كود التحقق"),
         "verifycode": MessageLookupByLibrary.simpleMessage("كود التحقق"),
