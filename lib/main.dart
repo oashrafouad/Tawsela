@@ -34,7 +34,7 @@ class TawselaApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
 
       debugShowCheckedModeBanner: false,
-      home: const DriverProfile(),
+      home: const PassengerEditProfile(),
     );
   }
 }
