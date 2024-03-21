@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customListTile.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
@@ -13,6 +14,7 @@ import 'package:intl/intl.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
+  static String id='welcomePage';
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +121,9 @@ class WelcomePage extends StatelessWidget {
               buttonColor: kGreenButtons,
               textColor: Colors.white,
               text: S.of(context).continuee,
+              onTap: (){
+                Navigator.pushNamed(context, smsVerfication.id);
+              },
             ),
           ),
           // Divider(thickness: 3,),

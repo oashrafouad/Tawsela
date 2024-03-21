@@ -34,7 +34,18 @@ class TawselaApp extends StatelessWidget {
             supportedLocales: S.delegate.supportedLocales,
 
       debugShowCheckedModeBanner: false,
-      home: const PassengerEditProfile(),
+
+      routes: {
+        WelcomePage.id:(context)=>const WelcomePage(),
+        smsVerfication.id:(context)=>const smsVerfication(),
+        PassengerSignUp.id:(context)=>const PassengerSignUp(),
+        PassengerProfile.id:(context)=>const PassengerProfile(),
+        PassengerEditProfile.id:(context)=>const PassengerEditProfile(),
+        PassengerMainScreen.id:(context)=>const PassengerMainScreen(),
+        MicrobusGuideStation.id:(context)=>MicrobusGuideStation(color: Colors.black, line: 'line')
+
+      },
+      initialRoute:  WelcomePage.id,
     );
   }
 }

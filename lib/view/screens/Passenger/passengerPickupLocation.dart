@@ -7,6 +7,7 @@ import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
 
 class passengerPickupLocation extends StatelessWidget {
   const passengerPickupLocation({super.key});
+  static String id='passengerPickupLocationPage';
 
   @override
   Widget build(BuildContext context) {

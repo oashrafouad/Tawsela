@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/helper/checkLang.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class smsVerfication extends StatelessWidget {
   const smsVerfication({super.key});
+  static String id='smsVerficationPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.green),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -65,12 +70,17 @@ class smsVerfication extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(32.0),
+             padding: const EdgeInsets.all(20),
             child: CustomButton(
-                width: 284,
-                height: 54,
-                buttonColor: kGreenButtons,
-                text: S.of(context).continuee),
+            
+              radius: 10,
+              buttonColor: kGreenButtons,
+              textColor: Colors.white,
+              text: S.of(context).continuee,
+                onTap: (){
+                     Navigator.pushNamed(context, PassengerSignUp.id);
+                },
+                ),
           )
         ],
       ),

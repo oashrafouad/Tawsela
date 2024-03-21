@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/helper/checkLang.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class PassengerSignUp extends StatelessWidget {
   const PassengerSignUp({super.key});
+  static String id='passengerSignUpPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.green),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -106,6 +111,9 @@ class PassengerSignUp extends StatelessWidget {
           ),
           CustomButton(
             text: S.of(context).signUp,
+            onTap: (){
+              Navigator.pushNamed(context, PassengerMainScreen.id);
+            },
           )
         ],
       ),

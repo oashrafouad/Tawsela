@@ -7,14 +7,15 @@ import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
-
 class PassengerEditProfile extends StatelessWidget {
   const PassengerEditProfile({super.key});
+  static String id = 'passengerEditProfilePage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.green),
         centerTitle: true,
         title: Text(
           S.of(context).editProfile,
@@ -42,23 +43,25 @@ class PassengerEditProfile extends StatelessWidget {
               )
             ],
           ),
-           Padding(
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: Center(
               child: Stack(children: [
                 const CircleAvatar(
                   radius: 50,
-                  backgroundImage:  AssetImage('assets/images/avatar.jpg'),
+                  backgroundImage: AssetImage('assets/images/avatar.jpg'),
                 ),
                 Positioned(
                     top: 70,
                     right: 35,
                     child: InkWell(
-                      onTap: (){print('pressed');},
+                      onTap: () {
+                        print('pressed');
+                      },
                       child: Text(
                         S.of(context).edit,
                         style: TextStyle(
-                          fontFamily: font,
+                            fontFamily: font,
                             fontWeight: FontWeight.w700,
                             fontSize: 11,
                             color: const Color(0xffF6F6F6)),
@@ -150,13 +153,8 @@ class PassengerEditProfile extends StatelessWidget {
           ),
           CustomButton(
             onTap: () {
-              print("Hussssssh");
-              // Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => PassengerProfile()),
-              //           );
-              // //to passengerProfile
+              Navigator.pop(context);
+              //Navigator.pushNamed(context, PassengerProfile.id);
             },
             radius: 6,
             width: 284,

@@ -14,6 +14,7 @@ Color randomColor = Colors.black;
 
 class PassengerMainScreen extends StatelessWidget {
   const PassengerMainScreen({super.key});
+  static String id='passengerMainScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +27,14 @@ class PassengerMainScreen extends StatelessWidget {
               children: [
                 Center(
                   child: SizedBox(
-                    // width: 360,
-                    // height: 241,
+                    
                     child: Image.asset(
                         fit: BoxFit.fill, 'assets/images/header.jpg'),
                   ),
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PassengerProfile()),
-                    );
+                    Navigator.pushNamed(context, PassengerProfile.id);
                     // print('goto to Profile passenger');
                   },
                   child: const Padding(

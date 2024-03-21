@@ -7,12 +7,14 @@ import 'package:tawsela_app/view/widgets/palceItemBuilder.dart';
 
 class MicrobusGuideStation extends StatelessWidget {
   MicrobusGuideStation({required this.color, required this.line, super.key});
+  static String id='microbusGuideStationPage';
   Color color;
   String line;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.green),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

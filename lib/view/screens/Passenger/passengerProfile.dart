@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
 class PassengerProfile extends StatelessWidget {
   const PassengerProfile({super.key});
+  static String id='passengerProfilePage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.green),
           backgroundColor: const Color(0xffF8F8F8),
           //centerTitle: true,
           title: Row(
@@ -82,13 +85,17 @@ class PassengerProfile extends StatelessWidget {
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const InkWell(
+                                child:  InkWell(
                                     focusColor: noColor,
                                     splashColor: noColor,
                                     hoverColor: noColor,
                                     highlightColor: noColor,
-                                    child: Icon(Icons.edit_outlined))
-                                // onTap: onTap,
+                                    child: Icon(Icons.edit_outlined)
+                                    ,onTap: () {
+                                      Navigator.pushNamed(context, PassengerEditProfile.id);
+                                    },
+                                    )
+,                               // onTap: onTap,
 
                                 ),
                           ],
