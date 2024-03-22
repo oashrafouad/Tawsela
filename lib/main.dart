@@ -44,7 +44,7 @@ class TawselaApp extends StatelessWidget {
         PassengerEditProfile.id:(context)=>const PassengerEditProfile(),
         PassengerMainScreen.id:(context)=>const PassengerMainScreen(),
         MicrobusGuideStation.id:(context)=>MicrobusGuideStation(color: Colors.black, line: 'line'),
-        MicrobusSuggestedLines.id:(context)=>const MicrobusSuggestedLines(),
+        MicrobusSuggestedLines.id:(context)=> MicrobusSuggestedLines(),
         passengerPickupLocation.id:(context) => const passengerPickupLocation(),
       },
 

@@ -57,6 +57,7 @@ class PassengerMainScreen extends StatelessWidget {
                   child: Center(
                     child: SearchBar(
                       onSubmitted: (value) {
+                      
                         print(value);
                       },
                       constraints: const BoxConstraints(maxWidth: 300),
