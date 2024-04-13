@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
+
+import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
-import 'package:tawsela_app/view/widgets/customTextField.dart';
 
-class DriverSignUp extends StatelessWidget {
-  const DriverSignUp({super.key});
-   
+
+class DriverSignUpPage extends StatelessWidget {
+  const DriverSignUpPage({super.key});
+   static String id ='DriverSignUpPage';
   @override
   
   Widget build(BuildContext context) {

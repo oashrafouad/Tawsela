@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
+
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 

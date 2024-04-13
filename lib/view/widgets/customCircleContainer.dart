@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
+
 
 class CustomCircleContainer extends StatelessWidget {
   CustomCircleContainer(
-      {super.key, this.line = '', this.color = Colors.orange,this.onTap});
+      {super.key, this.line = '', this.color =const Color(0xFFEE9563),this.onTap});
 
   String line;
   Color color;
@@ -32,11 +32,11 @@ class CustomCircleContainer extends StatelessWidget {
         child: Center(
           child: Text(
             line,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: font,
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: const Color(0xff484848),
+              color: Color(0xff484848),
             ),
           ),
         ),

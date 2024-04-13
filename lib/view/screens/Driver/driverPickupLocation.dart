@@ -3,9 +3,9 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
 
-class DriverPickupLocation extends StatelessWidget {
-  const DriverPickupLocation({super.key});
-
+class DriverPickupLocationPage extends StatelessWidget {
+  const DriverPickupLocationPage({super.key});
+static String id='DriverPickupLocationPage';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,10 +18,15 @@ class DriverPickupLocation extends StatelessWidget {
             onSubmitted: (value) {
               print(value);
             },
+            
             constraints: const BoxConstraints(maxWidth: 400),
             leading: const Icon(Icons.search),
             hintText: S.of(context).specifyASpecificLocationToPickUpPassengers,
-            hintStyle: MaterialStateProperty.all(TextStyle(
+            textStyle: MaterialStateProperty.all(const TextStyle(
+                          fontFamily: font,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400)),
+            hintStyle: MaterialStateProperty.all(const TextStyle(
                 fontFamily: font, fontSize: 16, fontWeight: FontWeight.w400)),
             padding: const MaterialStatePropertyAll<EdgeInsets>(
                 EdgeInsets.symmetric(horizontal: 8.0, vertical: 4)),
@@ -45,7 +50,7 @@ class DriverPickupLocation extends StatelessWidget {
               ),
               Text(
                 S.of(context).chooseOnMap,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: font,
                     fontSize: 11,
                     fontWeight: FontWeight.w400),
@@ -60,10 +65,10 @@ class DriverPickupLocation extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
           child: Text(
                   S.of(context).favourite,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: font,
                       fontSize: 10,
-                      color: const Color(0xff6B6B6B),
+                      color: Color(0xff6B6B6B),
                       fontWeight: FontWeight.w400),
                       
                 ),
@@ -89,15 +94,15 @@ class DriverPickupLocation extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16,),
+            const SizedBox(height: 16,),
             Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
           child: Text(
                   S.of(context).recentlyVisited,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: font,
                       fontSize: 10,
-                      color: const Color(0xff6B6B6B),
+                      color: Color(0xff6B6B6B),
                       fontWeight: FontWeight.w400),
                       
                 ),

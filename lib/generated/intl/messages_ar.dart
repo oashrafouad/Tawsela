@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "specifyASpecificLocationToPickUpPassengers":
             MessageLookupByLibrary.simpleMessage(
                 "حدد مكان معين لإستقبال الركاب"),
+        "stations": MessageLookupByLibrary.simpleMessage("المحطات"),
         "switchDriverMode":
             MessageLookupByLibrary.simpleMessage("تبديل لوضع السائق"),
         "switchPassengermode":

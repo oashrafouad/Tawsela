@@ -1,22 +1,35 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
+
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
+
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
-class PassengerSignUp extends StatelessWidget {
-  const PassengerSignUp({super.key});
-  static String id='passengerSignUpPage';
+Uint8List? imagePicked;
+
+class PassengerSignUpPage extends StatelessWidget {
+  PassengerSignUpPage({super.key});
+  static String id = 'PassengerSignUpPage';
+
+  void selectImg() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    imagePicked = img;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: IconThemeData(color: kGreenBigButtons),
       ),
       body: ListView(
         children: [
@@ -82,7 +95,7 @@ class PassengerSignUp extends StatelessWidget {
                         fontFamily: font,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff444444)),
+                        color: kGreyFont),
                   ),
                 ),
                 Padding(
@@ -92,6 +105,10 @@ class PassengerSignUp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomTextButton(
+                        onTap: () {
+                          selectImg();
+                          //print('wtf');
+                        },
                         icon: Icons.image,
                         text: S.of(context).uploadImg,
                         radius: 16,
@@ -111,7 +128,7 @@ class PassengerSignUp extends StatelessWidget {
           ),
           CustomButton(
             text: S.of(context).signUp,
-            onTap: (){
+            onTap: () {
               Navigator.pushNamed(context, PassengerMainScreen.id);
             },
           )

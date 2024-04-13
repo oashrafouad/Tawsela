@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customListTile.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
-import 'package:tawsela_app/constants.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
-
-//rerverse the number phone
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
-  static String id='welcomePage';
+  static String id='WelcomePage';
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +18,13 @@ class WelcomePage extends StatelessWidget {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   S.of(context).title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
                     fontSize: 30,
@@ -40,8 +34,8 @@ class WelcomePage extends StatelessWidget {
               ),
               Text(
                 S.of(context).appName,
-                style: TextStyle(
-                  color: const Color(0xff339949),
+                style: const TextStyle(
+                  color: kGreenFont,
                   fontWeight: FontWeight.w800,
                   fontSize: 30,
                   fontFamily: font,
@@ -55,13 +49,13 @@ class WelcomePage extends StatelessWidget {
                   child: Text(
                     S.of(context).welcomeMsg,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: font,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
-                    //t//extScaleFactor: 3,
+                   
                   ),
                 ),
               ),
@@ -82,6 +76,7 @@ class WelcomePage extends StatelessWidget {
                       width: 213,
                       hintText: "123456789",
                       keyboardType: TextInputType.phone,
+                      
                     ),
                     const SizedBox(
                       width: 8,
@@ -115,34 +110,35 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
-              // height: 54,
-              // width: 284,
+              
               radius: 10,
-              buttonColor: kGreenButtons,
-              textColor: Colors.white,
+              buttonColor: kGreenBigButtons,
+              textColor: kWhite,
               text: S.of(context).continuee,
               onTap: (){
-                Navigator.pushNamed(context, smsVerfication.id);
+                Navigator.pushNamed(context, SmsVerficationPage.id);
               },
             ),
           ),
-          // Divider(thickness: 3,),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 1.5,
                 width: 150,
-                color: Colors.grey,
+                color: kGreyFontLight,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(S.of(context).or),
+                child: Text(S.of(context).or,style: const TextStyle(fontFamily: font,
+                color: kGreyFont,
+                fontWeight: FontWeight.w300),),
               ),
               Container(
                 height: 1.5,
                 width: 150,
-                color: Colors.grey,
+                color: kGreyFontLight,
               ),
             ],
           ),
@@ -159,25 +155,25 @@ class WelcomePage extends StatelessWidget {
                   CustomListTile(
                       height: 54,
                       width: 284,
-                      backgroundColor: const Color(0xffF2F2F2),
-                      borderColor: const Color(0xff757775),
+                      backgroundColor: kGreyButton,
+                      borderColor: kGreyButtonBorder,
                       trailing:
-                          S.of(context).singInFaceBook, //'سجل بحساب فيسبوك',
+                          S.of(context).singInFaceBook, 
                       icon: Icons.facebook),
                   CustomListTile(
                       height: 54,
                       width: 284,
-                      backgroundColor: const Color(0xffF2F2F2),
-                      borderColor: const Color(0xff757775),
-                      trailing: S.of(context).singInApple, //'سجل بحساب آبل ',
+                      backgroundColor: kGreyButton,
+                      borderColor: kGreyButtonBorder,
+                      trailing: S.of(context).singInApple,  
                       icon: Icons.apple),
                   CustomListTile(
                       height: 54,
                       width: 284,
-                      backgroundColor: const Color(0xffF2F2F2),
-                      borderColor: const Color(0xff757775),
+                       backgroundColor: kGreyButton,
+                      borderColor: kGreyButtonBorder,
                       trailing:
-                          S.of(context).singInGoogle, //'سجل بحساب جوجل ',
+                          S.of(context).singInGoogle, 
                       icon: Icons.g_mobiledata),
                 ],
               ),

@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 
-class DriverEditProfile extends StatelessWidget {
-  const DriverEditProfile({super.key});
-
+class DriverEditProfilePage extends StatelessWidget {
+  const DriverEditProfilePage({super.key});
+static String id='DriverEditProfilePage';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

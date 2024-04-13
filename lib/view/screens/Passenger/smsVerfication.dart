@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
+
+import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
-class smsVerfication extends StatelessWidget {
-  const smsVerfication({super.key});
-  static String id='smsVerficationPage';
+class SmsVerficationPage extends StatelessWidget {
+  const SmsVerficationPage({super.key});
+  static String id='SmsVerficationPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: const IconThemeData(color: kGreenBigButtons),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +28,7 @@ class smsVerfication extends StatelessWidget {
                   width: 301,
                   child: Text(
                     S.of(context).smsVerificationScreenTitle,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: font,
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -55,13 +56,13 @@ class smsVerfication extends StatelessWidget {
                     children: [
                       Text(
                         S.of(context).sendCodeAgain,
-                        style: TextStyle(
+                        style: const TextStyle(
                             decoration: TextDecoration.underline,
-                            decorationColor: const Color(0xff28AA45),
+                            decorationColor: kGreenBigButtons,
                             fontFamily: font,
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xff28AA45)),
+                            color: kGreenBigButtons),
                       ),
                     ],
                   ),
@@ -70,15 +71,15 @@ class smsVerfication extends StatelessWidget {
             ],
           ),
           Padding(
-             padding: const EdgeInsets.all(20),
+             padding: const  EdgeInsets.all(20),
             child: CustomButton(
             
               radius: 10,
-              buttonColor: kGreenButtons,
+              buttonColor: kGreenBigButtons,
               textColor: Colors.white,
               text: S.of(context).continuee,
                 onTap: (){
-                     Navigator.pushNamed(context, PassengerSignUp.id);
+                     Navigator.pushNamed(context, PassengerSignUpPage.id);
                 },
                 ),
           )

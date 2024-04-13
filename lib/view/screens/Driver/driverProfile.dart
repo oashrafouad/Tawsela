@@ -3,9 +3,9 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
-class DriverProfile extends StatelessWidget {
-  const DriverProfile({super.key});
-
+class DriverProfilePage extends StatelessWidget {
+  const DriverProfilePage({super.key});
+static String id ='DriverProfilePage';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

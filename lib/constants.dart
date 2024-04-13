@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
-Color kGreenButtons=const Color(0xff28AA45);
-Color kWhite=const Color(0xffF5F5F5);
+const Color kGreenBigButtons = Color(0xff28AA45);
+const Color kGreenFont = Color(0xff339949);
 
-String font='Alexandria';
-List<Color>linesColors=[
-    const Color(0xFF89DD9B),
-    const Color(0xFF6BDDD6),
-    const Color(0xFFEE9563),
-    const Color(0xFFE7DE00),
-    const Color(0xFFFC86BE),
-    const Color(0xFF9176C9),
-    const Color(0xFF7CC8FF),
-    const Color(0xFFEE6C6C),
-    const Color(0xFFB7D65E),
-    const Color(0xFF6186E3),
-    const Color(0xFFB4B4B4),
-    const Color(0xFFDEBB78),
-    ];
+const Color kGreyFont = Color(0xff444444);
+const Color kGreyFontLight = Color(0xff999999);
+const Color kGreyFontDark = Color(0xff303030);
 
-const Color noColor=Color.fromARGB(0,0,0,0);   
-List<String>titlesAboveUploadImgButton=[S().personalImage,S().licenseImg,S().idCardImg]; 
+const Color kGreyButton = Color(0xffF2F2F2);
+const Color kGreyButtonBorder = Color(0xff757775);
+const Color kGreyBorderLight = Color(0xffDDDDDD);
 
+//Small Button
+const Color kGreenSmallButtonBorder = Color(0xff8BC498);
+const Color kGreenSmallButton = Color(0xffB3EABF);
+const Color kGreenSmallButtonContent = Color(0xff428050);
 
+const Color kWhite = Color(0xffF5F5F5);
+
+const Color noColor = Color.fromARGB(0, 0, 0, 0);
+
+const String font = 'Alexandria';
+const List<Color> linesColors = [
+  Color(0xFF89DD9B),
+  Color(0xFF6BDDD6),
+  Color(0xFFEE9563),
+  Color(0xFFE7DE00),
+  Color(0xFFFC86BE),
+  Color(0xFF9176C9),
+  Color(0xFF7CC8FF),
+  Color(0xFFEE6C6C),
+  Color(0xFFB7D65E),
+  Color(0xFF6186E3),
+  Color(0xFFB4B4B4),
+  Color(0xFFDEBB78),
+];
+
+List<String> titlesAboveUploadImgButton = [
+  S().personalImage,
+  S().licenseImg,
+  S().idCardImg
+];

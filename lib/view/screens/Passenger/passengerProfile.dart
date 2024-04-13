@@ -6,7 +6,7 @@ import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
 class PassengerProfile extends StatelessWidget {
   const PassengerProfile({super.key});
-  static String id='passengerProfilePage';
+  static String id='PassengerProfilePage';
 
   @override
   Widget build(BuildContext context) {

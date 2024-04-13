@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/helper/checkLang.dart';
+
+import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
 import 'package:tawsela_app/view/widgets/palceItemBuilder.dart';
 
-class MicrobusGuideStation extends StatelessWidget {
-  MicrobusGuideStation({required this.color, required this.line, super.key});
-  static String id='microbusGuideStationPage';
-  Color color;
-  String line;
+class MicrobusGuideStationPage extends StatelessWidget {
+   MicrobusGuideStationPage({required this.color, required this.line, super.key});
+  static String id='MicrobusGuideStationPage';
+   Color color;
+   String line;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: IconThemeData(color: kGreenBigButtons),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -35,7 +37,8 @@ class MicrobusGuideStation extends StatelessWidget {
       body: Stack(children: [
         Padding(
           padding: EdgeInsets.only(
-            top: 16,
+            top: 24,
+            bottom: 24,
               right: isArabic() ? 20 : 0, left: isArabic() ? 0 : 28),
           child: Container(
             width: 4,
@@ -54,4 +57,8 @@ class MicrobusGuideStation extends StatelessWidget {
       ]),
     );
   }
+  
+
 }
+
+

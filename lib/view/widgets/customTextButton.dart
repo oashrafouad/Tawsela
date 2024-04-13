@@ -4,9 +4,10 @@ import 'package:tawsela_app/constants.dart';
 class CustomTextButton extends StatelessWidget {
   CustomTextButton({
     super.key,
-    this.buttonColor = const Color(0xffB3EABF),
-    this.textColor = const Color(0xff007119),
-    this.iconColor = const Color(0xff007119),
+    this.buttonColor =  kGreenSmallButton,
+     this.textColor = kGreenSmallButtonContent,
+    this.iconColor = kGreenSmallButtonContent,
+    this.borderColor= kGreenSmallButtonBorder,
     this.text = '',
     this.radius = 12,
     this.icon,
@@ -14,26 +15,31 @@ class CustomTextButton extends StatelessWidget {
     this.fontSize = 10,
     this.fontWeight = FontWeight.w500,
     this.paddingHorzin=8,
-    this.paddingVerti=2
+    this.paddingVerti=2,
+    this.onTap
   });
   String text;
-  Color buttonColor, textColor, iconColor;
+  Color buttonColor, textColor, iconColor,borderColor;
   double radius, iconSize, fontSize,paddingHorzin,paddingVerti;
   IconData? icon;
   FontWeight fontWeight;
+  Function? onTap;
 
   @override
   Widget build(BuildContext context) {
     return (Container(
         decoration: BoxDecoration(
-          border: Border.all(color: textColor, width: 1),
+          border: Border.all(color: borderColor, width: 1),
           color: buttonColor,
           borderRadius: BorderRadius.circular(radius),
         ),
         child: InkWell(
+          
           splashColor: textColor,
           borderRadius: BorderRadius.circular(radius),
-          onTap: () {},
+          onTap: (){if (onTap != null) {
+                onTap!();
+              }},
           child: Padding(
             padding:  EdgeInsets.symmetric(horizontal: paddingHorzin, vertical: paddingVerti),
             child: Row(
@@ -48,7 +54,7 @@ class CustomTextButton extends StatelessWidget {
                       fontSize: fontSize,
                       fontWeight: fontWeight),
                 ),
-                SizedBox(width: 8,),
+                const SizedBox(width: 8,),
                
                 Icon(
                   size: iconSize,

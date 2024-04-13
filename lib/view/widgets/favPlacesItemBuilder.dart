@@ -14,13 +14,13 @@ class FavPlacesItemBuilder extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: const Color(0xff339949),
+        color: kGreenBigButtons,
         size: 32,
       ),
       title: Text(
         title,
         style: TextStyle(
-            color: const Color(0xff303030),
+            color: kGreyFont,
             fontFamily: font,
             fontSize: 14,
             fontWeight: FontWeight.w400),
@@ -28,12 +28,12 @@ class FavPlacesItemBuilder extends StatelessWidget {
       subtitle: Text(
         subTitle,
         style: TextStyle(
-            color: const Color(0xff989898),
+            color: kGreyFontLight,
             fontFamily: font,
             fontSize: 9,
             fontWeight: FontWeight.w400),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios),
+      trailing:  Icon(Icons.arrow_forward_ios,color: kGreyFont,),
     );
   }
 }
