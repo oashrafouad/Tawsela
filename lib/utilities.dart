@@ -7,9 +7,8 @@ import 'dart:ui';
 
 import 'package:tawsela_app/constants.dart';
 
-bool isArabic() {
-  return Intl.getCurrentLocale() == 'ar';
-}
+bool isArabic() => Intl.getCurrentLocale() == 'ar';
+
 
 String displayLines(int i) {
   List<String> lines = [ "١","٢","٣", "٤","٥","٦","٧","٨", "٩", "١٠", "١١","١٢","١٣","١٤", "١٥","١٦","١٧"];

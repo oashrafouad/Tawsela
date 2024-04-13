@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 
 class CustomListTile extends StatelessWidget {
   CustomListTile(
@@ -11,7 +11,7 @@ class CustomListTile extends StatelessWidget {
       this.color = Colors.white,
       this.titleColor = Colors.black,
       this.trailingColor = Colors.black,
-      this.height = 50,
+      this.height = 54,
       this.width = 300,
       this.iconSize = 35,
       this.backgroundColor = Colors.white,

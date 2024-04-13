@@ -13,9 +13,9 @@
      "smsVerificationScreenTitle": "You will receive a message containing the verification code\nPlease write it here.",
      "continuee":"Continue",
      "verifycode":"verifycode"
-     ,"singInFaceBook":"Sing in with Facebook",
-     "singInGoogle":"Sing in with Google",
-     "singInApple":"Sing in with Apple"
+     ,"singInFaceBook":"Sign in with Facebook",
+     "singInGoogle":"Sign in with Google",
+     "singInApple":"Sign in with Apple"
      ,"or":"OR",
      "welcomeMsg":"Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you"
     ,"sendCodeAgain":"Send code again"

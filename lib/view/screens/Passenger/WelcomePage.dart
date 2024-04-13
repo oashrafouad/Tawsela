@@ -153,23 +153,20 @@ class WelcomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomListTile(
-                      height: 54,
-                      width: 284,
+                  
                       backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
                       trailing:
                           S.of(context).singInFaceBook, 
                       icon: Icons.facebook),
                   CustomListTile(
-                      height: 54,
-                      width: 284,
+                   
                       backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
                       trailing: S.of(context).singInApple,  
                       icon: Icons.apple),
                   CustomListTile(
-                      height: 54,
-                      width: 284,
+                     
                        backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
                       trailing:

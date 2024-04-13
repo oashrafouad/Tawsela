@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tawsela_app/view/screens/Driver/driverPickupLocation.dart';
-import 'package:tawsela_app/view/screens/Driver/driverProfile.dart';
-import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
-import 'package:tawsela_app/view/screens/Driver/driverEditProfile.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusRoute.dart';
@@ -41,16 +37,12 @@ class TawselaApp extends StatelessWidget {
         PassengerProfile.id: (context) => const PassengerProfile(),
         PassengerEditProfile.id: (context) => const PassengerEditProfile(),
         PassengerMainScreen.id: (context) => const PassengerMainScreen(),
-        MicrobusGuideStationPage.id: (context) =>
-            MicrobusGuideStationPage(color: Colors.black, line: 'line'),
-        MicrobusSuggestedLinesPage.id: (context) =>
-            const MicrobusSuggestedLinesPage(),
-        PassengerPickupLocationPage.id: (context) =>
-            const PassengerPickupLocationPage(),
-        MicrobusRoutePage.id: (context) => MicrobusRoutePage()
-        ,
+        MicrobusGuideStationPage.id: (context) =>MicrobusGuideStationPage(color: Colors.black, line: 'line'),
+        MicrobusSuggestedLinesPage.id: (context) =>const MicrobusSuggestedLinesPage(),
+        PassengerPickupLocationPage.id: (context) =>const PassengerPickupLocationPage(),
+        MicrobusRoutePage.id: (context) => MicrobusRoutePage(),
       },
-      initialRoute: MicrobusRoutePage.id,
+      initialRoute: WelcomePage.id,
     );
   }
 }

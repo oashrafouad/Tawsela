@@ -65,11 +65,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
             "Open a driver account by submitting Some\nadditional information"),
         "singInApple":
-            MessageLookupByLibrary.simpleMessage("Sing in with Apple"),
+            MessageLookupByLibrary.simpleMessage("Sign in with Apple"),
         "singInFaceBook":
-            MessageLookupByLibrary.simpleMessage("Sing in with Facebook"),
+            MessageLookupByLibrary.simpleMessage("Sign in with Facebook"),
         "singInGoogle":
-            MessageLookupByLibrary.simpleMessage("Sing in with Google"),
+            MessageLookupByLibrary.simpleMessage("Sign in with Google"),
         "smsVerificationScreenTitle": MessageLookupByLibrary.simpleMessage(
             "You will receive a message containing the verification code\nPlease write it here."),
         "specifyASpecificLocationToPickUpPassengers":

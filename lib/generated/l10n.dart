@@ -180,30 +180,30 @@ class S {
     );
   }
 
-  /// `Sing in with Facebook`
+  /// `Sign in with Facebook`
   String get singInFaceBook {
     return Intl.message(
-      'Sing in with Facebook',
+      'Sign in with Facebook',
       name: 'singInFaceBook',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sing in with Google`
+  /// `Sign in with Google`
   String get singInGoogle {
     return Intl.message(
-      'Sing in with Google',
+      'Sign in with Google',
       name: 'singInGoogle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sing in with Apple`
+  /// `Sign in with Apple`
   String get singInApple {
     return Intl.message(
-      'Sing in with Apple',
+      'Sign in with Apple',
       name: 'singInApple',
       desc: '',
       args: [],
