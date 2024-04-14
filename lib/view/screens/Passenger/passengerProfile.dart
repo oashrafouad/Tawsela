@@ -12,7 +12,7 @@ class PassengerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: const IconThemeData(color: Colors.green),
           backgroundColor: const Color(0xffF8F8F8),
           //centerTitle: true,
           title: Row(
@@ -64,7 +64,7 @@ class PassengerProfile extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'أحمد علاء',
                               style: TextStyle(
                                   fontFamily: font,
@@ -90,18 +90,18 @@ class PassengerProfile extends StatelessWidget {
                                     splashColor: noColor,
                                     hoverColor: noColor,
                                     highlightColor: noColor,
-                                    child: Icon(Icons.edit_outlined)
+                                    child: const Icon(Icons.edit_outlined)
                                     ,onTap: () {
                                       Navigator.pushNamed(context, PassengerEditProfile.id);
                                     },
                                     )
-,                               // onTap: onTap,
+,                              
 
                                 ),
                           ],
                         ),
                         const Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          
                           children: [
                             Icon(
                               Icons.star,
@@ -118,8 +118,8 @@ class PassengerProfile extends StatelessWidget {
                   ),
                   Text(
                     S.of(context).numberoftrips,
-                    style: TextStyle(
-                        color: const Color(0xff525252),
+                    style: const TextStyle(
+                        color: Color(0xff525252),
                         fontFamily: font,
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
@@ -129,14 +129,14 @@ class PassengerProfile extends StatelessWidget {
                   ),
                   Text(
                     S.of(context).trip,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontFamily: font,
                         fontSize: 16,
                         fontWeight: FontWeight.w600),
                   ),
 
-                  //Text('Ahme')
+
                 ],
               ),
             ),
@@ -151,8 +151,8 @@ class PassengerProfile extends StatelessWidget {
               children: [
                 Text(
                   S.of(context).tripLog,
-                  style: TextStyle(
-                      color: const Color(0xff303030),
+                  style: const TextStyle(
+                      color: Color(0xff303030),
                       fontFamily: font,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),
@@ -166,11 +166,11 @@ class PassengerProfile extends StatelessWidget {
             ),
           ),
           for (int i=0;i<3;i++)
-          Column(
+          const Column(
             children: [
               ListTile(
-                //contentPadding:EdgeInsets.symmetric(vertical: 16,horizontal: 16) ,
-                leading: const CircleAvatar(
+                
+                leading: CircleAvatar(
                   radius: 40,
                   backgroundImage: AssetImage('assets/images/avatar.jpg'),
                 ),
@@ -186,15 +186,15 @@ class PassengerProfile extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: 15,
                         ),
                       ],
                     ),
                     Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.star,
                           size: 15,
                           color: Colors.amber,
@@ -212,9 +212,9 @@ class PassengerProfile extends StatelessWidget {
                 ),
               
                 trailing: Padding(
-                  padding: const EdgeInsets.only(top: 12),
+                  padding: EdgeInsets.only(top: 12),
                   child: Column(
-                    //crossAxisAlignment: CrossAxisAlignment.end,
+                    
                     children: [
                       SizedBox(
                         width: 120,
@@ -229,7 +229,7 @@ class PassengerProfile extends StatelessWidget {
                                 fontFamily: font,
                               ),
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.symmetric(horizontal: 2),
                               child: Icon(
                                 Icons.arrow_forward,
@@ -248,11 +248,11 @@ class PassengerProfile extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:4.0),
+                        padding: EdgeInsets.only(top:4.0),
                         child: Text(
                           '٤:٥٠ مساءً - ٥:١٠ مساءً',
                           style: TextStyle(
-                              color: const Color(
+                              color: Color(
                                 0xff858585,
                               ),
                               fontFamily: font,
@@ -264,13 +264,13 @@ class PassengerProfile extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8,),
-              const Padding(
+              SizedBox(height: 8,),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 
                  16.0),
                 child: Divider(thickness: 1,),
               ),
-              const SizedBox(height: 8,)
+              SizedBox(height: 8,)
             ],
           ),
           

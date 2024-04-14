@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
-
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
-
 
 import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
 
@@ -17,7 +16,7 @@ Color randomColor = Colors.black;
 
 class PassengerMainScreen extends StatelessWidget {
   const PassengerMainScreen({super.key});
-  static String id='passengerMainScreen';
+  static String id = 'passengerMainScreen';
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,6 @@ class PassengerMainScreen extends StatelessWidget {
               children: [
                 Center(
                   child: SizedBox(
-                    
                     child: Image.asset(
                         fit: BoxFit.fill, 'assets/images/header.jpg'),
                   ),
@@ -38,21 +36,23 @@ class PassengerMainScreen extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.pushNamed(context, PassengerProfile.id);
-                    
                   },
-                  child:  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CircleAvatar(
-                            radius: 25,
-                            //backgroundImage:
-                            //MemoryImage(imagePicked),
-                            //AssetImage(assetName)
-                                backgroundImage:  AssetImage('assets/images/avatar.jpg'),
-                            backgroundColor: kGreyFont),
+                        imagePicked != null
+                            ?  CircleAvatar(
+                                radius: 25,
+                                backgroundImage: MemoryImage(imagePicked!),
+                                backgroundColor: kGreyFont)
+                            : const CircleAvatar(
+                                radius: 25,
+                                backgroundImage:
+                                    AssetImage('assets/images/avatar.jpg'),
+                                backgroundColor: kGreyFont),
                       ],
                     ),
                   ),
@@ -62,8 +62,8 @@ class PassengerMainScreen extends StatelessWidget {
                   child: Center(
                     child: SearchBar(
                       onSubmitted: (value) {
-                      Navigator.pushNamed(context, PassengerPickupLocationPage.id);
-                       
+                        Navigator.pushNamed(
+                            context, PassengerPickupLocationPage.id);
                       },
                       constraints: const BoxConstraints(maxWidth: 300),
                       leading: const Icon(Icons.search),
@@ -158,14 +158,15 @@ class PassengerMainScreen extends StatelessWidget {
                 children: [
                   for (int i = 1; i <= 17; i++)
                     if (i >= 1 && i < 10 || i == 11 || i == 15 || i == 17)
-                      Padding( 
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: CustomCircleContainer(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MicrobusGuideStationPage(
+                                  builder: (context) =>
+                                      MicrobusGuideStationPage(
                                         line: displayLines(i),
                                         color: randomColorsGenerator(),
                                       )),
@@ -178,7 +179,6 @@ class PassengerMainScreen extends StatelessWidget {
                 ],
               ),
             ),
-           
           ],
         ),
       ),

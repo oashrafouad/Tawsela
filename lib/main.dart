@@ -21,6 +21,7 @@ class TawselaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+     // theme: ThemeData.dark(),
       locale: const Locale('ar'),
       localizationsDelegates: const [
         S.delegate,

@@ -51,6 +51,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   top_modal_sheet: ^2.1.0
   image_picker: ^1.0.7
+  image_cropper: ^4.0.1
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

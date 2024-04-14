@@ -17,9 +17,10 @@ import 'package:tawsela_app/view/widgets/customTextField.dart';
 Uint8List? imagePicked;
 
 class PassengerSignUpPage extends StatelessWidget {
-  PassengerSignUpPage({super.key});
+   PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
-
+   
+   //Uint8List? imgPicked;
   void selectImg() async {
     Uint8List img = await pickImage(ImageSource.gallery);
     imagePicked = img;
@@ -29,7 +30,7 @@ class PassengerSignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: kGreenBigButtons),
+        iconTheme: const IconThemeData(color: kGreenBigButtons),
       ),
       body: ListView(
         children: [
@@ -37,7 +38,7 @@ class PassengerSignUpPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 100),
             child: Text(
               S.of(context).passengerSignUpTitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: font,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
@@ -91,7 +92,7 @@ class PassengerSignUpPage extends StatelessWidget {
                       left: isArabic() ? 0 : 16),
                   child: Text(
                     S.of(context).personalImage,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: font,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
