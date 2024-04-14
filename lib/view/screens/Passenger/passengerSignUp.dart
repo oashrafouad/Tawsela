@@ -21,10 +21,10 @@ class PassengerSignUpPage extends StatelessWidget {
   static String id = 'PassengerSignUpPage';
    
    //Uint8List? imgPicked;
-  void selectImg() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    imagePicked = img;
-  }
+  // void selectImg() async {
+  //   Uint8List img = await pickImage(ImageSource.gallery);
+  //   imagePicked = img;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,9 @@ class PassengerSignUpPage extends StatelessWidget {
                     children: [
                       CustomTextButton(
                         onTap: () {
-                          selectImg();
+                          showImagePicker(context);
+                          //askForPermission();
+                          //selectImg();
                           //print('wtf');
                         },
                         icon: Icons.image,

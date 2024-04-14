@@ -6,7 +6,7 @@ import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
+
 import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
@@ -43,10 +43,11 @@ class PassengerMainScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        imagePicked != null
-                            ?  CircleAvatar(
+                        imageFile != null
+                            ? CircleAvatar(
                                 radius: 25,
-                                backgroundImage: MemoryImage(imagePicked!),
+                                backgroundImage:
+                                    MemoryImage(imageFile!.readAsBytesSync()),
                                 backgroundColor: kGreyFont)
                             : const CircleAvatar(
                                 radius: 25,
