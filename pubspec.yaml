@@ -93,6 +93,9 @@ flutter:
     - family: Alexandria
       fonts:
         - asset: assets/fonts/Alexandria-VariableFont_wght.ttf
+    - family: CustomGoogleIcon
+      fonts:
+        - asset: assets/custom_icons/CustomGoogleIcon.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

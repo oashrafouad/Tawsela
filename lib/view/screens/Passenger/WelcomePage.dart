@@ -5,6 +5,7 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/language/language_bloc.dart';
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
+import 'package:tawsela_app/view/widgets/customGoogleIcon.dart';
 import 'package:tawsela_app/view/widgets/customListTile.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
@@ -197,18 +198,19 @@ class WelcomePage extends StatelessWidget {
                           S.of(context).singInFaceBook, 
                       icon: Icons.facebook),
                   CustomListTile(
-                   
+
                       backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
-                      trailing: S.of(context).singInApple,  
-                      icon: Icons.apple),
-                  CustomListTile(
-                     
-                       backgroundColor: kGreyButton,
-                      borderColor: kGreyButtonBorder,
                       trailing:
-                          S.of(context).singInGoogle, 
-                      icon: Icons.g_mobiledata),
+                          S.of(context).singInGoogle,
+                      icon: CustomGoogleIcon.google,
+            ),
+                  CustomListTile(
+
+                      backgroundColor: kGreyButton,
+                      borderColor: kGreyButtonBorder,
+                      trailing: S.of(context).singInApple,
+                      icon: Icons.apple),
                 ],
               ),
             ),
