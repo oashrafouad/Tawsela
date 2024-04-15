@@ -47,7 +47,9 @@
     "numberoftrips":"Trips",
     "trip":"Trip",
     "tripLog":"Trip Log",
-    "stations":"Stations"
+    "stations":"Stations",
+    "camera":"Camera",
+    "gallery":"Gallery"
 
 
 

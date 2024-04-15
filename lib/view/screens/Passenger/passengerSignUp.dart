@@ -14,17 +14,13 @@ import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
-Uint8List? imagePicked;
+
 
 class PassengerSignUpPage extends StatelessWidget {
-   PassengerSignUpPage({super.key});
+   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
    
-   //Uint8List? imgPicked;
-  // void selectImg() async {
-  //   Uint8List img = await pickImage(ImageSource.gallery);
-  //   imagePicked = img;
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {

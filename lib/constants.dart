@@ -20,7 +20,7 @@ const Color kGreenSmallButtonContent = Color(0xff428050);
 const Color kWhite = Color(0xffF5F5F5);
 
 const Color noColor = Color.fromARGB(0, 0, 0, 0);
-
+String language='ar';
 const String font = 'Alexandria';
 const List<Color> linesColors = [
   Color(0xFF89DD9B),

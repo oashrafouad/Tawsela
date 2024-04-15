@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/bloc_models/language/language_bloc.dart';
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customListTile.dart';
+import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -13,6 +16,40 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(iconTheme: IconThemeData(color: kGreenBigButtons),),
+      drawer: Drawer(child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+            child: CustomTextButton(
+              text: 'English',
+              onTap: (){
+                BlocProvider.of<LanguageBloc>(context).add(EnglishLanguageEvent());
+               // language='en';
+                //print('English');
+              },
+               radius: 20,
+              fontSize: 18,
+              iconSize: 18,
+              //icon: Icons.translate,
+            ))
+
+          ,Padding(
+            
+            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+            child: CustomTextButton(
+              onTap: (){
+                  BlocProvider.of<LanguageBloc>(context).add(ArabicLanguageEvent());
+              },
+              text: 'العربية',
+               radius: 20,
+              fontSize: 18,
+              iconSize: 18,
+              //icon: Icons.translate,
+            ),
+          )
+        ],
+      ),),
       body: ListView(
         
         children: [

@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "To edit the name and profile picture, contact technical support"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "appName": MessageLookupByLibrary.simpleMessage("Tawsela 🚌"),
+        "camera": MessageLookupByLibrary.simpleMessage("Camera"),
         "chooseOnMap": MessageLookupByLibrary.simpleMessage("Choose On Map"),
         "clickSelectThisLocation": MessageLookupByLibrary.simpleMessage(
             "Click to select this location"),
@@ -41,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favPlaces": MessageLookupByLibrary.simpleMessage("Favorite Places"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
+        "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
         "hawatam": MessageLookupByLibrary.simpleMessage("Hawatem"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "idCardImg": MessageLookupByLibrary.simpleMessage("ID Card"),

@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "لتعديل الاسم والصورة الشخصية كلم الدعم الفني"),
         "add": MessageLookupByLibrary.simpleMessage("اضف"),
         "appName": MessageLookupByLibrary.simpleMessage("توصيلة 🚌"),
+        "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "chooseOnMap":
             MessageLookupByLibrary.simpleMessage("اختار على الخريطة"),
         "clickSelectThisLocation":
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "favPlaces": MessageLookupByLibrary.simpleMessage("الأماكن المفضلة"),
         "favourite": MessageLookupByLibrary.simpleMessage("المفضلة"),
         "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
+        "gallery": MessageLookupByLibrary.simpleMessage("الاستوديو"),
         "hawatam": MessageLookupByLibrary.simpleMessage("الحواتم"),
         "home": MessageLookupByLibrary.simpleMessage("المنزل"),
         "idCardImg": MessageLookupByLibrary.simpleMessage("صورة البطاقة"),

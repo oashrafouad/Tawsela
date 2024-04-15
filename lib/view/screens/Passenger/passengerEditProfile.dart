@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-
 import 'package:tawsela_app/utilities.dart';
-
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
@@ -16,11 +13,11 @@ class PassengerEditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.green),
+        iconTheme: const IconThemeData(color: Colors.green),
         centerTitle: true,
         title: Text(
           S.of(context).editProfile,
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: font, fontWeight: FontWeight.w500, fontSize: 20),
         ),
       ),
@@ -36,7 +33,7 @@ class PassengerEditProfile extends StatelessWidget {
                     left: isArabic() ? 0 : 28),
                 child: Text(
                   S.of(context).personalImage,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: font,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),
@@ -48,24 +45,47 @@ class PassengerEditProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: Center(
               child: Stack(children: [
-                const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/images/avatar.jpg'),
-                ),
+                imageFile != null
+                    ? CircleAvatar(
+                        radius: 70,
+                        backgroundImage:
+                            MemoryImage(imageFile!.readAsBytesSync()),
+                        backgroundColor: kGreyFont)
+                    : const CircleAvatar(
+                        radius: 70,
+                        backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                        backgroundColor: kGreyFont),
                 Positioned(
-                    top: 70,
-                    right: 35,
+                    top: 100,
+                    right: 42,
                     child: InkWell(
                       onTap: () {
-                        print('pressed');
+                        showImagePicker(context);
                       },
-                      child: Text(
-                        S.of(context).edit,
-                        style: TextStyle(
-                            fontFamily: font,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: const Color(0xffF6F6F6)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: noColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color.fromARGB(255, 99, 96, 96)
+                                  .withOpacity(0.7),
+                              spreadRadius: 10,
+                              blurRadius: 24,
+                              offset: const Offset(
+                                  3, 0), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          S.of(context).edit,
+                          style: const TextStyle(
+                              fontFamily: font,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: Color(0xffF6F6F6)),
+                        ),
                       ),
                     )),
               ]),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
@@ -52,10 +53,17 @@ class PassengerProfile extends StatelessWidget {
               child: Column(
                 children: [
                   Row(children: [
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/images/avatar.jpg'),
-                    ),
+                        imageFile != null
+                            ? CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    MemoryImage(imageFile!.readAsBytesSync()),
+                                backgroundColor: kGreyFont)
+                            : const CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    AssetImage('assets/images/avatar.jpg'),
+                                backgroundColor: kGreyFont),
                     const SizedBox(
                       width: 16,
                     ),
