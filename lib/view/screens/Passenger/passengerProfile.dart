@@ -33,6 +33,7 @@ class PassengerProfile extends StatelessWidget {
               ),
               CustomTextButton(
                 radius: 10,
+                borderColor: const Color(0xffD16464),
                 textColor: const Color(0xffD16464),
                 iconColor: const Color(0xffD16464),
                 buttonColor: const Color(0xffFFA8A8),
