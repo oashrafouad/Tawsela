@@ -74,7 +74,7 @@ class CustomTextFormField extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(radius)),
                   borderSide: const BorderSide(color: kGreyBorderLight)),
               focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: kGreyButtonBorder)),
+                  borderSide: BorderSide(color: kGreenButtonBorder)),
             ),
             maxLength: maxLength,
             inputFormatters: inputFormatters,
