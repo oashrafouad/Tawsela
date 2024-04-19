@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField(
-      {super.key,
-      this.onChanged,
-      this.hintText,
-      this.labelText,
-      this.textDirection,
-      required this.width,
-      required this.height,
-      this.titleAbove = '',
-      this.keyboardType,
-      this.radius = 10});
+
+  CustomTextFormField({
+    super.key,
+    this.onChanged,
+    this.hintText,
+    this.labelText,
+    this.textDirection,
+    required this.width,
+    required this.height,
+    this.titleAbove = '',
+    this.keyboardType,
+    this.radius = 10,
+    this.maxLength,
+    this.inputFormatters
+  });
+
   String? hintText;
   String? labelText;
   double width, height, radius;
   String titleAbove;
+  int? maxLength;
+  List<TextInputFormatter>? inputFormatters;
 
   TextInputType? keyboardType;
   TextDirection? textDirection;
@@ -53,13 +61,14 @@ class CustomTextFormField extends StatelessWidget {
             onChanged: onChanged,
             decoration: InputDecoration(
               hintText: hintText,
+              counterText: "", // to prevent counter text from appearing below the text field
               contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 4),
-              
+
               //labelText: S().phoneNum,
-             // alignLabelWithHint: true,
+              // alignLabelWithHint: true,
               hintStyle: const TextStyle(color: kGreyFontLight),
               border: OutlineInputBorder(
-                
+
                   borderRadius: BorderRadius.all(Radius.circular(radius))),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(radius)),
@@ -67,6 +76,9 @@ class CustomTextFormField extends StatelessWidget {
               focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: kGreyButtonBorder)),
             ),
+            maxLength: maxLength,
+            inputFormatters: inputFormatters,
+
           ),
         )
       ],

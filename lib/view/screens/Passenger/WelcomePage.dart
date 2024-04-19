@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -22,8 +23,8 @@ class WelcomePage extends StatelessWidget {
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
-              // duration: Duration.
-              ),
+            // duration: Duration.
+          ),
           color: Colors.white,
           itemBuilder: (context) => [
             const PopupMenuItem(
@@ -37,9 +38,9 @@ class WelcomePage extends StatelessWidget {
               value: 2,
               child: Center(
                   child: Text(
-                "العربية",
-                style: TextStyle(fontFamily: font, color: kGreenBigButtons),
-              )),
+                    "العربية",
+                    style: TextStyle(fontFamily: font, color: kGreenBigButtons),
+                  )),
             ),
           ],
           elevation: 2,
@@ -116,8 +117,13 @@ class WelcomePage extends StatelessWidget {
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 213,
-                      hintText: "123456789",
+                      hintText: "1234567890",
                       keyboardType: TextInputType.phone,
+                      maxLength: 10,
+                      // to only allow english numbers
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
                     ),
                     const SizedBox(
                       width: 8,
