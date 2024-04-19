@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-
 import 'package:tawsela_app/utilities.dart';
-
 import 'package:tawsela_app/view/widgets/palceItemBuilder.dart';
 
 class MicrobusRoutePage extends StatelessWidget {

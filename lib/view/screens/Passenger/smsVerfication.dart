@@ -23,7 +23,7 @@ class SmsVerficationPage extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(32.0),
-              child: Container(
+              child: SizedBox(
                   height: 40,
                   width: 301,
                   child: Text(

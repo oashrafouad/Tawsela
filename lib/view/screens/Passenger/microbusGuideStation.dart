@@ -16,13 +16,13 @@ class MicrobusGuideStationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: kGreenBigButtons),
+        iconTheme: const IconThemeData(color: kGreenBigButtons),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               S.of(context).MicrobusGuideStationAppBarTitle,
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: font, fontSize: 20, fontWeight: FontWeight.w500),
             ),
             const SizedBox(width: 8),

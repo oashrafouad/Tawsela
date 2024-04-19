@@ -2,61 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/models/bloc_models/language/language_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
+
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customGoogleIcon.dart';
 import 'package:tawsela_app/view/widgets/customListTile.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
+
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
-  static String id='WelcomePage';
+  static String id = 'WelcomePage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(iconTheme: IconThemeData(color: kGreenBigButtons),),
-      drawer: Drawer(child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
-            child: CustomTextButton(
-              text: 'English',
-              onTap: (){
-                BlocProvider.of<LanguageBloc>(context).add(EnglishLanguageEvent());
-               // language='en';
-                //print('English');
-              },
-               radius: 20,
-              fontSize: 18,
-              iconSize: 18,
-              //icon: Icons.translate,
-            ))
-
-          ,Padding(
-            
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
-            child: CustomTextButton(
-              onTap: (){
-                  BlocProvider.of<LanguageBloc>(context).add(ArabicLanguageEvent());
-              },
-              text: 'العربية',
-               radius: 20,
-              fontSize: 18,
-              iconSize: 18,
-              //icon: Icons.translate,
+      appBar: AppBar(
+        leading: PopupMenuButton<int>(
+          icon: const Icon(Icons.language),
+          popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
+              // duration: Duration.
+              ),
+          color: Colors.white,
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: 1,
+              child: Center(
+                  child: Text("English",
+                      style: TextStyle(
+                          fontFamily: font, color: kGreenBigButtons))),
             ),
-          )
-        ],
-      ),),
+            const PopupMenuItem(
+              value: 2,
+              child: Center(
+                  child: Text(
+                "العربية",
+                style: TextStyle(fontFamily: font, color: kGreenBigButtons),
+              )),
+            ),
+          ],
+          elevation: 2,
+          onSelected: (value) {
+            if (value == 1) {
+              BlocProvider.of<AppLanguageBloc>(context)
+                  .add(EnglishLanguageEvent());
+            } else if (value == 2) {
+              BlocProvider.of<AppLanguageBloc>(context).add(ArabicLanguageEvent());
+            }
+          },
+        ),
+        iconTheme: const IconThemeData(color: kGreenBigButtons),
+      ),
       body: ListView(
-        
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -93,18 +94,21 @@ class WelcomePage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
-                   
                   ),
                 ),
               ),
             ],
           ),
+
+          //               borderSide:
+          //                   BorderSide(width: 100, color: kGreyBorderLight,))),
+          //     )),
+//###########################################################################################
           Padding(
             padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,13 +118,12 @@ class WelcomePage extends StatelessWidget {
                       width: 213,
                       hintText: "123456789",
                       keyboardType: TextInputType.phone,
-                      
                     ),
                     const SizedBox(
                       width: 8,
                     ),
-                     const Padding(
-                      padding:  EdgeInsets.only(top: 24.0),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 24.0),
                       child: SizedBox(
                           height: 20,
                           width: 29,
@@ -148,17 +151,16 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
-              
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,
               text: S.of(context).continuee,
-              onTap: (){
+              onTap: () {
                 Navigator.pushNamed(context, SmsVerficationPage.id);
               },
             ),
           ),
-          
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -169,9 +171,13 @@ class WelcomePage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(S.of(context).or,style: const TextStyle(fontFamily: font,
-                color: kGreyFont,
-                fontWeight: FontWeight.w300),),
+                child: Text(
+                  S.of(context).or,
+                  style: const TextStyle(
+                      fontFamily: font,
+                      color: kGreyFont,
+                      fontWeight: FontWeight.w300),
+                ),
               ),
               Container(
                 height: 1.5,
@@ -191,22 +197,17 @@ class WelcomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomListTile(
-                  
                       backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
-                      trailing:
-                          S.of(context).singInFaceBook, 
+                      trailing: S.of(context).singInFaceBook,
                       icon: Icons.facebook),
                   CustomListTile(
-
-                      backgroundColor: kGreyButton,
-                      borderColor: kGreyButtonBorder,
-                      trailing:
-                          S.of(context).singInGoogle,
-                      icon: CustomGoogleIcon.google,
-            ),
+                    backgroundColor: kGreyButton,
+                    borderColor: kGreyButtonBorder,
+                    trailing: S.of(context).singInGoogle,
+                    icon: CustomGoogleIcon.google,
+                  ),
                   CustomListTile(
-
                       backgroundColor: kGreyButton,
                       borderColor: kGreyButtonBorder,
                       trailing: S.of(context).singInApple,

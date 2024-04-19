@@ -19,7 +19,7 @@ class FavPlacesItemBuilder extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
             color: kGreyFont,
             fontFamily: font,
             fontSize: 14,
@@ -27,13 +27,13 @@ class FavPlacesItemBuilder extends StatelessWidget {
       ),
       subtitle: Text(
         subTitle,
-        style: TextStyle(
+        style: const TextStyle(
             color: kGreyFontLight,
             fontFamily: font,
             fontSize: 9,
             fontWeight: FontWeight.w400),
       ),
-      trailing:  Icon(Icons.arrow_forward_ios,color: kGreyFont,),
+      trailing:  const Icon(Icons.arrow_forward_ios,color: kGreyFont,),
     );
   }
 }

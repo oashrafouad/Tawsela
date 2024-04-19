@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
@@ -52,8 +53,13 @@ class CustomTextFormField extends StatelessWidget {
             onChanged: onChanged,
             decoration: InputDecoration(
               hintText: hintText,
+              contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 4),
+              
+              //labelText: S().phoneNum,
+             // alignLabelWithHint: true,
               hintStyle: const TextStyle(color: kGreyFontLight),
               border: OutlineInputBorder(
+                
                   borderRadius: BorderRadius.all(Radius.circular(radius))),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(radius)),

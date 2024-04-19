@@ -27,7 +27,7 @@ class SearchLabel extends StatelessWidget {
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey),
           suffixIcon: IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {
               // Handle search functionality here
               print('Searching for: ${onChanged?.call('')}');

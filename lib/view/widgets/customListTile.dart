@@ -38,7 +38,7 @@ class CustomListTile extends StatelessWidget {
           color: backgroundColor,
           border: Border.all(color: borderColor, width: 1.5)),
       child: InkWell(
-        child: Container(
+        child: SizedBox(
           width: width,
           height: height,
           child:
