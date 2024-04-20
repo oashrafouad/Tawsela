@@ -136,7 +136,7 @@ class WelcomePage extends StatelessWidget {
                           child: Text(
                             '20+',
                             style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 16),
+                                fontWeight: FontWeight.w400, fontSize: 15),
                           )),
                     ),
                     const SizedBox(
