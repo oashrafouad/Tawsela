@@ -106,7 +106,7 @@ class WelcomePage extends StatelessWidget {
           //     )),
 //###########################################################################################
           Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+            padding: const EdgeInsets.only(top: 16, right: 0, left: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -116,7 +116,7 @@ class WelcomePage extends StatelessWidget {
                     CustomTextFormField(
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
-                      width: 213,
+                      width: 230,
                       hintText: "1234567890",
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
@@ -157,6 +157,7 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
+              width: 300,
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,
