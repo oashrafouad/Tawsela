@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
+import 'package:tawsela_app/theme.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusRoute.dart';
@@ -51,7 +52,7 @@ class TawselaApp extends StatelessWidget {
               theme: themeState is AppChangeTheme
                   ? themeState.appTheme == 'l'
                       ? ThemeData.light()
-                      : ThemeData.light() // dark theme looks like shit ,we gonna fix it 
+                      : ThemeData.dark() // dark theme looks like shit ,we gonna fix it 
                   : ThemeData.light(),
               debugShowCheckedModeBanner: false,
               supportedLocales: const [Locale('ar'), Locale('en')],
@@ -72,7 +73,7 @@ class TawselaApp extends StatelessWidget {
                 return supportedLocales.first;
               },
               routes: {
-                WelcomePage.id: (context) => const WelcomePage(),
+                WelcomePage.id: (context) =>  WelcomePage(),
                 SmsVerficationPage.id: (context) => const SmsVerficationPage(),
                 PassengerSignUpPage.id: (context) =>
                     const PassengerSignUpPage(),

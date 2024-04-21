@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
 
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
@@ -12,13 +13,19 @@ import 'package:tawsela_app/view/widgets/customListTile.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key});
+  WelcomePage({super.key});
   static String id = 'WelcomePage';
-
+  bool light = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: ()=>BlocProvider.of<AppThemeBloc>(context).add(DarkEvent())
+          , icon: const Icon(Icons.dark_mode_outlined)),
+           IconButton(onPressed: ()=>BlocProvider.of<AppThemeBloc>(context).add(LightEvent())
+          , icon: const Icon(Icons.light_mode_outlined))
+        ],
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
@@ -48,7 +55,8 @@ class WelcomePage extends StatelessWidget {
               BlocProvider.of<AppLanguageBloc>(context)
                   .add(EnglishLanguageEvent());
             } else if (value == 2) {
-              BlocProvider.of<AppLanguageBloc>(context).add(ArabicLanguageEvent());
+              BlocProvider.of<AppLanguageBloc>(context)
+                  .add(ArabicLanguageEvent());
             }
           },
         ),
@@ -99,11 +107,6 @@ class WelcomePage extends StatelessWidget {
               ),
             ],
           ),
-
-          //               borderSide:
-          //                   BorderSide(width: 100, color: kGreyBorderLight,))),
-          //     )),
-//###########################################################################################
           Padding(
             padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
             child: Column(
@@ -160,7 +163,6 @@ class WelcomePage extends StatelessWidget {
               },
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
