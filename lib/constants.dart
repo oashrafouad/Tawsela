@@ -14,6 +14,7 @@ const Color kGreyFontDark = Color(0xff303030);
 
 const Color kGreyButton = Color(0xffF2F2F2);
 const Color kGreyButtonBorder = Color(0xff757775);
+const Color kGreenButtonBorder = Colors.green;
 const Color kGreyBorderLight = Color(0xffDDDDDD);
 
 //Small Button

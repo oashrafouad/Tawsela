@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -29,8 +30,8 @@ class WelcomePage extends StatelessWidget {
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
-              // duration: Duration.
-              ),
+            // duration: Duration.
+          ),
           color: Colors.white,
           itemBuilder: (context) => [
             const PopupMenuItem(
@@ -44,9 +45,9 @@ class WelcomePage extends StatelessWidget {
               value: 2,
               child: Center(
                   child: Text(
-                "العربية",
-                style: TextStyle(fontFamily: font, color: kGreenBigButtons),
-              )),
+                    "العربية",
+                    style: TextStyle(fontFamily: font, color: kGreenBigButtons),
+                  )),
             ),
           ],
           elevation: 2,
@@ -108,7 +109,7 @@ class WelcomePage extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+            padding: const EdgeInsets.only(top: 16, right: 0, left: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -118,9 +119,14 @@ class WelcomePage extends StatelessWidget {
                     CustomTextFormField(
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
-                      width: 213,
-                      hintText: "123456789",
+                      width: 230,
+                      hintText: "1234567890",
                       keyboardType: TextInputType.phone,
+                      maxLength: 10,
+                      // to only allow english numbers
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
                     ),
                     const SizedBox(
                       width: 8,
@@ -133,7 +139,7 @@ class WelcomePage extends StatelessWidget {
                           child: Text(
                             '20+',
                             style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 16),
+                                fontWeight: FontWeight.w400, fontSize: 15),
                           )),
                     ),
                     const SizedBox(
@@ -154,6 +160,7 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
+              width: 300,
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,
