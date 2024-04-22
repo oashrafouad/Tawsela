@@ -144,21 +144,19 @@ class PassengerMainScreen extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
                   ),
-                  CustomTextButton(
-                    icon: Icons.arrow_forward_ios,
-                    text: S.of(context).showAll,
-                    fontSize: 12,
-                  )
                 ],
               ),
             ),
-            //SizedBox(height: 8,),
             Expanded(
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   for (int i = 1; i <= 17; i++)
-                    if (i >= 1 && i < 10 || i == 11 || i == 15 || i == 17)
+                    if (i >= 1 && i < 10 ||
+                        i == 11 ||
+                        i == 13 ||
+                        i == 15 ||
+                        i == 17)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: CustomCircleContainer(
