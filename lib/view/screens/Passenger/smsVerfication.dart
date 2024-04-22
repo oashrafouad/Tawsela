@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
@@ -43,8 +44,12 @@ class SmsVerficationPage extends StatelessWidget {
               CustomTextFormField(
                 width: 284,
                 height: 46,
+                maxLength: 6, //verification code should be 6 digits
                 titleAbove: S.of(context).verifyCode,
                 keyboardType: TextInputType.phone,
+                inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                      ],
               ),
               Padding(
                 padding: EdgeInsets.only(
