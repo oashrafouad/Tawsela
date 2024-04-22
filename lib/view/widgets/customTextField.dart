@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/utilities.dart';
 
 class CustomTextFormField extends StatelessWidget {
 
@@ -27,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
   String titleAbove;
   int? maxLength;
   List<TextInputFormatter>? inputFormatters;
-
+  int? maxlines;
   TextInputType? keyboardType;
   TextDirection? textDirection;
   Function(String)? onChanged;
@@ -51,6 +52,7 @@ class CustomTextFormField extends StatelessWidget {
           height: height,
           width: width,
           child: TextFormField(
+            maxLines: maxLength,
             keyboardType: keyboardType,
             style: const TextStyle(color: Colors.black),
             validator: (value) {
@@ -59,8 +61,10 @@ class CustomTextFormField extends StatelessWidget {
               }
             },
             onChanged: onChanged,
+            
             decoration: InputDecoration(
               hintText: hintText,
+            
               counterText: "", // to prevent counter text from appearing below the text field
               contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 4),
 

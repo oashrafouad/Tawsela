@@ -9,7 +9,7 @@ import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class SmsVerficationPage extends StatelessWidget {
   const SmsVerficationPage({super.key});
-  static String id='SmsVerficationPage';
+  static String id = 'SmsVerficationPage';
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +47,13 @@ class SmsVerficationPage extends StatelessWidget {
                 keyboardType: TextInputType.phone,
               ),
               Padding(
-                padding:  EdgeInsets.only(left:isArabic()? 32:0,right: isArabic()? 0:32, top: 8),
+                padding: EdgeInsets.only(
+                    left: isArabic() ? 32 : 0,
+                    right: isArabic() ? 0 : 32,
+                    top: 8),
                 child: SizedBox(
                   width: 320,
-                //height: 46,
+                  //height: 46,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -71,17 +74,13 @@ class SmsVerficationPage extends StatelessWidget {
             ],
           ),
           Padding(
-             padding: const  EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: CustomButton(
-            
-              radius: 10,
-              buttonColor: kGreenBigButtons,
-              textColor: Colors.white,
               text: S.of(context).continuee,
-                onTap: (){
-                     Navigator.pushNamed(context, PassengerSignUpPage.id);
-                },
-                ),
+              onTap: () {
+                Navigator.pushNamed(context, PassengerSignUpPage.id);
+              },
+            ),
           )
         ],
       ),

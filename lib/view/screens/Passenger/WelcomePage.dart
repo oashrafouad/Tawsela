@@ -22,16 +22,20 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: ()=>BlocProvider.of<AppThemeBloc>(context).add(DarkEvent())
-          , icon: const Icon(Icons.dark_mode_outlined)),
-           IconButton(onPressed: ()=>BlocProvider.of<AppThemeBloc>(context).add(LightEvent())
-          , icon: const Icon(Icons.light_mode_outlined))
+          IconButton(
+              onPressed: () =>
+                  BlocProvider.of<AppThemeBloc>(context).add(DarkEvent()),
+              icon: const Icon(Icons.dark_mode_outlined)),
+          IconButton(
+              onPressed: () =>
+                  BlocProvider.of<AppThemeBloc>(context).add(LightEvent()),
+              icon: const Icon(Icons.light_mode_outlined))
         ],
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
-            // duration: Duration.
-          ),
+              // duration: Duration.
+              ),
           color: Colors.white,
           itemBuilder: (context) => [
             const PopupMenuItem(
@@ -45,9 +49,9 @@ class WelcomePage extends StatelessWidget {
               value: 2,
               child: Center(
                   child: Text(
-                    "العربية",
-                    style: TextStyle(fontFamily: font, color: kGreenBigButtons),
-                  )),
+                "العربية",
+                style: TextStyle(fontFamily: font, color: kGreenBigButtons),
+              )),
             ),
           ],
           elevation: 2,
@@ -160,7 +164,6 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
-              width: 300,
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,

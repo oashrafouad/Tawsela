@@ -172,15 +172,14 @@ class PassengerEditProfile extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          CustomButton(
-            onTap: () {
-              Navigator.pop(context);
-              
-            },
-            radius: 6,
-            width: 284,
-            height: 54,
-            text: S.of(context).save,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            child: CustomButton(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              text: S.of(context).save,
+            ),
           )
         ],
       ),

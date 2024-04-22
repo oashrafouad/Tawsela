@@ -74,13 +74,12 @@ class PassengerSignUpPage extends StatelessWidget {
             children: [
 
               Column(
-                //crossAxisAlignment: CrossAxisAlignment.center,
+                
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: 8,
-                        // right: isArabic() ? 16 : 0,
-                        // left: isArabic() ? 0 : 16),
+                       
                     ),
                     child: Text(
                       S.of(context).personalImage,
@@ -119,11 +118,14 @@ class PassengerSignUpPage extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          CustomButton(
-            text: S.of(context).signUp,
-            onTap: () {
-              Navigator.pushNamed(context, PassengerMainScreen.id);
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:  20.0),
+            child: CustomButton(
+              text: S.of(context).signUp,
+              onTap: () {
+                Navigator.pushNamed(context, PassengerMainScreen.id);
+              },
+            ),
           )
         ],
       ),
