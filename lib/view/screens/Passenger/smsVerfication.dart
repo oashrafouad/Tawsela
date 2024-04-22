@@ -81,6 +81,7 @@ class SmsVerficationPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: CustomButton(
+              //width: 300,
               text: S.of(context).continuee,
               onTap: () {
                 Navigator.pushNamed(context, PassengerSignUpPage.id);

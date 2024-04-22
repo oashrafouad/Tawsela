@@ -119,8 +119,9 @@ class PassengerSignUpPage extends StatelessWidget {
             height: 32,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:  20.0),
+            padding: const EdgeInsets.symmetric(horizontal:  100.0),
             child: CustomButton(
+              
               text: S.of(context).signUp,
               onTap: () {
                 Navigator.pushNamed(context, PassengerMainScreen.id);

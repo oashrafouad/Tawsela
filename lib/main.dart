@@ -52,7 +52,7 @@ class TawselaApp extends StatelessWidget {
               theme: themeState is AppChangeTheme
                   ? themeState.appTheme == 'l'
                       ? ThemeData.light()
-                      : ThemeData.dark() // dark theme looks like shit ,we gonna fix it 
+                      : ThemeData.dark()//ThemeData.dark() // dark theme looks like shit ,we gonna fix it 
                   : ThemeData.light(),
               debugShowCheckedModeBanner: false,
               supportedLocales: const [Locale('ar'), Locale('en')],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
@@ -101,9 +102,9 @@ class WelcomePage extends StatelessWidget {
                   child: Text(
                     S.of(context).welcomeMsg,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontFamily: font,
-                      color: Colors.black,
+                      color: sharedPreferences!.getString('theme')=='l'? Colors.black:Colors.amber,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
@@ -162,8 +163,10 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(vertical:  20,horizontal: 20),
             child: CustomButton(
+              //width: 300,
+            //height: 10,
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,
