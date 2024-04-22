@@ -42,6 +42,6 @@ class Path_t {
   }
 
   Path_t.invalid()
-      : this.distance = Distance('', -1),
-        this.duration = Duration_t('', -1);
+      : distance = Distance('', -1),
+        duration = Duration_t('', -1);
 }

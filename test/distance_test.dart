@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DistanceMatrixAPI {
@@ -24,9 +21,9 @@ class DistanceMatrixAPI {
 
 void main() async {
   test('API Test', () async {
-    await DistanceMatrixAPI.getnearestRoute(LatLng(29.3182322, 30.8433461), [
-      LatLng(29.315314226178813, 30.852451344537155),
-      LatLng(29.31937148907226, 30.831769125706526)
+    await DistanceMatrixAPI.getnearestRoute(const LatLng(29.3182322, 30.8433461), [
+      const LatLng(29.315314226178813, 30.852451344537155),
+      const LatLng(29.31937148907226, 30.831769125706526)
     ]);
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/route_generator.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
@@ -7,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
-  runApp(TawselaApp());
+  runApp(const TawselaApp());
 }
 
 class MyBlocObserver extends BlocObserver {
@@ -34,11 +36,15 @@ class TawselaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<GoogleMapBloc>(create: (context) => GoogleMapBloc())
+        BlocProvider<PassengerBloc>(create: (context) => PassengerBloc()),
+        BlocProvider<DriverMapBloc>(create: (context) => DriverMapBloc()),
+        BlocProvider<UberDriverBloc>(create: (context) => UberDriverBloc()),
+        BlocProvider<UserPreferenceBloc>(
+            create: (context) => UserPreferenceBloc())
       ],
       child: MaterialApp(
-        locale: Locale('en'),
-        localizationsDelegates: [
+        locale: const Locale('en'),
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

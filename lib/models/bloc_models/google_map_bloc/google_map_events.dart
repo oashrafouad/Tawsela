@@ -1,14 +1,8 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/data_models/location_model/location.dart';
-import 'package:tawsela_app/models/data_models/path_model/path.dart';
-import 'package:google_directions_api/google_directions_api.dart';
+import 'package:tawsela_app/models/data_models/request_model.dart';
+import 'package:tawsela_app/models/data_models/user_data.dart';
+import 'package:tawsela_app/models/data_models/user_states.dart';
 
 abstract class GoogleMapEvent extends Equatable {
   const GoogleMapEvent();
@@ -16,14 +10,80 @@ abstract class GoogleMapEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// ************************* User Events *******************
 class GoogleMapGetCurrentPosition extends GoogleMapEvent {
   const GoogleMapGetCurrentPosition();
 }
 
-class GoogleMapGetPath extends GoogleMapEvent {
-  const GoogleMapGetPath();
+class SwitchMode extends GoogleMapEvent {
+  final UserState userState;
+  const SwitchMode({required this.userState});
 }
 
-class GoogleMapline extends GoogleMapEvent {
-  const GoogleMapline();
+// *********************** Passenger Events *****************
+abstract class PassengerEvent extends GoogleMapEvent {
+  const PassengerEvent();
+}
+
+class GetNearestPathToServiceLine extends PassengerEvent {
+  const GetNearestPathToServiceLine();
+}
+
+class RequestUberDriver extends PassengerEvent {
+  final UserRequest passengerRequest;
+  const RequestUberDriver({required this.passengerRequest});
+}
+
+class GetWalkDirections extends PassengerEvent {
+  final LatLng passengerDestination;
+  const GetWalkDirections({required this.passengerDestination});
+}
+
+class GetDestination extends PassengerEvent {
+  final LatLng destination;
+  final String destinationDescription;
+  const GetDestination(
+      {required this.destination, required this.destinationDescription});
+}
+
+// ************** Driver Events *************************//
+abstract class DriverEvent extends GoogleMapEvent {
+  const DriverEvent();
+}
+
+class GetPassengerRequests extends DriverEvent {
+  const GetPassengerRequests();
+}
+
+class AcceptPassengerRequest extends DriverEvent {
+  final UserRequest passengerRequest;
+  const AcceptPassengerRequest({required this.passengerRequest});
+}
+
+class RejectPassengerRequest extends DriverEvent {
+  final UserRequest passengerRequest;
+  const RejectPassengerRequest({required this.passengerRequest});
+}
+
+class CallPassenger extends DriverEvent {
+  const CallPassenger();
+}
+
+class CancelTrip extends DriverEvent {
+  final UserRequest passengerRequest;
+  const CancelTrip({required this.passengerRequest});
+}
+
+class StartTrip extends DriverEvent {
+  final UserRequest passengerRequest;
+  const StartTrip({required this.passengerRequest});
+}
+
+class EndTrip extends DriverEvent {
+  final UserRequest passengerRequest;
+  const EndTrip({required this.passengerRequest});
+}
+
+class GetPassengerDirections extends DriverEvent {
+  const GetPassengerDirections();
 }

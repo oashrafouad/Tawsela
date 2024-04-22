@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:html/parser.dart';
+
+class WalkChoice extends StatefulWidget {
+  const WalkChoice({super.key});
+
+  @override
+  State<WalkChoice> createState() => _WalkChoiceState();
+}
+
+class _WalkChoiceState extends State<WalkChoice> {
+  int current_step = 0;
+  @override
+  Widget build(BuildContext context) {
+    final googleMapProvider = BlocProvider.of<PassengerBloc>(context);
+    if (googleMapProvider.state.destination != null &&
+        googleMapProvider.state.directions.isNotEmpty) {
+      return LayoutBuilder(
+          builder: (context, constrainsts) => Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+
+                  child: Stepper(
+                    connectorColor: MaterialStateProperty.resolveWith(
+                        (states) => Colors.green),
+                    currentStep: current_step,
+                    onStepCancel: () {
+                      if (current_step > 0) {
+                        current_step -= 1;
+                        setState(() {});
+                      }
+                    },
+                    onStepContinue: () {
+                      if (current_step <
+                          googleMapProvider.state.directions.length) {
+                        current_step += 1;
+                        setState(() {});
+                      }
+                    },
+                    onStepTapped: (value) {
+                      current_step = value;
+                      setState(() {});
+                    },
+                    steps: googleMapProvider.state.directions.map((e) {
+                      final document = parse(e.instructions);
+                      final String parsedString =
+                          parse(document.body!.text).documentElement!.text;
+                      return Step(
+                          title: Text(e.duration!.text!),
+                          subtitle: Text(e.distance!.text!),
+                          content: Text(parsedString));
+                    }).toList(),
+                  ),
+                  // child: ListView.builder(
+                  //     itemCount: googleMapProvider.state.directions.length,
+                  //     itemBuilder: (context, index) {
+                  //       return Column(
+                  //         children: [
+                  //           ListTile(
+                  //             leading: Text(
+                  //                 '${googleMapProvider.state.directions[index].duration!.text}'),
+                  //             title: Text(
+                  //                 '${googleMapProvider.state.directions[index].instructions}'),
+                  //             subtitle: Text(
+                  //                 '${googleMapProvider.state.directions[index].distance!.text}'),
+                  //           ),
+                  //           SizedBox(
+                  //             child: Divider(
+                  //               indent: 30,
+                  //               endIndent: 30,
+                  //               thickness: 1,
+                  //               color: Colors.grey,
+                  //             ),
+                  //           )
+                  //         ],
+                  //       );
+                  //     })),
+                ),
+              ));
+    } else if (googleMapProvider.state.destination == null) {
+      return const Center(
+          child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: 200,
+          height: 200,
+          child: Card(
+            color: Colors.red,
+            child: Center(
+                child: Text(
+              'Please provide a destination',
+              style: TextStyle(color: Colors.white),
+            )),
+          ),
+        ),
+      ));
+    } else if (googleMapProvider.state.directions.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: CircularProgressIndicator(
+            color: Colors.green,
+            semanticsLabel: 'Loading ...',
+          ),
+        ),
+      );
+    } else {
+      return ErrorWidget('An Error has occured');
+    }
+  }
+}
