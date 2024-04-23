@@ -163,10 +163,9 @@ class WelcomePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:  20,horizontal: 20),
+            padding: const EdgeInsets.all(20),
             child: CustomButton(
-              //width: 300,
-            //height: 10,
+              width: 300,
               radius: 10,
               buttonColor: kGreenBigButtons,
               textColor: kWhite,
