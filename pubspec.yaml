@@ -97,6 +97,9 @@ flutter:
     - family: CustomGoogleIcon
       fonts:
         - asset: assets/custom_icons/CustomGoogleIcon.ttf
+    - family: CustomSwitchIcon
+      fonts:
+        - asset: assets/custom_icons/CustomSwitchIcon.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
