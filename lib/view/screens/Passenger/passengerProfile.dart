@@ -3,6 +3,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
+import 'package:tawsela_app/view/widgets/CustomSwitchIcon.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
 class PassengerProfile extends StatelessWidget {
@@ -25,7 +26,7 @@ class PassengerProfile extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 paddingVerti: 6,
-                icon: Icons.swap_vertical_circle_outlined,
+                icon: CustomSwitchIcon.icon,
                 iconSize: 20,
               ),
               const SizedBox(
