@@ -6,6 +6,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
 import 'package:tawsela_app/theme.dart';
+import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusRoute.dart';
@@ -89,6 +90,7 @@ class TawselaApp extends StatelessWidget {
                 PassengerPickupLocationPage.id: (context) =>
                     const PassengerPickupLocationPage(),
                 MicrobusRoutePage.id: (context) => MicrobusRoutePage(),
+                DriverMainScreen.id:(context) => const DriverMainScreen(),
               },
               initialRoute: WelcomePage.id,
             );

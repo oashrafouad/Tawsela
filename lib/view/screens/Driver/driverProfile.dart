@@ -61,9 +61,9 @@ static String id ='DriverProfilePage';
                       children: [
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               'أحمد علاء',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: font,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600),
@@ -112,18 +112,18 @@ static String id ='DriverProfilePage';
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
+                      const Column(
                         children: [
                           Text(
                             'كسبت اليوم',
                             //S.of(context).numberoftrips,
                             style: TextStyle(
-                                color: const Color(0xff525252),
+                                color: Color(0xff525252),
                                 fontFamily: font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -141,7 +141,7 @@ static String id ='DriverProfilePage';
                         Container(
             width: 2,
             height: 49,
-            color: Color(0xff9C9C9C),
+            color: const Color(0xff9C9C9C),
             transform: Matrix4.rotationY(3.14159), // Rotate 180 degrees
           ),
                       
@@ -149,8 +149,8 @@ static String id ='DriverProfilePage';
                         children: [
                           Text(
                             S.of(context).numberoftrips,
-                            style: TextStyle(
-                                color: const Color(0xff525252),
+                            style: const TextStyle(
+                                color: Color(0xff525252),
                                 fontFamily: font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
@@ -160,7 +160,7 @@ static String id ='DriverProfilePage';
                           ),
                           Text(
                             S.of(context).trip,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,
                                 fontSize: 16,
@@ -186,8 +186,8 @@ static String id ='DriverProfilePage';
               children: [
                 Text(
                   S.of(context).tripLog,
-                  style: TextStyle(
-                      color: const Color(0xff303030),
+                  style: const TextStyle(
+                      color: Color(0xff303030),
                       fontFamily: font,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),
@@ -201,11 +201,11 @@ static String id ='DriverProfilePage';
             ),
           ),
           for (int i = 0; i < 3; i++)
-            Column(
+            const Column(
               children: [
                 ListTile(
                   //contentPadding:EdgeInsets.symmetric(vertical: 16,horizontal: 16) ,
-                  leading: const CircleAvatar(
+                  leading: CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage('assets/images/avatar.jpg'),
                   ),
@@ -221,7 +221,7 @@ static String id ='DriverProfilePage';
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 15,
                           ),
                         ],
@@ -229,7 +229,7 @@ static String id ='DriverProfilePage';
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.star,
                             size: 15,
                             color: Colors.amber,
@@ -247,7 +247,7 @@ static String id ='DriverProfilePage';
                   ),
 
                   trailing: Padding(
-                    padding: const EdgeInsets.only(top: 12),
+                    padding: EdgeInsets.only(top: 12),
                     child: Column(
                       //crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -264,7 +264,7 @@ static String id ='DriverProfilePage';
                                   fontFamily: font,
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 2),
                                 child: Icon(
                                   Icons.arrow_forward,
@@ -283,11 +283,11 @@ static String id ='DriverProfilePage';
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
+                          padding: EdgeInsets.only(top: 4.0),
                           child: Text(
                             '٤:٥٠ مساءً - ٥:١٠ مساءً',
                             style: TextStyle(
-                                color: const Color(
+                                color: Color(
                                   0xff858585,
                                 ),
                                 fontFamily: font,
@@ -299,16 +299,16 @@ static String id ='DriverProfilePage';
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 8,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Divider(
                     thickness: 1,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 8,
                 )
               ],

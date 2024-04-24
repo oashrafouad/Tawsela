@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
+import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/widgets/CustomSwitchIcon.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
@@ -28,6 +30,11 @@ class PassengerProfile extends StatelessWidget {
                 paddingVerti: 6,
                 icon: CustomSwitchIcon.icon,
                 iconSize: 20,
+                onTap: (){
+                  //remeber to pop all screen in the stack
+                  //if the user uploaded the licesense and the id card switched to driverMainScreen
+                  Navigator.pushNamed(context, DriverMainScreen.id);
+                },
               ),
               const SizedBox(
                 width: 8,
@@ -42,6 +49,12 @@ class PassengerProfile extends StatelessWidget {
                 icon: Icons.logout,
                 paddingHorzin: 2,
                 iconSize: 20,
+                onTap: (){ //to pop all screen in the stack and return to welcome page
+                  Navigator.popUntil(
+                    context,
+                    ModalRoute.withName(WelcomePage.id),
+                  );
+                },
               ),
             ],
           )),
