@@ -23,16 +23,17 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () =>
-                  BlocProvider.of<AppThemeBloc>(context).add(DarkEvent()),
-              icon: const Icon(Icons.dark_mode_outlined)),
-          IconButton(
-              onPressed: () =>
-                  BlocProvider.of<AppThemeBloc>(context).add(LightEvent()),
-              icon: const Icon(Icons.light_mode_outlined))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () =>
+        //           BlocProvider.of<AppThemeBloc>(context).add(DarkEvent()),
+        //       icon: const Icon(Icons.dark_mode_outlined)),
+        //   IconButton(
+        //       onPressed: () =>
+        //           BlocProvider.of<AppThemeBloc>(context).add(LightEvent()),
+        //       icon: const Icon(Icons.light_mode_outlined))
+        // ],
+        
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn

@@ -31,16 +31,16 @@ class TawselaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => AppThemeBloc()..add(InitialEvent()),
-          ),
+          // BlocProvider(
+          //   create: (context) => AppThemeBloc()..add(InitialEvent()),
+          // ),
           BlocProvider(
             create: (context) => AppLanguageBloc()..add(InitialLanguage()),
           ),
         ],
         child: Builder(
           builder: (context) {
-            var themeState = context.select((AppThemeBloc bloc) => bloc.state);
+            //var themeState = context.select((AppThemeBloc bloc) => bloc.state);
             var langState =
                 context.select((AppLanguageBloc bloc) => bloc.state);
 
@@ -50,11 +50,11 @@ class TawselaApp extends StatelessWidget {
                       ? const Locale('en')
                       : const Locale('ar')
                   : const Locale('ar'),
-              theme: themeState is AppChangeTheme
-                  ? themeState.appTheme == 'l'
-                      ? ThemeData.light()
-                      : ThemeData.dark()//ThemeData.dark() // dark theme looks like shit ,we gonna fix it 
-                  : ThemeData.light(),
+              // theme: themeState is AppChangeTheme
+              //     ? themeState.appTheme == 'l'
+              //         ? ThemeData.light()
+              //         : ThemeData.dark()//ThemeData.dark() // dark theme looks like shit ,we gonna fix it 
+              //     : ThemeData.light(),
               debugShowCheckedModeBanner: false,
               supportedLocales: const [Locale('ar'), Locale('en')],
               localizationsDelegates: const [
@@ -99,33 +99,3 @@ class TawselaApp extends StatelessWidget {
   }
 }
 
-
-
-// MaterialApp(
-//             locale: Locale(language),
-//             localizationsDelegates: const [
-//               S.delegate,
-//               GlobalMaterialLocalizations.delegate,
-//               GlobalWidgetsLocalizations.delegate,
-//               GlobalCupertinoLocalizations.delegate,
-//             ],
-//             supportedLocales: S.delegate.supportedLocales,
-//             debugShowCheckedModeBanner: false,
-//             routes: {
-//               WelcomePage.id: (context) => const WelcomePage(),
-//               SmsVerficationPage.id: (context) => const SmsVerficationPage(),
-//                PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
-//               PassengerProfile.id: (context) => const PassengerProfile(),
-//               PassengerEditProfile.id: (context) =>
-//                   const PassengerEditProfile(),
-//               PassengerMainScreen.id: (context) => const PassengerMainScreen(),
-//               MicrobusGuideStationPage.id: (context) =>
-//                   MicrobusGuideStationPage(color: Colors.black, line: 'line'),
-//               MicrobusSuggestedLinesPage.id: (context) =>
-//                   const MicrobusSuggestedLinesPage(),
-//               PassengerPickupLocationPage.id: (context) =>
-//                   const PassengerPickupLocationPage(),
-//               MicrobusRoutePage.id: (context) => MicrobusRoutePage(),
-//             },
-//             initialRoute: WelcomePage.id,
-//           );
