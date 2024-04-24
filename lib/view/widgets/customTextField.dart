@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/utilities.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
@@ -11,7 +8,7 @@ class CustomTextFormField extends StatelessWidget {
       this.onChanged,
       this.hintText,
       this.labelText,
-      this.textDirection,
+      this.textAlign = TextAlign.start,
       required this.width,
       required this.height,
       this.titleAbove = '',
@@ -28,8 +25,9 @@ class CustomTextFormField extends StatelessWidget {
   List<TextInputFormatter>? inputFormatters;
   int? maxlines;
   TextInputType? keyboardType;
-  TextDirection? textDirection;
+  TextAlign textAlign;
   Function(String)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,41 +47,35 @@ class CustomTextFormField extends StatelessWidget {
         SizedBox(
           height: height,
           width: width,
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  maxLines: maxLength,
-                  keyboardType: keyboardType,
-                  style: const TextStyle(color: Colors.black),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Field is Required';
-                    }
-                  },
-                  onChanged: onChanged,
-                  decoration: InputDecoration(
-                    hintText: hintText,
-                
-                    counterText:
-                        "", // to prevent counter text from appearing below the text field
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                
-                    hintStyle: const TextStyle(color: kGreyFontLight),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(radius))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(radius)),
-                        borderSide: const BorderSide(color: kGreyBorderLight)),
-                    focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: kGreenButtonBorder)),
-                  ),
-                  maxLength: maxLength,
-                  inputFormatters: inputFormatters,
-                ),
-              ),
-            ],
+          child: TextFormField(
+            maxLines: maxLength,
+            keyboardType: keyboardType,
+            style: const TextStyle(color: Colors.black, fontFamily: font),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Field is Required';
+              }
+            },
+            textAlign: textAlign,
+            cursorColor: kGreenBigButtons,
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              hintText: hintText,
+              counterText: '',
+              contentPadding:
+                  const EdgeInsets.only(right: 4, left: 4, top: 16, bottom: 4),
+              hintStyle:
+                  const TextStyle(color: kGreyFontLight, fontFamily: font),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(radius))),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(radius)),
+                  borderSide: const BorderSide(color: kGreyBorderLight)),
+              focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: kGreenButtonBorder)),
+            ),
+            maxLength: maxLength,
+            inputFormatters: inputFormatters,
           ),
         )
       ],

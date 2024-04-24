@@ -42,6 +42,7 @@ class SmsVerficationPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomTextFormField(
+                textAlign: TextAlign.end,
                 width: 284,
                 height: 46,
                 maxLength: 6, //verification code should be 6 digits

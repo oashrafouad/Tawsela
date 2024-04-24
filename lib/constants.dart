@@ -42,8 +42,4 @@ const List<Color> linesColors = [
   Color(0xFFDEBB78),
 ];
 
-List<String> titlesAboveUploadImgButton = [
-  S().personalImage,
-  S().licenseImg,
-  S().idCardImg
-];
+

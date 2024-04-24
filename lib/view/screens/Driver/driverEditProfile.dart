@@ -11,8 +11,13 @@ import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 
 class DriverEditProfilePage extends StatelessWidget {
-  const DriverEditProfilePage({super.key});
+   DriverEditProfilePage({super.key});
 static String id='DriverEditProfilePage';
+List<String> titlesAboveUploadImgButton = [
+  S().personalImage,
+  S().licenseImg,
+  S().idCardImg
+];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +25,7 @@ static String id='DriverEditProfilePage';
         centerTitle: true,
         title: Text(
           S.of(context).editProfile,
-          style: TextStyle(
+          style: const TextStyle(
               fontFamily: font, fontWeight: FontWeight.w500, fontSize: 20),
         ),
       ),
@@ -36,7 +41,7 @@ static String id='DriverEditProfilePage';
                     left: isArabic() ? 0 : 28),
                 child: Text(
                   S.of(context).personalImage,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: font,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),
@@ -80,7 +85,7 @@ static String id='DriverEditProfilePage';
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Text(
                  S.of(context).ToEditTheNameAndProfilePictureContactTechnicalSupport,
-                 style: TextStyle(
+                 style: const TextStyle(
                   color: Color(0xff9D9D9D),
                   fontFamily: font,
                   fontSize:10 ,
@@ -162,11 +167,11 @@ static String id='DriverEditProfilePage';
                       left: isArabic() ? 0 : 16),
                   child: Text(
                     titlesAboveUploadImgButton[i],  //S.of(context).personalImage,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: font,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff444444)),
+                        color: Color(0xff444444)),
                   ),
                 ),
                 Padding(
@@ -210,7 +215,7 @@ static String id='DriverEditProfilePage';
             height: 54,
             text: S.of(context).save,
           ),
-           SizedBox(height: 16,)
+           const SizedBox(height: 16,)
         ],
       ),
     );

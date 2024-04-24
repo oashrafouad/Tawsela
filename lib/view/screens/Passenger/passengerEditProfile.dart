@@ -124,9 +124,11 @@ class PassengerEditProfile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
+                      textAlign: TextAlign.end,
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 213,
+                      maxLength: 10,
                       hintText: "123456789",
                       keyboardType: TextInputType.phone,
                     ),
@@ -160,7 +162,9 @@ class PassengerEditProfile extends StatelessWidget {
                   height: 16,
                 ),
                 Center(
+                  
                   child: CustomTextFormField(
+                    textAlign: TextAlign.end,
                     width: 284,
                     height: 46,
                     titleAbove: S.of(context).email,

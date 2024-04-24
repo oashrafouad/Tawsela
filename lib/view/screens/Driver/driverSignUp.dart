@@ -9,8 +9,13 @@ import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
 
 class DriverSignUpPage extends StatelessWidget {
-  const DriverSignUpPage({super.key});
+   DriverSignUpPage({super.key});
    static String id ='DriverSignUpPage';
+   List<String> titlesAboveUploadImgButton = [
+  S().personalImage,
+  S().licenseImg,
+  S().idCardImg
+];
   @override
   
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class DriverSignUpPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 100,horizontal: 16),
             child: Text(
               S.of(context).signUpDriverMsg,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: font,
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
@@ -43,11 +48,11 @@ class DriverSignUpPage extends StatelessWidget {
                       left: isArabic() ? 0 : 16),
                   child: Text(
                     titlesAboveUploadImgButton[i],  //S.of(context).personalImage,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: font,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff444444)),
+                        color: Color(0xff444444)),
                   ),
                 ),
                 Padding(
@@ -74,7 +79,7 @@ class DriverSignUpPage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 32,),
+          const SizedBox(height: 32,),
           CustomButton(
             text: S.of(context).continuee
             ,

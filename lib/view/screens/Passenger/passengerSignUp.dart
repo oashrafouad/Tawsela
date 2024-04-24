@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -61,9 +62,11 @@ class PassengerSignUpPage extends StatelessWidget {
           ),
           Center(
             child: CustomTextFormField(
+              textAlign: isArabic() ? TextAlign.end : TextAlign.start,
               width: 284,
               height: 46,
               titleAbove: S.of(context).email,
+              //inputFormatters: [FilteringTextInputFormatter.allow()],
             ),
           ),
           const SizedBox(

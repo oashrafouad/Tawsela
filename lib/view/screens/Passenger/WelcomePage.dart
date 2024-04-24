@@ -6,6 +6,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
+import 'package:tawsela_app/utilities.dart';
 
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
@@ -122,6 +123,7 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
+                       textAlign: isArabic() ? TextAlign.end : TextAlign.start,
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 230,

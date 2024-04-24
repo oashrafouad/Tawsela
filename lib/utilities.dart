@@ -34,16 +34,7 @@ String displayLines(int i) {
   return i.toString();
 }
 
-// askForPermission() async {
-//   Map<Permission, PermissionStatus> statues = await [
-//     Permission.storage,
-//     Permission.camera,
-//   ].request();
-//   statues[Permission.storage]!.isGranted &&
-//           statues[Permission.camera]!.isGranted
-//       ? print('granted')
-//       : print('not granted');
-// }
+
 
 final picker = ImagePicker();
 

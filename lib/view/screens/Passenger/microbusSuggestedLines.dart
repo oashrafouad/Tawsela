@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/view/widgets/weirdAppBar.dart';
+
 
 class MicrobusSuggestedLinesPage extends StatelessWidget {
   const MicrobusSuggestedLinesPage({super.key});
