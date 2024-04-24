@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,12 +39,31 @@ String displayLines(int i) {
 
 final picker = ImagePicker();
 
-void showImagePicker(BuildContext context) {
-  showModalBottomSheet(
-      context: context,
-      builder: (builder) {
-        return const CustomButtomSheet_imgPick();
-      });
+showImagePicker(BuildContext context) async {
+  if (Platform.isIOS) {
+    const platform = MethodChannel('imagePickerOptionsChannel');
+    try {
+      // This method will return 1 if user picked camera and 2 if user picked gallery
+      final result = await platform.invokeMethod<int>('showImagePickerOptions');
+      switch (result) {
+        case 1:
+          imagePick(ImageSource.camera);
+          break;
+        case 2:
+          imagePick(ImageSource.gallery);
+          break;
+      }
+    } on PlatformException catch (error) {
+      print(error.message);
+    }
+
+  } else {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return const CustomButtomSheet_imgPick();
+        });
+  }
 }
 
 imagePick(ImageSource source) async {
