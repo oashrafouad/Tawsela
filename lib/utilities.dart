@@ -99,7 +99,7 @@ _cropImage(File imgFile) async {
             ],
       uiSettings: [
         AndroidUiSettings(
-            toolbarTitle: "Image Cropper",
+            toolbarTitle: "Edit Photo",
             toolbarColor: kGreenBigButtons,
             toolbarWidgetColor: kWhite,
             statusBarColor: kGreenBigButtons,
@@ -107,7 +107,7 @@ _cropImage(File imgFile) async {
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
         IOSUiSettings(
-          title: "Image Cropper",
+          title: "Edit Photo",
         )
       ]);
   if (croppedFile != null) {

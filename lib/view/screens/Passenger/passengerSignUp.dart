@@ -77,12 +77,12 @@ class PassengerSignUpPage extends StatelessWidget {
             children: [
 
               Column(
-                
+
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: 8,
-                       
+
                     ),
                     child: Text(
                       S.of(context).personalImage,
@@ -99,7 +99,7 @@ class PassengerSignUpPage extends StatelessWidget {
                       CustomTextButton(
                         onTap: () {
                           showImagePicker(context);
-                        
+
                         },
                         icon: Icons.image,
                         text: S.of(context).uploadImg,
@@ -116,8 +116,8 @@ class PassengerSignUpPage extends StatelessWidget {
               Container(width: 180,),
             ],
           ),
-          
-       
+
+
           const SizedBox(
             height: 32,
           ),
