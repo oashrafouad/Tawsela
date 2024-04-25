@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -40,7 +41,15 @@ String displayLines(int i) {
 final picker = ImagePicker();
 
 showImagePicker(BuildContext context) async {
-  if (Platform.isIOS) {
+  // for some reason if I check for iOS first it will break the button on web, so I check for web first
+  if (kIsWeb || !Platform.isIOS) {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return const CustomButtomSheet_imgPick();
+        });
+    }
+  else { // if we're on iOS
     const platform = MethodChannel('imagePickerOptionsChannel');
     try {
       // This method will return 1 if user picked camera and 2 if user picked gallery
@@ -57,13 +66,14 @@ showImagePicker(BuildContext context) async {
       print(error.message);
     }
 
-  } else {
-    showModalBottomSheet(
-        context: context,
-        builder: (builder) {
-          return const CustomButtomSheet_imgPick();
-        });
   }
+  // else {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (builder) {
+  //         return const CustomButtomSheet_imgPick();
+  //       });
+  // }
 }
 
 imagePick(ImageSource source) async {
