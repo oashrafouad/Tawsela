@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:tawsela_app/constants.dart';
 
 class CustomListTile extends StatelessWidget {
   CustomListTile(
@@ -14,8 +14,8 @@ class CustomListTile extends StatelessWidget {
       this.height = 54,
       this.width = 300,
       this.iconSize = 35,
-      this.backgroundColor = Colors.white,
-      this.borderColor = Colors.black,
+      this.backgroundColor = kGreyButton,
+      this.borderColor = kGreyButtonBorder,
       this.fontWeight = FontWeight.w400,
       this.fontSize = 20,
       this.iconColor = Colors.black});
@@ -41,25 +41,25 @@ class CustomListTile extends StatelessWidget {
         child: SizedBox(
           width: width,
           height: height,
-          child:
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                            Text(
-                trailing,
-                style: TextStyle(
-                    color: trailingColor,
-                    fontWeight: fontWeight,
-                    fontSize: fontSize,
-                    fontFamily: 'Alexandria'),
-                            ),
-                            Icon(
-                icon,
-                size: iconSize,
-                            ),
-                          ]),
-              ),
+                  Text(
+                    trailing,
+                    style: TextStyle(
+                        color: trailingColor,
+                        fontWeight: fontWeight,
+                        fontSize: fontSize,
+                        fontFamily: 'Alexandria'),
+                  ),
+                  Icon(
+                    icon,
+                    size: iconSize,
+                  ),
+                ]),
+          ),
         ),
       ),
     );

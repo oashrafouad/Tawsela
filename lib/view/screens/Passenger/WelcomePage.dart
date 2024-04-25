@@ -23,17 +23,6 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // actions: [
-        //   IconButton(
-        //       onPressed: () =>
-        //           BlocProvider.of<AppThemeBloc>(context).add(DarkEvent()),
-        //       icon: const Icon(Icons.dark_mode_outlined)),
-        //   IconButton(
-        //       onPressed: () =>
-        //           BlocProvider.of<AppThemeBloc>(context).add(LightEvent()),
-        //       icon: const Icon(Icons.light_mode_outlined))
-        // ],
-        
         leading: PopupMenuButton<int>(
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
@@ -104,9 +93,9 @@ class WelcomePage extends StatelessWidget {
                   child: Text(
                     S.of(context).welcomeMsg,
                     textAlign: TextAlign.center,
-                    style:  TextStyle(
+                    style: const TextStyle(
                       fontFamily: font,
-                      color: sharedPreferences!.getString('theme')=='l'? Colors.black:Colors.amber,
+                      color: Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
                     ),
@@ -124,7 +113,7 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
-                       textAlign: isArabic() ? TextAlign.end : TextAlign.start,
+                      textAlign: isArabic() ? TextAlign.end : TextAlign.start,
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 230,
@@ -214,21 +203,14 @@ class WelcomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomListTile(
-                      backgroundColor: kGreyButton,
-                      borderColor: kGreyButtonBorder,
                       trailing: S.of(context).singInFaceBook,
                       icon: Icons.facebook),
                   CustomListTile(
-                    backgroundColor: kGreyButton,
-                    borderColor: kGreyButtonBorder,
                     trailing: S.of(context).singInGoogle,
                     icon: CustomGoogleIcon.google,
                   ),
                   CustomListTile(
-                      backgroundColor: kGreyButton,
-                      borderColor: kGreyButtonBorder,
-                      trailing: S.of(context).singInApple,
-                      icon: Icons.apple),
+                      trailing: S.of(context).singInApple, icon: Icons.apple),
                 ],
               ),
             ),
