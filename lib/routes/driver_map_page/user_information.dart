@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_events.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 
@@ -10,9 +11,19 @@ class UserInformation extends StatelessWidget {
   UserInformation([this.showDirection = false]);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     final driverMapProvider = BlocProvider.of<DriverMapBloc>(context);
-    final uberDriverProvider = BlocProvider.of<UberDriverBloc>(context);
+
+    late UberDriverState uberDriverProvider;
+    if (BlocProvider.of<UberDriverBloc>(context).state is UserErrorState) {
+      uberDriverProvider = uberLastState;
+      return Center(
+        child: Text('Error in user Information'),
+      );
+    } else {
+      uberDriverProvider =
+          BlocProvider.of<UberDriverBloc>(context).state as UberDriverState;
+    }
+
     return Column(
       children: [
         Column(
@@ -47,7 +58,7 @@ class UserInformation extends StatelessWidget {
                                       width: 10,
                                     ),
                                     Text(
-                                        '${uberDriverProvider.state.acceptedRequest!.passengerName}')
+                                        '${uberDriverProvider.acceptedRequest!.passengerName}')
                                   ],
                                 ),
                                 Divider(
@@ -68,7 +79,7 @@ class UserInformation extends StatelessWidget {
                                         Flexible(
                                           fit: FlexFit.loose,
                                           child: Text(
-                                              '${uberDriverProvider.state.acceptedRequest!.destinationDescription}'),
+                                              '${uberDriverProvider.acceptedRequest!.destinationDescription}'),
                                         )
                                       ],
                                     ),
@@ -104,10 +115,12 @@ class UserInformation extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red),
                               onPressed: () {
-                                uberDriverProvider.add(CancelTrip(
-                                    passengerRequest: uberDriverProvider
-                                        .state.acceptedRequest!));
-                                uberDriverProvider.add(GetPassengerRequests());
+                                BlocProvider.of<UberDriverBloc>(context).add(
+                                    CancelTrip(
+                                        passengerRequest: uberDriverProvider
+                                            .acceptedRequest!));
+                                BlocProvider.of<UberDriverBloc>(context)
+                                    .add(GetPassengerRequests());
                               },
                               child: Row(
                                 children: [
@@ -136,7 +149,8 @@ class UserInformation extends StatelessWidget {
                             onPressed: () {
                               driverMapProvider.add(HideTopSheet());
                               Future.delayed(Duration(seconds: 2));
-                              uberDriverProvider.add(GetPassengerDirections());
+                              BlocProvider.of<UberDriverBloc>(context)
+                                  .add(GetPassengerDirections());
                               driverMapProvider.add(ShowBottomSheet());
                             },
                             child: Row(

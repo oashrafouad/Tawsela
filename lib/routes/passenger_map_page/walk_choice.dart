@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:html/parser.dart';
 
@@ -14,45 +15,52 @@ class _WalkChoiceState extends State<WalkChoice> {
   int current_step = 0;
   @override
   Widget build(BuildContext context) {
-    final googleMapProvider = BlocProvider.of<PassengerBloc>(context);
-    if (googleMapProvider.state.destination != null &&
-        googleMapProvider.state.directions.isNotEmpty) {
+    late PassengerState googleMapProvider;
+    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
+      googleMapProvider = passengerLastState;
+    } else {
+      googleMapProvider =
+          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
+    }
+    if (googleMapProvider.destination != null &&
+        googleMapProvider.directions.isNotEmpty) {
       return LayoutBuilder(
           builder: (context, constrainsts) => Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.5,
-
-                  child: Stepper(
-                    connectorColor: MaterialStateProperty.resolveWith(
-                        (states) => Colors.green),
-                    currentStep: current_step,
-                    onStepCancel: () {
-                      if (current_step > 0) {
-                        current_step -= 1;
-                        setState(() {});
-                      }
-                    },
-                    onStepContinue: () {
-                      if (current_step <
-                          googleMapProvider.state.directions.length) {
-                        current_step += 1;
-                        setState(() {});
-                      }
-                    },
-                    onStepTapped: (value) {
-                      current_step = value;
-                      setState(() {});
-                    },
-                    steps: googleMapProvider.state.directions.map((e) {
-                      final document = parse(e.instructions);
-                      final String parsedString =
-                          parse(document.body!.text).documentElement!.text;
-                      return Step(
-                          title: Text(e.duration!.text!),
-                          subtitle: Text(e.distance!.text!),
-                          content: Text(parsedString));
-                    }).toList(),
+                  child: SingleChildScrollView(
+                    child: Stepper(
+                        physics: ClampingScrollPhysics(),
+                        connectorColor: MaterialStateProperty.resolveWith(
+                            (states) => Colors.green),
+                        currentStep: current_step,
+                        onStepCancel: () {
+                          if (current_step > 0) {
+                            current_step -= 1;
+                            setState(() {});
+                          }
+                        },
+                        onStepContinue: () {
+                          if (current_step <
+                              googleMapProvider.directions.length) {
+                            current_step += 1;
+                            setState(() {});
+                          }
+                        },
+                        onStepTapped: (value) {
+                          current_step = value;
+                          setState(() {});
+                        },
+                        steps: googleMapProvider.directions.map((e) {
+                          final document = parse(e.instructions);
+                          final String parsedString =
+                              parse(document.body!.text).documentElement!.text;
+                          return Step(
+                              title: Text(e.duration!.text!),
+                              subtitle: Text(e.distance!.text!),
+                              content: Text(parsedString));
+                        }).toList()),
                   ),
                   // child: ListView.builder(
                   //     itemCount: googleMapProvider.state.directions.length,
@@ -80,7 +88,7 @@ class _WalkChoiceState extends State<WalkChoice> {
                   //     })),
                 ),
               ));
-    } else if (googleMapProvider.state.destination == null) {
+    } else if (googleMapProvider.destination == null) {
       return const Center(
           child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -97,7 +105,7 @@ class _WalkChoiceState extends State<WalkChoice> {
           ),
         ),
       ));
-    } else if (googleMapProvider.state.directions.isEmpty) {
+    } else if (googleMapProvider.directions.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(

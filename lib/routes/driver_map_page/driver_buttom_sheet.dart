@@ -5,11 +5,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/service_choice.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/uber_choice.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/walk_choice.dart';
-import 'package:tawsela_app/routes/home_page/directions.dart';
-import 'package:tawsela_app/routes/home_page/user_information.dart';
+import 'package:tawsela_app/routes/passenger_map_page/service_choice.dart';
+import 'package:tawsela_app/routes/passenger_map_page/uber_choice.dart';
+import 'package:tawsela_app/routes/passenger_map_page/walk_choice.dart';
+import 'package:tawsela_app/routes/driver_map_page/directions.dart';
+import 'package:tawsela_app/routes/driver_map_page/user_information.dart';
 
 class DriverButtomSheet extends StatefulWidget {
   const DriverButtomSheet({super.key});
@@ -38,9 +38,11 @@ class _DriverButtomSheet extends State<DriverButtomSheet> {
         // color: Colors.red,
         child: Column(
           children: [
-            BlocListener<PassengerBloc, PassengerState>(
+            BlocListener<PassengerBloc, MapUserState>(
               listenWhen: (previous, current) {
-                return previous.destination != current.destination;
+                final p = previous as PassengerState;
+                final c = current as PassengerState;
+                return p.destination != p.destination;
               },
               listener: (context, state) {
                 selectedItem = 1;
@@ -85,7 +87,7 @@ class _DriverButtomSheet extends State<DriverButtomSheet> {
                   onSelectionChanged: (Set<String> selection) =>
                       onSelect(selection, context)),
             ),
-            BlocConsumer<PassengerBloc, PassengerState>(
+            BlocConsumer<PassengerBloc, MapUserState>(
               listener: (context, state) {},
               builder: (context, state) {
                 return Container(

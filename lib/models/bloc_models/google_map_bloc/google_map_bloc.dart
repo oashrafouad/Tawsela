@@ -15,7 +15,27 @@ import 'package:tawsela_app/models/data_models/path_model/path.dart';
 import 'package:tawsela_app/models/data_models/request_model.dart';
 import 'package:tawsela_app/models/data_models/user_data.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
+import 'package:connectivity/connectivity.dart';
 
+const invalidPosition = LatLng(-1, -1);
+const positionMarkerId = 'My-pos';
+const destinationMarkerId = 'My-des';
+PassengerState passengerLastState = PassengerState(
+    passengerData:
+        Passenger(location: invalidPosition, name: 'Unkown', phone: '#'),
+    currentPosition: invalidPosition,
+    lines: <Polyline>[],
+    markers: <Marker>{},
+    controller: null,
+    directions: const []);
+UberDriverState uberLastState = UberDriverState(
+    controller: null,
+    userState: UserState.DRIVER,
+    currentPosition: LatLng(-1, -1),
+    lines: [],
+    markers: {},
+    directions: [],
+    driver: UberDriver(name: 'name', location: invalidPosition, phone: '#'));
 Future<LatLng> getCurrentPosition() async {
   try {
     LocationPermission permission = await Geolocator.requestPermission();
@@ -25,28 +45,44 @@ Future<LatLng> getCurrentPosition() async {
     Position position = await Geolocator.getCurrentPosition();
     return LatLng(position.latitude, position.longitude);
   } catch (exception) {
-    return const LatLng(-1, -1);
+    return invalidPosition;
   }
 }
 
-Future<GoogleMapState> onGetCurrentPosition() async {
-  LatLng position = await getCurrentPosition();
-  List<Placemark> places =
-      await placemarkFromCoordinates(position.latitude, position.longitude);
-  String description = places[0].name ?? 'Unknown';
-  return GoogleMapState(
-      controller: null,
-      currentPosition: position,
-      lines: <Polyline>[],
-      markers: <Marker>{
-        Marker(
-            markerId: MarkerId('my-pos'),
-            icon: BitmapDescriptor.defaultMarker,
-            position: position)
-      },
-      pathData: Path_t.invalid(),
-      currentLocationDescription: description,
-      directions: []);
+Future<MapUserState> onGetCurrentPosition() async {
+  final permission = await Geolocator.requestPermission();
+  final connectivity = await Connectivity().checkConnectivity();
+  if (connectivity == ConnectivityResult.none) {
+    return UserErrorState('Check your internet Connection');
+  } else if (permission == LocationPermission.denied) {
+    return UserErrorState('Please open location service');
+  }
+  // else if (position.latitude != invalidPosition.latitude &&
+  //     position.longitude != invalidPosition.longitude) {
+  //   return UserErrorState('Please Provide current Location');
+  // }
+  else {
+    try {
+      final LatLng position = await getCurrentPosition();
+      List<Placemark> places =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      String description = places[0].name ?? 'Unknown';
+      return GoogleMapState(
+          controller: null,
+          currentPosition: position,
+          lines: <Polyline>[],
+          markers: <Marker>{
+            Marker(
+                markerId: MarkerId(positionMarkerId),
+                icon: BitmapDescriptor.defaultMarker,
+                position: position)
+          },
+          currentLocationDescription: description,
+          directions: []);
+    } catch (exception) {
+      return UserErrorState('An Error has occured please try again');
+    }
+  }
 }
 
 class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
@@ -55,7 +91,6 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
             currentPosition: const LatLng(0.0, 0.0),
             lines: <Polyline>[],
             markers: <Marker>{},
-            pathData: Path_t.invalid(),
             controller: null,
             directions: const [])) {
     //  ************** get current Position *******************
@@ -170,42 +205,51 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
   }
 }
 
-class PassengerBloc extends Bloc<GoogleMapEvent, PassengerState> {
-  PassengerBloc()
-      : super(PassengerState(
-            passengerData: Passenger(
-                location: LatLng(0.0, 0.0), name: 'Unkown', phone: '#'),
-            currentPosition: const LatLng(0.0, 0.0),
-            lines: <Polyline>[],
-            markers: <Marker>{},
-            pathData: Path_t.invalid(),
-            controller: null,
-            directions: const [])) {
+class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
+  PassengerBloc() : super(passengerLastState) {
     FutureOr<void> onGetDestination(
-        GetDestination event, Emitter<PassengerState> emit) async {
-      if (event.destination != state.destination) {
-        Set<Marker> newMarkers = [
-          state.markers
-              .firstWhere((element) => element.markerId.value == 'my-pos')
-        ].toSet();
-        newMarkers.add(Marker(
-            markerId: const MarkerId('destination'),
-            position: event.destination,
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)));
-        emit(PassengerState(
-            currentPosition: state.currentPosition,
-            lines: [],
-            markers: newMarkers,
-            pathData: state.pathData,
-            controller: state.controller,
-            directions: [],
-            currentLocationDescription: state.currentLocationDescription,
-            destinationDescription: event.destinationDescription,
-            destination: event.destination,
-            passengerData: state.passengerData));
-        await state.controller!.moveCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(target: event.destination, zoom: 70)));
+        GetDestination event, Emitter<MapUserState> emit) async {
+      final permission = Geolocator.requestPermission();
+      final connectivity = Connectivity().checkConnectivity();
+      if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (state is UserErrorState || state is PassengerState) {
+        if (event.destination == passengerLastState.destination) {
+          emit(UserErrorState('It is the same destination'));
+        } else if (passengerLastState.currentPosition.latitude ==
+                invalidPosition.latitude &&
+            passengerLastState.currentPosition.longitude ==
+                invalidPosition.longitude) {
+          emit(UserErrorState('Please Provide current Location'));
+        } else {
+          var newMarkers = passengerLastState.markers;
+          newMarkers.removeWhere(
+              (element) => element.markerId.value == destinationMarkerId);
+
+          newMarkers.add(Marker(
+              markerId: MarkerId(destinationMarkerId),
+              position: event.destination,
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueGreen)));
+          final newState = PassengerState(
+              currentPosition: passengerLastState.currentPosition,
+              lines: [],
+              markers: newMarkers,
+              controller: passengerLastState.controller,
+              directions: [],
+              destination: event.destination,
+              currentLocationDescription:
+                  passengerLastState.currentLocationDescription,
+              destinationDescription: event.destinationDescription,
+              passengerData: passengerLastState.passengerData);
+          passengerLastState = newState;
+          emit(newState);
+          await passengerLastState.controller!.animateCamera(
+              CameraUpdate.newCameraPosition(
+                  CameraPosition(target: event.destination, zoom: 100)));
+        }
       }
     }
 
@@ -214,18 +258,37 @@ class PassengerBloc extends Bloc<GoogleMapEvent, PassengerState> {
     // *********** request Uber Driver **********************
 
     FutureOr<void> requestUberDriver(
-        RequestUberDriver event, Emitter<GoogleMapState> emit) {
-      emit(PassengerState(
-          currentPosition: state.currentPosition,
-          lines: [],
-          markers: state.markers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: [],
-          destination: state.destination,
-          currentLocationDescription: state.currentLocationDescription,
-          destinationDescription: state.destinationDescription,
-          passengerData: state.passengerData));
+        RequestUberDriver event, Emitter<MapUserState> emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (state is UserErrorState || state is PassengerState) {
+        if (passengerLastState.destination == null) {
+          emit(UserErrorState('please provide destination'));
+        } else if (passengerLastState.currentPosition.latitude ==
+                invalidPosition.latitude &&
+            passengerLastState.currentPosition.longitude ==
+                invalidPosition.longitude) {
+          emit(UserErrorState('Please Provide current Location'));
+        }
+      } else {
+        final newState = PassengerState(
+            currentPosition: passengerLastState.currentPosition,
+            lines: [],
+            markers: passengerLastState.markers,
+            controller: passengerLastState.controller,
+            directions: [],
+            destination: passengerLastState.destination,
+            currentLocationDescription:
+                passengerLastState.currentLocationDescription,
+            destinationDescription: passengerLastState.destinationDescription,
+            passengerData: passengerLastState.passengerData);
+        passengerLastState = newState;
+        emit(newState);
+      }
     }
 
     on<RequestUberDriver>(requestUberDriver);
@@ -233,9 +296,26 @@ class PassengerBloc extends Bloc<GoogleMapEvent, PassengerState> {
     // ************** get nearest path to service line ************
 
     FutureOr<void> getNearestPathToServiceLine(
-        GetNearestPathToServiceLine event, Emitter<GoogleMapState> emit) {}
+        GetNearestPathToServiceLine event, Emitter<MapUserState> emit) {}
 
     on<GetNearestPathToServiceLine>((event, emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (state is UserErrorState || state is PassengerState) {
+        if (passengerLastState.destination == null) {
+          emit(UserErrorState('please provide destination'));
+        } else if (passengerLastState.currentPosition.latitude ==
+                invalidPosition.latitude &&
+            passengerLastState.currentPosition.longitude ==
+                invalidPosition.longitude) {
+          emit(UserErrorState('Please Provide current Location'));
+        }
+      } else {}
+
       // Map result = await GoogleMapGetCurrentPath();
       // Polyline path = result['path'];
       // Set<Polyline> lines = <Polyline>{};
@@ -251,311 +331,461 @@ class PassengerBloc extends Bloc<GoogleMapEvent, PassengerState> {
     });
 
     FutureOr<void> getWalkDirections(
-        GetWalkDirections event, Emitter<GoogleMapState> emit) async {
-      DirectionsService.init('***REMOVED***');
-      DirectionsService directions = DirectionsService();
-      Polyline path = Polyline(
-          polylineId: PolylineId('path'),
-          color: Colors.green,
-          width: 4,
-          points: []);
-      List<Step> steps = [];
-      await directions.route(
-          DirectionsRequest(
-              language: 'ar',
-              optimizeWaypoints: true,
-              alternatives: false,
-              travelMode: TravelMode.walking,
-              origin:
-                  '${state.currentPosition.latitude},${state.currentPosition.longitude}',
-              destination:
-                  '${state.destination!.latitude},${state.destination!.longitude}'),
-          (result, status) {
-        if (status == DirectionsStatus.ok) {
-          steps.addAll(result.routes![0].legs![0].steps!);
-          path.points.addAll(result.routes![0].overviewPath!
-              .map((e) => LatLng(e.latitude, e.longitude))
-              .toList());
+        GetWalkDirections event, Emitter<MapUserState> emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (state is UserErrorState || state is PassengerState) {
+        if (passengerLastState.destination == null) {
+          emit(UserErrorState('Please Provide destination'));
+        } else if (passengerLastState.currentPosition.latitude ==
+                invalidPosition.latitude &&
+            passengerLastState.currentPosition.longitude ==
+                invalidPosition.longitude) {
+          emit(UserErrorState('Please Provide current Location'));
+        } else {
+          try {
+            DirectionsService.init('***REMOVED***');
+            DirectionsService directions = DirectionsService();
+            Polyline path = Polyline(
+                polylineId: PolylineId('path'),
+                color: Colors.green,
+                width: 4,
+                points: []);
+            List<Step> steps = [];
+            await directions.route(
+                DirectionsRequest(
+                    language: 'ar',
+                    optimizeWaypoints: true,
+                    alternatives: false,
+                    travelMode: TravelMode.walking,
+                    origin:
+                        '${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}',
+                    destination:
+                        '${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}'),
+                (result, status) {
+              if (status == DirectionsStatus.ok) {
+                steps.addAll(result.routes![0].legs![0].steps!);
+                path.points.addAll(result.routes![0].overviewPath!
+                    .map((e) => LatLng(e.latitude, e.longitude))
+                    .toList());
+              }
+            });
+            List<Polyline> newLines = [];
+            newLines.addAll([path]);
+            final newState = PassengerState(
+                currentPosition: passengerLastState.currentPosition,
+                lines: newLines,
+                markers: passengerLastState.markers,
+                controller: passengerLastState.controller,
+                directions: steps,
+                destination: passengerLastState.destination,
+                destinationDescription:
+                    passengerLastState.destinationDescription,
+                currentLocationDescription:
+                    passengerLastState.currentLocationDescription,
+                passengerData: passengerLastState.passengerData);
+            passengerLastState = newState;
+            emit(newState);
+          } catch (exception) {
+            emit(UserErrorState('An Error has occured please try again'));
+          }
         }
-      });
-      List<Polyline> newLines = [];
-      newLines.addAll([path]);
-      emit(PassengerState(
-          currentPosition: state.currentPosition,
-          lines: newLines,
-          markers: state.markers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: steps,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          currentLocationDescription: state.currentLocationDescription,
-          passengerData: state.passengerData));
+      } else {
+        emit(UserErrorState('An Error has occured please try again'));
+      }
     }
 
     on<GetWalkDirections>(getWalkDirections);
 
     FutureOr<void> getPassengerLocation(
-        GoogleMapGetCurrentPosition event, Emitter<PassengerState> emit) async {
-      GoogleMapState temp = await onGetCurrentPosition();
-      await state.controller!.moveCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: temp.currentPosition, zoom: 50)));
-      emit(PassengerState(
-          controller: state.controller,
-          currentPosition: temp.currentPosition,
-          lines: [],
-          currentLocationDescription: temp.currentLocationDescription,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          markers: temp.markers,
-          pathData: state.pathData,
-          directions: [],
-          passengerData: state.passengerData));
+        GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
+      MapUserState temp = await onGetCurrentPosition();
+      if (temp is UserErrorState) {
+        emit(temp);
+        return;
+      } else if (temp is GoogleMapState) {
+        try {
+          final currentState = temp as GoogleMapState;
+          await passengerLastState.controller!.animateCamera(
+              CameraUpdate.newCameraPosition(CameraPosition(
+                  target: currentState.currentPosition, zoom: 50)));
+          final newState = PassengerState(
+              controller: passengerLastState.controller,
+              currentPosition: currentState.currentPosition,
+              lines: [],
+              currentLocationDescription:
+                  currentState.currentLocationDescription,
+              destination: currentState.destination,
+              destinationDescription: currentState.destinationDescription,
+              markers: currentState.markers,
+              directions: [],
+              passengerData: passengerLastState.passengerData);
+          passengerLastState = newState;
+          emit(newState);
+          return;
+        } catch (exception) {
+          emit(UserErrorState(exception.toString()));
+          return;
+        }
+      }
     }
 
     on<GoogleMapGetCurrentPosition>(getPassengerLocation);
   }
 }
 
-class UberDriverBloc extends Bloc<GoogleMapEvent, UberDriverState> {
-  UberDriverBloc()
-      : super(UberDriverState(
-            controller: null,
-            userState: UserState.DRIVER,
-            currentPosition: LatLng(-1, -1),
-            lines: [],
-            markers: {},
-            pathData: Path_t.invalid(),
-            directions: [],
-            driver:
-                UberDriver(name: 'name', location: LatLng(0, 0), phone: '#'))) {
-    FutureOr<void> getDriverLocation(GoogleMapGetCurrentPosition event,
-        Emitter<UberDriverState> emit) async {
-      GoogleMapState temp = await onGetCurrentPosition();
-      state.controller!.moveCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(zoom: 150, target: temp.currentPosition)));
+class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
+  UberDriverBloc() : super(uberLastState) {
+    FutureOr<void> getDriverLocation(
+        GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
+      MapUserState temp = await onGetCurrentPosition();
 
-      emit(UberDriverState(
-          controller: state.controller,
-          currentPosition: temp.currentPosition,
-          lines: [],
-          currentLocationDescription: temp.currentLocationDescription,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          markers: temp.markers,
-          pathData: state.pathData,
-          directions: [],
-          driver: state.driver,
-          passengerRequests: state.passengerRequests,
-          userState: UserState.DRIVER));
+      if (temp is UserErrorState) {
+        emit(UserErrorState(temp.message));
+      } else if (temp is GoogleMapState) {
+        try {
+          await uberLastState.controller!.moveCamera(
+              CameraUpdate.newCameraPosition(
+                  CameraPosition(zoom: 150, target: temp.currentPosition)));
+          final newState = UberDriverState(
+              controller: uberLastState.controller,
+              currentPosition: temp.currentPosition,
+              lines: [],
+              currentLocationDescription: temp.currentLocationDescription,
+              destination: temp.destination,
+              destinationDescription: temp.destinationDescription,
+              markers: temp.markers,
+              directions: [],
+              driver: uberLastState.driver,
+              passengerRequests: uberLastState.passengerRequests,
+              userState: UserState.DRIVER);
+
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('An Error has occured please try again'));
+        }
+      }
     }
 
     on<GoogleMapGetCurrentPosition>(getDriverLocation);
 
-    on<GetDestination>((event, emit) {
-      state.controller!.moveCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(zoom: 50, target: event.destination)));
-      Set<Marker> newMarkers = {
-        ...state.markers,
-        Marker(
-            markerId: MarkerId('${event.destination}'),
-            position: event.destination,
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)),
-      };
-      UberDriverState(
-          controller: state.controller,
-          currentPosition: state.currentPosition,
-          lines: [],
-          currentLocationDescription: state.currentLocationDescription,
-          destination: event.destination,
-          destinationDescription: state.destinationDescription,
-          markers: newMarkers,
-          pathData: state.pathData,
-          directions: [],
-          passengerRequests: state.passengerRequests,
-          driver: state.driver,
-          userState: UserState.DRIVER);
-    });
+    //   (event, emit) {
+    //   final  permission = Geolocator.requestPermission();
+    //   final connectivity = Connectivity().checkConnectivity();
+    //   if (connectivity == ConnectivityResult.none) {
+    //   return UserErrorState('Check your internet Connection');
+    //   } else if (permission == LocationPermission.denied) {
+    //     return UserErrorState('Please open location service');
+    //   }
+    //   else
+    //   {
+    //      state.controller!.moveCamera(CameraUpdate.newCameraPosition(
+    //       CameraPosition(zoom: 50, target: event.destination)));
+    //   Set<Marker> newMarkers = {
+    //     ...state.markers,
+    //     Marker(
+    //         markerId: MarkerId('${event.destination}'),
+    //         position: event.destination,
+    //         icon: BitmapDescriptor.defaultMarkerWithHue(
+    //             BitmapDescriptor.hueGreen)),
+    //   };
+    //   emit(UberDriverState(
+    //       controller: state.controller,
+    //       currentPosition: state.currentPosition,
+    //       lines: [],
+    //       currentLocationDescription: state.currentLocationDescription,
+    //       destination: event.destination,
+    //       destinationDescription: state.destinationDescription,
+    //       markers: newMarkers,
+    //       directions: [],
+    //       passengerRequests: state.passengerRequests,
+    //       driver: state.driver,
+    //       userState: UserState.DRIVER));
+    //     }
+    // });
 
-    on<GetPassengerRequests>((event, emit) => emit(UberDriverState(
-        controller: state.controller,
-        currentPosition: state.currentPosition,
-        lines: state.lines,
-        currentLocationDescription: state.currentLocationDescription,
-        destination: state.destination,
-        destinationDescription: state.destinationDescription,
-        markers: state.markers,
-        pathData: state.pathData,
-        directions: state.directions,
-        passengerRequests: [...userRequests],
-        driver: state.driver,
-        userState: UserState.DRIVER)));
-    on<AcceptPassengerRequest>((event, emit) {
-      userRequests
-          .removeWhere((element) => element.id == event.passengerRequest.id);
-      List<UserRequest> newList = [...userRequests];
-      event.passengerRequest.driver = UberDriver(
-          name: 'Mohamed',
-          location: state.currentPosition,
-          phone: '01010625272');
-      acceptedRequest.add(event.passengerRequest);
-      emit(UberDriverState(
-          controller: state.controller,
-          currentPosition: state.currentPosition,
-          lines: state.lines,
-          currentLocationDescription: state.currentLocationDescription,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          markers: state.markers,
-          pathData: state.pathData,
-          directions: state.directions,
-          passengerRequests: newList,
-          driver: state.driver,
-          acceptedRequest: event.passengerRequest,
-          userState: UserState.DRIVER));
+    on<GetPassengerRequests>((event, emit) async {
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('check your Internet Connection'));
+      } else if (state is UserErrorState || state is UberDriverState) {
+        final newState = UberDriverState(
+            controller: uberLastState.controller,
+            currentPosition: uberLastState.currentPosition,
+            lines: uberLastState.lines,
+            currentLocationDescription:
+                uberLastState.currentLocationDescription,
+            destination: uberLastState.destination,
+            destinationDescription: uberLastState.destinationDescription,
+            markers: uberLastState.markers,
+            directions: uberLastState.directions,
+            passengerRequests: [...userRequests],
+            driver: uberLastState.driver,
+            userState: UserState.DRIVER);
+        uberLastState = newState;
+        emit(newState);
+      }
     });
-    on<RejectPassengerRequest>((event, emit) {
-      userRequests
-          .removeWhere((element) => element.id == event.passengerRequest.id);
-      List<UserRequest> newList = [...userRequests];
-      event.passengerRequest.driver = null;
+    on<AcceptPassengerRequest>((event, emit) async {
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('check your Internet Connection'));
+      } else if (state is UserErrorState || state is UberDriverState) {
+        if (uberLastState.currentPosition.latitude ==
+                invalidPosition.latitude &&
+            uberLastState.currentPosition.longitude ==
+                invalidPosition.longitude) {
+          emit(UserErrorState('Please provide your current location'));
+        } else {
+          try {
+            userRequests.removeWhere(
+                (element) => element.id == event.passengerRequest.id);
+            List<UserRequest> newList = [...userRequests];
+            event.passengerRequest.driver = UberDriver(
+                name: 'Mohamed',
+                location: uberLastState.currentPosition,
+                phone: '01010625272');
+            acceptedRequest.add(event.passengerRequest);
 
-      event.passengerRequest.driver = state.driver;
-      rejectedRequest.add(event.passengerRequest);
-      emit(UberDriverState(
-          controller: state.controller,
-          currentPosition: state.currentPosition,
-          lines: state.lines,
-          currentLocationDescription: state.currentLocationDescription,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          markers: state.markers,
-          pathData: state.pathData,
-          directions: state.directions,
-          passengerRequests: newList,
-          driver: state.driver,
-          acceptedRequest: null,
-          userState: UserState.DRIVER));
+            final newState = UberDriverState(
+                controller: uberLastState.controller,
+                currentPosition: uberLastState.currentPosition,
+                lines: uberLastState.lines,
+                currentLocationDescription:
+                    uberLastState.currentLocationDescription,
+                destination: uberLastState.destination,
+                destinationDescription: uberLastState.destinationDescription,
+                markers: uberLastState.markers,
+                directions: uberLastState.directions,
+                passengerRequests: newList,
+                driver: uberLastState.driver,
+                acceptedRequest: event.passengerRequest,
+                userState: UserState.DRIVER);
+            uberLastState = newState;
+            emit(newState);
+          } catch (exception) {
+            emit(UserErrorState('An Error has occured'));
+          }
+        }
+      }
+    });
+    on<RejectPassengerRequest>((event, emit) async {
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('check your Internet Connection'));
+      } else {
+        try {
+          userRequests.removeWhere(
+              (element) => element.id == event.passengerRequest.id);
+          List<UserRequest> newList = [...userRequests];
+          event.passengerRequest.driver = null;
+
+          event.passengerRequest.driver = uberLastState.driver;
+          rejectedRequest.add(event.passengerRequest);
+          final newState = UberDriverState(
+              controller: uberLastState.controller,
+              currentPosition: uberLastState.currentPosition,
+              lines: uberLastState.lines,
+              currentLocationDescription:
+                  uberLastState.currentLocationDescription,
+              destination: uberLastState.destination,
+              destinationDescription: uberLastState.destinationDescription,
+              markers: uberLastState.markers,
+              directions: uberLastState.directions,
+              passengerRequests: newList,
+              driver: uberLastState.driver,
+              acceptedRequest: null,
+              userState: UserState.DRIVER);
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('An error has occured'));
+        }
+      }
     });
     on<GetPassengerDirections>((event, emit) async {
-      state.controller!.moveCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(
-              zoom: 50, target: state.acceptedRequest!.passengerLocation)));
-      Set<Marker> newMarkers = {
-        ...state.markers,
-        Marker(
-            markerId: MarkerId('${state.acceptedRequest!.passengerLocation}'),
-            position: state.acceptedRequest!.passengerLocation,
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)),
-      };
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else {
+        try {
+          uberLastState.controller!.moveCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  zoom: 50,
+                  target: uberLastState.acceptedRequest!.passengerLocation)));
+          Set<Marker> newMarkers = {
+            ...uberLastState.markers,
+            Marker(
+                markerId: MarkerId(
+                    '${uberLastState.acceptedRequest!.passengerLocation}'),
+                position: uberLastState.acceptedRequest!.passengerLocation,
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueGreen)),
+          };
 
-      DirectionsService.init('***REMOVED***');
-      DirectionsService directions = DirectionsService();
-      Polyline path = Polyline(
-          polylineId: PolylineId('path'),
-          color: Colors.green,
-          width: 4,
-          points: []);
-      List<Step> steps = [];
-      await directions.route(
-          DirectionsRequest(
-              language: 'ar',
-              optimizeWaypoints: true,
-              alternatives: false,
-              travelMode: TravelMode.driving,
-              origin:
-                  '${state.currentPosition.latitude},${state.currentPosition.longitude}',
-              destination:
-                  '${state.acceptedRequest!.passengerLocation.latitude},${state.acceptedRequest!.passengerLocation.longitude}'),
-          (result, status) {
-        if (status == DirectionsStatus.ok) {
-          steps.addAll(result.routes![0].legs![0].steps!);
-          path.points.addAll(result.routes![0].overviewPath!
-              .map((e) => LatLng(e.latitude, e.longitude))
-              .toList());
+          DirectionsService.init('***REMOVED***');
+          DirectionsService directions = DirectionsService();
+          Polyline path = Polyline(
+              polylineId: PolylineId('path'),
+              color: Colors.green,
+              width: 4,
+              points: []);
+          List<Step> steps = [];
+          await directions.route(
+              DirectionsRequest(
+                  language: 'ar',
+                  optimizeWaypoints: true,
+                  alternatives: false,
+                  travelMode: TravelMode.driving,
+                  origin:
+                      '${uberLastState.currentPosition.latitude},${uberLastState.currentPosition.longitude}',
+                  destination:
+                      '${uberLastState.acceptedRequest!.passengerLocation.latitude},${uberLastState.acceptedRequest!.passengerLocation.longitude}'),
+              (result, status) {
+            if (status == DirectionsStatus.ok) {
+              steps.addAll(result.routes![0].legs![0].steps!);
+              path.points.addAll(result.routes![0].overviewPath!
+                  .map((e) => LatLng(e.latitude, e.longitude))
+                  .toList());
+            }
+          });
+          List<Polyline> newLines = [];
+          newLines.addAll([path]);
+          final newState = UberDriverState(
+              currentPosition: uberLastState.currentPosition,
+              lines: newLines,
+              markers: newMarkers,
+              controller: uberLastState.controller,
+              directions: steps,
+              destination: uberLastState.acceptedRequest!.passengerLocation,
+              destinationDescription:
+                  uberLastState.acceptedRequest!.currentLocationDescription,
+              currentLocationDescription:
+                  uberLastState.currentLocationDescription,
+              driver: uberLastState.driver,
+              userState: UserState.DRIVER,
+              acceptedRequest: uberLastState.acceptedRequest,
+              passengerRequests: uberLastState.passengerRequests);
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('An error has occured'));
         }
-      });
-      List<Polyline> newLines = [];
-      newLines.addAll([path]);
-      emit(UberDriverState(
-          currentPosition: state.currentPosition,
-          lines: newLines,
-          markers: newMarkers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: steps,
-          destination: state.acceptedRequest!.passengerLocation,
-          destinationDescription:
-              state.acceptedRequest!.currentLocationDescription,
-          currentLocationDescription: state.currentLocationDescription,
-          driver: state.driver,
-          userState: UserState.DRIVER,
-          acceptedRequest: state.acceptedRequest,
-          passengerRequests: state.passengerRequests));
+      }
     });
 
-    on<CancelTrip>((event, emit) {
-      Set<Marker> newMarkers = {
-        ...state.markers.where((element) => element.markerId.value == 'my-pos')
-      };
-      event.passengerRequest.driver = null;
-      userRequests.add(event.passengerRequest);
-      event.passengerRequest.driver = state.driver;
-      canceledTrips.add(event.passengerRequest);
-      emit(UberDriverState(
-          currentPosition: state.currentPosition,
-          lines: [],
-          markers: newMarkers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: [],
-          destination: null,
-          destinationDescription: 'Unknown',
-          currentLocationDescription: 'Unknown',
-          driver: state.driver,
-          userState: UserState.DRIVER,
-          acceptedRequest: null,
-          passengerRequests: state.passengerRequests));
+    on<CancelTrip>((event, emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else {
+        try {
+          Set<Marker> newMarkers = {
+            ...uberLastState.markers
+                .where((element) => element.markerId.value == positionMarkerId)
+          };
+          event.passengerRequest.driver = null;
+          userRequests.add(event.passengerRequest);
+          event.passengerRequest.driver = uberLastState.driver;
+          canceledTrips.add(event.passengerRequest);
+
+          final newState = UberDriverState(
+              currentPosition: uberLastState.currentPosition,
+              lines: [],
+              markers: newMarkers,
+              controller: uberLastState.controller,
+              directions: [],
+              destination: null,
+              destinationDescription: 'Unknown',
+              currentLocationDescription: 'Unknown',
+              driver: uberLastState.driver,
+              userState: UserState.DRIVER,
+              acceptedRequest: null,
+              passengerRequests: uberLastState.passengerRequests);
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('an error has occured'));
+        }
+      }
     });
-    on<StartTrip>((event, emit) {
-      userRequests
-          .removeWhere((element) => element.id == event.passengerRequest.id);
-      startedTrips.add(event.passengerRequest);
-      emit(UberDriverState(
-          currentPosition: state.currentPosition,
-          lines: state.lines,
-          markers: state.markers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: state.directions,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          currentLocationDescription: state.currentLocationDescription,
-          driver: state.driver,
-          userState: UserState.DRIVER,
-          acceptedRequest: state.acceptedRequest,
-          passengerRequests: userRequests));
+    on<StartTrip>((event, emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else {
+        try {
+          userRequests.removeWhere(
+              (element) => element.id == event.passengerRequest.id);
+          startedTrips.add(event.passengerRequest);
+
+          final newState = UberDriverState(
+              currentPosition: uberLastState.currentPosition,
+              lines: uberLastState.lines,
+              markers: uberLastState.markers,
+              controller: uberLastState.controller,
+              directions: uberLastState.directions,
+              destination: uberLastState.destination,
+              destinationDescription: uberLastState.destinationDescription,
+              currentLocationDescription:
+                  uberLastState.currentLocationDescription,
+              driver: uberLastState.driver,
+              userState: UserState.DRIVER,
+              acceptedRequest: uberLastState.acceptedRequest,
+              passengerRequests: userRequests);
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('an Error has occured'));
+        }
+      }
     });
-    on<EndTrip>((event, emit) {
-      endedTrips.add(event.passengerRequest);
-      startedTrips
-          .removeWhere((element) => element.id == event.passengerRequest.id);
-      emit(UberDriverState(
-          currentPosition: state.currentPosition,
-          lines: [],
-          markers: state.markers,
-          pathData: state.pathData,
-          controller: state.controller,
-          directions: state.directions,
-          destination: state.destination,
-          destinationDescription: state.destinationDescription,
-          currentLocationDescription: state.currentLocationDescription,
-          driver: state.driver,
-          userState: UserState.DRIVER,
-          acceptedRequest: null,
-          passengerRequests: state.passengerRequests));
+    on<EndTrip>((event, emit) async {
+      final permission = await Geolocator.requestPermission();
+      final connectivity = await Connectivity().checkConnectivity();
+      if (connectivity == ConnectivityResult.none) {
+        emit(UserErrorState('Check your internet Connection'));
+      } else if (permission == LocationPermission.denied) {
+        emit(UserErrorState('Please open location service'));
+      } else {
+        try {
+          endedTrips.add(event.passengerRequest);
+          startedTrips.removeWhere(
+              (element) => element.id == event.passengerRequest.id);
+          final newState = UberDriverState(
+              currentPosition: uberLastState.currentPosition,
+              lines: [],
+              markers: uberLastState.markers,
+              controller: uberLastState.controller,
+              directions: uberLastState.directions,
+              destination: uberLastState.destination,
+              destinationDescription: uberLastState.destinationDescription,
+              currentLocationDescription:
+                  uberLastState.currentLocationDescription,
+              driver: uberLastState.driver,
+              userState: UserState.DRIVER,
+              acceptedRequest: null,
+              passengerRequests: uberLastState.passengerRequests);
+          uberLastState = newState;
+          emit(newState);
+        } catch (exception) {
+          emit(UserErrorState('an Error has occured'));
+        }
+      }
     });
   }
 }

@@ -5,9 +5,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/service_choice.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/uber_choice.dart';
-import 'package:tawsela_app/routes/home_page/bottom_sheet/walk_choice.dart';
+import 'package:tawsela_app/models/data_models/user_data.dart';
+import 'package:tawsela_app/routes/passenger_map_page/service_choice.dart';
+import 'package:tawsela_app/routes/passenger_map_page/uber_choice.dart';
+import 'package:tawsela_app/routes/passenger_map_page/walk_choice.dart';
 
 class UserActionsPanel extends StatefulWidget {
   const UserActionsPanel({super.key});
@@ -31,6 +32,13 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
   Set<String> selectedItems = {};
   @override
   Widget build(BuildContext context) {
+    late PassengerState passengerState;
+    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
+      passengerState = passengerLastState;
+    } else {
+      passengerState =
+          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
+    }
     // TODO: implement build
     return SizedBox(
         width: double.infinity,
@@ -38,9 +46,19 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
         // color: Colors.red,
         child: Column(
           children: [
-            BlocListener<PassengerBloc, PassengerState>(
+            BlocListener<PassengerBloc, MapUserState>(
               listenWhen: (previous, current) {
-                return previous.destination != current.destination;
+                if (previous is PassengerState && current is PassengerState) {
+                  if (previous.destination == null &&
+                      current.destination != null) {
+                    return true;
+                  } else if (previous.destination != null &&
+                      current.destination != null &&
+                      previous.destination != current.destination) {
+                    return true;
+                  }
+                }
+                return false;
               },
               listener: (context, state) {
                 selectedItem = -1;
@@ -95,7 +113,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                   onSelectionChanged: (Set<String> selection) =>
                       onSelect(selection, context)),
             ),
-            BlocConsumer<PassengerBloc, PassengerState>(
+            BlocConsumer<PassengerBloc, MapUserState>(
               listener: (context, state) {},
               builder: (context, state) {
                 return Container(
@@ -104,9 +122,11 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                       : (selectedItem == 1)
                           ? ServiceChoice()
                           : (selectedItem == 2)
-                              ? BlocConsumer<PassengerBloc, PassengerState>(
-                                  buildWhen: (previous, current) =>
-                                      current.directions.isNotEmpty,
+                              ? BlocConsumer<PassengerBloc, MapUserState>(
+                                  buildWhen: (previous, current) {
+                                    final c = current as PassengerState;
+                                    return c.directions.isNotEmpty;
+                                  },
                                   listener: (context, state) {
                                     // TODO: implement listener
                                   },
@@ -149,11 +169,17 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
         UberColor = BusColor = DisableColor;
         selectedItem = 2;
         selectedItems = {items[selectedItem]};
-        BlocProvider.of<PassengerBloc>(context, listen: false).add(
-            GetWalkDirections(
-                passengerDestination:
-                    BlocProvider.of<PassengerBloc>(context).state.destination ??
-                        LatLng(0, 0)));
+        var currentState;
+        if (currentState is UserErrorState) {
+          currentState = passengerLastState;
+        } else {
+          currentState =
+              BlocProvider.of<PassengerBloc>(context).state as PassengerState;
+          BlocProvider.of<PassengerBloc>(context, listen: false).add(
+              GetWalkDirections(
+                  passengerDestination:
+                      currentState.destination ?? LatLng(0, 0)));
+        }
         break;
       case 'Micro bus':
         BusColor = ActiveColor;

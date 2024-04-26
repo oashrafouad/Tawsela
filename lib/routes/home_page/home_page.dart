@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
-import 'package:tawsela_app/routes/home_page/driver_page.dart';
-import 'package:tawsela_app/routes/home_page/passenger_page.dart';
+import 'package:tawsela_app/routes/driver_map_page/driver_page.dart';
+import 'package:tawsela_app/routes/passenger_map_page/passenger_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

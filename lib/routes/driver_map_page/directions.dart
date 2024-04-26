@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:html/parser.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 
 class DirectionWidget extends StatefulWidget {
@@ -14,16 +15,22 @@ class _DirectionWidgetState extends State<DirectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final uberDriverProvider = BlocProvider.of<UberDriverBloc>(context);
+    late UberDriverState uberDriverProvider;
+    if (BlocProvider.of<UberDriverBloc>(context).state is UserErrorState) {
+      uberDriverProvider = uberLastState;
+    } else {
+      uberDriverProvider =
+          BlocProvider.of<UberDriverBloc>(context).state as UberDriverState;
+    }
 
-    if (uberDriverProvider.state.directions.isNotEmpty &&
-        uberDriverProvider.state.destination != null) {
+    if (uberDriverProvider.directions.isNotEmpty &&
+        uberDriverProvider.destination != null) {
       return ListView(
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 1,
             child: Stepper(
-              steps: uberDriverProvider.state.directions.map((e) {
+              steps: uberDriverProvider.directions.map((e) {
                 final document = parse(e.instructions);
                 final String parsedString =
                     parse(document.body!.text).documentElement!.text;
@@ -33,8 +40,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
                     content: Text(parsedString));
               }).toList(),
               onStepContinue: () {
-                if (currentStep <
-                    uberDriverProvider.state.directions.length - 1) {
+                if (currentStep < uberDriverProvider.directions.length - 1) {
                   currentStep += 1;
                   setState(() {});
                 }
@@ -52,7 +58,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
           ),
         ],
       );
-    } else if (uberDriverProvider.state.destination == null) {
+    } else if (uberDriverProvider.destination == null) {
       return Center(
         child: Card(
           color: Colors.red,
@@ -62,7 +68,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
           ),
         ),
       );
-    } else if (uberDriverProvider.state.directions.isEmpty) {
+    } else if (uberDriverProvider.directions.isEmpty) {
       return Center(
         child: CircularProgressIndicator(
           color: Colors.green,
