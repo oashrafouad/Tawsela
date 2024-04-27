@@ -14,6 +14,8 @@ class UserRequestListView extends StatelessWidget {
     late UberDriverState uberDriverProvider;
     if (BlocProvider.of<UberDriverBloc>(context).state is UserErrorState) {
       uberDriverProvider = uberLastState;
+    } else if (BlocProvider.of<UberDriverBloc>(context).state is Loading) {
+      uberDriverProvider = uberLastState;
     } else {
       uberDriverProvider =
           BlocProvider.of<UberDriverBloc>(context).state as UberDriverState;

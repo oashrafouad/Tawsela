@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,12 +9,13 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.d
 
 class PassengerGoogleMapWidget extends StatelessWidget {
   final isTripStarted;
-  const PassengerGoogleMapWidget({required this.isTripStarted, super.key});
-
+  PassengerGoogleMapWidget({required this.isTripStarted, super.key});
   @override
   Widget build(BuildContext context) {
     late PassengerState passengerState;
     if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
+      passengerState = passengerLastState;
+    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
       passengerState = passengerLastState;
     } else {
       passengerState =

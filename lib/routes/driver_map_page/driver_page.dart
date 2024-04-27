@@ -20,6 +20,7 @@ import 'package:tawsela_app/routes/driver_map_page/driver_map_switch.dart';
 import 'package:tawsela_app/routes/driver_map_page/driver_google_map_widget.dart';
 import 'package:tawsela_app/routes/driver_map_page/user_information.dart';
 import 'package:tawsela_app/routes/driver_map_page/user_request_view.dart';
+import 'package:tawsela_app/routes/passenger_map_page/loading_page.dart';
 
 class DriverPage extends StatefulWidget {
   const DriverPage({super.key});
@@ -59,16 +60,14 @@ class _DriverPageState extends State<DriverPage> {
             backgroundColor: Colors.red,
             messageColor: Colors.white,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: Duration(seconds: 1),
+            duration: Duration(seconds: 2),
           ).show(context);
-        } else {
-          Flushbar(
-            message: 'Everthing is good',
-          ).show(context);
-        }
+        } else {}
       },
       builder: (context, state) {
         if (state is UserErrorState) {
+          uberDriverProvider = uberLastState;
+        } else if (state is Loading) {
           uberDriverProvider = uberLastState;
         } else {
           uberDriverProvider = state as UberDriverState;
@@ -105,6 +104,8 @@ class _DriverPageState extends State<DriverPage> {
                       BlocProvider.of<UberDriverBloc>(context).add(EndTrip(
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
+                      BlocProvider.of<UberDriverBloc>(context)
+                          .add(GoogleMapGetCurrentPosition());
                     }
                   },
                   child: Text(
@@ -171,6 +172,7 @@ class _DriverPageState extends State<DriverPage> {
                     );
                   },
                 ),
+                if (state is Loading) LoadingPage(state.message),
               ]),
         );
       },

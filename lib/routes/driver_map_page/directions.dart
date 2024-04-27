@@ -30,6 +30,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 1,
             child: Stepper(
+              physics: ClampingScrollPhysics(),
               steps: uberDriverProvider.directions.map((e) {
                 final document = parse(e.instructions);
                 final String parsedString =

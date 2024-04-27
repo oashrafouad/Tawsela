@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/routes/driver_map_page/driver_buttom_sheet.dart';
+import 'package:tawsela_app/widgets/handle.dart';
 
 class DriverDraggableSheet extends StatelessWidget {
   const DriverDraggableSheet({super.key});
@@ -24,15 +25,7 @@ class DriverDraggableSheet extends StatelessWidget {
               controller: scrollableController,
               children: const [
                 Column(
-                  children: [
-                    SizedBox(
-                      width: 50,
-                      child: Divider(
-                        color: Colors.grey,
-                        thickness: 5,
-                      ),
-                    ),
-                  ],
+                  children: [BottomSheetHandle()],
                 ),
                 SizedBox(
                   height: 10,

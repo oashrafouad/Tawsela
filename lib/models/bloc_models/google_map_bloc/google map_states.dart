@@ -10,17 +10,22 @@ import 'package:tawsela_app/models/data_models/request_model.dart';
 import 'package:tawsela_app/models/data_models/user_data.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
 
-class MapUserState extends Equatable {
+class MapUserState {
   const MapUserState();
-  @override
-  List<Object?> get props => [identityHashCode(this)];
+  // @override
+  // List<Object?> get props => [identityHashCode(this)];
 }
 
 class UserErrorState extends MapUserState {
   final String message;
   const UserErrorState(this.message);
-  @override
-  List<Object> get props => [message];
+  // @override
+  // List<Object> get props => [message];
+}
+
+class Loading extends MapUserState {
+  final message;
+  const Loading(this.message);
 }
 
 class GoogleMapState extends MapUserState {
@@ -47,9 +52,9 @@ class GoogleMapState extends MapUserState {
     this.destinationDescription = 'Unknown',
   });
 
-  @override
-  List<Object?> get props =>
-      [currentPosition, lines, markers, directions, destination, userState];
+  // @override
+  // List<Object?> get props =>
+  //     [currentPosition, lines, markers, directions, destination, userState];
 }
 
 enum ErrorStates {
@@ -86,18 +91,18 @@ class UberDriverState extends GoogleMapState {
           currentLocationDescription: currentLocationDescription,
           destinationDescription: destinationDescription,
         );
-  @override
-  List<Object?> get props => [
-        currentPosition,
-        lines,
-        markers,
-        directions,
-        destination,
-        userState,
-        driver,
-        passengerRequests,
-        acceptedRequest
-      ];
+  // @override
+  // List<Object?> get props => [
+  //       currentPosition,
+  //       lines,
+  //       markers,
+  //       directions,
+  //       destination,
+  //       userState,
+  //       driver,
+  //       passengerRequests,
+  //       acceptedRequest
+  //     ];
 }
 
 class PassengerState extends GoogleMapState {
@@ -122,14 +127,14 @@ class PassengerState extends GoogleMapState {
             currentLocationDescription: currentLocationDescription,
             destinationDescription: destinationDescription,
             userState: UserState.DRIVER);
-  @override
-  List<Object?> get props => [
-        currentPosition,
-        lines,
-        markers,
-        directions,
-        destination,
-        userState,
-        passengerData
-      ];
+  // @override
+  // List<Object?> get props => [
+  //       currentPosition,
+  //       lines,
+  //       markers,
+  //       directions,
+  //       destination,
+  //       userState,
+  //       passengerData
+  //     ];
 }

@@ -16,9 +16,8 @@ class UserInformation extends StatelessWidget {
     late UberDriverState uberDriverProvider;
     if (BlocProvider.of<UberDriverBloc>(context).state is UserErrorState) {
       uberDriverProvider = uberLastState;
-      return Center(
-        child: Text('Error in user Information'),
-      );
+    } else if (BlocProvider.of<UberDriverBloc>(context).state is Loading) {
+      uberDriverProvider = uberLastState;
     } else {
       uberDriverProvider =
           BlocProvider.of<UberDriverBloc>(context).state as UberDriverState;

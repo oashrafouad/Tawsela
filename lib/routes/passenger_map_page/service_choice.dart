@@ -11,6 +11,8 @@ class ServiceChoice extends StatelessWidget {
     late PassengerState passengerState;
     if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
       passengerState = passengerLastState;
+    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
+      passengerState = passengerLastState;
     } else {
       passengerState =
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;

@@ -209,13 +209,16 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
   PassengerBloc() : super(passengerLastState) {
     FutureOr<void> onGetDestination(
         GetDestination event, Emitter<MapUserState> emit) async {
+      emit(Loading('Getting destination'));
       final permission = Geolocator.requestPermission();
       final connectivity = Connectivity().checkConnectivity();
       if (permission == LocationPermission.denied) {
         emit(UserErrorState('Please open location service'));
       } else if (connectivity == ConnectivityResult.none) {
         emit(UserErrorState('Check your internet Connection'));
-      } else if (state is UserErrorState || state is PassengerState) {
+      } else if (state is UserErrorState ||
+          state is PassengerState ||
+          state is Loading) {
         if (event.destination == passengerLastState.destination) {
           emit(UserErrorState('It is the same destination'));
         } else if (passengerLastState.currentPosition.latitude ==
@@ -265,7 +268,9 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('Please open location service'));
       } else if (connectivity == ConnectivityResult.none) {
         emit(UserErrorState('Check your internet Connection'));
-      } else if (state is UserErrorState || state is PassengerState) {
+      } else if (state is UserErrorState ||
+          state is PassengerState ||
+          state is Loading) {
         if (passengerLastState.destination == null) {
           emit(UserErrorState('please provide destination'));
         } else if (passengerLastState.currentPosition.latitude ==
@@ -305,7 +310,9 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('Please open location service'));
       } else if (connectivity == ConnectivityResult.none) {
         emit(UserErrorState('Check your internet Connection'));
-      } else if (state is UserErrorState || state is PassengerState) {
+      } else if (state is UserErrorState ||
+          state is PassengerState ||
+          state is Loading) {
         if (passengerLastState.destination == null) {
           emit(UserErrorState('please provide destination'));
         } else if (passengerLastState.currentPosition.latitude ==
@@ -403,10 +410,10 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
     FutureOr<void> getPassengerLocation(
         GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
+      emit(Loading('getting current Location'));
       MapUserState temp = await onGetCurrentPosition();
       if (temp is UserErrorState) {
         emit(temp);
-        return;
       } else if (temp is GoogleMapState) {
         try {
           final currentState = temp as GoogleMapState;
@@ -429,7 +436,6 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           return;
         } catch (exception) {
           emit(UserErrorState(exception.toString()));
-          return;
         }
       }
     }
@@ -442,13 +448,14 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
   UberDriverBloc() : super(uberLastState) {
     FutureOr<void> getDriverLocation(
         GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
+      emit(Loading('Getting current location'));
       MapUserState temp = await onGetCurrentPosition();
 
       if (temp is UserErrorState) {
         emit(UserErrorState(temp.message));
       } else if (temp is GoogleMapState) {
         try {
-          await uberLastState.controller!.moveCamera(
+          await uberLastState.controller!.animateCamera(
               CameraUpdate.newCameraPosition(
                   CameraPosition(zoom: 150, target: temp.currentPosition)));
           final newState = UberDriverState(

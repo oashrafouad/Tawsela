@@ -22,6 +22,8 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
     late PassengerState googleMapProvider;
     if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
       googleMapProvider = passengerLastState;
+    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
+      googleMapProvider = passengerLastState;
     } else {
       googleMapProvider =
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;

@@ -6,12 +6,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
 
 import 'package:tawsela_app/routes/passenger_map_page/bottom_sheet.dart';
-import 'package:tawsela_app/routes/passenger_map_page/passenger_error_page.dart';
+import 'package:tawsela_app/routes/passenger_map_page/loading_page.dart';
 import 'package:tawsela_app/routes/passenger_map_page/passenger_google_map_page.dart';
 import 'package:tawsela_app/routes/passenger_map_page/passenger_gps_icon.dart';
 import 'package:tawsela_app/routes/passenger_map_page/passenger_search_bar.dart';
@@ -38,19 +39,20 @@ class _PassengerPageState extends State<PassengerPage> {
     return BlocConsumer<PassengerBloc, MapUserState>(
       listener: (context, state) {
         if (state is UserErrorState) {
-          final flush = Flushbar(
+          Flushbar(
             message: state.message,
             backgroundColor: Colors.red,
             messageColor: Colors.white,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: Duration(seconds: 1),
-          );
-          flush.show(context);
+            duration: Duration(seconds: 2),
+          ).show(context);
         } else {}
       },
       builder: (context, state) {
         PassengerState passengerState;
         if (state is UserErrorState) {
+          passengerState = passengerLastState;
+        } else if (state is Loading) {
           passengerState = passengerLastState;
         } else {
           passengerState =
@@ -80,10 +82,12 @@ class _PassengerPageState extends State<PassengerPage> {
                   onPressed: () {
                     if (isTripStarted == false) {
                       isTripStarted = true;
+                      setState(() {});
                     } else {
                       isTripStarted = false;
+                      BlocProvider.of<PassengerBloc>(context)
+                          .add(GoogleMapGetCurrentPosition());
                     }
-                    setState(() {});
                   },
                   child: Text(
                     (isTripStarted) ? tripStates[1] : tripStates[0],
@@ -95,6 +99,7 @@ class _PassengerPageState extends State<PassengerPage> {
           resizeToAvoidBottomInset: false,
           extendBodyBehindAppBar: true,
           body: Stack(
+
               // alignment: Alignment.bottomCenter,
               children: [
                 PassengerGoogleMapWidget(
@@ -140,9 +145,17 @@ class _PassengerPageState extends State<PassengerPage> {
                     ],
                   ),
                 ),
+                if (state is Loading) LoadingPage(state.message),
               ]),
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    textController.dispose();
   }
 }
