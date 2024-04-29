@@ -19,45 +19,103 @@ class PassengerProfile extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.green),
           backgroundColor: const Color(0xffF8F8F8),
           //centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomTextButton(
-                text: S.of(context).switchDriverMode,
-                radius: 10,
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                paddingVerti: 6,
-                icon: CustomSwitchIcon.icon,
-                iconSize: 20,
-                onTap: (){
-                  //remeber to pop all screen in the stack
-                  //if the user uploaded the licesense and the id card switched to driverMainScreen
-                  Navigator.pushNamed(context, DriverMainScreen.id);
-                },
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  // PopupMenuButton<int>(
+                  //   icon: const Icon(Icons.language),
+                  //   popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
+                  //     // duration: Duration.
+                  //   ),
+                  //   color: Colors.white,
+                  //   itemBuilder: (context) => [
+                  //     const PopupMenuItem(
+                  //       value: 1,
+                  //       child: Center(
+                  //           child: Text("English",
+                  //               style: TextStyle(
+                  //                   fontFamily: font, color: kGreenBigButtons))),
+                  //     ),
+                  //     const PopupMenuItem(
+                  //       value: 2,
+                  //       child: Center(
+                  //           child: Text(
+                  //             "العربية",
+                  //             style: TextStyle(fontFamily: font, color: kGreenBigButtons),
+                  //           )),
+                  //     ),
+                  //   ],
+                  //   elevation: 10,
+                  //   onSelected: (value) {
+                  //     if (value == 1) {
+                  //       BlocProvider.of<AppLanguageBloc>(context)
+                  //           .add(EnglishLanguageEvent());
+                  //     } else if (value == 2) {
+                  //       BlocProvider.of<AppLanguageBloc>(context)
+                  //           .add(ArabicLanguageEvent());
+                  //     }
+                  //   },
+                  // ),
+                CustomTextButton(
+                  text: S.of(context).switchDriverMode,
+                  radius: 10,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  paddingVerti: 6,
+                  icon: CustomSwitchIcon.icon,
+                  iconSize: 20,
+                  onTap: (){
+                    //remeber to pop all screen in the stack
+                    //if the user uploaded the licesense and the id card switched to driverMainScreen
+                    Navigator.pushNamed(context, DriverMainScreen.id);
+                  },
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                // CustomTextButton(
+                //   radius: 10,
+                //   borderColor: const Color(0xffB4B4B4),
+                //   // textColor: const Color(0xffD16464),
+                //   iconColor: const Color(0xff3E3E3E),
+                //   buttonColor: const Color(0xffE0E0E0),
+                //   paddingVerti: 6,
+                //   icon: Icons.language,
+                //   paddingHorzin: 2,
+                //   iconSize: 20,
+                //   onTap: (){
+                //
+                //   },
+                // ),
+                // const SizedBox(
+                //   width: 8,
+                // ),
+                CustomTextButton(
+                  radius: 10,
+                  borderColor: const Color(0xffD16464),
+                  textColor: const Color(0xffD16464),
+                  iconColor: const Color(0xffD16464),
+                  buttonColor: const Color(0xffFFA8A8),
+                  paddingVerti: 6,
+                  icon: Icons.logout,
+                  paddingHorzin: 2,
+                  iconSize: 20,
+                  containsIconOnly: true,
+                  onTap: (){ //to pop all screen in the stack and return to welcome page
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(WelcomePage.id),
+                    );
+                  },
+                ),
+                ],
               ),
-              const SizedBox(
-                width: 8,
-              ),
-              CustomTextButton(
-                radius: 10,
-                borderColor: const Color(0xffD16464),
-                textColor: const Color(0xffD16464),
-                iconColor: const Color(0xffD16464),
-                buttonColor: const Color(0xffFFA8A8),
-                paddingVerti: 6,
-                icon: Icons.logout,
-                paddingHorzin: 2,
-                iconSize: 20,
-                onTap: (){ //to pop all screen in the stack and return to welcome page
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(WelcomePage.id),
-                  );
-                },
-              ),
+            ),
             ],
-          )),
+
+      ),
       body: ListView(
         children: [
           Container(
