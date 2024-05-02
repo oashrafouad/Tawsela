@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/models/bloc_models/avatar/avatar_cubit.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
-import 'package:tawsela_app/theme.dart';
+
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
@@ -34,6 +34,8 @@ class TawselaApp extends StatelessWidget {
           // BlocProvider(
           //   create: (context) => AppThemeBloc()..add(InitialEvent()),
           // ),
+
+          //BlocProvider(create: (context)=> AvatarCubit()),
           BlocProvider(
             create: (context) => AppLanguageBloc()..add(InitialLanguage()),
           ),

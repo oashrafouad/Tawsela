@@ -12,10 +12,12 @@ import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
+String firstName='', lastName=''
+;String? email=null;
 class PassengerSignUpPage extends StatelessWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,7 @@ class PassengerSignUpPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  onChanged: (data)=>firstName=data,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).firstName,
@@ -50,6 +53,7 @@ class PassengerSignUpPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  onChanged: (data)=>lastName=data,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).lastName,
@@ -62,6 +66,7 @@ class PassengerSignUpPage extends StatelessWidget {
           ),
           Center(
             child: CustomTextFormField(
+              onChanged: (data)=>email=data,
               textAlign: isArabic() ? TextAlign.end : TextAlign.start,
               width: 284,
               height: 46,

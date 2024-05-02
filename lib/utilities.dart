@@ -35,8 +35,6 @@ String displayLines(int i) {
   return i.toString();
 }
 
-
-
 final picker = ImagePicker();
 
 showImagePicker(BuildContext context) async {
@@ -56,7 +54,6 @@ showImagePicker(BuildContext context) async {
     } on PlatformException catch (error) {
       print(error.message);
     }
-
   } else {
     showModalBottomSheet(
         context: context,
@@ -74,8 +71,8 @@ imagePick(ImageSource source) async {
   });
 }
 
-File? imageFile;
 
+Image avatarImg = Image.asset('assets/images/avatar.png');
 _cropImage(File imgFile) async {
   final croppedFile = await ImageCropper().cropImage(
       sourcePath: imgFile.path,
@@ -112,7 +109,7 @@ _cropImage(File imgFile) async {
       ]);
   if (croppedFile != null) {
     imageCache.clear();
-    imageFile = File(croppedFile.path);
+    avatarImg = Image.file(File(croppedFile.path));
   }
 }
 

@@ -45,16 +45,10 @@ class PassengerEditProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: Center(
               child: Stack(children: [
-                imageFile != null
-                    ? CircleAvatar(
-                        radius: 70,
-                        backgroundImage:
-                            MemoryImage(imageFile!.readAsBytesSync()),
-                        backgroundColor: kGreyFont)
-                    : const CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage('assets/images/avatar.jpg'),
-                        backgroundColor: kGreyFont),
+                CircleAvatar(
+                    radius: 70,
+                    backgroundImage: avatarImg.image,
+                    backgroundColor: kGreyFont),
                 Positioned(
                     top: 100,
                     right: 42,
@@ -162,7 +156,6 @@ class PassengerEditProfile extends StatelessWidget {
                   height: 16,
                 ),
                 Center(
-                  
                   child: CustomTextFormField(
                     textAlign: TextAlign.end,
                     width: 284,

@@ -14,6 +14,8 @@ import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
 
 Color randomColor = Colors.black;
 
+
+
 class PassengerMainScreen extends StatelessWidget {
   const PassengerMainScreen({super.key});
   static String id = 'passengerMainScreen';
@@ -43,17 +45,13 @@ class PassengerMainScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        imageFile != null
-                            ? CircleAvatar(
+                        
+                             CircleAvatar(
                                 radius: 25,
                                 backgroundImage:
-                                    MemoryImage(imageFile!.readAsBytesSync()),
+                                   avatarImg.image,// MemoryImage(imageFile!.readAsBytesSync()),
                                 backgroundColor: kGreyFont)
-                            : const CircleAvatar(
-                                radius: 25,
-                                backgroundImage:
-                                    AssetImage('assets/images/avatar.jpg'),
-                                backgroundColor: kGreyFont),
+                             
                       ],
                     ),
                   ),

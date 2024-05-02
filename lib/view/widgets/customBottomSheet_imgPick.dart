@@ -20,11 +20,11 @@ class CustomButtomSheet_imgPick extends StatelessWidget {
             children: [
               bottomSheetBuilderIcon(
                   source: ImageSource.camera,
-                  icon: Icons.photo_camera_outlined,
+                  icon: Icons.photo_camera,
                   text: S.of(context).camera),
               bottomSheetBuilderIcon(
                   source: ImageSource.gallery,
-                  icon: Icons.image_outlined,
+                  icon: Icons.photo_library,
                   text: S.of(context).gallery),
             ],
           )),
@@ -50,7 +50,7 @@ class bottomSheetBuilderIcon extends StatelessWidget {
           Icon(
             icon,
             size: 60.0,
-            color: kGreenBigButtons,
+            color: kGreenFont,
           ),
           const SizedBox(height: 12.0),
           Text(
