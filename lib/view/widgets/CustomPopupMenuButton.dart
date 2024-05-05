@@ -41,6 +41,7 @@ class CustomPopupMenuButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           side: BorderSide(color: borderColor, width: 0.5),
         ),
+        color: Colors.white,
         itemBuilder: itemBuilder,
         onSelected: onSelected,
         icon: Icon(icon),
