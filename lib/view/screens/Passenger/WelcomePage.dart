@@ -24,6 +24,10 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: PopupMenuButton<int>(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Color(0xffB4B4B4), width: 0.5),
+          ),
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
               // duration: Duration.

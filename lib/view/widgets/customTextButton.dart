@@ -5,7 +5,7 @@ class CustomTextButton extends StatelessWidget {
   CustomTextButton({
     super.key,
     this.buttonColor =  kGreenSmallButton,
-     this.textColor = kGreenSmallButtonContent,
+    this.textColor = kGreenSmallButtonContent,
     this.iconColor = kGreenSmallButtonContent,
     this.borderColor= kGreenSmallButtonBorder,
     this.text = '',
@@ -16,7 +16,8 @@ class CustomTextButton extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.paddingHorzin=8,
     this.paddingVerti=2,
-    this.onTap
+    this.onTap,
+    this.containsIconOnly = false
   });
   String text;
   Color buttonColor, textColor, iconColor,borderColor;
@@ -24,6 +25,8 @@ class CustomTextButton extends StatelessWidget {
   IconData? icon;
   FontWeight fontWeight;
   Function? onTap;
+  bool containsIconOnly;
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class CustomTextButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
         ),
         child: InkWell(
-          
+
           splashColor: textColor,
           borderRadius: BorderRadius.circular(radius),
           onTap: (){if (onTap != null) {
@@ -54,16 +57,19 @@ class CustomTextButton extends StatelessWidget {
                       fontSize: fontSize,
                       fontWeight: fontWeight),
                 ),
-                const SizedBox(width: 8,),
-               
+                const SizedBox(width: 6),
                 Icon(
                   size: iconSize,
                   icon,
                   color: iconColor,
                 ),
+                // fix left padding when the button has no accompanying text
+                containsIconOnly ? SizedBox(width: 6) : SizedBox(),
               ],
             ),
           ),
-        )));
+    )
+        )
+    );
   }
 }

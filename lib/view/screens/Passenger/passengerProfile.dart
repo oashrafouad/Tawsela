@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
+import 'package:tawsela_app/view/widgets/CustomPopupMenuButton.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/widgets/CustomSwitchIcon.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
+
+import '../../../models/bloc_models/lang/app_language_bloc.dart';
 
 class PassengerProfile extends StatelessWidget {
   const PassengerProfile({super.key});
@@ -17,49 +21,91 @@ class PassengerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.green),
-          backgroundColor: const Color(0xffF8F8F8),
-          //centerTitle: true,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomTextButton(
-                text: S.of(context).switchDriverMode,
-                radius: 10,
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                paddingVerti: 6,
-                icon: CustomSwitchIcon.icon,
-                iconSize: 20,
-                onTap: () {
-                  //remeber to pop all screen in the stack
-                  //if the user uploaded the licesense and the id card switched to driverMainScreen
-                  Navigator.pushNamed(context, DriverMainScreen.id);
-                },
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              CustomTextButton(
-                radius: 10,
-                borderColor: const Color(0xffD16464),
-                textColor: const Color(0xffD16464),
-                iconColor: const Color(0xffD16464),
-                buttonColor: const Color(0xffFFA8A8),
-                paddingVerti: 6,
-                icon: Icons.logout,
-                paddingHorzin: 2,
-                iconSize: 20,
-                onTap: () {
-                  //to pop all screen in the stack and return to welcome page
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(WelcomePage.id),
-                  );
-                },
-              ),
-            ],
-          )),
+        iconTheme: const IconThemeData(color: Colors.green),
+        backgroundColor: const Color(0xffF8F8F8),
+        //centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              children: [
+                CustomTextButton(
+                  text: S.of(context).switchDriverMode,
+                  radius: 10,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  paddingVerti: 6,
+                  icon: CustomSwitchIcon.icon,
+                  iconSize: 20,
+                  onTap: () {
+                    //remeber to pop all screen in the stack
+                    //if the user uploaded the licesense and the id card switched to driverMainScreen
+                    Navigator.pushNamed(context, DriverMainScreen.id);
+                  },
+                ),
+                const SizedBox(width: 8),
+                CustomPopupMenuButton(
+                    icon: Icons.language,
+                    popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
+                    buttonColor: Color(0xffE0E0E0),
+                    iconColor: Color(0xff3E3E3E),
+                    borderColor: Color(0xffB4B4B4),
+                    itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 1,
+                            child: Center(
+                                child: Text("English",
+                                    style: TextStyle(
+                                        fontFamily: font,
+                                        color: kGreenBigButtons))),
+                          ),
+                          const PopupMenuItem(
+                            value: 2,
+                            child: Center(
+                                child: Text(
+                              "العربية",
+                              style: TextStyle(
+                                  fontFamily: font, color: kGreenBigButtons),
+                            )),
+                          ),
+                        ],
+                    onSelected: (value) {
+                      if (value == 1) {
+                        BlocProvider.of<AppLanguageBloc>(context)
+                            .add(EnglishLanguageEvent());
+                      } else if (value == 2) {
+                        BlocProvider.of<AppLanguageBloc>(context)
+                            .add(ArabicLanguageEvent());
+                      }
+                    },
+                    radius: 10,
+                    iconSize: 20
+                ),
+                const SizedBox(width: 8),
+                CustomTextButton(
+                  radius: 10,
+                  borderColor: const Color(0xffD16464),
+                  textColor: const Color(0xffD16464),
+                  iconColor: const Color(0xffD16464),
+                  buttonColor: const Color(0xffFFA8A8),
+                  paddingVerti: 6,
+                  icon: Icons.logout,
+                  paddingHorzin: 2,
+                  iconSize: 20,
+                  containsIconOnly: true,
+                  onTap: () {
+                    //to pop all screen in the stack and return to welcome page
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(WelcomePage.id),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           Container(
@@ -187,7 +233,7 @@ class PassengerProfile extends StatelessWidget {
                     radius: 40,
                     backgroundImage: avatarImg.image,
                   ),
-                  title:  Column(
+                  title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
