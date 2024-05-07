@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:tawsela_app/utilities.dart';
 
 part 'avatar_state.dart';
 

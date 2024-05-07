@@ -47,9 +47,9 @@ class PassengerProfile extends StatelessWidget {
                 CustomPopupMenuButton(
                     icon: Icons.language,
                     popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
-                    buttonColor: Color(0xffE0E0E0),
-                    iconColor: Color(0xff3E3E3E),
-                    borderColor: Color(0xffB4B4B4),
+                    buttonColor: const Color(0xffE0E0E0),
+                    iconColor: const Color(0xff3E3E3E),
+                    borderColor: const Color(0xffB4B4B4),
                     itemBuilder: (context) => [
                           const PopupMenuItem(
                             value: 1,
@@ -129,7 +129,7 @@ class PassengerProfile extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              firstName + " " + lastName,
+                              "$firstName $lastName",
                               style: const TextStyle(
                                   fontFamily: font,
                                   fontSize: 20,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -13,7 +12,7 @@ import 'package:tawsela_app/view/widgets/customTextButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 String firstName='', lastName=''
-;String? email=null;
+;String? email;
 class PassengerSignUpPage extends StatelessWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';

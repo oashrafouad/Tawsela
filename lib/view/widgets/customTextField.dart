@@ -55,6 +55,7 @@ class CustomTextFormField extends StatelessWidget {
               if (value!.isEmpty) {
                 return 'Field is Required';
               }
+              return null;
             },
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,

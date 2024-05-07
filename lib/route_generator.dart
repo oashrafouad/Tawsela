@@ -7,9 +7,9 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
-        return MaterialPageRoute(builder: (context) => HomePage());
+        return MaterialPageRoute(builder: (context) => const HomePage());
       default:
-        throw FormatException('Route not found');
+        throw const FormatException('Route not found');
     }
   }
 }

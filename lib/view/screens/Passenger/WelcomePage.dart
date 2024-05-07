@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/theme/app_theme_bloc.dart';
 import 'package:tawsela_app/utilities.dart';
 
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
@@ -26,7 +24,7 @@ class WelcomePage extends StatelessWidget {
         leading: PopupMenuButton<int>(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: Color(0xffB4B4B4), width: 0.5),
+            side: const BorderSide(color: Color(0xffB4B4B4), width: 0.5),
           ),
           icon: const Icon(Icons.language),
           popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn

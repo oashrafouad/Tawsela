@@ -64,7 +64,7 @@ class CustomTextButton extends StatelessWidget {
                   color: iconColor,
                 ),
                 // fix left padding when the button has no accompanying text
-                containsIconOnly ? SizedBox(width: 6) : SizedBox(),
+                containsIconOnly ? const SizedBox(width: 6) : const SizedBox(),
               ],
             ),
           ),

@@ -63,7 +63,7 @@ static String id ='DriverProfilePage';
                           children: [
                             const Text(
                               'أحمد علاء',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: font,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600),

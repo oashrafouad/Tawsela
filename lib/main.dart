@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/models/bloc_models/avatar/avatar_cubit.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
