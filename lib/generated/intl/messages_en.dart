@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "MicrobusGuideStationAppBarTitle":
-            MessageLookupByLibrary.simpleMessage("Microbus Guide Line"),
+            MessageLookupByLibrary.simpleMessage("Line"),
         "ToEditTheNameAndProfilePictureContactTechnicalSupport":
             MessageLookupByLibrary.simpleMessage(
                 "To edit the name and profile picture, contact technical support"),

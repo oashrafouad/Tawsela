@@ -17,20 +17,24 @@ class MicrobusGuideStationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kGreenBigButtons),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              S.of(context).MicrobusGuideStationAppBarTitle,
-              style: const TextStyle(
-                  fontFamily: font, fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(width: 8),
-            CustomCircleContainer(
-              line: line,
-              color: color,
-            ),
-          ],
+        title: Padding(
+          padding: EdgeInsets.only(left: isArabic() ? 50 : 0, right: isArabic() ? 0 : 50),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                S.of(context).MicrobusGuideStationAppBarTitle,
+                style: const TextStyle(
+                    fontFamily: font, fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(width: 8),
+              CustomCircleContainer(
+                line: line,
+                color: color,
+              ),
+              // const SizedBox(width: 35),
+            ],
+          ),
         ),
         centerTitle: true,
       ),
