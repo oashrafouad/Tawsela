@@ -21,6 +21,8 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.black,
         leading: PopupMenuButton<int>(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

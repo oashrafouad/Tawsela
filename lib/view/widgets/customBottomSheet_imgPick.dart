@@ -20,11 +20,11 @@ class CustomButtomSheet_imgPick extends StatelessWidget {
             children: [
               bottomSheetBuilderIcon(
                   source: ImageSource.camera,
-                  icon: Icons.photo_camera,
+                  icon: Icons.photo_camera_outlined,
                   text: S.of(context).camera),
               bottomSheetBuilderIcon(
                   source: ImageSource.gallery,
-                  icon: Icons.photo_library,
+                  icon: Icons.image_outlined,
                   text: S.of(context).gallery),
             ],
           )),
@@ -38,19 +38,27 @@ class bottomSheetBuilderIcon extends StatelessWidget {
       required this.icon,
       required this.text,
       super.key});
-  String text;
-  IconData icon;
   ImageSource source;
+  IconData icon;
+  String text;
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: InkWell(
       child: Column(
         children: [
-          Icon(
-            icon,
-            size: 60.0,
-            color: kGreenFont,
+          Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFFB3EABF),
+            ),
+            height: 75,
+            width: 75,
+            child: Icon(
+              icon,
+              size: 35.0,
+              color: kGreenFont,
+            ),
           ),
           const SizedBox(height: 12.0),
           Text(
