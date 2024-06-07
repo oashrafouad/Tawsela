@@ -30,6 +30,7 @@ class TawselaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          //
           // BlocProvider(
           //   create: (context) => AppThemeBloc()..add(InitialEvent()),
           // ),
