@@ -99,6 +99,9 @@ class PassengerMainScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                     CustomTextButton(
+                      onTap: () {
+                        // TODO: implement add new fav place
+                      },
                       icon: Icons.add,
                       text: S.of(context).add,
                       fontSize: 12,

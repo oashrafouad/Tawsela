@@ -23,7 +23,8 @@ class PassengerProfile extends StatelessWidget {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),
         backgroundColor: const Color(0xffF8F8F8),
-        //centerTitle: true,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.black,
         actions: [
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
@@ -38,7 +39,7 @@ class PassengerProfile extends StatelessWidget {
                   icon: CustomSwitchIcon.icon,
                   iconSize: 20,
                   onTap: () {
-                    //remeber to pop all screen in the stack
+                    //TODO: pop all screen in the stack
                     //if the user uploaded the licesense and the id card switched to driverMainScreen
                     Navigator.pushNamed(context, DriverMainScreen.id);
                   },
@@ -218,6 +219,9 @@ class PassengerProfile extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 CustomTextButton(
+                  onTap: () {
+                    // TODO: implement show all trips
+                  },
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,

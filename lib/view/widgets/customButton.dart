@@ -1,11 +1,13 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/utilities.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
     super.key,
-    @required this.onTap,
+    required this.onTap,
     this.text = '',
     this.buttonColor = kGreenBigButtons,
     this.textColor = Colors.white,
@@ -17,7 +19,7 @@ class CustomButton extends StatelessWidget {
   });
 
   String text;
-  Function? onTap;
+  Function onTap;
   Color buttonColor, textColor;
   double? height, width;
   double radius, fontSize;
@@ -34,16 +36,11 @@ class CustomButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius), color: buttonColor),
           child: OutlinedButton(
             style: ButtonStyle(
+              splashFactory: splashEffect,
                 side: MaterialStateProperty.all(BorderSide(color: buttonColor)),
                 backgroundColor: MaterialStateProperty.all(buttonColor)),
             onPressed: () {
-              //add the Authentecation First
-
-              //print('a7aaa bgd');
-              //onTap != null ? () => onTap!() : null;
-              if (onTap != null) {
-                onTap!();
-              }
+              onTap();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 12),

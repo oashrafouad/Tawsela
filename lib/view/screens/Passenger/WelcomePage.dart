@@ -23,15 +23,13 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.black,
-        leading: PopupMenuButton<int>(
+        leading: PopupMenuButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: const BorderSide(color: Color(0xffB4B4B4), width: 0.5),
           ),
           icon: const Icon(Icons.language),
-          popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn
-              // duration: Duration.
-              ),
+          popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
           color: Colors.white,
           itemBuilder: (context) => [
             const PopupMenuItem(
@@ -124,8 +122,10 @@ class WelcomePage extends StatelessWidget {
                       hintText: "1234567890",
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
-                      // to only allow english numbers
                       inputFormatters: [
+                        // prevent the first number inputted to be 0, to force the user to input the correct number format
+                        FilteringTextInputFormatter.deny(RegExp(r'^0')),
+                        // to only allow (english) numbers
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],
                     ),
@@ -207,13 +207,22 @@ class WelcomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CustomListTile(
+                    onTap: () {
+                      // TODO: implement sign in with facebook
+                    },
                       trailing: S.of(context).singInFaceBook,
                       icon: Icons.facebook),
                   CustomListTile(
+                    onTap: () {
+                      // TODO: implement sign in with google
+                    },
                     trailing: S.of(context).singInGoogle,
                     icon: CustomGoogleIcon.google,
                   ),
                   CustomListTile(
+                      onTap: () {
+                        // TODO: implement sign in with apple
+                      },
                       trailing: S.of(context).singInApple, icon: Icons.apple),
                 ],
               ),

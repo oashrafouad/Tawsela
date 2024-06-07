@@ -117,3 +117,6 @@ Color randomColorsGenerator() {
   Random random = Random();
   return linesColors[random.nextInt(linesColors.length)];
 }
+
+// you should add this property to all buttons to remove splash effect when pressed on iOS
+var splashEffect = (Platform.isIOS) ? NoSplash.splashFactory : InkSplash.splashFactory;

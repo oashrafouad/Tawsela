@@ -16,7 +16,7 @@ class CustomTextButton extends StatelessWidget {
     this.fontWeight = FontWeight.w500,
     this.paddingHorzin=8,
     this.paddingVerti=2,
-    this.onTap,
+    required this.onTap,
     this.containsIconOnly = false
   });
   String text;
@@ -24,7 +24,7 @@ class CustomTextButton extends StatelessWidget {
   double radius, iconSize, fontSize,paddingHorzin,paddingVerti;
   IconData? icon;
   FontWeight fontWeight;
-  Function? onTap;
+  Function onTap;
   bool containsIconOnly;
 
 
@@ -40,9 +40,9 @@ class CustomTextButton extends StatelessWidget {
 
           splashColor: textColor,
           borderRadius: BorderRadius.circular(radius),
-          onTap: (){if (onTap != null) {
-                onTap!();
-              }},
+          onTap: () {
+            onTap();
+          },
           child: Padding(
             padding:  EdgeInsets.symmetric(horizontal: paddingHorzin, vertical: paddingVerti),
             child: Row(

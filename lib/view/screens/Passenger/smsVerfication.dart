@@ -59,19 +59,24 @@ class SmsVerficationPage extends StatelessWidget {
                     top: 8),
                 child: SizedBox(
                   width: 320,
-                  //height: 46,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        S.of(context).sendCodeAgain,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: kGreenBigButtons,
-                            fontFamily: font,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: kGreenBigButtons),
+                      InkWell(
+                        onTap: () {
+                          // TODO: implement send code again
+                        },
+                        splashFactory: splashEffect,
+                        child: Text(
+                          S.of(context).sendCodeAgain,
+                          style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: kGreenBigButtons,
+                              fontFamily: font,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: kGreenBigButtons),
+                        ),
                       ),
                     ],
                   ),

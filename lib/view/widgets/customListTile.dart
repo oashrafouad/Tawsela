@@ -18,7 +18,9 @@ class CustomListTile extends StatelessWidget {
       this.borderColor = kGreyButtonBorder,
       this.fontWeight = FontWeight.w400,
       this.fontSize = 20,
-      this.iconColor = Colors.black});
+      this.iconColor = Colors.black,
+      required this.onTap
+      });
   FontWeight fontWeight;
   IconData icon;
   String trailing, title;
@@ -29,6 +31,8 @@ class CustomListTile extends StatelessWidget {
       trailingColor,
       backgroundColor,
       borderColor;
+  Function onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,9 @@ class CustomListTile extends StatelessWidget {
           color: backgroundColor,
           border: Border.all(color: borderColor, width: 1.5)),
       child: InkWell(
+        onTap: () {
+          onTap();
+        },
         child: SizedBox(
           width: width,
           height: height,
