@@ -69,6 +69,9 @@ class DriverSignUpPage extends StatelessWidget {
                         iconSize: 19,
                         paddingHorzin: 10,
                         paddingVerti: 10,
+                        onTap: () {
+                          // TODO: implement upload image
+                        },
                       ),
                     ],
                   ),
@@ -81,8 +84,10 @@ class DriverSignUpPage extends StatelessWidget {
           ),
           const SizedBox(height: 32,),
           CustomButton(
-            text: S.of(context).continuee
-            ,
+            text: S.of(context).continuee,
+            onTap: () {
+              // TODO: implement continue
+            },
           )
         ],
       ),

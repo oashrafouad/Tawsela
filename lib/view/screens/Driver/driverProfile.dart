@@ -3,6 +3,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
 
+import '../Passenger/WelcomePage.dart';
+
 class DriverProfilePage extends StatelessWidget {
   const DriverProfilePage({super.key});
 static String id ='DriverProfilePage';
@@ -23,6 +25,9 @@ static String id ='DriverProfilePage';
                 paddingVerti: 6,
                 icon: Icons.swap_vertical_circle_outlined,
                 iconSize: 20,
+                onTap: () {
+                  // TODO: implement switch passenger mode
+                },
               ),
               const SizedBox(
                 width: 8,
@@ -36,6 +41,10 @@ static String id ='DriverProfilePage';
                 icon: Icons.logout,
                 paddingHorzin: 2,
                 iconSize: 20,
+                onTap: () {
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(WelcomePage.id));
+                },
               ),
             ],
           )),
@@ -196,6 +205,9 @@ static String id ='DriverProfilePage';
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,
+                  onTap: () {
+                    // TODO: implement show all
+                  },
                 )
               ],
             ),
