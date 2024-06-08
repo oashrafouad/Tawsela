@@ -62,7 +62,7 @@ class DriverSignUpPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomTextButton(
-                        onTap: (){},
+                        //onTap: (){},
                         icon: Icons.image,
                         text: S.of(context).uploadImg,
                         radius: 16,
@@ -70,6 +70,9 @@ class DriverSignUpPage extends StatelessWidget {
                         iconSize: 19,
                         paddingHorzin: 10,
                         paddingVerti: 10,
+                        onTap: () {
+                          // TODO: implement upload image
+                        },
                       ),
                     ],
                   ),

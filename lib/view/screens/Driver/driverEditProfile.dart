@@ -187,7 +187,6 @@ List<String> titlesAboveUploadImgButton = [
                         iconSize: 19,
                         paddingHorzin: 10,
                         paddingVerti: 10,
-                        
                       ),
                     ],
                   ),
