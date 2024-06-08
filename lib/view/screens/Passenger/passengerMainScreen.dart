@@ -67,19 +67,19 @@ class PassengerMainScreen extends StatelessWidget {
                         constraints: const BoxConstraints(maxWidth: 300),
                         leading: const Icon(Icons.search),
                         hintText: S.of(context).whereUwantoGo,
-                        textStyle: MaterialStateProperty.all(const TextStyle(
+                        textStyle: WidgetStateProperty.all(const TextStyle(
                             fontFamily: font,
                             fontSize: 16,
                             fontWeight: FontWeight.w400)),
-                        hintStyle: MaterialStateProperty.all(const TextStyle(
+                        hintStyle: WidgetStateProperty.all(const TextStyle(
                             fontFamily: font,
                             fontSize: 16,
                             fontWeight: FontWeight.w400)),
-                        padding: const MaterialStatePropertyAll<EdgeInsets>(
+                        padding: const WidgetStatePropertyAll<EdgeInsets>(
                             EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 8)),
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.white),
+                            WidgetStateProperty.all(Colors.white),
                       ),
                     ),
                   )

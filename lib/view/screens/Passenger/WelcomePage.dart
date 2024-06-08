@@ -16,7 +16,8 @@ import 'package:tawsela_app/view/widgets/customTextField.dart';
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
-  bool light = false;
+  String phoneNumber='';
+  final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +62,13 @@ class WelcomePage extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: kGreenBigButtons),
       ),
+
+
       body: ListView(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -122,6 +126,10 @@ class WelcomePage extends StatelessWidget {
                       hintText: "1234567890",
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
+                      onChanged: (value) {
+                        phoneNumber=value;
+                      },
+                      //controller: phoneController,
                       inputFormatters: [
                         // prevent the first number inputted to be 0, to force the user to input the correct number format
                         FilteringTextInputFormatter.deny(RegExp(r'^0')),
@@ -167,67 +175,13 @@ class WelcomePage extends StatelessWidget {
               textColor: kWhite,
               text: S.of(context).continuee,
               onTap: () {
+                print(phoneNumber);
                 Navigator.pushNamed(context, SmsVerficationPage.id);
               },
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 1.5,
-                width: 150,
-                color: kGreyFontLight,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  S.of(context).or,
-                  style: const TextStyle(
-                      fontFamily: font,
-                      color: kGreyFont,
-                      fontWeight: FontWeight.w300),
-                ),
-              ),
-              Container(
-                height: 1.5,
-                width: 150,
-                color: kGreyFontLight,
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: Container(
-              height: MediaQuery.of(context).size.height * .3,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomListTile(
-                    onTap: () {
-                      // TODO: implement sign in with facebook
-                    },
-                      trailing: S.of(context).singInFaceBook,
-                      icon: Icons.facebook),
-                  CustomListTile(
-                    onTap: () {
-                      // TODO: implement sign in with google
-                    },
-                    trailing: S.of(context).singInGoogle,
-                    icon: CustomGoogleIcon.google,
-                  ),
-                  CustomListTile(
-                      onTap: () {
-                        // TODO: implement sign in with apple
-                      },
-                      trailing: S.of(context).singInApple, icon: Icons.apple),
-                ],
-              ),
-            ),
-          )
+          
+     
         ],
       ),
     );

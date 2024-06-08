@@ -179,6 +179,7 @@ List<String> titlesAboveUploadImgButton = [
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomTextButton(
+                        onTap:(){},
                         icon: Icons.image,
                         text: S.of(context).uploadImg,
                         radius: 16,
@@ -186,6 +187,7 @@ List<String> titlesAboveUploadImgButton = [
                         iconSize: 19,
                         paddingHorzin: 10,
                         paddingVerti: 10,
+                        
                       ),
                     ],
                   ),

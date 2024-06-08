@@ -85,10 +85,10 @@ class PassengerProfile extends StatelessWidget {
                 const SizedBox(width: 8),
                 CustomTextButton(
                   radius: 10,
-                  borderColor: const Color(0xffD16464),
-                  textColor: const Color(0xffD16464),
-                  iconColor: const Color(0xffD16464),
-                  buttonColor: const Color(0xffFFA8A8),
+                  borderColor: kLogOutButtonBorder,
+                  textColor: kLogOutButtonContent,
+                  iconColor: kLogOutButtonContent,
+                  buttonColor: kLogOutButtonBackground,
                   paddingVerti: 6,
                   icon: Icons.logout,
                   paddingHorzin: 2,
@@ -282,6 +282,7 @@ class PassengerProfile extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
+                                //you should get this from the API
                                 'المسلة',
                                 style: TextStyle(
                                   fontSize: 9,
@@ -297,6 +298,7 @@ class PassengerProfile extends StatelessWidget {
                                 ),
                               ),
                               Text(
+                                //you should get this from the API
                                 'جامعة الفيوم',
                                 style: TextStyle(
                                   fontSize: 9,
@@ -310,6 +312,7 @@ class PassengerProfile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(top: 4.0),
                           child: Text(
+                            //you should get this from the API
                             '٤:٥٠ مساءً - ٥:١٠ مساءً',
                             style: TextStyle(
                                 color: Color(

@@ -76,8 +76,8 @@ class TawselaApp extends StatelessWidget {
                 return supportedLocales.first;
               },
               routes: {
-                WelcomePage.id: (context) =>  WelcomePage(),
-                SmsVerficationPage.id: (context) => const SmsVerficationPage(),
+                WelcomePage.id: (context) =>   WelcomePage(),
+                SmsVerficationPage.id: (context) =>  SmsVerficationPage(),
                 PassengerSignUpPage.id: (context) =>
                     const PassengerSignUpPage(),
                 PassengerProfile.id: (context) => const PassengerProfile(),
@@ -100,4 +100,5 @@ class TawselaApp extends StatelessWidget {
         ));
   }
 }
+
 

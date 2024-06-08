@@ -13,6 +13,7 @@ import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 String firstName='', lastName=''
 ;String? email;
+
 class PassengerSignUpPage extends StatelessWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';

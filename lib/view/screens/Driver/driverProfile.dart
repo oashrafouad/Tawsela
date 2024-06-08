@@ -16,6 +16,7 @@ static String id ='DriverProfilePage';
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomTextButton(
+                onTap: (){},
                 text: S.of(context).switchPassengermode,
                 radius: 10,
                 fontSize: 10,
@@ -28,6 +29,7 @@ static String id ='DriverProfilePage';
                 width: 8,
               ),
               CustomTextButton(
+                onTap: (){},
                 radius: 10,
                 textColor: const Color(0xffD16464),
                 iconColor: const Color(0xffD16464),
@@ -193,6 +195,7 @@ static String id ='DriverProfilePage';
                       fontWeight: FontWeight.w500),
                 ),
                 CustomTextButton(
+                  onTap: (){},
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,

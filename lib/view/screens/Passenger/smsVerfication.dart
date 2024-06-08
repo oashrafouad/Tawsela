@@ -9,9 +9,9 @@ import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class SmsVerficationPage extends StatelessWidget {
-  const SmsVerficationPage({super.key});
+   SmsVerficationPage({super.key});
   static String id = 'SmsVerficationPage';
-
+   String verifyCode='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +48,7 @@ class SmsVerficationPage extends StatelessWidget {
                 maxLength: 6, //verification code should be 6 digits
                 titleAbove: S.of(context).verifyCode,
                 keyboardType: TextInputType.phone,
+                onChanged: (value) => verifyCode=value,
                 inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                       ],

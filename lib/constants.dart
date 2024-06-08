@@ -25,6 +25,11 @@ const Color kGreenSmallButtonContent = Color(0xff428050);
 const Color kWhite = Color(0xffF5F5F5);
 
 const Color noColor = Color.fromARGB(0, 0, 0, 0);
+
+//logOut Button
+const Color kLogOutButtonBorder=Color(0xffD16464);
+const Color kLogOutButtonContent=Color (0xffD16464);
+const Color kLogOutButtonBackground=Color (0xffFFA8A8);
 String language='ar';
 const String font = 'Alexandria';
 const List<Color> linesColors = [
