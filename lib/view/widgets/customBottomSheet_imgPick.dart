@@ -5,74 +5,87 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
 
 class CustomButtomSheet_imgPick extends StatelessWidget {
-  const CustomButtomSheet_imgPick({super.key});
+  final Function(Image) setImage;
+
+  const CustomButtomSheet_imgPick({required this.setImage, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 5.2,
-          margin: const EdgeInsets.only(top: 8.0),
-          padding: const EdgeInsets.all(12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              bottomSheetBuilderIcon(
-                  source: ImageSource.camera,
-                  icon: Icons.photo_camera_outlined,
-                  text: S.of(context).camera),
-              bottomSheetBuilderIcon(
-                  source: ImageSource.gallery,
-                  icon: Icons.image_outlined,
-                  text: S.of(context).gallery),
-            ],
-          )),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height / 5.2,
+        margin: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BottomSheetBuilderIcon(
+              source: ImageSource.camera,
+              icon: Icons.photo_camera_outlined,
+              text: S.of(context).camera,
+              setImage: setImage,
+            ),
+            BottomSheetBuilderIcon(
+              source: ImageSource.gallery,
+              icon: Icons.image_outlined,
+              text: S.of(context).gallery,
+              setImage: setImage,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class bottomSheetBuilderIcon extends StatelessWidget {
-  bottomSheetBuilderIcon(
-      {required this.source,
-      required this.icon,
-      required this.text,
-      super.key});
-  ImageSource source;
-  IconData icon;
-  String text;
+class BottomSheetBuilderIcon extends StatelessWidget {
+  final ImageSource source;
+  final IconData icon;
+  final String text;
+  final Function(Image) setImage;
+
+  const BottomSheetBuilderIcon({
+    required this.source,
+    required this.icon,
+    required this.text,
+    required this.setImage,
+    super.key
+  });
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: InkWell(
-      child: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color(0xFFB3EABF),
+      child: InkWell(
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFB3EABF),
+              ),
+              height: 75,
+              width: 75,
+              child: Icon(
+                icon,
+                size: 35.0,
+                color: kGreenFont,
+              ),
             ),
-            height: 75,
-            width: 75,
-            child: Icon(
-              icon,
-              size: 35.0,
-              color: kGreenFont,
-            ),
-          ),
-          const SizedBox(height: 12.0),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
+            const SizedBox(height: 12.0),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
                 fontSize: 16, color: kGreyFontDark, fontFamily: font),
-          )
-        ],
+            )
+          ],
+        ),
+        onTap: () {
+          imagePick(source, setImage);
+          Navigator.pop(context);
+        },
       ),
-      onTap: () {
-        imagePick(source);
-        Navigator.pop(context);
-      },
-    ));
+    );
   }
 }

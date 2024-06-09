@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
+import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
@@ -54,7 +56,7 @@ class PassengerEditProfile extends StatelessWidget {
                     right: 42,
                     child: InkWell(
                       onTap: () {
-                        showImagePicker(context);
+                      //showImagePicker(context,avatarImg);
                       },
                       child: Container(
                         decoration: BoxDecoration(

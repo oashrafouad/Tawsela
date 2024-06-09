@@ -4,6 +4,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
+import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/widgets/CustomPopupMenuButton.dart';

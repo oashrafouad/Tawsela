@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 SharedPreferences? sharedPreferences;
 
 const Color kGreenBigButtons = Color(0xff28AA45);
@@ -27,10 +26,10 @@ const Color kWhite = Color(0xffF5F5F5);
 const Color noColor = Color.fromARGB(0, 0, 0, 0);
 
 //logOut Button
-const Color kLogOutButtonBorder=Color(0xffD16464);
-const Color kLogOutButtonContent=Color (0xffD16464);
-const Color kLogOutButtonBackground=Color (0xffFFA8A8);
-String language='ar';
+const Color kLogOutButtonBorder = Color(0xffD16464);
+const Color kLogOutButtonContent = Color(0xffD16464);
+const Color kLogOutButtonBackground = Color(0xffFFA8A8);
+String language = 'ar';
 const String font = 'Alexandria';
 const List<Color> linesColors = [
   Color(0xFF89DD9B),
@@ -47,4 +46,8 @@ const List<Color> linesColors = [
   Color(0xFFDEBB78),
 ];
 
+// images
 
+var avatarImg = Image.asset('assets/images/avatar.png'),
+    licenseImg = Image.asset('assets/images/avatar.png'),
+    idImg = Image.asset('assets/images/avatar.png');
