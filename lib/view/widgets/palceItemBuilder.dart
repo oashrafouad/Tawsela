@@ -18,7 +18,6 @@ class PlacesItemBuilder extends StatelessWidget {
       ),
       title: Text(
         place,
-        //textDirection: TextDire,
         style: const TextStyle(
             fontFamily: font, fontSize: 12, fontWeight: FontWeight.w700),
       ),
