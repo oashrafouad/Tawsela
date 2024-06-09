@@ -15,6 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextAlign textAlign;
   final Function(String)? onChanged;
+   
    final TextEditingController? controller;
 
   const CustomTextFormField({
@@ -32,6 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.maxLines,
     this.controller,
+   
   });
 
   @override
@@ -68,6 +70,7 @@ class CustomTextFormField extends StatelessWidget {
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,
             onChanged: onChanged,
+            
             decoration: InputDecoration(
               hintText: hintText,
               labelText: labelText,

@@ -129,6 +129,7 @@ class WelcomePage extends StatelessWidget {
                       onChanged: (value) {
                         phoneNumber=value;
                       },
+                      
                       //controller: phoneController,
                       inputFormatters: [
                         // prevent the first number inputted to be 0, to force the user to input the correct number format
