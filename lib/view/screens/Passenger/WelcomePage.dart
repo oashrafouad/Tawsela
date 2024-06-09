@@ -5,12 +5,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/utilities.dart';
-
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customGoogleIcon.dart';
-import 'package:tawsela_app/view/widgets/customListTile.dart';
-
 import 'package:tawsela_app/view/widgets/customTextField.dart';
 
 class WelcomePage extends StatelessWidget {
