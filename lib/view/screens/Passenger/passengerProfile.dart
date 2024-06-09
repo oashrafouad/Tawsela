@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
 import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
@@ -20,7 +21,10 @@ class PassengerProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
+      
+
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),
         backgroundColor: const Color(0xffF8F8F8),
@@ -120,7 +124,7 @@ class PassengerProfile extends StatelessWidget {
                   Row(children: [
                     CircleAvatar(
                         radius: 50,
-                        backgroundImage: avatarImg.image,
+                        backgroundImage:  imageState.avatarImg.image,
                         backgroundColor: kGreyFont),
                     const SizedBox(
                       width: 16,
@@ -236,7 +240,7 @@ class PassengerProfile extends StatelessWidget {
                 ListTile(
                   leading: CircleAvatar(
                     radius: 40,
-                    backgroundImage: avatarImg.image,
+                    backgroundImage:  imageState.avatarImg.image,
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

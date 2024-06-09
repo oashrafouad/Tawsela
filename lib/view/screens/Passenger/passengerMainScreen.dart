@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
@@ -23,6 +25,7 @@ class PassengerMainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final imageState = context.watch<ImageCubit>().state;
     return PopScope(
       // TODO: set this value to false in production!
       canPop: true,
@@ -51,8 +54,8 @@ class PassengerMainScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                               radius: 25,
-                              backgroundImage: avatarImg.image,
-                              // MemoryImage(imageFile!.readAsBytesSync()),
+                              backgroundImage: imageState.avatarImg.image,
+                              
                               backgroundColor: kGreyFont)
                         ],
                       ),

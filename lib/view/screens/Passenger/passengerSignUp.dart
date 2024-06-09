@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
@@ -18,9 +20,10 @@ String? email;
 class PassengerSignUpPage extends StatelessWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
-
+   
   @override
   Widget build(BuildContext context) {
+    final imageCubit = context.read<ImageCubit>();
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kGreenBigButtons),
@@ -101,8 +104,9 @@ class PassengerSignUpPage extends StatelessWidget {
                     children: [
                       CustomTextButton(
                         onTap: () {
-                          
-                          //showImagePicker(context,avatarImg);
+                         showImagePicker(context, (Image newImage) {
+                                imageCubit.setAvatarImg(newImage);
+                              });
                         },
                         icon: Icons.image,
                         text: S.of(context).uploadImg,

@@ -63,7 +63,7 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: DriverSignUpPage.id,
+            initialRoute: WelcomePage.id,
           );
         },
       ),

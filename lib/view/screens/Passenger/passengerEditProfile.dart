@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
@@ -13,7 +15,10 @@ class PassengerEditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final imageCubit = context.read<ImageCubit>();
+    final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
+
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),
         centerTitle: true,
@@ -49,14 +54,16 @@ class PassengerEditProfile extends StatelessWidget {
               child: Stack(children: [
                 CircleAvatar(
                     radius: 70,
-                    backgroundImage: avatarImg.image,
+                    backgroundImage:  imageState.avatarImg.image,
                     backgroundColor: kGreyFont),
                 Positioned(
                     top: 100,
                     right: 42,
                     child: InkWell(
                       onTap: () {
-                      //showImagePicker(context,avatarImg);
+                        showImagePicker(context, (Image newImage) {
+                                imageCubit.setAvatarImg(newImage);
+                              });
                       },
                       child: Container(
                         decoration: BoxDecoration(
