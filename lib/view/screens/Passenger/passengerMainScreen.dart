@@ -5,11 +5,9 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
 
 import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
 import 'package:tawsela_app/view/widgets/customTextButton.dart';
@@ -25,66 +23,71 @@ class PassengerMainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final imageState = context.watch<ImageCubit>().state;
+
+    final imageState = context.watch<ImageCubit>().state;
     return PopScope(
       // TODO: set this value to false in production!
       canPop: true,
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(top: 32.0),
+        body: SafeArea(
+          bottom: false,
           child: Column(
             children: [
               Stack(
+                alignment: AlignmentDirectional.topEnd,
                 children: [
-                  Center(
-                    child: SizedBox(
-                      child: Image.asset(
-                          fit: BoxFit.fill, 'assets/images/header.jpg'),
+                  SizedBox(
+                    child: Image.asset(
+                      'assets/images/header.jpg',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 205,
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, PassengerProfile.id);
-                    },
+                  Material( // to enable splash effect on image
+                    color: Colors.transparent,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CircleAvatar(
-                              radius: 25,
-                              backgroundImage: imageState.avatarImg.image,
-                              
-                              backgroundColor: kGreyFont)
-                        ],
+                      padding: const EdgeInsets.only(top: 16.0, left: 16),
+                      child: Ink.image(
+                        image: imageState.avatarImg.image,
+                        width: 50,
+                        height: 50,
+                        child: InkWell(
+                          splashFactory: splashEffect,
+                          customBorder: const CircleBorder(), // make splash effect circular
+                          onTap: () {
+                            Navigator.pushNamed(context, PassengerProfile.id);
+                          },
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 120.0),
                     child: Center(
-                      child: SearchBar(
-                        onSubmitted: (value) {
+                      child: TextField(
+                        textInputAction: TextInputAction.search,
+                        readOnly: true, // prevent user from entering input as tapping will go to another screen anyways
+                        onTap: () {
                           Navigator.pushNamed(
                               context, PassengerPickupLocationPage.id);
                         },
-                        constraints: const BoxConstraints(maxWidth: 300),
-                        leading: const Icon(Icons.search),
-                        hintText: S.of(context).whereUwantoGo,
-                        textStyle: WidgetStateProperty.all(const TextStyle(
-                            fontFamily: font,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400)),
-                        hintStyle: WidgetStateProperty.all(const TextStyle(
-                            fontFamily: font,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400)),
-                        padding: const WidgetStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8)),
-                        backgroundColor:
-                            WidgetStateProperty.all(Colors.white),
+                        decoration: InputDecoration(
+                          constraints: const BoxConstraints(maxWidth: 300),
+                          hintText: S.of(context).whereUwantoGo,
+                          hintStyle: const TextStyle(
+                              fontFamily: font,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                          prefixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide.none
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
                       ),
                     ),
                   )

@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
-import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
 import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
 import 'package:tawsela_app/view/widgets/CustomPopupMenuButton.dart';
@@ -23,8 +21,6 @@ class PassengerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
-      
-
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),
         backgroundColor: const Color(0xffF8F8F8),

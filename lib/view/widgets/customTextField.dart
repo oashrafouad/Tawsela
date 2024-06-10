@@ -60,7 +60,7 @@ class CustomTextFormField extends StatelessWidget {
           child: TextFormField(
             maxLines: maxLines ?? 1,
             keyboardType: keyboardType,
-            style: const TextStyle(color: Colors.black, fontFamily: font),
+            style: const TextStyle(color: Colors.black, fontFamily: font, fontSize: 13),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Field is Required';
