@@ -24,18 +24,15 @@ class SmsVerficationPage extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(32.0),
-              child: SizedBox(
-                  height: 40,
-                  width: 301,
-                  child: Text(
-                    S.of(context).smsVerificationScreenTitle,
-                    style: const TextStyle(
-                      fontFamily: font,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
-                  )),
+              child: Text(
+                S.of(context).smsVerificationScreenTitle,
+                style: const TextStyle(
+                  fontFamily: font,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           Column(

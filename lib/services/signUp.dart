@@ -32,8 +32,8 @@ class ApiService {
       // Handle successful response
       print('Sign-up successful');
     } else {
-      // Handle error response
-      print('Sign-up failed');
+      // Throw an error if sign-up fails
+      // throw (response.body); // TODO: Uncomment this line in production!
     }
   }
 }
