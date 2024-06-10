@@ -5,6 +5,8 @@ import '../../../models/imageCubit/image_cubit.dart';
 class TestpicsPage extends StatelessWidget {
   static String id = 'testPicsPage';
 
+  const TestpicsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final imageState = context.watch<ImageCubit>().state;

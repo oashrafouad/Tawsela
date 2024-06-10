@@ -22,15 +22,15 @@ static String id='DriverPickupLocationPage';
             constraints: const BoxConstraints(maxWidth: 400),
             leading: const Icon(Icons.search),
             hintText: S.of(context).specifyASpecificLocationToPickUpPassengers,
-            textStyle: MaterialStateProperty.all(const TextStyle(
+            textStyle: WidgetStateProperty.all(const TextStyle(
                           fontFamily: font,
                           fontSize: 16,
                           fontWeight: FontWeight.w400)),
-            hintStyle: MaterialStateProperty.all(const TextStyle(
+            hintStyle: WidgetStateProperty.all(const TextStyle(
                 fontFamily: font, fontSize: 16, fontWeight: FontWeight.w400)),
-            padding: const MaterialStatePropertyAll<EdgeInsets>(
+            padding: const WidgetStatePropertyAll<EdgeInsets>(
                 EdgeInsets.symmetric(horizontal: 8.0, vertical: 4)),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
+            backgroundColor: WidgetStateProperty.all(Colors.white),
           ),
         ),
       ),

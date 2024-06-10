@@ -6,7 +6,6 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
 
 import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
 
@@ -31,7 +30,7 @@ class PassengerSignUpPage extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 100),
+            padding: const EdgeInsets.symmetric(vertical: 60),
             child: Text(
               S.of(context).passengerSignUpTitle,
               style: const TextStyle(

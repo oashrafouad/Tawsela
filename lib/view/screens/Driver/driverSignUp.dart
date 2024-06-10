@@ -19,6 +19,8 @@ class DriverSignUpPage extends StatelessWidget {
     S().idCardImg,
   ];
 
+  DriverSignUpPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final imageCubit = context.read<ImageCubit>();
