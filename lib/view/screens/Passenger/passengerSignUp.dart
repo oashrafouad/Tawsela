@@ -35,7 +35,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
       ),
       body: _loading
           ? const Center(
-              child: const CircularProgressIndicator(
+              child: CircularProgressIndicator(
                 color: kGreenBigButtons,
                 backgroundColor: Colors.white54,
               ),

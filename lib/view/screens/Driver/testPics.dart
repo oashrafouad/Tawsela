@@ -16,7 +16,7 @@ class TestpicsPage extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 16),
-            Container(
+            SizedBox(
               width: 200,
               height: 200,
               child: Image(image: imageState.avatarImg.image),

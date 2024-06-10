@@ -105,7 +105,7 @@ class TawselaApp extends StatelessWidget {
       DriverProfilePage.id: (context) =>  const DriverProfilePage(),
       DriverPickupLocationPage.id: (context) => const DriverPickupLocationPage(),
       DriverEditProfilePage.id: (context) =>  DriverEditProfilePage(),
-      TestpicsPage.id: (context) =>  TestpicsPage(),
+      TestpicsPage.id: (context) =>  const TestpicsPage(),
     };
   }
 }
