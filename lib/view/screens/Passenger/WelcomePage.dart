@@ -8,11 +8,11 @@ import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
 import 'package:tawsela_app/view/widgets/customButton.dart';
 import 'package:tawsela_app/view/widgets/customTextField.dart';
-
+String phoneNumber='';
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
-  String phoneNumber='';
+  
   final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -172,7 +172,7 @@ class WelcomePage extends StatelessWidget {
               textColor: kWhite,
               text: S.of(context).continuee,
               onTap: () {
-                print(phoneNumber);
+                
                 Navigator.pushNamed(context, SmsVerficationPage.id);
               },
             ),
