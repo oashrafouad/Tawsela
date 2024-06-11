@@ -1,13 +1,9 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/routes/passenger_map_page/service_choice.dart';
-import 'package:tawsela_app/routes/passenger_map_page/uber_choice.dart';
-import 'package:tawsela_app/routes/passenger_map_page/walk_choice.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
+
 import 'package:tawsela_app/routes/driver_map_page/directions.dart';
 import 'package:tawsela_app/routes/driver_map_page/user_information.dart';
 

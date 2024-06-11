@@ -1,11 +1,21 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:html/parser.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
-class ServiceChoice extends StatelessWidget {
+class ServiceChoice extends StatefulWidget {
   const ServiceChoice({super.key});
 
+  @override
+  State<ServiceChoice> createState() => _ServiceChoiceState();
+}
+
+class _ServiceChoiceState extends State<ServiceChoice> {
+  int current_step = 0;
   @override
   Widget build(BuildContext context) {
     late PassengerState passengerState;
@@ -17,6 +27,45 @@ class ServiceChoice extends StatelessWidget {
       passengerState =
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
-    return Container();
+    return (passengerState.destination == null ||
+            passengerState.directions.isEmpty)
+        ? Center(
+            child: CircularProgressIndicator(
+              color: Colors.green,
+            ),
+          )
+        : SingleChildScrollView(
+            child: Stepper(
+                key: Key(Random.secure().nextDouble().toString()),
+                physics: ClampingScrollPhysics(),
+                connectorColor:
+                    MaterialStateProperty.resolveWith((states) => Colors.green),
+                currentStep: current_step,
+                onStepCancel: () {
+                  if (current_step > 0) {
+                    current_step -= 1;
+                    setState(() {});
+                  }
+                },
+                onStepContinue: () {
+                  if (current_step < passengerState.directions.length) {
+                    current_step += 1;
+                    setState(() {});
+                  }
+                },
+                onStepTapped: (value) {
+                  current_step = value;
+                  setState(() {});
+                },
+                steps: passengerState.directions.map((e) {
+                  final document = parse(e.instructions);
+                  final String parsedString =
+                      parse(document.body!.text).documentElement!.text;
+                  return Step(
+                      title: Text(e.duration!.text!),
+                      subtitle: Text(e.distance!.text!),
+                      content: Text(parsedString));
+                }).toList()),
+          );
   }
 }

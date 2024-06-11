@@ -3,9 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/data_base.dart';
 import 'package:tawsela_app/models/data_models/request_model.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class UberCoice extends StatelessWidget {
   const UberCoice({super.key});

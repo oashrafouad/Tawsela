@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 
 class DriverGoogleMapWidget extends StatelessWidget {
   final bool isTripStarted;

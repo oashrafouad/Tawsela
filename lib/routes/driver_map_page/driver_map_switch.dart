@@ -5,8 +5,9 @@ import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.d
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 
 class DriverMapSwitch extends StatelessWidget {
   const DriverMapSwitch({super.key});

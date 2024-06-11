@@ -50,6 +50,7 @@ dependencies:
   equatable: "2.0.5"
   http:
   connectivity:
+  get_it: ^7.7.0
  
  
 
@@ -84,7 +85,22 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets\JSON\Masslla_path.json
+    - assets/JSON\keys/server_url.json
+    - assets/JSON\keys/google_map_key.json
+    - assets/JSON/paths/3.json
+    - assets/JSON/paths/9.json
+    - assets/JSON/paths/7.json
+    - assets/JSON/paths/11.json
+    - assets/1.png
+    - assets/2.png
+    - assets/3.png
+    - assets/4.png
+    - assets/5.png
+    - assets/6.png
+    - assets/8.png
+    - assets/9.png
+    - assets/11.png
+    - assets/17.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

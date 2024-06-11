@@ -1,29 +1,19 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonSerializable()
 class UserData {
-  final String name;
+  final String firstName;
+  final String lastName;
   final LatLng location;
   final String phone;
-  const UserData({
-    required this.name,
-    required this.location,
-    required this.phone,
-  });
-}
-
-class Passenger extends UserData {
-  Passenger({
-    required String name,
-    required LatLng location,
-    required String phone,
-  }) : super(name: name, location: location, phone: phone);
-}
-
-class UberDriver extends UserData {
-  UberDriver({
-    required String name,
-    required LatLng location,
-    required String phone,
-  }) : super(name: name, location: location, phone: phone);
+  final int age;
+  final String email;
+  const UserData(
+      {required this.firstName,
+      required this.lastName,
+      required this.location,
+      required this.phone,
+      required this.age,
+      required this.email});
 }

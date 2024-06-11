@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/route_generator.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  Bloc.observer = MyBlocObserver();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Bloc.observer = MyBlocObserver();
   runApp(const TawselaApp());
 }
 

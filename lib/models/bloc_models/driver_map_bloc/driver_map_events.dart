@@ -1,8 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/data_models/request_model.dart';
-import 'package:tawsela_app/models/data_models/user_data.dart';
-import 'package:tawsela_app/models/data_models/user_states.dart';
 
 abstract class DriverMapEvent extends Equatable {
   const DriverMapEvent();

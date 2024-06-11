@@ -17,6 +17,9 @@ import 'package:tawsela_app/routes/passenger_map_page/passenger_google_map_page.
 import 'package:tawsela_app/routes/passenger_map_page/passenger_gps_icon.dart';
 import 'package:tawsela_app/routes/passenger_map_page/passenger_search_bar.dart';
 import 'package:tawsela_app/widgets/handle.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class PassengerPage extends StatefulWidget {
   const PassengerPage({super.key});
@@ -144,6 +147,17 @@ class _PassengerPageState extends State<PassengerPage> {
                       PassengerGpsIcon()
                     ],
                   ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          BlocProvider.of<PassengerBloc>(context)
+                              .add(ShowLine(0));
+                        },
+                        child: Text('Show lines')),
+                  ],
                 ),
                 if (state is Loading) LoadingPage(state.message),
               ]),

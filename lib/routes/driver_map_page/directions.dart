@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:html/parser.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 
 class DirectionWidget extends StatefulWidget {
   @override

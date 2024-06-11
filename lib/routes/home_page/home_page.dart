@@ -8,7 +8,6 @@ import 'package:tawsela_app/routes/passenger_map_page/passenger_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/data_models/location_model/location.dart';
 
 class HomePage extends StatefulWidget {

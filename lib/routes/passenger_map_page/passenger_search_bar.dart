@@ -4,8 +4,9 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class PassengerSearchBar extends StatefulWidget {
   PassengerSearchBar({super.key});

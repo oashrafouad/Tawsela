@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage(this.message, {super.key});
@@ -9,11 +6,17 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(78, 255, 255, 255),
       body: Center(
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text(message), CircularProgressIndicator()],
+            children: [
+              Text(message, style: TextStyle(fontSize: 20)),
+              CircularProgressIndicator(
+                color: Colors.green,
+              )
+            ],
           ),
         ),
       ),

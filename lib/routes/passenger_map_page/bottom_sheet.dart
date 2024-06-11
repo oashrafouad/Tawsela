@@ -1,11 +1,10 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/models/data_models/user_data.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/routes/passenger_map_page/service_choice.dart';
 import 'package:tawsela_app/routes/passenger_map_page/uber_choice.dart';
 import 'package:tawsela_app/routes/passenger_map_page/walk_choice.dart';
@@ -50,14 +49,19 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
           children: [
             BlocListener<PassengerBloc, MapUserState>(
               listenWhen: (previous, current) {
+                if (previous is PassengerState && current is Loading) {
+                  return false;
+                }
+                if (previous is Loading && current is PassengerState) {
+                  if (previous.message == getDestinationPlaceHolder) {
+                    return true;
+                  }
+                }
                 if (previous is PassengerState && current is PassengerState) {
-                  if (previous.destination == null &&
-                      current.destination != null) {
+                  if (previous.destination != current.destination) {
                     return true;
-                  } else if (previous.destination != null &&
-                      current.destination != null &&
-                      previous.destination != current.destination) {
-                    return true;
+                  } else {
+                    return false;
                   }
                 }
                 return false;
@@ -188,6 +192,8 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
         UberColor = WalkColor = DisableColor;
         selectedItem = 1;
         selectedItems = {items[selectedItem]};
+        BlocProvider.of<PassengerBloc>(context)
+            .add(GetNearestPathToServiceLine());
         break;
     }
     setState(() {});
