@@ -44,8 +44,7 @@ class PassengerMainScreen extends StatelessWidget {
                       height: 205,
                     ),
                   ),
-                  Material( 
-                   
+                  Material(
                     // to enable splash effect on image
                     color: noColor,
                     child: Padding(
@@ -96,7 +95,7 @@ class PassengerMainScreen extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -119,8 +118,9 @@ class PassengerMainScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: ListView(
+              Container(
+                height: 270,
+                child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
                   children: [
                     for (int i = 0; i < 5; i++)
                       Column(
@@ -138,9 +138,6 @@ class PassengerMainScreen extends StatelessWidget {
                       )
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 48,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -160,8 +157,9 @@ class PassengerMainScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: ListView(
+              Container(
+                height: 90,
+                child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
                   scrollDirection: Axis.horizontal,
                   children: [
                     for (int i = 1; i <= 17; i++)

@@ -33,7 +33,7 @@ class ApiService {
       print('Sign-up successful');
     } else {
       // Throw an error if sign-up fails
-      // throw (response.body); // TODO: Uncomment this line in production!
+      throw (response.body);
     }
   }
 }

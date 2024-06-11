@@ -63,6 +63,8 @@ class SmsVerficationPage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           // TODO: implement send code again
+                          // We can use the same function that sends the code in the first place
+                          // We can use SVProgressHUD to show a loading indicator, then show a success message
                         },
                         splashFactory: splashEffect,
                         child: Text(

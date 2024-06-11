@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -123,5 +124,7 @@ Color randomColorsGenerator() {
   return linesColors[random.nextInt(linesColors.length)];
 }
 
-// you should add this property to all buttons to remove splash effect when pressed on iOS
-var splashEffect = (Platform.isIOS) ? NoSplash.splashFactory : InkSplash.splashFactory;
+// You should add this property to all buttons to remove splash effect when pressed on iOS
+// Determine first if the platform is web, if so, set the splash effect to the default
+// Else check again if it's iOS, set it to remove splash
+var splashEffect = kIsWeb ? InkSplash.splashFactory : (Platform.isIOS ? NoSplash.splashFactory : InkSplash.splashFactory);

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
@@ -159,32 +159,40 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               CustomButton(
                 text: S.of(context).signUp,
                 onTap: () {
+                  if (kDebugMode) { // TODO: Remove this block when the API is ready
+                    Navigator.pushNamed(context, PassengerMainScreen.id);
+                  } else {
                   setState(() {
                     _loadingStatus = LoadingStatus.inProgress; // Set status to inProgress when sign-up is initiated
                   });
-                  ApiService.signUp(
-                    phoneNumber: phoneNumber,
-                    fname: firstName,
-                    lname: lastName,
-                    Email_ID: null,
-                    password: "passwordhkfdjhe",
-                  ).then((_) {
-                    setState(() {
-                      _loadingStatus = LoadingStatus.completed; // Set status to completed when sign-up is successful
+                    // Call the sign-up API
+                    ApiService.signUp(
+                      phoneNumber: phoneNumber,
+                      fname: firstName,
+                      lname: lastName,
+                      Email_ID: null,
+                      password: "passwordhkfdjhe",
+                    ).then((_) {
+                      setState(() {
+                        _loadingStatus = LoadingStatus
+                            .completed; // Set status to completed when sign-up is successful
+                      });
+                      // Add delay of 1.5 seconds to match the duration of the success HUD
+                      Future.delayed(const Duration(milliseconds: 1500)).then((
+                          value) {
+                        // Then navigate to the main screen
+                        Navigator.pushNamed(context, PassengerMainScreen.id);
+                      });
+                    }).catchError((error) {
+                      // Handle error
+                      setState(() {
+                        _loadingStatus = LoadingStatus
+                            .error; // Set status to error when sign-up fails
+                        HUDError = error.toString();
+                      });
+                      print('Failed to sign-up: $error');
                     });
-                    // Add delay of 1.5 seconds to match the duration of the success HUD
-                    Future.delayed(Duration(milliseconds: 1500)).then((value) {
-                    // Then navigate to the main screen
-                    Navigator.pushNamed(context, PassengerMainScreen.id);
-                    });
-                  }).catchError((error) {
-                    // Handle error
-                    setState(() {
-                      _loadingStatus = LoadingStatus.error; // Set status to error when sign-up fails
-                      HUDError = error.toString();
-                    });
-                    print('Failed to sign-up: $error');
-                  });
+                  }
                 },
               )
             ],
