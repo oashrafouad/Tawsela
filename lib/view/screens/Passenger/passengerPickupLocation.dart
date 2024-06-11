@@ -13,11 +13,14 @@ class PassengerPickupLocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kGreenBigButtons),
+        surfaceTintColor: noColor,
         toolbarHeight: 64,
         centerTitle: true,
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: SearchBar(
+            
             onSubmitted: (value) {
               print(value);
             },

@@ -44,8 +44,10 @@ class PassengerMainScreen extends StatelessWidget {
                       height: 205,
                     ),
                   ),
-                  Material( // to enable splash effect on image
-                    color: Colors.transparent,
+                  Material( 
+                   
+                    // to enable splash effect on image
+                    color: noColor,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 16.0, left: 16),
                       child: Ink.image(
