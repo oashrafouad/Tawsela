@@ -12,7 +12,7 @@ class ApiService {
      String? typeUser,
      String? Email_ID,
   }) async {
-    final url = Uri.parse('https://tawselaapp-1.onrender.com/api/users'); // Replace with your API endpoint
+    final url = Uri.parse('https://tawselaapp-1.onrender.com/api/users'); 
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
