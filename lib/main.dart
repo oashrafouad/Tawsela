@@ -9,7 +9,6 @@ import 'package:tawsela_app/models/data_models/google_server.dart';
 import 'package:tawsela_app/models/data_models/server.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +16,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
+import 'package:tawsela_app/route_generator.dart';
 
 
 // Import screens
@@ -94,39 +94,39 @@ class TawselaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Two conflcting MultiBlocProvider, RESOLVE!
-    return MaterialApp(initialRoute: WelcomePage.id,); // temp return just to avoid compile error
+    // TODO: Two conflicting MultiBlocProvider, RESOLVE!
+    // return MaterialApp(home: WelcomePage()); // temp return just to avoid compile error
 
-    // return MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider(
-    //       create: (context) => AppLanguageBloc()..add(InitialLanguage()),
-    //     ),
-    //     BlocProvider(
-    //       create: (context) => ImageCubit(), // provide the ImageCubit
-    //     ),
-    //   ],
-    //   child: Builder(
-    //     builder: (context) {
-    //       final langState = context.select((AppLanguageBloc bloc) => bloc.state);
-    //
-    //       return MaterialApp(
-    //         locale: _getLocale(langState),
-    //         debugShowCheckedModeBanner: false,
-    //         supportedLocales: const [Locale('ar'), Locale('en')],
-    //         localizationsDelegates: const [
-    //           S.delegate,
-    //           GlobalMaterialLocalizations.delegate,
-    //           GlobalWidgetsLocalizations.delegate,
-    //           GlobalCupertinoLocalizations.delegate,
-    //         ],
-    //         localeResolutionCallback: _localeResolutionCallback,
-    //         routes: _buildRoutes(),
-    //         initialRoute: WelcomePage.id,
-    //       );
-    //     },
-    //   ),
-    // );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppLanguageBloc()..add(InitialLanguage()),
+        ),
+        BlocProvider(
+          create: (context) => ImageCubit(), // provide the ImageCubit
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          final langState = context.select((AppLanguageBloc bloc) => bloc.state);
+
+          return MaterialApp(
+            locale: _getLocale(langState),
+            debugShowCheckedModeBanner: false,
+            supportedLocales: const [Locale('ar'), Locale('en')],
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: _localeResolutionCallback,
+            routes: _buildRoutes(),
+            initialRoute: WelcomePage.id,
+          );
+        },
+      ),
+    );
 
     // return MultiBlocProvider(
     //   providers: [

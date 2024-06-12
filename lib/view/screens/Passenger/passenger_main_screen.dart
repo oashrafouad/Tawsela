@@ -45,11 +45,11 @@ class PassengerMainScreen extends StatelessWidget {
                     ),
                   ),
 
-                  Padding(padding: 
+                  Padding(padding:
                   const EdgeInsets.only(top: 16,left: 16),
                   child: InkWell(
                     onTap: () => Navigator.pushNamed(context, PassengerProfile.id),
-                    child: CircleAvatar(backgroundImage: imageState.avatarImg.image,radius: 35,
+                    child: CircleAvatar(backgroundImage: imageState.avatarImg.image,radius: 25,
                     ),
                   ),),
 
@@ -60,7 +60,7 @@ class PassengerMainScreen extends StatelessWidget {
                   //   child: Padding(
                   //     padding: const EdgeInsets.only(top: 16.0, left: 16),
                   //     child: Ink.image(
-                        
+
                   //       image: imageState.avatarImg.image,
                   //       width: 100,
                   //       height: 100,
