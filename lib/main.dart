@@ -95,6 +95,8 @@ class TawselaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Two conflcting MultiBlocProvider, RESOLVE!
+    return MaterialApp(initialRoute: WelcomePage.id,); // temp return just to avoid compile error
+
     // return MultiBlocProvider(
     //   providers: [
     //     BlocProvider(

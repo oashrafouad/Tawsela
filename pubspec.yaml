@@ -53,8 +53,8 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/JSON\keys/server_url.json
-    - assets/JSON\keys/google_map_key.json
+    - assets/JSON/keys/server_url.json
+    - assets/JSON/keys/google_map_key.json
     - assets/JSON/paths/3.json
     - assets/JSON/paths/9.json
     - assets/JSON/paths/7.json
