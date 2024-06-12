@@ -7,7 +7,7 @@ import GoogleMaps
     override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // green tint color for the whole app (appears in image picker, alerts, etc..)
         window?.tintColor = UIColor(red: 0.26, green: 0.50, blue: 0.31, alpha: 1.00)
-        
+
         let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
         let channel = FlutterMethodChannel(name: "imagePickerOptionsChannel", binaryMessenger: controller.binaryMessenger)
         channel.setMethodCallHandler({ [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
@@ -23,7 +23,7 @@ import GoogleMaps
                     result(Int(2))
                 }
                 let cancelAction = UIAlertAction(title: "إلغاء", style: .cancel)
-                
+
                 alertController.addAction(cameraAction)
                 alertController.addAction(photoLibraryAction)
                 alertController.addAction(cancelAction)
@@ -35,8 +35,7 @@ import GoogleMaps
         })
 
         GeneratedPluginRegistrant.register(with: self)
+        GMSServices.provideAPIKey("***REMOVED***")
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 }
-
-
