@@ -7,11 +7,13 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/services/signUp.dart';
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
-import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
-import 'package:tawsela_app/view/widgets/customTextField.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
+
+import 'package:tawsela_app/view/widgets/custom_button.dart';
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
+
+import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
 String firstName = '';
 String lastName = '';

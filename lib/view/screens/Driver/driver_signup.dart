@@ -7,8 +7,9 @@ import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Driver/testPics.dart';
-import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
+import 'package:tawsela_app/view/widgets/custom_button.dart';
+
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 class DriverSignUpPage extends StatelessWidget {
   static String id = 'DriverSignUpPage';

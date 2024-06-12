@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:math';
 import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/view/widgets/customBottomSheet_imgPick.dart';
+import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
+
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
 

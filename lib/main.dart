@@ -10,22 +10,22 @@ import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 
 // Import screens
-import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
-import 'package:tawsela_app/view/screens/Driver/driverSignUp.dart';
-import 'package:tawsela_app/view/screens/Driver/driverProfile.dart';
-import 'package:tawsela_app/view/screens/Driver/driverPickupLocation.dart';
-import 'package:tawsela_app/view/screens/Driver/driverEditProfile.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_signup.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_profile.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
 import 'package:tawsela_app/view/screens/Driver/testPics.dart';
+import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcomePage.dart';
-import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerMainScreen.dart';
-import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
-import 'package:tawsela_app/view/screens/Passenger/microbusSuggestedLines.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
-import 'package:tawsela_app/view/screens/Passenger/microbusRoute.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
+import 'package:tawsela_app/view/screens/Passenger/microbus_guide_station.dart';
+import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
+import 'package:tawsela_app/view/screens/Passenger/microbus_route.dart';
 
 
 void main() async {

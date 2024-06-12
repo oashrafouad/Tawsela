@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
-import '../Passenger/WelcomePage.dart';
+import '../Passenger/welcome_page.dart';
 
 class DriverProfilePage extends StatelessWidget {
   const DriverProfilePage({super.key});

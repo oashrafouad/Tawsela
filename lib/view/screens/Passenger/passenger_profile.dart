@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/view/screens/Driver/driverMainScreen.dart';
-import 'package:tawsela_app/view/screens/Passenger/WelcomePage.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerEditProfile.dart';
-import 'package:tawsela_app/view/widgets/CustomPopupMenuButton.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
-import 'package:tawsela_app/view/widgets/CustomSwitchIcon.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
+import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import '../../../models/bloc_models/lang/app_language_bloc.dart';
 

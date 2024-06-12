@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/widgets/custom_button.dart';
 
-import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
-import 'package:tawsela_app/view/widgets/customTextField.dart';
+
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
+import 'package:tawsela_app/view/widgets/custom_text_field.dart';
+
 
 
 class DriverEditProfilePage extends StatelessWidget {

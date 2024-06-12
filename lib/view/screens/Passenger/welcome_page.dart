@@ -5,9 +5,10 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/smsVerfication.dart';
-import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customTextField.dart';
+import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
+
+import 'package:tawsela_app/view/widgets/custom_button.dart';
+import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 String phoneNumber='';
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});

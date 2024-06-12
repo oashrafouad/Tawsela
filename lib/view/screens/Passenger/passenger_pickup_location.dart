@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
-import 'package:tawsela_app/view/screens/Passenger/microbusSuggestedLines.dart';
-import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
+import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart';
+import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
 
 class PassengerPickupLocationPage extends StatelessWidget {
   const PassengerPickupLocationPage({super.key});

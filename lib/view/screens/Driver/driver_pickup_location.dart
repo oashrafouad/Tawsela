@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
+import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
 
 class DriverPickupLocationPage extends StatelessWidget {
   const DriverPickupLocationPage({super.key});

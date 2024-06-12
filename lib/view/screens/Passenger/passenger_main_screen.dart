@@ -5,14 +5,14 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/microbusGuideStation.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerPickupLocation.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerProfile.dart';
+import 'package:tawsela_app/view/screens/Passenger/microbus_guide_station.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 
-import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
-import 'package:tawsela_app/view/widgets/customTextButton.dart';
+import 'package:tawsela_app/view/widgets/custom_circle_container.dart';
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
-import 'package:tawsela_app/view/widgets/favPlacesItemBuilder.dart';
+import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
 
 Color randomColor = Colors.black;
 

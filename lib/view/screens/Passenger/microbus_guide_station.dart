@@ -3,8 +3,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/widgets/customCircleContainer.dart';
-import 'package:tawsela_app/view/widgets/palceItemBuilder.dart';
+import 'package:tawsela_app/view/widgets/custom_circle_container.dart';
+import 'package:tawsela_app/view/widgets/place_item_builder.dart';
 
 class MicrobusGuideStationPage extends StatelessWidget {
    MicrobusGuideStationPage({required this.color, required this.line, super.key});

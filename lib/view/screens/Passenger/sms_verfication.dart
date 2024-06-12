@@ -4,9 +4,10 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/passengerSignUp.dart';
-import 'package:tawsela_app/view/widgets/customButton.dart';
-import 'package:tawsela_app/view/widgets/customTextField.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/view/widgets/custom_button.dart';
+import 'package:tawsela_app/view/widgets/custom_text_field.dart';
+
 
 class SmsVerficationPage extends StatelessWidget {
    SmsVerficationPage({super.key});
