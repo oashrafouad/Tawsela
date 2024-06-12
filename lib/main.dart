@@ -17,7 +17,7 @@ import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
 import 'package:tawsela_app/view/screens/Driver/testPics.dart';
 import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
-import 'package:tawsela_app/view/screens/Passenger/welcomePage.dart';
+
 import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
@@ -26,6 +26,7 @@ import 'package:tawsela_app/view/screens/Passenger/microbus_guide_station.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbus_route.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 
 void main() async {

@@ -118,7 +118,7 @@ class PassengerMainScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 270,
                 child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
                   children: [
@@ -157,7 +157,7 @@ class PassengerMainScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 90,
                 child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
                   scrollDirection: Axis.horizontal,
