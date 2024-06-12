@@ -17,7 +17,6 @@ import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
 import 'package:tawsela_app/view/screens/Driver/testPics.dart';
 import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
-
 import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';

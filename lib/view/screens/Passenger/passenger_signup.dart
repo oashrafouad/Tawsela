@@ -55,6 +55,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
         SVProgressHUD.showError(status: "حدث خطأ، الرجاء المحاولة مرة اخرى\n$HUDError");
         _loadingStatus = LoadingStatus.idle; // Reset status to idle after error
     }
+    
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kGreenBigButtons),

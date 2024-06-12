@@ -4,6 +4,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
@@ -99,6 +101,7 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  onChanged: (data) => firstName = data,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).firstName,
@@ -107,6 +110,7 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  onChanged: (data) => lastName = data,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).lastName,
@@ -126,6 +130,7 @@ class PassengerEditProfile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
+                      onChanged: (data) => phoneNumber = data,
                       textAlign: TextAlign.end,
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
@@ -165,6 +170,7 @@ class PassengerEditProfile extends StatelessWidget {
                 ),
                 Center(
                   child: CustomTextFormField(
+                    onChanged: (data) => email = data,
                     textAlign: TextAlign.end,
                     width: 284,
                     height: 46,
@@ -181,6 +187,7 @@ class PassengerEditProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: CustomButton(
               onTap: () {
+                //you should update the user profile in database ,PUT request
                 Navigator.pop(context);
               },
               text: S.of(context).save,
