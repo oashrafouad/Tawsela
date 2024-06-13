@@ -132,23 +132,25 @@ class PassengerMainScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 270,
-                child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
-                  children: [
-                    for (int i = 0; i < 5; i++)
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          FavPlacesItemBuilder(
-                            title: S.of(context).home,
-                            subTitle: S.of(context).clickSelectThisLocation,
-                            icon: Icons.home,
-                          ),
-                          const Divider(
-                            thickness: 1,
-                          )
-                        ],
-                      )
-                  ],
+                child: ListView.separated(
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        FavPlacesItemBuilder(
+                          title: S.of(context).home,
+                          subTitle: S.of(context).clickSelectThisLocation,
+                          icon: Icons.home,
+                        ),
+                      ],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      thickness: 1,
+                    );
+                  },
                 ),
               ),
               Padding(

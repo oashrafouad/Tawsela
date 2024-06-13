@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -134,8 +135,14 @@ class PassengerEditProfile extends StatelessWidget {
                     height: 46,
                     width: 213,
                     maxLength: 10,
-                    hintText: "123456789",
+                    hintText: "1234567890",
                     keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      // prevent the first number inputted to be 0, to force the user to input the correct number format
+                      FilteringTextInputFormatter.deny(RegExp(r'^0')),
+                      // to only allow (english) numbers
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                    ],
                   ),
                   const SizedBox(
                     width: 8,
