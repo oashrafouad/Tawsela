@@ -31,7 +31,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 1,
             child: Stepper(
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               steps: uberDriverProvider.directions.map((e) {
                 final document = parse(e.instructions);
                 final String parsedString =
@@ -54,14 +54,14 @@ class _DirectionWidgetState extends State<DirectionWidget> {
                 }
               },
               connectorColor:
-                  MaterialStateProperty.resolveWith((states) => Colors.green),
+                  WidgetStateProperty.resolveWith((states) => Colors.green),
               currentStep: currentStep,
             ),
           ),
         ],
       );
     } else if (uberDriverProvider.destination == null) {
-      return Center(
+      return const Center(
         child: Card(
           color: Colors.red,
           child: Text(
@@ -71,7 +71,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
         ),
       );
     } else if (uberDriverProvider.directions.isEmpty) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(
           color: Colors.green,
         ),

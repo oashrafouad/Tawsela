@@ -15,8 +15,8 @@ class DriverDraggableSheet extends StatelessWidget {
         snap: true,
         builder: (context, scrollableController) {
           return Container(
-            decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 255, 255, 1),
+            decoration: const BoxDecoration(
+                color: Color.fromRGBO(255, 255, 255, 1),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50))),

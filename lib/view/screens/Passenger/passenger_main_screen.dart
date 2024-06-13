@@ -173,34 +173,31 @@ class PassengerMainScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 90,
-                child: ListView( // TODO: make this dynamic using ListView.builder or ListView.separated or ListView.custom
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    for (int i = 1; i <= 17; i++)
-                      if (i >= 1 && i < 10 ||
-                          i == 11 ||
-                          i == 13 ||
-                          i == 15 ||
-                          i == 17)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: CustomCircleContainer(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        MicrobusGuideStationPage(
-                                          line: displayLines(i),
-                                          color: randomColorsGenerator(),
-                                        )),
-                              );
-                            },
-                            color: randomColorsGenerator(),
-                            line: displayLines(i),
+                  itemCount: 13,
+                  itemBuilder: (BuildContext context, int index) {
+                    int i = index + 1;
+                    return CustomCircleContainer(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MicrobusGuideStationPage(
+                              line: displayLines(i),
+                              color: randomColorsGenerator(),
+                            ),
                           ),
-                        )
-                  ],
+                        );
+                      },
+                      color: randomColorsGenerator(),
+                      line: displayLines(i),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(width: 15);
+                  },
                 ),
               ),
             ],

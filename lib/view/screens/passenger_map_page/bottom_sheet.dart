@@ -124,9 +124,9 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
               builder: (context, state) {
                 return Container(
                   child: (selectedItem == 0)
-                      ? UberCoice()
+                      ? const UberCoice()
                       : (selectedItem == 1)
-                          ? ServiceChoice()
+                          ? const ServiceChoice()
                           : (selectedItem == 2)
                               ? BlocConsumer<PassengerBloc, MapUserState>(
                                   buildWhen: (previous, current) {
@@ -137,7 +137,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                                     // TODO: implement listener
                                   },
                                   builder: (context, state) {
-                                    return WalkChoice();
+                                    return const WalkChoice();
                                   },
                                 )
                               : Container(
@@ -184,7 +184,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
           BlocProvider.of<PassengerBloc>(context, listen: false).add(
               GetWalkDirections(
                   passengerDestination:
-                      currentState.destination ?? LatLng(0, 0)));
+                      currentState.destination ?? const LatLng(0, 0)));
         }
         break;
       case 'Micro bus':
@@ -193,7 +193,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
         selectedItem = 1;
         selectedItems = {items[selectedItem]};
         BlocProvider.of<PassengerBloc>(context)
-            .add(GetNearestPathToServiceLine());
+            .add(const GetNearestPathToServiceLine());
         break;
     }
     setState(() {});

@@ -32,8 +32,8 @@ class _WalkChoiceState extends State<WalkChoice> {
                   height: MediaQuery.of(context).size.height * 0.5,
                   child: SingleChildScrollView(
                     child: Stepper(
-                        physics: ClampingScrollPhysics(),
-                        connectorColor: MaterialStateProperty.resolveWith(
+                        physics: const ClampingScrollPhysics(),
+                        connectorColor: WidgetStateProperty.resolveWith(
                             (states) => Colors.green),
                         currentStep: current_step,
                         onStepCancel: () {
@@ -107,8 +107,8 @@ class _WalkChoiceState extends State<WalkChoice> {
         ),
       ));
     } else if (googleMapProvider.directions.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Center(
           child: CircularProgressIndicator(
             color: Colors.green,

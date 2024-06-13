@@ -1,8 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
@@ -63,7 +60,7 @@ class _DriverPageState extends State<DriverPage> {
             backgroundColor: Colors.red,
             messageColor: Colors.white,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ).show(context);
         } else {}
       },
@@ -84,12 +81,12 @@ class _DriverPageState extends State<DriverPage> {
               FloatingActionButton(
                 onPressed: () {
                   BlocProvider.of<UserPreferenceBloc>(context)
-                      .add(SwitchUserMode());
+                      .add(const SwitchUserMode());
                   Navigator.pushNamed(context, '/');
                 },
                 child: const Text('SM'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               if (uberDriverProvider.destination != null &&
@@ -108,12 +105,12 @@ class _DriverPageState extends State<DriverPage> {
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
                       BlocProvider.of<UberDriverBloc>(context)
-                          .add(GoogleMapGetCurrentPosition());
+                          .add(const GoogleMapGetCurrentPosition());
                     }
                   },
                   child: Text(
                     (isTripStarted) ? tripStates[1] : tripStates[0],
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
             ],
@@ -126,7 +123,7 @@ class _DriverPageState extends State<DriverPage> {
                 ),
                 if (uberDriverProvider.destination != null &&
                     driverMapProvider.state.bottomSheet == true)
-                  DriverDraggableSheet(),
+                  const DriverDraggableSheet(),
                 BlocConsumer<DriverMapBloc, DriverMapState>(
                   listener: (context, state) {
                     // TODO: implement listener
@@ -145,7 +142,7 @@ class _DriverPageState extends State<DriverPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -153,7 +150,7 @@ class _DriverPageState extends State<DriverPage> {
                                   Expanded(
                                       flex: 2,
                                       child: Center(
-                                          child: const Text('Receive Orders'))),
+                                          child: Text('Receive Orders'))),
                                   Expanded(child: DriverGpsIcon()),
                                 ],
                               ),
@@ -166,7 +163,7 @@ class _DriverPageState extends State<DriverPage> {
                                     child:
                                         (uberDriverProvider.acceptedRequest ==
                                                 null)
-                                            ? UserRequestListView()
+                                            ? const UserRequestListView()
                                             : UserInformation(true))
                             ],
                           ),
