@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tawsela_app/routes/home_page/home_page.dart';
+import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 
 class RouteGenerator {
   static const String home = '/';

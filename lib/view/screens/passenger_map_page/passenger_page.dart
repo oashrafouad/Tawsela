@@ -11,12 +11,12 @@ import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
 
-import 'package:tawsela_app/routes/passenger_map_page/bottom_sheet.dart';
-import 'package:tawsela_app/routes/passenger_map_page/loading_page.dart';
-import 'package:tawsela_app/routes/passenger_map_page/passenger_google_map_page.dart';
-import 'package:tawsela_app/routes/passenger_map_page/passenger_gps_icon.dart';
-import 'package:tawsela_app/routes/passenger_map_page/passenger_search_bar.dart';
-import 'package:tawsela_app/widgets/handle.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/bottom_sheet.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_google_map_page.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_gps_icon.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_search_bar.dart';
+import 'package:tawsela_app/view/widgets/handle.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';

@@ -4,8 +4,8 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
-import 'package:tawsela_app/routes/driver_map_page/directions.dart';
-import 'package:tawsela_app/routes/driver_map_page/user_information.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/directions.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
 
 class DriverButtomSheet extends StatefulWidget {
   const DriverButtomSheet({super.key});

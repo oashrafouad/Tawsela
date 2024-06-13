@@ -17,13 +17,13 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
 
-import 'package:tawsela_app/routes/driver_map_page/driver_draggable_sheet.dart';
-import 'package:tawsela_app/routes/driver_map_page/driver_gps_icon.dart';
-import 'package:tawsela_app/routes/driver_map_page/driver_map_switch.dart';
-import 'package:tawsela_app/routes/driver_map_page/driver_google_map_widget.dart';
-import 'package:tawsela_app/routes/driver_map_page/user_information.dart';
-import 'package:tawsela_app/routes/driver_map_page/user_request_view.dart';
-import 'package:tawsela_app/routes/passenger_map_page/loading_page.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_draggable_sheet.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_gps_icon.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_map_switch.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_google_map_widget.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/user_request_view.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
 
 class DriverPage extends StatefulWidget {
   const DriverPage({super.key});

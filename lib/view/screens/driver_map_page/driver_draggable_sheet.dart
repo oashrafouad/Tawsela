@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tawsela_app/routes/driver_map_page/driver_buttom_sheet.dart';
-import 'package:tawsela_app/widgets/handle.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_buttom_sheet.dart';
+import 'package:tawsela_app/view/widgets/handle.dart';
 
 class DriverDraggableSheet extends StatelessWidget {
   const DriverDraggableSheet({super.key});
