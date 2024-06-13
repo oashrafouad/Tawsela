@@ -116,7 +116,9 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
-                      textAlign: isArabic() ? TextAlign.end : TextAlign.start,
+
+                      textDirection: TextDirection.ltr,
+                      textAlign: isArabic() ? TextAlign.left : TextAlign.right,
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 230,
@@ -126,7 +128,6 @@ class WelcomePage extends StatelessWidget {
                       onChanged: (value) {
                         phoneNumber=value;
                       },
-                      
                       //controller: phoneController,
                       inputFormatters: [
                         // prevent the first number inputted to be 0, to force the user to input the correct number format

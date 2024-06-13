@@ -19,7 +19,6 @@ class PassengerEditProfile extends StatelessWidget {
     final imageCubit = context.read<ImageCubit>();
     final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
-
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),
         centerTitle: true,
@@ -37,7 +36,7 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     top: 16,
-                    right: isArabic() ? 28 : 0,
+                    right: isArabic() ? 45 : 0,
                     left: isArabic() ? 0 : 28),
                 child: Text(
                   S.of(context).personalImage,
@@ -50,16 +49,16 @@ class PassengerEditProfile extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Center(
               child: Stack(children: [
                 CircleAvatar(
-                    radius: 70,
+                    radius: 50,
                     backgroundImage:  imageState.avatarImg.image,
                     backgroundColor: kGreyFont),
                 Positioned(
-                    top: 100,
-                    right: 42,
+                    top: 70,
+                    left: 28,
                     child: InkWell(
                       onTap: () {
                         showImagePicker(context, (Image newImage) {
@@ -87,7 +86,7 @@ class PassengerEditProfile extends StatelessWidget {
                           style: const TextStyle(
                               fontFamily: font,
                               fontWeight: FontWeight.w700,
-                              fontSize: 20,
+                              fontSize: 15,
                               color: Color(0xffF6F6F6)),
                         ),
                       ),
@@ -121,64 +120,63 @@ class PassengerEditProfile extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextFormField(
-                      onChanged: (data) => phoneNumber = data,
-                      textAlign: TextAlign.end,
-                      titleAbove: S.of(context).phoneNum,
-                      height: 46,
-                      width: 213,
-                      maxLength: 10,
-                      hintText: "123456789",
-                      keyboardType: TextInputType.phone,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 24.0),
-                      child: SizedBox(
-                          height: 20,
-                          width: 29,
-                          child: Text(
-                            '20+',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 16),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 28.0),
-                      child: SizedBox(
-                          height: 23,
-                          width: 23,
-                          child: Image.asset('assets/images/flag.png')),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Center(
-                  child: CustomTextFormField(
-                    onChanged: (data) => email = data,
-                    textAlign: TextAlign.end,
-                    width: 284,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTextFormField(
+                    onChanged: (data) => phoneNumber = data,
+                    textDirection: TextDirection.ltr,
+                    textAlign: isArabic() ? TextAlign.left : TextAlign.right,
+                    titleAbove: S.of(context).phoneNum,
                     height: 46,
-                    titleAbove: S.of(context).email,
+                    width: 213,
+                    maxLength: 10,
+                    hintText: "123456789",
+                    keyboardType: TextInputType.phone,
                   ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 24.0),
+                    child: SizedBox(
+                        height: 20,
+                        width: 29,
+                        child: Text(
+                          '20+',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 16),
+                        )),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 28.0),
+                    child: SizedBox(
+                        height: 23,
+                        width: 23,
+                        child: Image.asset('assets/images/flag.png')),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Center(
+                child: CustomTextFormField(
+                  onChanged: (data) => email = data,
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.start,
+                  width: 284,
+                  height: 46,
+                  titleAbove: S.of(context).email,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           const SizedBox(
             height: 32,
@@ -187,7 +185,7 @@ class PassengerEditProfile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: CustomButton(
               onTap: () {
-                //you should update the user profile in database ,PUT request
+                // TODO: you should update the user profile in database ,PUT request
                 Navigator.pop(context);
               },
               text: S.of(context).save,

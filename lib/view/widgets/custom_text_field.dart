@@ -14,6 +14,7 @@ class CustomTextFormField extends StatelessWidget {
   final int? maxLines;
   final TextInputType? keyboardType;
   final TextAlign textAlign;
+  final TextDirection textDirection;
   final Function(String)? onChanged;
    
    final TextEditingController? controller;
@@ -23,7 +24,8 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.hintText,
     this.labelText,
-    this.textAlign = TextAlign.start,
+    this.textAlign = TextAlign.right,
+    this.textDirection = TextDirection.rtl,
     required this.width,
     required this.height,
     this.titleAbove = '',
@@ -31,7 +33,7 @@ class CustomTextFormField extends StatelessWidget {
     this.radius = 10,
     this.maxLength,
     this.inputFormatters,
-    this.maxLines,
+    this.maxLines = 1,
     this.controller,
    
   });
@@ -58,7 +60,7 @@ class CustomTextFormField extends StatelessWidget {
           height: height,
           width: width,
           child: TextFormField(
-            maxLines: maxLines ?? 1,
+            maxLines: maxLines,
             keyboardType: keyboardType,
             style: const TextStyle(color: Colors.black, fontFamily: font, fontSize: 13),
             validator: (value) {
@@ -67,6 +69,7 @@ class CustomTextFormField extends StatelessWidget {
               }
               return null;
             },
+            textDirection: textDirection,
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,
             onChanged: onChanged,

@@ -102,8 +102,9 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               ),
               Center(
                 child: CustomTextFormField(
+                  textDirection: TextDirection.ltr,
+                  textAlign: TextAlign.start,
                   onChanged: (data) => email = data,
-                  textAlign: isArabic() ? TextAlign.end : TextAlign.start,
                   width: 284,
                   height: 46,
                   titleAbove: S.of(context).email,
