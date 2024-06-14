@@ -10,34 +10,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bloc: "8.1.3"
-  flutter_bloc: "8.1.4"
-  geolocator: "9.0.2"
-  geocoding: "2.2.0"
-  google_maps_flutter: "2.6.0"
-  flutter_polyline_points: "1.0.0"
-  google_places_flutter: "2.0.8"
-  places_service: "0.1.3"
-  google_directions_api: "0.9.1"
-  dio: "5.4.1"
+  bloc: any
+  flutter_bloc: any
+  geolocator: any
+  geocoding: any
+  google_maps_flutter: any
+  flutter_polyline_points: any
+  google_places_flutter: any
+  places_service: any
+  google_directions_api: any
+  dio: any
   intl: any
   flutter_localizations:
     sdk: flutter
-  json_serializable: "6.7.1"
+  json_serializable: any
   json_annotation: null
-  another_flushbar: "1.12.30"
+  another_flushbar: any
   # google_distance_matrix: ^0.0.1
-  equatable: "2.0.5"
-  http:
-  connectivity:
-  get_it: ^7.7.0
-  cupertino_icons: ^1.0.6
-  top_modal_sheet: ^2.1.0
-  image_picker: ^1.0.7
-  image_cropper: ^4.0.1
-  permission_handler: ^11.3.1
-  shared_preferences: ^2.2.3
-  popover: ^0.3.0
+  equatable: any
+  http: any
+  connectivity: any
+  get_it: any
+  cupertino_icons: any
+  top_modal_sheet: any
+  image_picker: any
+  image_cropper: any
+  permission_handler: any
+  shared_preferences: any
+  popover: any
   flutter_svprogresshud: any
   meta: any
   html: any
@@ -45,9 +45,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: "2.4.8"
-
-  flutter_lints: ^3.0.0
+  build_runner: any
+  flutter_lints: any
 
 flutter:
   uses-material-design: true
