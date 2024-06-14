@@ -116,7 +116,6 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
-
                       textDirection: TextDirection.ltr,
                       textAlign: isArabic() ? TextAlign.left : TextAlign.right,
                       titleAbove: S.of(context).phoneNum,

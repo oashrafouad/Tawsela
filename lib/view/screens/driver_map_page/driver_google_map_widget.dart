@@ -38,7 +38,7 @@ class DriverGoogleMapWidget extends StatelessWidget {
                         markers: {
                           ...uberDriverProvider.markers,
                           Marker(
-                              markerId: MarkerId('my-pos'),
+                              markerId: const MarkerId('my-pos'),
                               position: LatLng(snapshot.data!.latitude,
                                   snapshot.data!.longitude),
                               icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -51,7 +51,7 @@ class DriverGoogleMapWidget extends StatelessWidget {
                             target: LatLng(snapshot.data!.latitude,
                                 snapshot.data!.longitude)));
                   } else {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                 })
             : GoogleMap(

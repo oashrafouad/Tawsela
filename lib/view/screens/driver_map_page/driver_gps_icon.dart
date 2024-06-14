@@ -12,7 +12,7 @@ class DriverGpsIcon extends StatelessWidget {
         style: IconButton.styleFrom(backgroundColor: Colors.green),
         onPressed: () {
           BlocProvider.of<UberDriverBloc>(context)
-              .add(GoogleMapGetCurrentPosition());
+              .add(const GoogleMapGetCurrentPosition());
         },
         icon: const Icon(
           Icons.gps_fixed,

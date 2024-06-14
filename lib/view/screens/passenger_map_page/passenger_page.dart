@@ -1,15 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
-import 'package:tawsela_app/models/data_models/user_states.dart';
 
 import 'package:tawsela_app/view/screens/passenger_map_page/bottom_sheet.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
@@ -47,7 +42,7 @@ class _PassengerPageState extends State<PassengerPage> {
             backgroundColor: Colors.red,
             messageColor: Colors.white,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ).show(context);
         } else {}
       },
@@ -70,12 +65,12 @@ class _PassengerPageState extends State<PassengerPage> {
               FloatingActionButton(
                 onPressed: () {
                   BlocProvider.of<UserPreferenceBloc>(context)
-                      .add(SwitchUserMode());
+                      .add(const SwitchUserMode());
                   Navigator.pushNamed(context, '/');
                 },
                 child: const Text('SM'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               if (passengerState.destination != null &&
@@ -89,12 +84,12 @@ class _PassengerPageState extends State<PassengerPage> {
                     } else {
                       isTripStarted = false;
                       BlocProvider.of<PassengerBloc>(context)
-                          .add(GoogleMapGetCurrentPosition());
+                          .add(const GoogleMapGetCurrentPosition());
                     }
                   },
                   child: Text(
                     (isTripStarted) ? tripStates[1] : tripStates[0],
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
             ],
@@ -117,8 +112,8 @@ class _PassengerPageState extends State<PassengerPage> {
                       snap: true,
                       builder: (context, scrollableController) {
                         return Container(
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(255, 255, 255, 1),
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(255, 255, 255, 1),
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(50),
                                   topRight: Radius.circular(50))),
@@ -144,7 +139,7 @@ class _PassengerPageState extends State<PassengerPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: PassengerSearchBar(),
                       ),
-                      PassengerGpsIcon()
+                      const PassengerGpsIcon()
                     ],
                   ),
                 ),
@@ -154,9 +149,9 @@ class _PassengerPageState extends State<PassengerPage> {
                     ElevatedButton(
                         onPressed: () {
                           BlocProvider.of<PassengerBloc>(context)
-                              .add(ShowLine(0));
+                              .add(const ShowLine(0));
                         },
-                        child: Text('Show lines')),
+                        child: const Text('Show lines')),
                   ],
                 ),
                 if (state is Loading) LoadingPage(state.message),

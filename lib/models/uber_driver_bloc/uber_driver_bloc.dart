@@ -22,7 +22,7 @@ import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 UberDriverState uberLastState = UberDriverState(
     controller: null,
     userState: UserState.DRIVER,
-    currentPosition: LatLng(-1, -1),
+    currentPosition: const LatLng(-1, -1),
     lines: [],
     markers: {},
     directions: [],
@@ -51,9 +51,9 @@ Future<MapUserState> onGetCurrentPosition() async {
   final permission = await Geolocator.requestPermission();
   final connectivity = await Connectivity().checkConnectivity();
   if (connectivity == ConnectivityResult.none) {
-    return UserErrorState('Check your internet Connection');
+    return const UserErrorState('Check your internet Connection');
   } else if (permission == LocationPermission.denied) {
-    return UserErrorState('Please open location service');
+    return const UserErrorState('Please open location service');
   }
   // else if (position.latitude != invalidPosition.latitude &&
   //     position.longitude != invalidPosition.longitude) {
@@ -71,14 +71,14 @@ Future<MapUserState> onGetCurrentPosition() async {
           lines: <Polyline>[],
           markers: <Marker>{
             Marker(
-                markerId: MarkerId(positionMarkerId),
+                markerId: const MarkerId(positionMarkerId),
                 icon: BitmapDescriptor.defaultMarker,
                 position: position)
           },
           currentLocationDescription: description,
           directions: []);
     } catch (exception) {
-      return UserErrorState('An Error has occured please try again');
+      return const UserErrorState('An Error has occured please try again');
     }
   }
 }
@@ -87,7 +87,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
   UberDriverBloc() : super(uberLastState) {
     FutureOr<void> getDriverLocation(
         GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
-      emit(Loading('Getting current location'));
+      emit(const Loading('Getting current location'));
       MapUserState temp = await onGetCurrentPosition();
 
       if (temp is UserErrorState) {
@@ -113,7 +113,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('An Error has occured please try again'));
+          emit(const UserErrorState('An Error has occured please try again'));
         }
       }
     }
@@ -158,7 +158,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
     on<GetPassengerRequests>((event, emit) async {
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('check your Internet Connection'));
+        emit(const UserErrorState('check your Internet Connection'));
       } else if (state is UserErrorState || state is UberDriverState) {
         final newState = UberDriverState(
             controller: uberLastState.controller,
@@ -180,13 +180,13 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
     on<AcceptPassengerRequest>((event, emit) async {
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('check your Internet Connection'));
+        emit(const UserErrorState('check your Internet Connection'));
       } else if (state is UserErrorState || state is UberDriverState) {
         if (uberLastState.currentPosition.latitude ==
                 invalidPosition.latitude &&
             uberLastState.currentPosition.longitude ==
                 invalidPosition.longitude) {
-          emit(UserErrorState('Please provide your current location'));
+          emit(const UserErrorState('Please provide your current location'));
         } else {
           try {
             userRequests.removeWhere(
@@ -219,7 +219,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
             uberLastState = newState;
             emit(newState);
           } catch (exception) {
-            emit(UserErrorState('An Error has occured'));
+            emit(const UserErrorState('An Error has occured'));
           }
         }
       }
@@ -227,7 +227,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
     on<RejectPassengerRequest>((event, emit) async {
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('check your Internet Connection'));
+        emit(const UserErrorState('check your Internet Connection'));
       } else {
         try {
           userRequests.removeWhere(
@@ -254,7 +254,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('An error has occured'));
+          emit(const UserErrorState('An error has occured'));
         }
       }
     });
@@ -262,9 +262,9 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('Check your internet Connection'));
+        emit(const UserErrorState('Check your internet Connection'));
       } else if (permission == LocationPermission.denied) {
-        emit(UserErrorState('Please open location service'));
+        emit(const UserErrorState('Please open location service'));
       } else {
         try {
           uberLastState.controller!.moveCamera(CameraUpdate.newCameraPosition(
@@ -283,7 +283,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
           DirectionsService.init('***REMOVED***');
           DirectionsService directions = DirectionsService();
-          Polyline path = Polyline(
+          Polyline path = const Polyline(
               polylineId: PolylineId('path'),
               color: Colors.green,
               width: 4,
@@ -327,7 +327,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('An error has occured'));
+          emit(const UserErrorState('An error has occured'));
         }
       }
     });
@@ -336,9 +336,9 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('Check your internet Connection'));
+        emit(const UserErrorState('Check your internet Connection'));
       } else if (permission == LocationPermission.denied) {
-        emit(UserErrorState('Please open location service'));
+        emit(const UserErrorState('Please open location service'));
       } else {
         try {
           Set<Marker> newMarkers = {
@@ -366,7 +366,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('an error has occured'));
+          emit(const UserErrorState('an error has occured'));
         }
       }
     });
@@ -374,9 +374,9 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('Check your internet Connection'));
+        emit(const UserErrorState('Check your internet Connection'));
       } else if (permission == LocationPermission.denied) {
-        emit(UserErrorState('Please open location service'));
+        emit(const UserErrorState('Please open location service'));
       } else {
         try {
           userRequests.removeWhere(
@@ -400,7 +400,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('an Error has occured'));
+          emit(const UserErrorState('an Error has occured'));
         }
       }
     });
@@ -408,9 +408,9 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
       if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('Check your internet Connection'));
+        emit(const UserErrorState('Check your internet Connection'));
       } else if (permission == LocationPermission.denied) {
-        emit(UserErrorState('Please open location service'));
+        emit(const UserErrorState('Please open location service'));
       } else {
         try {
           endedTrips.add(event.passengerRequest);
@@ -433,7 +433,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('an Error has occured'));
+          emit(const UserErrorState('an Error has occured'));
         }
       }
     });

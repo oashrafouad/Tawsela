@@ -5,7 +5,7 @@ class BottomSheetHandle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       width: 50,
       child: Divider(
         color: Colors.grey,

@@ -39,8 +39,9 @@ dependencies:
   shared_preferences: ^2.2.3
   popover: ^0.3.0
   flutter_svprogresshud: any
-
+  meta: any
   html: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -38,19 +38,19 @@ class DriverMapSwitch extends StatelessWidget {
           onChanged: (value) {
             if (value == true) {
               if (uberDriverProvider.acceptedRequest == null) {
-                BlocProvider.of<DriverMapBloc>(context).add(ShowTopSheet());
+                BlocProvider.of<DriverMapBloc>(context).add(const ShowTopSheet());
                 BlocProvider.of<UberDriverBloc>(context)
-                    .add(GetPassengerRequests());
+                    .add(const GetPassengerRequests());
               } else {
                 Flushbar(
                   message: 'you already has accepted a request',
                   backgroundColor: Colors.red,
                   messageColor: Colors.white,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                 ).show(context);
               }
             } else {
-              BlocProvider.of<DriverMapBloc>(context).add(HideTopSheet());
+              BlocProvider.of<DriverMapBloc>(context).add(const HideTopSheet());
             }
           },
           value: driverMapProvider.state.topSheet,

@@ -29,7 +29,7 @@ class _ServiceChoiceState extends State<ServiceChoice> {
     }
     return (passengerState.destination == null ||
             passengerState.directions.isEmpty)
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(
               color: Colors.green,
             ),
@@ -37,9 +37,9 @@ class _ServiceChoiceState extends State<ServiceChoice> {
         : SingleChildScrollView(
             child: Stepper(
                 key: Key(Random.secure().nextDouble().toString()),
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 connectorColor:
-                    MaterialStateProperty.resolveWith((states) => Colors.green),
+                    WidgetStateProperty.resolveWith((states) => Colors.green),
                 currentStep: current_step,
                 onStepCancel: () {
                   if (current_step > 0) {

@@ -51,17 +51,17 @@ class UserInformation extends StatelessWidget {
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    CircleAvatar(
+                                    const CircleAvatar(
                                       child: Icon(Icons.person),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                        '${uberDriverProvider.acceptedRequest!.passengerName}')
+                                        uberDriverProvider.acceptedRequest!.passengerName)
                                   ],
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Colors.grey,
                                   thickness: 2,
                                 ),
@@ -79,7 +79,7 @@ class UserInformation extends StatelessWidget {
                                         Flexible(
                                           fit: FlexFit.loose,
                                           child: Text(
-                                              '${uberDriverProvider.acceptedRequest!.destinationDescription}'),
+                                              uberDriverProvider.acceptedRequest!.destinationDescription),
                                         )
                                       ],
                                     ),
@@ -88,7 +88,7 @@ class UserInformation extends StatelessWidget {
                               ],
                             )
                           ]),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Row(
@@ -98,7 +98,7 @@ class UserInformation extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green),
                               onPressed: () {},
-                              child: Row(children: [
+                              child: const Row(children: [
                                 Icon(
                                   Icons.call,
                                   color: Colors.white,
@@ -120,9 +120,9 @@ class UserInformation extends StatelessWidget {
                                         passengerRequest: uberDriverProvider
                                             .acceptedRequest!));
                                 BlocProvider.of<UberDriverBloc>(context)
-                                    .add(GetPassengerRequests());
+                                    .add(const GetPassengerRequests());
                               },
-                              child: Row(
+                              child: const Row(
                                 children: [
                                   Icon(
                                     Icons.cancel,
@@ -139,7 +139,7 @@ class UserInformation extends StatelessWidget {
                               )),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       if (showDirection == true)
@@ -147,13 +147,13 @@ class UserInformation extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue),
                             onPressed: () {
-                              driverMapProvider.add(HideTopSheet());
-                              Future.delayed(Duration(seconds: 2));
+                              driverMapProvider.add(const HideTopSheet());
+                              Future.delayed(const Duration(seconds: 2));
                               BlocProvider.of<UberDriverBloc>(context)
-                                  .add(GetPassengerDirections());
-                              driverMapProvider.add(ShowBottomSheet());
+                                  .add(const GetPassengerDirections());
+                              driverMapProvider.add(const ShowBottomSheet());
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(

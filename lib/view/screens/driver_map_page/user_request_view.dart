@@ -34,9 +34,9 @@ class UserRequestListView extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('User Information'),
+                      const Text('User Information'),
                       IconButton(
-                          icon: Icon(Icons.close),
+                          icon: const Icon(Icons.close),
                           onPressed: () {
                             Navigator.pop(context);
                           })
@@ -51,7 +51,7 @@ class UserRequestListView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Align(
+                          const Align(
                             alignment: Alignment.center,
                             child: CircleAvatar(
                               child: Icon(Icons.person),
@@ -93,7 +93,7 @@ class UserRequestListView extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            return AlertDialog(
+                            return const AlertDialog(
                               content:
                                   Text('You can not accept more than one trip'),
                             );

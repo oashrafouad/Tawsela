@@ -23,7 +23,7 @@ class PassengerGpsIcon extends StatelessWidget {
         style: IconButton.styleFrom(backgroundColor: Colors.white),
         onPressed: () {
           BlocProvider.of<PassengerBloc>(context)
-              .add(GoogleMapGetCurrentPosition());
+              .add(const GoogleMapGetCurrentPosition());
         },
         icon: const Icon(
           Icons.gps_fixed,
