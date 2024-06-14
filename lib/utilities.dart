@@ -5,10 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:math';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
-
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
 
@@ -29,10 +27,9 @@ String displayLines(int i) {
     "١٧"
   ];
 
-  if (isArabic()) return lines[i - 1].toString();
-  return i.toString();
+  if (isArabic()) return lines[i].toString();
+  return (i + 1).toString();
 }
-
 
 final picker = ImagePicker();
 
@@ -113,12 +110,6 @@ _cropImage(File imgFile, Function(Image) setImage) async {
     imageCache.clear();
     setImage(Image.file(File(croppedFile.path)));
   }
-}
-
-
-Color randomColorsGenerator() {
-  Random random = Random();
-  return linesColors[random.nextInt(linesColors.length)];
 }
 
 // You should add this property to all buttons to remove splash effect when pressed on iOS

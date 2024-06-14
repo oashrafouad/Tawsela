@@ -21,7 +21,7 @@ class MicrobusRoutePage extends StatelessWidget {
     'المرور',
     'التدريب',
   ];
-  Color c = randomColorsGenerator();
+  final color = Colors.white; // TODO: fix this to show line's color
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +105,7 @@ class MicrobusRoutePage extends StatelessWidget {
                                 child: Container(
                                   width: 4,
                                   height: double.infinity,
-                                  color: c,
+                                  color: color,
                                   transform: Matrix4.rotationY(
                                       3.14159), // Rotate 180 degrees
                                 ),
@@ -115,7 +115,7 @@ class MicrobusRoutePage extends StatelessWidget {
                                   itemCount: ma7tat.length,
                                   itemBuilder: (context, index) {
                                     return PlacesItemBuilder(
-                                        color: c, place: ma7tat[index]);
+                                        color: color, place: ma7tat[index]);
                                   }),
                             ]),
                           ),

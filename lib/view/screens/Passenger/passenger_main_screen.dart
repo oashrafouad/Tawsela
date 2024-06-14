@@ -178,21 +178,20 @@ class PassengerMainScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 13,
                   itemBuilder: (BuildContext context, int index) {
-                    int i = index + 1;
                     return CustomCircleContainer(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => MicrobusGuideStationPage(
-                              line: displayLines(i),
-                              color: randomColorsGenerator(),
+                              line: displayLines(index),
+                              color: linesColors[index],
                             ),
                           ),
                         );
                       },
-                      color: randomColorsGenerator(),
-                      line: displayLines(i),
+                      line: displayLines(index),
+                      color: linesColors[index],
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
