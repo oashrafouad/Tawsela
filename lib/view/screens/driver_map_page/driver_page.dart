@@ -20,9 +20,11 @@ import 'package:tawsela_app/view/screens/driver_map_page/driver_map_switch.dart'
 import 'package:tawsela_app/view/screens/driver_map_page/driver_google_map_widget.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_request_view.dart';
+import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
 
 class DriverPage extends StatefulWidget {
+  static const String id = 'DriverPage';
   const DriverPage({super.key});
   @override
   State<DriverPage> createState() => _DriverPageState();
@@ -82,7 +84,7 @@ class _DriverPageState extends State<DriverPage> {
                 onPressed: () {
                   BlocProvider.of<UserPreferenceBloc>(context)
                       .add(const SwitchUserMode());
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, HomePage.id);
                 },
                 child: const Text('SM'),
               ),

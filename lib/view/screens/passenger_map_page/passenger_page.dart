@@ -5,6 +5,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 
 import 'package:tawsela_app/view/screens/passenger_map_page/bottom_sheet.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
@@ -17,6 +18,7 @@ import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class PassengerPage extends StatefulWidget {
+  static const String id = 'PassengerPage';
   const PassengerPage({super.key});
   @override
   State<PassengerPage> createState() => _PassengerPageState();
@@ -66,7 +68,7 @@ class _PassengerPageState extends State<PassengerPage> {
                 onPressed: () {
                   BlocProvider.of<UserPreferenceBloc>(context)
                       .add(const SwitchUserMode());
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, HomePage.id);
                 },
                 child: const Text('SM'),
               ),

@@ -12,6 +12,7 @@ import 'package:tawsela_app/models/data_models/location_model/location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+  static const String id = 'HomePage';
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -37,7 +38,5 @@ class _HomePageState extends State<HomePage> {
     } else {
       return const PassengerPage();
     }
-
-    // TODO: implement build
   }
 }

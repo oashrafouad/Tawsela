@@ -18,7 +18,6 @@ import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/route_generator.dart';
 
-
 // Import screens
 import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_signup.dart';
@@ -36,7 +35,9 @@ import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart
 import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbus_route.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
-
+import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
+import 'package:tawsela_app/view/screens/home_page/home_page.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ void main() async {
 
   // loading google map api key
   var json =
-  await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
+      await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
   // decoding json string
   Map mapObject = jsonDecode(json) as Map;
   // fetching google map api key value
@@ -66,9 +67,7 @@ void main() async {
 
   // Bloc.observer = MyBlocObserver();
   // lock orientation to portrait only
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const TawselaApp());
 }
 
@@ -99,6 +98,11 @@ class TawselaApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider<PassengerBloc>(create: (context) => PassengerBloc()),
+        BlocProvider<DriverMapBloc>(create: (context) => DriverMapBloc()),
+        BlocProvider<UberDriverBloc>(create: (context) => UberDriverBloc()),
+        BlocProvider<UserPreferenceBloc>(
+            create: (context) => UserPreferenceBloc()),
         BlocProvider(
           create: (context) => AppLanguageBloc()..add(InitialLanguage()),
         ),
@@ -108,7 +112,8 @@ class TawselaApp extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          final langState = context.select((AppLanguageBloc bloc) => bloc.state);
+          final langState =
+              context.select((AppLanguageBloc bloc) => bloc.state);
 
           return MaterialApp(
             locale: _getLocale(langState),
@@ -122,7 +127,12 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
+
+            
             initialRoute: WelcomePage.id,
+
+
+
           );
         },
       ),
@@ -154,12 +164,15 @@ class TawselaApp extends StatelessWidget {
 
   Locale _getLocale(AppLanguageState langState) {
     if (langState is AppChangeLanguage) {
-      return langState.languageCode == 'en' ? const Locale('en') : const Locale('ar');
+      return langState.languageCode == 'en'
+          ? const Locale('en')
+          : const Locale('ar');
     }
     return const Locale('ar');
   }
 
-  Locale? _localeResolutionCallback(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+  Locale? _localeResolutionCallback(
+      Locale? deviceLocale, Iterable<Locale> supportedLocales) {
     if (deviceLocale != null) {
       for (var locale in supportedLocales) {
         if (deviceLocale.languageCode == locale.languageCode) {
@@ -172,22 +185,30 @@ class TawselaApp extends StatelessWidget {
 
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
-      WelcomePage.id: (context) =>  WelcomePage(),
-      SmsVerficationPage.id: (context) =>  SmsVerficationPage(),
+      WelcomePage.id: (context) => WelcomePage(),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),
       PassengerMainScreen.id: (context) => const PassengerMainScreen(),
-      MicrobusGuideStationPage.id: (context) => MicrobusGuideStationPage(color: Colors.black, line: 'line'),
-      MicrobusSuggestedLinesPage.id: (context) => const MicrobusSuggestedLinesPage(),
-      PassengerPickupLocationPage.id: (context) => const PassengerPickupLocationPage(),
-      MicrobusRoutePage.id: (context) =>  MicrobusRoutePage(),
-      DriverMainScreen.id: (context) =>  const DriverMainScreen(),
-      DriverSignUpPage.id: (context) =>  DriverSignUpPage(),
-      DriverProfilePage.id: (context) =>  const DriverProfilePage(),
-      DriverPickupLocationPage.id: (context) => const DriverPickupLocationPage(),
-      DriverEditProfilePage.id: (context) =>  DriverEditProfilePage(),
-      TestpicsPage.id: (context) =>  const TestpicsPage(),
+      MicrobusGuideStationPage.id: (context) =>
+          MicrobusGuideStationPage(color: Colors.black, line: 'line'),
+      MicrobusSuggestedLinesPage.id: (context) =>
+          const MicrobusSuggestedLinesPage(),
+      PassengerPickupLocationPage.id: (context) =>
+          const PassengerPickupLocationPage(),
+      MicrobusRoutePage.id: (context) => MicrobusRoutePage(),
+      DriverMainScreen.id: (context) => const DriverMainScreen(),
+      DriverSignUpPage.id: (context) => DriverSignUpPage(),
+      DriverProfilePage.id: (context) => const DriverProfilePage(),
+      DriverPickupLocationPage.id: (context) =>
+          const DriverPickupLocationPage(),
+      DriverEditProfilePage.id: (context) => DriverEditProfilePage(),
+      TestpicsPage.id: (context) => const TestpicsPage(),
+      HomePage.id: (context) => const HomePage(),
+      PassengerPage.id: (context) => const PassengerPage(),
+      DriverPage.id: (context) => const DriverPage(),
+     
     };
   }
 }
