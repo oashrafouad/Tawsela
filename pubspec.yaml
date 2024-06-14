@@ -24,9 +24,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   json_serializable: any
-  json_annotation: null
+  json_annotation: any
   another_flushbar: any
-  # google_distance_matrix: ^0.0.1
+  # google_distance_matrix: any
   equatable: any
   http: any
   connectivity: any
