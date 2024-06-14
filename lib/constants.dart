@@ -44,6 +44,7 @@ const List<Color> linesColors = [
   Color(0xFF6186E3),
   Color(0xFFB4B4B4),
   Color(0xFFDEBB78),
+  Color(0xFF74B67E),
 ];
 
 // images
