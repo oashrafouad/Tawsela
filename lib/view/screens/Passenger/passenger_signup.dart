@@ -163,7 +163,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               CustomButton(
                 text: S.of(context).signUp,
                 onTap: () {
-                  if (kDebugMode || kIsWeb) { // TODO: Remove this block when the API is ready
+                  if (kDebugMode || kIsWeb || kReleaseMode) { // TODO: Remove this block when the API is ready
                     Navigator.pushNamed(context, PassengerMainScreen.id);
                   } else {
                   setState(() {
