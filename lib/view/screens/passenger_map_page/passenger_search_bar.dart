@@ -34,9 +34,7 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
     return GooglePlaceAutoCompleteTextField(
-      inputDecoration:  InputDecoration(
-        
-
+      inputDecoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
         enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
@@ -44,7 +42,9 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
         contentPadding: const EdgeInsets.only(left: 0),
         hintText: S.of(context).whereUwantoGo,
         hintStyle: const TextStyle(
-                      fontFamily: font, fontSize: 13, fontWeight: FontWeight.w400), //edited the hint text
+            fontFamily: font,
+            fontSize: 13,
+            fontWeight: FontWeight.w400), //edited the hint text
         border: null,
       ),
       textEditingController: textController,
