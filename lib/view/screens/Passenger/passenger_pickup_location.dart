@@ -3,6 +3,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
 import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_search_bar.dart';
 import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
 
 class PassengerPickupLocationPage extends StatelessWidget {
@@ -28,32 +30,46 @@ class PassengerPickupLocationPage extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
+toolbarHeight: 100,
+            // // iconTheme: const IconThemeData(color: kGreenBigButtons),
+             surfaceTintColor: noColor,
+            // // toolbarHeight: 64,
+             centerTitle: true,
+             
+            title: Column(
+              children: [
+                SearchBar(
+                  // auto activate search bar
+                  autoFocus: true,
+                  // disable keyboard when tapping outside the search bar
+                  onSubmitted: (value) {
+                    Navigator.pushNamed(context, PassengerPage.id); // this will take me to passenger page "Ibrahim code""
+                    print(value);
+                  },
+                  elevation: WidgetStateProperty.all(0),
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  leading: const Icon(Icons.search),
+                  hintText: S.of(context).whereUwantoGo,
+                  textStyle: WidgetStateProperty.all(const TextStyle(
+                      fontFamily: font,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400)),
+                  hintStyle: WidgetStateProperty.all(const TextStyle(
+                      fontFamily: font, fontSize: 13, fontWeight: FontWeight.w400)),
+                  padding: const WidgetStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 12.0, vertical: 6)),
+                  backgroundColor: WidgetStateProperty.all(Colors.grey[200]),
+                ),
 
-            // iconTheme: const IconThemeData(color: kGreenBigButtons),
-            surfaceTintColor: noColor,
-            // toolbarHeight: 64,
-            centerTitle: true,
-            title: SearchBar(
-              // auto activate search bar
-              autoFocus: true,
-              // disable keyboard when tapping outside the search bar
-              onSubmitted: (value) {
-                print(value);
-              },
-              elevation: WidgetStateProperty.all(0),
-              constraints: const BoxConstraints(maxWidth: 400),
-              leading: const Icon(Icons.search),
-              hintText: S.of(context).whereUwantoGo,
-              textStyle: WidgetStateProperty.all(const TextStyle(
-                  fontFamily: font,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400)),
-              hintStyle: WidgetStateProperty.all(const TextStyle(
-                  fontFamily: font, fontSize: 13, fontWeight: FontWeight.w400)),
-              padding: const WidgetStatePropertyAll<EdgeInsets>(
-                  EdgeInsets.symmetric(horizontal: 12.0, vertical: 6)),
-              backgroundColor: WidgetStateProperty.all(Colors.grey[200]),
+                SizedBox(height: 16,)
+                ,
+                PassengerSearchBar(),
+              ],
             ),
+            
+
+
+
           ),
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(

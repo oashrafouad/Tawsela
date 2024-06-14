@@ -4,6 +4,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/data_models/google_server.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
@@ -32,13 +34,17 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
     return GooglePlaceAutoCompleteTextField(
-      inputDecoration: const InputDecoration(
-        prefixIcon: Icon(Icons.search),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-        enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-        fillColor: Colors.white,
-        contentPadding: EdgeInsets.only(left: 0),
-        hintText: 'Search',
+      inputDecoration:  InputDecoration(
+        
+
+        prefixIcon: const Icon(Icons.search),
+        focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+        enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
+        fillColor: Colors.grey[200],
+        contentPadding: const EdgeInsets.only(left: 0),
+        hintText: S.of(context).whereUwantoGo,
+        hintStyle: const TextStyle(
+                      fontFamily: font, fontSize: 13, fontWeight: FontWeight.w400), //edited the hint text
         border: null,
       ),
       textEditingController: textController,
