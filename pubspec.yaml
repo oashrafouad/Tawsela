@@ -29,7 +29,8 @@ dependencies:
   # google_distance_matrix: any
   equatable: any
   http: any
-  connectivity: any
+#  connectivity: any
+  connectivity_plus: any
   get_it: any
   cupertino_icons: any
   top_modal_sheet: any

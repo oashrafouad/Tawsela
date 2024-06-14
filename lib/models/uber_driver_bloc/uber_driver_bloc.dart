@@ -15,7 +15,7 @@ import 'package:tawsela_app/models/data_base.dart';
 import 'package:tawsela_app/models/data_models/request_model.dart';
 import 'package:tawsela_app/models/data_models/uber_driver.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 

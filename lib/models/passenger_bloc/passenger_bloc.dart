@@ -16,7 +16,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_place_
 import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:tawsela_app/models/data_models/path_model/path.dart';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:tawsela_app/models/service_points.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
