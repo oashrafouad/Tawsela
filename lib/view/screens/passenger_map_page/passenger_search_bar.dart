@@ -34,23 +34,30 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
     return GooglePlaceAutoCompleteTextField(
+      textStyle: const TextStyle(fontFamily: font),
       inputDecoration: InputDecoration(
+       
         prefixIcon: const Icon(Icons.search),
-        focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
-        enabledBorder: const OutlineInputBorder(borderSide: BorderSide.none),
-        fillColor: Colors.grey[200],
+        focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: kSearchBarColor)),
+        enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide(color: kSearchBarColor)),
+            
         contentPadding: const EdgeInsets.only(left: 0),
         hintText: S.of(context).whereUwantoGo,
-        hintStyle: const TextStyle(
-            fontFamily: font,
-            fontSize: 13,
-            fontWeight: FontWeight.w400), //edited the hint text
-        border: null,
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderSide: BorderSide()),
+            
       ),
       textEditingController: textController,
       googleAPIKey: GetIt.instance.get<GoogleServer>().url,
       boxDecoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+        
+
+          color: kSearchBarColor, borderRadius: BorderRadius.circular(20)),
       countries: const ['eg'],
       itemBuilder: (context, index, prediction) {
         return ListTile(

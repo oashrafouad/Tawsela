@@ -6,6 +6,8 @@ SharedPreferences? sharedPreferences;
 const Color kGreenBigButtons = Color(0xff28AA45);
 const Color kGreenFont = Color(0xff339949);
 
+const Color kSearchBarColor=Color(0xffefefef);
+
 const Color kGreyFont = Color(0xff444444);
 const Color kGreyFontLight = Color(0xff999999);
 const Color kGreyFontDark = Color(0xff303030);

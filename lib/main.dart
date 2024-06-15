@@ -129,7 +129,7 @@ class TawselaApp extends StatelessWidget {
             routes: _buildRoutes(),
 
 
-            initialRoute: PassengerPickupLocationPage.id,
+            initialRoute:PassengerPickupLocationPage.id,
 
 
 
