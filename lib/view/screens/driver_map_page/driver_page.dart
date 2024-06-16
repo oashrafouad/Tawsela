@@ -39,21 +39,10 @@ class DriverPage extends StatefulWidget {
 class _DriverPageState extends State<DriverPage> {
   List<String> tripStates = ['Start Trip', 'End Trip'];
   bool isTripStarted = false;
-  // late Future<Position> currentLocationGetter;
-  // late Location location;
-  // late Position pos;
-  // LocationData? currentLocation;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    // location = Location();
-    // currentLocationGetter = Geolocator.getCurrentPosition();
-    // location.onLocationChanged.listen((newLocation) {
-    //   currentLocation = newLocation;
-    // });
   }
 
   @override
@@ -82,6 +71,10 @@ class _DriverPageState extends State<DriverPage> {
           uberDriverProvider = state as UberDriverState;
         }
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            toolbarHeight: 8,
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniStartFloat,
           floatingActionButton: Column(
@@ -124,6 +117,8 @@ class _DriverPageState extends State<DriverPage> {
                 ),
             ],
           ),
+
+          
           body: Stack(
               // alignment: Alignment.bottomCenter,
               children: [
@@ -182,55 +177,61 @@ class _DriverPageState extends State<DriverPage> {
                                       color: kGrey),
                                 ),
                               )),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    S
-                                        .of(context)
-                                        .YouDoNotReceivePassengerRequeststTheMoment,
-                                    style: const TextStyle(
-                                        fontFamily: font,
-                                        color: kRed,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  const Expanded(child: DriverMapSwitch()),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  CustomTextButton(
-                                    paddingVerti: 12,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    //iconSize: 16,
-                                    icon: Icons.tune,
-                                    text: S.of(context).DetermineSpecificLocation
-                                    ,onTap: (){
-                                      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                                       //implement this here
-                                      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                                    }),
-                                ],
-                              ),
-                             Padding(
-                               padding: const EdgeInsets.all(16.0),
-                               child: Center(
-                                child: Text(
-                                S.of(context).thereNoOrdersNow,
-                                style: const TextStyle(
-                                   fontFamily: font,
-                                   color: kGreyLight,
-                                   fontSize: 10,
-                                   fontWeight: FontWeight.w400,
-                                )
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      S
+                                          .of(context)
+                                          .YouDoNotReceivePassengerRequeststTheMoment,
+                                      style: const TextStyle(
+                                          fontFamily: font,
+                                          color: kRed,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    DriverMapSwitch(),
+                                  ],
                                 ),
-                               ),
-                             ),
-                              const DriverGpsIcon(),
+                              ),
+                              Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    CustomTextButton(
+                                        paddingVerti: 10,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        //iconSize: 16,
+                                        icon: Icons.tune,
+                                        text: S
+                                            .of(context)
+                                            .DetermineSpecificLocation,
+                                        onTap: () {
+                                          //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                          //implement this here
+                                          //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                        }),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: Text(S.of(context).thereNoOrdersNow,
+                                      style: const TextStyle(
+                                        fontFamily: font,
+                                        color: kGreyLight,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400,
+                                      )),
+                                ),
+                              ),
+                              ///const DriverGpsIcon(),
                               const SizedBox(
                                 height: 10,
                               ),

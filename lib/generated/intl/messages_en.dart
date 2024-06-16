@@ -62,8 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Uber": MessageLookupByLibrary.simpleMessage("Uber"),
         "Walk": MessageLookupByLibrary.simpleMessage("Walk"),
         "YouDoNotReceivePassengerRequeststTheMoment":
-            MessageLookupByLibrary.simpleMessage(
-                "You do not receive passenger requests at the moment"),
+            MessageLookupByLibrary.simpleMessage("You dont receive requests"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "appName": MessageLookupByLibrary.simpleMessage("Tawsela"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),

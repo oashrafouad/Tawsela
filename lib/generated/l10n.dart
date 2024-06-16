@@ -590,10 +590,10 @@ class S {
     );
   }
 
-  /// `You do not receive passenger requests at the moment`
+  /// `You dont receive requests`
   String get YouDoNotReceivePassengerRequeststTheMoment {
     return Intl.message(
-      'You do not receive passenger requests at the moment',
+      'You dont receive requests',
       name: 'YouDoNotReceivePassengerRequeststTheMoment',
       desc: '',
       args: [],
