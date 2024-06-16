@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/data_models/google_server.dart';
@@ -96,7 +97,6 @@ class TawselaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Two conflicting MultiBlocProvider, RESOLVE!
     // return MaterialApp(home: WelcomePage()); // temp return just to avoid compile error
 
     return MultiBlocProvider(
@@ -111,6 +111,10 @@ class TawselaApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ImageCubit(), // provide the ImageCubit
+        ),
+        BlocProvider(
+          create: (context) =>
+              DriverStateTextBloc(), //change from you don't recieve requests to 'you recieve requests'
         ),
       ],
       child: Builder(
@@ -131,36 +135,10 @@ class TawselaApp extends StatelessWidget {
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
             initialRoute: HomePage.id,
-
-
-
           );
         },
       ),
     );
-
-    // return MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider<PassengerBloc>(create: (context) => PassengerBloc()),
-    //     BlocProvider<DriverMapBloc>(create: (context) => DriverMapBloc()),
-    //     BlocProvider<UberDriverBloc>(create: (context) => UberDriverBloc()),
-    //     BlocProvider<UserPreferenceBloc>(
-    //         create: (context) => UserPreferenceBloc())
-    //   ],
-    //   child: MaterialApp(
-    //     locale: const Locale('en'),
-    //     localizationsDelegates: const [
-    //       S.delegate,
-    //       GlobalMaterialLocalizations.delegate,
-    //       GlobalWidgetsLocalizations.delegate,
-    //       GlobalCupertinoLocalizations.delegate,
-    //     ],
-    //     supportedLocales: S.delegate.supportedLocales,
-    //     initialRoute: RouteGenerator.home,
-    //     onGenerateRoute: RouteGenerator.generateRoute,
-    //     debugShowCheckedModeBanner: false,
-    //   ),
-    // );
   }
 
   Locale _getLocale(AppLanguageState langState) {
@@ -209,7 +187,6 @@ class TawselaApp extends StatelessWidget {
       HomePage.id: (context) => const HomePage(),
       PassengerPage.id: (context) => const PassengerPage(),
       DriverPage.id: (context) => const DriverPage(),
-
     };
   }
 }

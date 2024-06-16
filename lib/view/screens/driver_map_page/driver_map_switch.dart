@@ -40,7 +40,9 @@ class DriverMapSwitch extends StatelessWidget {
           activeTrackColor: Colors.green,
           onChanged: (value) {
             if (value == true) {
+              context.read<DriverStateTextBloc>().add(ToggleText());
               if (uberDriverProvider.acceptedRequest == null) {
+
                 BlocProvider.of<DriverMapBloc>(context).add(const ShowTopSheet());
                 BlocProvider.of<UberDriverBloc>(context)
                     .add(const GetPassengerRequests());
@@ -54,6 +56,7 @@ class DriverMapSwitch extends StatelessWidget {
               }
             } else {
               BlocProvider.of<DriverMapBloc>(context).add(const HideTopSheet());
+              context.read<DriverStateTextBloc>().add(ToggleText());
             }
           },
           value: driverMapProvider.state.topSheet,

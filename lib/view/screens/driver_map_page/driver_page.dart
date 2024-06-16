@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_state.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
@@ -183,15 +185,17 @@ class _DriverPageState extends State<DriverPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      S
-                                          .of(context)
-                                          .YouDoNotReceivePassengerRequeststTheMoment,
-                                      style: const TextStyle(
-                                          fontFamily: font,
-                                          color: kRed,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
+                                    BlocBuilder<DriverStateTextBloc, DriverStateTextState>(
+                                      builder: (context, state) {
+                                        return Text(
+                                          state.text,
+                                          style:  TextStyle(
+                                              fontFamily: font,
+                                              color: state.color,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600),
+                                        );
+                                      }
                                     ),
                                     DriverMapSwitch(),
                                   ],
