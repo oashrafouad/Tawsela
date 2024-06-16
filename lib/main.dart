@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
-import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
+import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/route_generator.dart';
 
 // Import screens

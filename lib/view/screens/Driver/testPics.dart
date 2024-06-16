@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../models/imageCubit/image_cubit.dart';
+import '../../../models/bloc_models/imageCubit/image_cubit.dart';
 
 class TestpicsPage extends StatelessWidget {
   static String id = 'testPicsPage';

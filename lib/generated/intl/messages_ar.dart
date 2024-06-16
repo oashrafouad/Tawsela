@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Walk": MessageLookupByLibrary.simpleMessage("مشي"),
         "YouDoNotReceivePassengerRequeststTheMoment":
             MessageLookupByLibrary.simpleMessage("انت لا تستقبل طلبات الركاب"),
+        "YouReceivePassengerRequeststTheMoment":
+            MessageLookupByLibrary.simpleMessage("انت  تستقبل طلبات الركاب"),
         "add": MessageLookupByLibrary.simpleMessage("اضف"),
         "appName": MessageLookupByLibrary.simpleMessage("توصيلة"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),

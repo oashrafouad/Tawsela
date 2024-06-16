@@ -59,28 +59,8 @@
  "DetermineSpecificLocation":"Determine a Specific Location",
  "thereNoOrdersNow":"There are no orders now",
 
-    "ReceivedOrders":"Received Orders",
-    "PickUp":"Pick Up",
-    "DropOff":"Drop Off",
-    "Passenger":"Passenger",
-    "Driver":"Driver",
-    "DriverMode":"Driver Mode",
-    "PassengerMode":"Passenger Mode",
-    "TripLog":"Trip Log",
-    "TripDetails":"Trip Details",
-    "TripID":"Trip ID",
-    "PassengerName":"Passenger Name",
-    "DriverName":"Driver Name",
-    "PassengerPhone":"Passenger Phone",
-    "DriverPhone":"Driver Phone",
-    "PassengerLocation":"Passenger Location",
-    "DriverLocation":"Driver Location",
-    "PickUpTime":"Pick Up Time",
-    "DropOffTime":"Drop Off Time",
-    "PickUpLocation":"Pick Up Location",    
-    "DropOffLocation":"Drop Off Location",
-    "TripStatus":"Trip Status"
-
+   
+"YouReceivePassengerRequeststTheMoment":"You receive requests"
 
 
 

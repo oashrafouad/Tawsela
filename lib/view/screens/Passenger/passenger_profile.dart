@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
+import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';

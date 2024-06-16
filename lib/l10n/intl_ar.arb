@@ -56,5 +56,6 @@
     "AreYouAvaibleNow":"هل انت متاح لاستقبال طلبات الركاب الآن؟",
     "YouDoNotReceivePassengerRequeststTheMoment":"انت لا تستقبل طلبات الركاب",
 "DetermineSpecificLocation":"حدد مكان معين",
-"thereNoOrdersNow":"لا يوجد طلبات الآن"
+"thereNoOrdersNow":"لا يوجد طلبات الآن",
+"YouReceivePassengerRequeststTheMoment":"انت  تستقبل طلبات الركاب"
 }

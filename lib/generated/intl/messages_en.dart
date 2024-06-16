@@ -26,43 +26,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Are you available now?"),
         "DetermineSpecificLocation": MessageLookupByLibrary.simpleMessage(
             "Determine a Specific Location"),
-        "Driver": MessageLookupByLibrary.simpleMessage("Driver"),
-        "DriverLocation":
-            MessageLookupByLibrary.simpleMessage("Driver Location"),
-        "DriverMode": MessageLookupByLibrary.simpleMessage("Driver Mode"),
-        "DriverName": MessageLookupByLibrary.simpleMessage("Driver Name"),
-        "DriverPhone": MessageLookupByLibrary.simpleMessage("Driver Phone"),
-        "DropOff": MessageLookupByLibrary.simpleMessage("Drop Off"),
-        "DropOffLocation":
-            MessageLookupByLibrary.simpleMessage("Drop Off Location"),
-        "DropOffTime": MessageLookupByLibrary.simpleMessage("Drop Off Time"),
         "Microbus": MessageLookupByLibrary.simpleMessage("Microbus"),
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Microbus Guide Line"),
-        "Passenger": MessageLookupByLibrary.simpleMessage("Passenger"),
-        "PassengerLocation":
-            MessageLookupByLibrary.simpleMessage("Passenger Location"),
-        "PassengerMode": MessageLookupByLibrary.simpleMessage("Passenger Mode"),
-        "PassengerName": MessageLookupByLibrary.simpleMessage("Passenger Name"),
-        "PassengerPhone":
-            MessageLookupByLibrary.simpleMessage("Passenger Phone"),
-        "PickUp": MessageLookupByLibrary.simpleMessage("Pick Up"),
-        "PickUpLocation":
-            MessageLookupByLibrary.simpleMessage("Pick Up Location"),
-        "PickUpTime": MessageLookupByLibrary.simpleMessage("Pick Up Time"),
-        "ReceivedOrders":
-            MessageLookupByLibrary.simpleMessage("Received Orders"),
         "ToEditTheNameAndProfilePictureContactTechnicalSupport":
             MessageLookupByLibrary.simpleMessage(
                 "To edit the name and profile picture, contact technical support"),
-        "TripDetails": MessageLookupByLibrary.simpleMessage("Trip Details"),
-        "TripID": MessageLookupByLibrary.simpleMessage("Trip ID"),
-        "TripLog": MessageLookupByLibrary.simpleMessage("Trip Log"),
-        "TripStatus": MessageLookupByLibrary.simpleMessage("Trip Status"),
         "Uber": MessageLookupByLibrary.simpleMessage("Uber"),
         "Walk": MessageLookupByLibrary.simpleMessage("Walk"),
         "YouDoNotReceivePassengerRequeststTheMoment":
             MessageLookupByLibrary.simpleMessage("You dont receive requests"),
+        "YouReceivePassengerRequeststTheMoment":
+            MessageLookupByLibrary.simpleMessage("You receive requests"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "appName": MessageLookupByLibrary.simpleMessage("Tawsela"),
         "camera": MessageLookupByLibrary.simpleMessage("Camera"),
