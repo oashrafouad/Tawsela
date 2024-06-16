@@ -22,13 +22,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AreYouAvaibleNow": MessageLookupByLibrary.simpleMessage(
+            "هل انت متاح لاستقبال طلبات الركاب الآن؟"),
+        "DetermineSpecificLocation":
+            MessageLookupByLibrary.simpleMessage("حدد مكان معين"),
+        "Microbus": MessageLookupByLibrary.simpleMessage("ميكروباص"),
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("دليل خط"),
         "ToEditTheNameAndProfilePictureContactTechnicalSupport":
             MessageLookupByLibrary.simpleMessage(
                 "لتعديل الاسم والصورة الشخصية كلم الدعم الفني"),
+        "Uber": MessageLookupByLibrary.simpleMessage("أوبر"),
+        "Walk": MessageLookupByLibrary.simpleMessage("مشي"),
+        "YouDoNotReceivePassengerRequeststTheMoment":
+            MessageLookupByLibrary.simpleMessage("انت لا تستقبل طلبات الركاب"),
         "add": MessageLookupByLibrary.simpleMessage("اضف"),
-        "appName": MessageLookupByLibrary.simpleMessage("توصيلة 🚌"),
+        "appName": MessageLookupByLibrary.simpleMessage("توصيلة"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
         "chooseOnMap":
             MessageLookupByLibrary.simpleMessage("اختار على الخريطة"),
@@ -83,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تبديل لوضع السائق"),
         "switchPassengermode":
             MessageLookupByLibrary.simpleMessage("تبديل لوضع الراكب"),
+        "thereNoOrdersNow":
+            MessageLookupByLibrary.simpleMessage("لا يوجد طلبات الآن"),
         "title": MessageLookupByLibrary.simpleMessage("اهلًا بيك في تطبيق"),
         "trip": MessageLookupByLibrary.simpleMessage("رحلة"),
         "tripLog": MessageLookupByLibrary.simpleMessage("سجل الرحلات"),

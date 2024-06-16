@@ -8,6 +8,8 @@ import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class ServiceChoice extends StatefulWidget {
+
+  static const String id = 'service_choice';
   const ServiceChoice({super.key});
 
   @override

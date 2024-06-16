@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Tawsela 🚌`
+  /// `Tawsela`
   String get appName {
     return Intl.message(
-      'Tawsela 🚌',
+      'Tawsela',
       name: 'appName',
       desc: '',
       args: [],
@@ -545,6 +545,286 @@ class S {
     return Intl.message(
       'Gallery',
       name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Walk`
+  String get Walk {
+    return Intl.message(
+      'Walk',
+      name: 'Walk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uber`
+  String get Uber {
+    return Intl.message(
+      'Uber',
+      name: 'Uber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Microbus`
+  String get Microbus {
+    return Intl.message(
+      'Microbus',
+      name: 'Microbus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you available now?`
+  String get AreYouAvaibleNow {
+    return Intl.message(
+      'Are you available now?',
+      name: 'AreYouAvaibleNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You do not receive passenger requests at the moment`
+  String get YouDoNotReceivePassengerRequeststTheMoment {
+    return Intl.message(
+      'You do not receive passenger requests at the moment',
+      name: 'YouDoNotReceivePassengerRequeststTheMoment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Determine a Specific Location`
+  String get DetermineSpecificLocation {
+    return Intl.message(
+      'Determine a Specific Location',
+      name: 'DetermineSpecificLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are no orders now`
+  String get thereNoOrdersNow {
+    return Intl.message(
+      'There are no orders now',
+      name: 'thereNoOrdersNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Received Orders`
+  String get ReceivedOrders {
+    return Intl.message(
+      'Received Orders',
+      name: 'ReceivedOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Up`
+  String get PickUp {
+    return Intl.message(
+      'Pick Up',
+      name: 'PickUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drop Off`
+  String get DropOff {
+    return Intl.message(
+      'Drop Off',
+      name: 'DropOff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger`
+  String get Passenger {
+    return Intl.message(
+      'Passenger',
+      name: 'Passenger',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver`
+  String get Driver {
+    return Intl.message(
+      'Driver',
+      name: 'Driver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver Mode`
+  String get DriverMode {
+    return Intl.message(
+      'Driver Mode',
+      name: 'DriverMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger Mode`
+  String get PassengerMode {
+    return Intl.message(
+      'Passenger Mode',
+      name: 'PassengerMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip Log`
+  String get TripLog {
+    return Intl.message(
+      'Trip Log',
+      name: 'TripLog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip Details`
+  String get TripDetails {
+    return Intl.message(
+      'Trip Details',
+      name: 'TripDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip ID`
+  String get TripID {
+    return Intl.message(
+      'Trip ID',
+      name: 'TripID',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger Name`
+  String get PassengerName {
+    return Intl.message(
+      'Passenger Name',
+      name: 'PassengerName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver Name`
+  String get DriverName {
+    return Intl.message(
+      'Driver Name',
+      name: 'DriverName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger Phone`
+  String get PassengerPhone {
+    return Intl.message(
+      'Passenger Phone',
+      name: 'PassengerPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver Phone`
+  String get DriverPhone {
+    return Intl.message(
+      'Driver Phone',
+      name: 'DriverPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passenger Location`
+  String get PassengerLocation {
+    return Intl.message(
+      'Passenger Location',
+      name: 'PassengerLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Driver Location`
+  String get DriverLocation {
+    return Intl.message(
+      'Driver Location',
+      name: 'DriverLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Up Time`
+  String get PickUpTime {
+    return Intl.message(
+      'Pick Up Time',
+      name: 'PickUpTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drop Off Time`
+  String get DropOffTime {
+    return Intl.message(
+      'Drop Off Time',
+      name: 'DropOffTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Up Location`
+  String get PickUpLocation {
+    return Intl.message(
+      'Pick Up Location',
+      name: 'PickUpLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drop Off Location`
+  String get DropOffLocation {
+    return Intl.message(
+      'Drop Off Location',
+      name: 'DropOffLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trip Status`
+  String get TripStatus {
+    return Intl.message(
+      'Trip Status',
+      name: 'TripStatus',
       desc: '',
       args: [],
     );

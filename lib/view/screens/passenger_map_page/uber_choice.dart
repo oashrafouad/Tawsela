@@ -9,6 +9,8 @@ import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class UberCoice extends StatelessWidget {
+  static const String id = 'uber_choice';
+
   const UberCoice({super.key});
 
   @override

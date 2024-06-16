@@ -1,6 +1,6 @@
 {
     "title": "Welcome to the app",
-    "appName": "Tawsela 🚌",
+    "appName": "Tawsela",
     "descriptions": 
         "Tawseela will help you go anywhere in",
     "firstName":"First Name",
@@ -49,7 +49,37 @@
     "tripLog":"Trip Log",
     "stations":"Stations",
     "camera":"Camera",
-    "gallery":"Gallery"
+    "gallery":"Gallery",
+    "Walk":"Walk",
+    "Uber":"Uber",
+    "Microbus":"Microbus",
+    
+ "AreYouAvaibleNow":"Are you available now?",
+ "YouDoNotReceivePassengerRequeststTheMoment":"You do not receive passenger requests at the moment",
+ "DetermineSpecificLocation":"Determine a Specific Location",
+ "thereNoOrdersNow":"There are no orders now",
+
+    "ReceivedOrders":"Received Orders",
+    "PickUp":"Pick Up",
+    "DropOff":"Drop Off",
+    "Passenger":"Passenger",
+    "Driver":"Driver",
+    "DriverMode":"Driver Mode",
+    "PassengerMode":"Passenger Mode",
+    "TripLog":"Trip Log",
+    "TripDetails":"Trip Details",
+    "TripID":"Trip ID",
+    "PassengerName":"Passenger Name",
+    "DriverName":"Driver Name",
+    "PassengerPhone":"Passenger Phone",
+    "DriverPhone":"Driver Phone",
+    "PassengerLocation":"Passenger Location",
+    "DriverLocation":"Driver Location",
+    "PickUpTime":"Pick Up Time",
+    "DropOffTime":"Drop Off Time",
+    "PickUpLocation":"Pick Up Location",    
+    "DropOffLocation":"Drop Off Location",
+    "TripStatus":"Trip Status"
 
 
 

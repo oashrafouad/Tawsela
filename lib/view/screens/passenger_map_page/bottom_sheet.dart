@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
@@ -18,15 +20,13 @@ class UserActionsPanel extends StatefulWidget {
 
 class _UserActionsPanelState extends State<UserActionsPanel> {
   final ActiveColor = Colors.white;
-
   final DisableColor = Colors.black;
-
   late Color UberColor = DisableColor;
-
   late Color BusColor = DisableColor;
-
   late Color WalkColor = DisableColor;
+
   int selectedItem = -1;
+
   List<String> items = ['Uber', 'Micro bus', 'Walk'];
   Set<String> selectedItems = {};
   @override
@@ -40,11 +40,9 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
       passengerState =
           BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
-    // TODO: implement build
+
     return SizedBox(
         width: double.infinity,
-
-        // color: Colors.red,
         child: Column(
           children: [
             BlocListener<PassengerBloc, MapUserState>(
@@ -72,52 +70,58 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                 UberColor = WalkColor = BusColor = DisableColor;
                 setState(() {});
               },
-              child: SegmentedButton<String>(
-                  emptySelectionAllowed: true,
-                  style: SegmentedButton.styleFrom(
-                      selectedBackgroundColor: Colors.green),
-                  showSelectedIcon: true,
-                  selectedIcon: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                  ),
-                  segments: [
-                    ButtonSegment(
-                      value: items[0],
-                      icon: const Icon(
-                        Icons.car_repair,
-                      ),
-                      label: Text(
-                        'Uber',
-                        style: TextStyle(
-                          color: UberColor,
-                        ),
-                      ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: SegmentedButton<String>(
+                    emptySelectionAllowed: true,
+                    style: SegmentedButton.styleFrom(
+                        selectedBackgroundColor: kGreenBigButtons),
+                    showSelectedIcon: true,
+                    selectedIcon: const Icon(
+                      Icons.check,
+                      color: Colors.white,
                     ),
-                    ButtonSegment(
-                        value: items[1],
+
+                    segments: [
+                      ButtonSegment(
+                        value: items[0],
                         icon: const Icon(
-                          Icons.bus_alert,
+                          Icons.local_taxi,
                         ),
                         label: Text(
-                          'Service',
-                          style: TextStyle(color: BusColor),
-                        )),
-                    ButtonSegment(
-                        value: items[2],
-                        icon: const Icon(
-                          Icons.directions_walk,
-                        ),
-                        label: Text(
-                          'Walk',
+                          S.of(context).Uber,
                           style: TextStyle(
-                            color: WalkColor,
+                            fontFamily: font,
+                            color: UberColor,
                           ),
-                        )),
-                  ],
-                  selected: selectedItems,
-                  onSelectionChanged: (Set<String> selection) =>
-                      onSelect(selection, context)),
+                        ),
+                      ),
+                      ButtonSegment(
+                          value: items[1],
+                          icon: const Icon(
+                            Icons.directions_bus,
+                          ),
+                          label: Text(
+                            S.of(context).Microbus,
+                            style: TextStyle(fontFamily: font, color: BusColor),
+                          )),
+                      ButtonSegment(
+                          value: items[2],
+                          icon: const Icon(
+                            Icons.directions_walk,
+                          ),
+                          label: Text(
+                            S.of(context).Walk,
+                            style: TextStyle(
+                              fontFamily: font,
+                              color: WalkColor,
+                            ),
+                          )),
+                    ],
+                    selected: selectedItems,
+                    onSelectionChanged: (Set<String> selection) =>
+                        onSelect(selection, context)),
+              ),
             ),
             BlocConsumer<PassengerBloc, MapUserState>(
               listener: (context, state) {},

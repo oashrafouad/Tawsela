@@ -12,6 +12,11 @@ const Color kGreyFont = Color(0xff444444);
 const Color kGreyFontLight = Color(0xff999999);
 const Color kGreyFontDark = Color(0xff303030);
 
+//fonts for bottomSheet
+const Color kRed = Color(0xffD44D4D);
+const Color kGrey=Color (0xff565656);
+const Color kGreyLight = Color(0xff989898);
+
 const Color kGreyButton = Color(0xffF2F2F2);
 const Color kGreyButtonBorder = Color(0xff757775);
 const Color kGreenButtonBorder = Colors.green;

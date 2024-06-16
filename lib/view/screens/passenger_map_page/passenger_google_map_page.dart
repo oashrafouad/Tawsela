@@ -54,7 +54,7 @@ class PassengerGoogleMapWidget extends StatelessWidget {
                     }
                   })
               : GoogleMap(
-                  onMapCreated: (GoogleMapController controller) {
+                  onMapCreated: (GoogleMapController controller) { 
                     passengerState.controller = controller;
                   },
                   markers: passengerState.markers,

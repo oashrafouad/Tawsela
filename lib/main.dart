@@ -38,6 +38,9 @@ import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
 import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/service_choice.dart';
+
+import 'view/screens/passenger_map_page/uber_choice.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -127,9 +130,7 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-
-
-            initialRoute:PassengerPickupLocationPage.id,
+            initialRoute: HomePage.id,
 
 
 
@@ -208,7 +209,7 @@ class TawselaApp extends StatelessWidget {
       HomePage.id: (context) => const HomePage(),
       PassengerPage.id: (context) => const PassengerPage(),
       DriverPage.id: (context) => const DriverPage(),
-     
+
     };
   }
 }

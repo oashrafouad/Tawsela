@@ -1,6 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
@@ -13,6 +17,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 
 import 'package:tawsela_app/view/screens/driver_map_page/driver_draggable_sheet.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_gps_icon.dart';
@@ -22,6 +27,7 @@ import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_request_view.dart';
 import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
+import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 class DriverPage extends StatefulWidget {
   static const String id = 'DriverPage';
@@ -52,6 +58,7 @@ class _DriverPageState extends State<DriverPage> {
 
   @override
   Widget build(BuildContext context) {
+    final imageState = context.watch<ImageCubit>().state;
     final driverMapProvider = BlocProvider.of<DriverMapBloc>(context);
     late UberDriverState uberDriverProvider;
     return BlocConsumer<UberDriverBloc, MapUserState>(
@@ -144,18 +151,86 @@ class _DriverPageState extends State<DriverPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Row(
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16, left: 16),
+                                    child: InkWell(
+                                      onTap: () => Navigator.pushNamed(
+                                          context, PassengerProfile.id),
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            imageState.avatarImg.image,
+                                        radius: 25,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Center(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                child: Text(
+                                  S.of(context).AreYouAvaibleNow,
+                                  style: const TextStyle(
+                                      fontFamily: font,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: kGrey),
+                                ),
+                              )),
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(child: DriverMapSwitch()),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Center(
-                                          child: Text('Receive Orders'))),
-                                  Expanded(child: DriverGpsIcon()),
+                                  Text(
+                                    S
+                                        .of(context)
+                                        .YouDoNotReceivePassengerRequeststTheMoment,
+                                    style: const TextStyle(
+                                        fontFamily: font,
+                                        color: kRed,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  const Expanded(child: DriverMapSwitch()),
                                 ],
                               ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  CustomTextButton(
+                                    paddingVerti: 12,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    //iconSize: 16,
+                                    icon: Icons.tune,
+                                    text: S.of(context).DetermineSpecificLocation
+                                    ,onTap: (){
+                                      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                       //implement this here
+                                      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                    }),
+                                ],
+                              ),
+                             Padding(
+                               padding: const EdgeInsets.all(16.0),
+                               child: Center(
+                                child: Text(
+                                S.of(context).thereNoOrdersNow,
+                                style: const TextStyle(
+                                   fontFamily: font,
+                                   color: kGreyLight,
+                                   fontSize: 10,
+                                   fontWeight: FontWeight.w400,
+                                )
+                                ),
+                               ),
+                             ),
+                              const DriverGpsIcon(),
                               const SizedBox(
                                 height: 10,
                               ),
