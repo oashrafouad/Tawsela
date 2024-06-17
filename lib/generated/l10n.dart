@@ -629,6 +629,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You earned today`
+  String get YouEarnedToday {
+    return Intl.message(
+      'You earned today',
+      name: 'YouEarnedToday',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

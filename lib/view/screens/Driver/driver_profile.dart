@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
+import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import '../Passenger/welcome_page.dart';
@@ -10,6 +17,7 @@ class DriverProfilePage extends StatelessWidget {
 static String id ='DriverProfilePage';
   @override
   Widget build(BuildContext context) {
+    final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xffF8F8F8),
@@ -19,7 +27,8 @@ static String id ='DriverProfilePage';
             children: [
               CustomTextButton(
                 onTap: (){
-                  //implement here
+                 Navigator.popUntil(
+                      context, ModalRoute.withName(PassengerMainScreen.id));
                 },
                 text: S.of(context).switchPassengermode,
                 radius: 10,
@@ -30,22 +39,65 @@ static String id ='DriverProfilePage';
                 iconSize: 20,
                 
               ),
+              SizedBox(width: 8,),
+
+              CustomPopupMenuButton(
+                    icon: Icons.language,
+                    popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
+                    buttonColor: const Color(0xffE0E0E0),
+                    iconColor: const Color(0xff3E3E3E),
+                    borderColor: const Color(0xffB4B4B4),
+                    itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 1,
+                            child: Center(
+                                child: Text("English",
+                                    style: TextStyle(
+                                        fontFamily: font,
+                                        color: kGreenBigButtons))),
+                          ),
+                          const PopupMenuItem(
+                            value: 2,
+                            child: Center(
+                                child: Text(
+                              "العربية",
+                              style: TextStyle(
+                                  fontFamily: font, color: kGreenBigButtons),
+                            )),
+                          ),
+                        ],
+                    onSelected: (value) {
+                      if (value == 1) {
+                        BlocProvider.of<AppLanguageBloc>(context)
+                            .add(EnglishLanguageEvent());
+                      } else if (value == 2) {
+                        BlocProvider.of<AppLanguageBloc>(context)
+                            .add(ArabicLanguageEvent());
+                      }
+                    },
+                    radius: 10,
+                    iconSize: 20
+                ),
               const SizedBox(
                 width: 8,
               ),
               CustomTextButton(
-                //onTap: (){},
+              
                 radius: 10,
-                textColor: const Color(0xffD16464),
-                iconColor: const Color(0xffD16464),
-                buttonColor: const Color(0xffFFA8A8),
+                textColor: kLogOutButtonContent,
+                iconColor: kLogOutButtonContent,
+                buttonColor: kLogOutButtonBackground,
+                borderColor: kLogOutButtonBorder,
                 paddingVerti: 6,
                 icon: Icons.logout,
                 paddingHorzin: 2,
                 iconSize: 20,
                 onTap: () {
-                  Navigator.popUntil(
-                      context, ModalRoute.withName(WelcomePage.id));
+                  //to pop all screen in the stack and return to welcome page
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(WelcomePage.id),
+                    );
                 },
               ),
             ],
@@ -60,9 +112,9 @@ static String id ='DriverProfilePage';
               child: Column(
                 children: [
                   Row(children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       radius: 40,
-                      backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                      backgroundImage: imageState.avatarImg.image,
                     ),
                     const SizedBox(
                       width: 16,
@@ -72,9 +124,9 @@ static String id ='DriverProfilePage';
                       children: [
                         Row(
                           children: [
-                            const Text(
-                              'أحمد علاء',
-                              style: TextStyle(
+                             Text(
+                              '$firstName $lastName',
+                              style: const TextStyle(
                                   fontFamily: font,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600),
@@ -93,13 +145,16 @@ static String id ='DriverProfilePage';
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child: const InkWell(
+                                child:  InkWell(
                                     focusColor: noColor,
                                     splashColor: noColor,
                                     hoverColor: noColor,
                                     highlightColor: noColor,
-                                    child: Icon(Icons.edit_outlined))
-                                // onTap: onTap,
+                                    child: const Icon(Icons.edit_outlined)
+                                    , onTap: (){
+                                  Navigator.pushNamed(context, DriverEditProfilePage.id);
+                                },)
+                               
 
                                 ),
                           ],
@@ -123,10 +178,11 @@ static String id ='DriverProfilePage';
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Column(
+                       Column(
                         children: [
                           Text(
-                            'كسبت اليوم',
+                            S.of(context).YouEarnedToday,
+
                             //S.of(context).numberoftrips,
                             style: TextStyle(
                                 color: Color(0xff525252),
@@ -138,7 +194,7 @@ static String id ='DriverProfilePage';
                             height: 8,
                           ),
                           Text(
-                            '٧٦٠ جنيهًا',
+                            '٧٦٠ جنيهًا',  //you get That from API
                             //S.of(context).trip,
                             style: TextStyle(
                                 color: Colors.black,
@@ -216,13 +272,13 @@ static String id ='DriverProfilePage';
             ),
           ),
           for (int i = 0; i < 3; i++)
-            const Column(
+             Column(
               children: [
                 ListTile(
                   //contentPadding:EdgeInsets.symmetric(vertical: 16,horizontal: 16) ,
                   leading: CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                    backgroundImage: imageState.avatarImg.image,
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,18 +286,18 @@ static String id ='DriverProfilePage';
                       Row(
                         children: [
                           Text(
-                            'أحمد علاء',
-                            style: TextStyle(
+                            '$firstName $lastName',
+                            style: const TextStyle(
                                 fontFamily: font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                         ],
                       ),
-                      Row(
+                      const Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Icon(
@@ -261,7 +317,7 @@ static String id ='DriverProfilePage';
                     ],
                   ),
 
-                  trailing: Padding(
+                  trailing: const Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Column(
                       //crossAxisAlignment: CrossAxisAlignment.end,
@@ -314,16 +370,16 @@ static String id ='DriverProfilePage';
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   child: Divider(
                     thickness: 1,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 )
               ],

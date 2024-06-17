@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Walk": MessageLookupByLibrary.simpleMessage("Walk"),
         "YouDoNotReceivePassengerRequeststTheMoment":
             MessageLookupByLibrary.simpleMessage("You dont receive requests"),
+        "YouEarnedToday":
+            MessageLookupByLibrary.simpleMessage("You earned today"),
         "YouReceivePassengerRequeststTheMoment":
             MessageLookupByLibrary.simpleMessage("You receive requests"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 
@@ -20,6 +22,7 @@ List<String> titlesAboveUploadImgButton = [
 ];
   @override
   Widget build(BuildContext context) {
+    final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,12 +52,12 @@ List<String> titlesAboveUploadImgButton = [
               )
             ],
           ),
-           const Padding(
+            Padding(
             padding:  EdgeInsets.symmetric(vertical: 4),
             child:  Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage:  AssetImage('assets/images/avatar.jpg'),
+                backgroundImage:  imageState.avatarImg.image,
               ),
             ),
           ),
@@ -203,7 +206,7 @@ List<String> titlesAboveUploadImgButton = [
           
           CustomButton(
             onTap: () {
-              print("Hussssssh");
+             Navigator.pop(context);
             
             },
             radius: 6,

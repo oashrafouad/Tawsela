@@ -19,6 +19,8 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 
 import 'package:tawsela_app/view/screens/driver_map_page/driver_draggable_sheet.dart';
@@ -156,7 +158,7 @@ class _DriverPageState extends State<DriverPage> {
                                         top: 16, left: 16),
                                     child: InkWell(
                                       onTap: () => Navigator.pushNamed(
-                                          context, PassengerProfile.id),
+                                          context, DriverProfilePage.id),
                                       child: CircleAvatar(
                                         backgroundImage:
                                             imageState.avatarImg.image,
@@ -216,6 +218,7 @@ class _DriverPageState extends State<DriverPage> {
                                             .of(context)
                                             .DetermineSpecificLocation,
                                         onTap: () {
+                                          Navigator.pushNamed(context, DriverPickupLocationPage.id);
                                           //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
                                           //implement this here
                                           //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

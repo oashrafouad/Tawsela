@@ -6,6 +6,7 @@ import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
@@ -42,7 +43,7 @@ class PassengerProfile extends StatelessWidget {
                   onTap: () {
                     //TODO: pop all screen in the stack
                     //if the user uploaded the licesense and the id card switched to driverMainScreen
-                    Navigator.pushNamed(context, DriverMainScreen.id);
+                    Navigator.pushNamed(context, DriverPage.id);
                   },
                 ),
                 const SizedBox(width: 8),
