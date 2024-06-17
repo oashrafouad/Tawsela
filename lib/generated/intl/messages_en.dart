@@ -26,9 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Are you available now?"),
         "DetermineSpecificLocation": MessageLookupByLibrary.simpleMessage(
             "Determine a Specific Location"),
+        "FieldIsRequired":
+            MessageLookupByLibrary.simpleMessage("Field is required"),
         "Microbus": MessageLookupByLibrary.simpleMessage("Microbus"),
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("Microbus Guide Line"),
+        "PleaseEnter": MessageLookupByLibrary.simpleMessage("Please enter"),
         "ToEditTheNameAndProfilePictureContactTechnicalSupport":
             MessageLookupByLibrary.simpleMessage(
                 "To edit the name and profile picture, contact technical support"),

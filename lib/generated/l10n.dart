@@ -639,6 +639,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter`
+  String get PleaseEnter {
+    return Intl.message(
+      'Please enter',
+      name: 'PleaseEnter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Field is required`
+  String get FieldIsRequired {
+    return Intl.message(
+      'Field is required',
+      name: 'FieldIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

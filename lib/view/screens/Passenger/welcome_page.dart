@@ -15,8 +15,10 @@ class WelcomePage extends StatelessWidget {
   static String id = 'WelcomePage';
   
   final TextEditingController phoneController = TextEditingController();
+   GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: noColor,
@@ -61,126 +63,138 @@ class WelcomePage extends StatelessWidget {
       ),
 
 
-      body: ListView(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  S.of(context).title,
+      body: Form(
+        key: formKey,
+        child: ListView(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    S.of(context).title,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 30,
+                      fontFamily: font,
+                    ),
+                  ),
+                ),
+                Text(
+                  S.of(context).appName,
                   style: const TextStyle(
-                    color: Colors.black,
+                    color: kGreenFont,
                     fontWeight: FontWeight.w800,
                     fontSize: 30,
                     fontFamily: font,
                   ),
                 ),
-              ),
-              Text(
-                S.of(context).appName,
-                style: const TextStyle(
-                  color: kGreenFont,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 30,
-                  fontFamily: font,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * .9,
-                  height: MediaQuery.of(context).size.height * .18,
-                  child: Text(
-                    S.of(context).welcomeMsg,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontFamily: font,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * .9,
+                    height: MediaQuery.of(context).size.height * .18,
+                    child: Text(
+                      S.of(context).welcomeMsg,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: font,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16, right: 0, left: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextFormField(
-                      textDirection: TextDirection.ltr,
-                      textAlign: isArabic() ? TextAlign.left : TextAlign.right,
-                      titleAbove: S.of(context).phoneNum,
-                      height: 46,
-                      width: 230,
-                      hintText: "1234567890",
-                      keyboardType: TextInputType.phone,
-                      maxLength: 10,
-                      onChanged: (value) {
-                        phoneNumber=value;
-                      },
-                      //controller: phoneController,
-                      inputFormatters: [
-                        // prevent the first number inputted to be 0, to force the user to input the correct number format
-                        FilteringTextInputFormatter.deny(RegExp(r'^0')),
-                        // to only allow (english) numbers
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 24.0),
-                      child: SizedBox(
-                          height: 20,
-                          width: 29,
-                          child: Text(
-                            '20+',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 15),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 28.0),
-                      child: SizedBox(
-                          height: 23,
-                          width: 23,
-                          child: Image.asset('assets/images/flag.png')),
-                    ),
-                  ],
-                ),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: CustomButton(
-              width: 300,
-              radius: 10,
-              buttonColor: kGreenBigButtons,
-              textColor: kWhite,
-              text: S.of(context).continuee,
-              onTap: () {
-                
-                Navigator.pushNamed(context, SmsVerficationPage.id);
-              },
+            Padding(
+              padding: const EdgeInsets.only(top: 16, right: 0, left: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomTextFormField(
+                        textDirection: TextDirection.ltr,
+                        textAlign: isArabic() ? TextAlign.left : TextAlign.right,
+                        titleAbove: S.of(context).phoneNum,
+                        height: 46,
+                        width: 230,
+                        hintText: "1234567890",
+                        keyboardType: TextInputType.phone,
+                        maxLength: 10,
+                        onChanged: (value) {
+                          phoneNumber=value;
+                        },
+                        //controller: phoneController,
+                        inputFormatters: [
+                          // prevent the first number inputted to be 0, to force the user to input the correct number format
+                          FilteringTextInputFormatter.deny(RegExp(r'^0')),
+                          // to only allow (english) numbers
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 24.0),
+                        child: SizedBox(
+                            height: 20,
+                            width: 29,
+                            child: Text(
+                              '20+',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 15),
+                            )),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 28.0),
+                        child: SizedBox(
+                            height: 23,
+                            width: 23,
+                            child: Image.asset('assets/images/flag.png')),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          
-     
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: CustomButton(
+                width: 300,
+                radius: 10,
+                buttonColor: kGreenBigButtons,
+                textColor: kWhite,
+                text: S.of(context).continuee,
+                onTap: () {
+                  
+                  if (formKey.currentState!.validate()) {
+                     Navigator.pushNamed(context, SmsVerficationPage.id);
+                  }else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                       SnackBar(
+                        content: Center(child: Text("${S.of(context).PleaseEnter} ${S.of(context).phoneNum}",style: TextStyle(fontFamily: font),)),
+                      ),
+                    );
+                  }
+                 
+                },
+              ),
+            ),
+            
+             
+          ],
+        ),
       ),
     );
   }

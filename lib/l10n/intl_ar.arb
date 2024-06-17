@@ -58,5 +58,7 @@
 "DetermineSpecificLocation":"حدد مكان معين",
 "thereNoOrdersNow":"لا يوجد طلبات الآن",
 "YouReceivePassengerRequeststTheMoment":"انت  تستقبل طلبات الركاب"
-,"YouEarnedToday":"كسبت اليوم"
+,"YouEarnedToday":"كسبت اليوم",
+"PleaseEnter":"من فضلك، أدخل",
+"FieldIsRequired":"هذا الحقل مطلوب"
 }

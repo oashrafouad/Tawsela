@@ -1,6 +1,8 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? hintText;
@@ -16,8 +18,8 @@ class CustomTextFormField extends StatelessWidget {
   final TextAlign textAlign;
   final TextDirection textDirection;
   final Function(String)? onChanged;
-   
-   final TextEditingController? controller;
+  final bool useValidator ;
+  final TextEditingController? controller;
 
   const CustomTextFormField({
     super.key,
@@ -35,7 +37,7 @@ class CustomTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.maxLines = 1,
     this.controller,
-   
+    this.useValidator = true,
   });
 
   @override
@@ -62,19 +64,21 @@ class CustomTextFormField extends StatelessWidget {
           child: TextFormField(
             maxLines: maxLines,
             keyboardType: keyboardType,
-            style: const TextStyle(color: Colors.black, fontFamily: font, fontSize: 13),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Field is Required';
+            style: const TextStyle(
+                color: Colors.black, fontFamily: font, fontSize: 13),
+            validator: useValidator ? (value) {
+              if (  value == null || value.isEmpty) {
+                return S.of(context).FieldIsRequired;
               }
               return null;
-            },
+            }: null,
             textDirection: textDirection,
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,
-            onChanged: onChanged,
             
+            onChanged: onChanged,
             decoration: InputDecoration(
+              errorStyle: const TextStyle(fontFamily: font),
               hintText: hintText,
               labelText: labelText,
               counterText: '',
@@ -82,14 +86,14 @@ class CustomTextFormField extends StatelessWidget {
                 horizontal: 4.0,
                 vertical: 16.0,
               ),
-              hintStyle: const TextStyle(color: kGreyFontLight, fontFamily: font),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(radius)),
-              ),
+              hintStyle:
+                  const TextStyle(color: kGreyFontLight, fontFamily: font),
+              
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(radius)),
                 borderSide: const BorderSide(color: kGreyBorderLight),
               ),
+
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kGreenButtonBorder),
               ),

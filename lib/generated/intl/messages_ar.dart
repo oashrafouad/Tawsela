@@ -26,9 +26,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "هل انت متاح لاستقبال طلبات الركاب الآن؟"),
         "DetermineSpecificLocation":
             MessageLookupByLibrary.simpleMessage("حدد مكان معين"),
+        "FieldIsRequired":
+            MessageLookupByLibrary.simpleMessage("هذا الحقل مطلوب"),
         "Microbus": MessageLookupByLibrary.simpleMessage("ميكروباص"),
         "MicrobusGuideStationAppBarTitle":
             MessageLookupByLibrary.simpleMessage("دليل خط"),
+        "PleaseEnter": MessageLookupByLibrary.simpleMessage("من فضلك، أدخل"),
         "ToEditTheNameAndProfilePictureContactTechnicalSupport":
             MessageLookupByLibrary.simpleMessage(
                 "لتعديل الاسم والصورة الشخصية كلم الدعم الفني"),

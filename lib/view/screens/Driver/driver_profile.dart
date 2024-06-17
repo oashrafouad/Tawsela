@@ -39,7 +39,7 @@ static String id ='DriverProfilePage';
                 iconSize: 20,
                 
               ),
-              SizedBox(width: 8,),
+              const SizedBox(width: 8,),
 
               CustomPopupMenuButton(
                     icon: Icons.language,
@@ -183,19 +183,18 @@ static String id ='DriverProfilePage';
                           Text(
                             S.of(context).YouEarnedToday,
 
-                            //S.of(context).numberoftrips,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xff525252),
                                 fontFamily: font,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
-                          Text(
+                          const Text(
                             '٧٦٠ جنيهًا',  //you get That from API
-                            //S.of(context).trip,
+                            
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,
