@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final double radius;
   final String titleAbove;
   final int? maxLength;
+  final MaxLengthEnforcement? maxLengthEnforcement;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
   final TextInputType? keyboardType;
@@ -34,6 +35,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType,
     this.radius = 10,
     this.maxLength,
+    this.maxLengthEnforcement,
     this.inputFormatters,
     this.maxLines = 1,
     this.controller,
@@ -62,6 +64,7 @@ class CustomTextFormField extends StatelessWidget {
           height: height,
           width: width,
           child: TextFormField(
+            maxLengthEnforcement: maxLengthEnforcement,
             maxLines: maxLines,
             keyboardType: keyboardType,
             style: const TextStyle(
