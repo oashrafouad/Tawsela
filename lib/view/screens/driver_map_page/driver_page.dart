@@ -199,7 +199,7 @@ class _DriverPageState extends State<DriverPage> {
                                         );
                                       }
                                     ),
-                                    DriverMapSwitch(),
+                                    const DriverMapSwitch(),
                                   ],
                                 ),
                               ),
@@ -236,7 +236,7 @@ class _DriverPageState extends State<DriverPage> {
                                       )),
                                 ),
                               ),
-                              ///const DriverGpsIcon(),
+                              const DriverGpsIcon(),
                               const SizedBox(
                                 height: 10,
                               ),

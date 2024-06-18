@@ -21,7 +21,7 @@ class MicrobusRoutePage extends StatelessWidget {
     'المرور',
     'التدريب',
   ];
-  final color = Colors.white; // TODO: fix this to show line's color
+  final color = Colors.amber; // TODO: fix this to show line's color
   @override
   Widget build(BuildContext context) {
     return Scaffold(
