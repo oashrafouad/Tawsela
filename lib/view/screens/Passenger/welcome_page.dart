@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,10 @@ import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
+
+String countryCode = '+20';
 String phoneNumber='';
+
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
@@ -128,8 +132,9 @@ class WelcomePage extends StatelessWidget {
                         hintText: "1234567890",
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
+                        maxLengthEnforcement: MaxLengthEnforcement.none, // TODO: change textfield border to red when user exceeds 10 digits
                         onChanged: (value) {
-                          phoneNumber=value;
+                          phoneNumber = countryCode + value;
                         },
                         //controller: phoneController,
                         inputFormatters: [
@@ -176,18 +181,38 @@ class WelcomePage extends StatelessWidget {
                 buttonColor: kGreenBigButtons,
                 textColor: kWhite,
                 text: S.of(context).continuee,
-                onTap: () {
-                  
+                onTap: () async {
                   if (formKey.currentState!.validate()) {
-                     Navigator.pushNamed(context, SmsVerficationPage.id);
-                  }else {
+                    print(phoneNumber);
+                    // proceed with authentication
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: phoneNumber,
+                      verificationCompleted: (PhoneAuthCredential credential) {
+                        // auto verification function, we won't implement now as it's Android only
+                      },
+                      verificationFailed: (FirebaseAuthException e) {
+                        print("AUTHENTICATION ERROR: ${e.message}");
+                      },
+                      codeSent: (String verificationId, int? resendToken) {
+                        // Navigator.pushNamed(context, SmsVerficationPage.id,
+                        //     arguments: verificationId);
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {
+                        // auto verification function, we won't implement now as it's Android only
+                      },
+                    );
+                    // Navigator.pushNamed(context, SmsVerficationPage.id);
+                  } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                       SnackBar(
-                        content: Center(child: Text("${S.of(context).PleaseEnter} ${S.of(context).phoneNum}",style: TextStyle(fontFamily: font),)),
+                      SnackBar(
+                        content: Center(
+                            child: Text(
+                          "${S.of(context).PleaseEnter} ${S.of(context).phoneNum}",
+                          style: TextStyle(fontFamily: font),
+                        )),
                       ),
                     );
                   }
-                 
                 },
               ),
             ),
