@@ -18,9 +18,6 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/route_generator.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
 
 // Import screens
 import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
@@ -47,15 +44,7 @@ import 'package:tawsela_app/view/screens/passenger_map_page/service_choice.dart'
 import 'view/screens/passenger_map_page/uber_choice.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-
   sharedPreferences = await SharedPreferences.getInstance();
 
   // loading google map api key
