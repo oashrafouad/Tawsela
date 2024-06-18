@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
@@ -11,18 +12,19 @@ import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-String countryCode = '+20';
-String phoneNumber='';
+String phoneNumber = '1104149286'; // This will contain the phone number WITHOUT country code! "+20"
+
+LoadingStatusHandler loadingStatusHandler = LoadingStatusHandler();
+
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
-  
+
   final TextEditingController phoneController = TextEditingController();
    GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: noColor,
@@ -130,11 +132,12 @@ class WelcomePage extends StatelessWidget {
                         height: 46,
                         width: 230,
                         hintText: "1234567890",
+                        initialValue: phoneNumber,
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         maxLengthEnforcement: MaxLengthEnforcement.none, // TODO: change textfield border to red when user exceeds 10 digits
                         onChanged: (value) {
-                          phoneNumber = countryCode + value;
+                          phoneNumber = value;
                         },
                         //controller: phoneController,
                         inputFormatters: [
@@ -183,23 +186,42 @@ class WelcomePage extends StatelessWidget {
                 text: S.of(context).continuee,
                 onTap: () async {
                   if (formKey.currentState!.validate()) {
-                    print(phoneNumber);
+                    loadingStatusHandler.startLoading();
+                    // print("+20$phoneNumber");
+
                     // proceed with authentication
                     await FirebaseAuth.instance.verifyPhoneNumber(
-                      phoneNumber: phoneNumber,
-                      verificationCompleted: (PhoneAuthCredential credential) {
-                        // auto verification function, we won't implement now as it's Android only
-                      },
+                      phoneNumber: "+20$phoneNumber",
                       verificationFailed: (FirebaseAuthException e) {
-                        print("AUTHENTICATION ERROR: ${e.message}");
+                        switch (e.code) {
+                          case 'invalid-phone-number':
+                            loadingStatusHandler.errorLoading("الرقم الذي ادخلته غير صحيح");
+                            print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
+                            break;
+                          case 'network-request-failed':
+                            loadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
+                            print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
+                            break;
+                          default:
+                            loadingStatusHandler.errorLoading("${e.message}");
+                            print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
+                        }
                       },
                       codeSent: (String verificationId, int? resendToken) {
-                        // Navigator.pushNamed(context, SmsVerficationPage.id,
-                        //     arguments: verificationId);
+                        print("SUCCESSFULLY SENT SMS CODE");
+                        loadingStatusHandler.completeLoading();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SmsVerficationPage(
+                                verificationId: verificationId, phoneNumber: phoneNumber),
+                          ),
+                        );
                       },
-                      codeAutoRetrievalTimeout: (String verificationId) {
-                        // auto verification function, we won't implement now as it's Android only
-                      },
+                      // implementation not needed
+                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      // implementation not needed
+                      codeAutoRetrievalTimeout: (String verificationId) {},
                     );
                     // Navigator.pushNamed(context, SmsVerficationPage.id);
                   } else {
@@ -208,7 +230,7 @@ class WelcomePage extends StatelessWidget {
                         content: Center(
                             child: Text(
                           "${S.of(context).PleaseEnter} ${S.of(context).phoneNum}",
-                          style: TextStyle(fontFamily: font),
+                          style: const TextStyle(fontFamily: font),
                         )),
                       ),
                     );

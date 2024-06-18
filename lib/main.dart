@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
@@ -17,7 +18,6 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/route_generator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -42,9 +42,7 @@ import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
 import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
-import 'package:tawsela_app/view/screens/passenger_map_page/service_choice.dart';
 
-import 'view/screens/passenger_map_page/uber_choice.dart';
 
 void main() async {
 
@@ -55,6 +53,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // Initialize SVProgressHUD style throughout the app
+  SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.custom);
+  SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.custom);
+  SVProgressHUD.setMinimumDismissTimeInterval(1.5);
+  SVProgressHUD.setMaximumDismissTimeInterval(4);
+  SVProgressHUD.setBackgroundLayerColor(Colors.black.withOpacity(0.4));
+  SVProgressHUD.setHapticsEnabled(true);
+  SVProgressHUD.setRingThickness(4);
 
   sharedPreferences = await SharedPreferences.getInstance();
 
@@ -176,7 +182,7 @@ class TawselaApp extends StatelessWidget {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       WelcomePage.id: (context) => WelcomePage(),
-      SmsVerficationPage.id: (context) => SmsVerficationPage(),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(verificationId: '', phoneNumber: '',),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),
