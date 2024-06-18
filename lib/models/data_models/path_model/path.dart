@@ -2,8 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'path.g.dart';
 
 abstract class DistanceDuartion {
-  String text;
-  double value;
+  String? text;
+  double? value;
   DistanceDuartion(this.text, this.value);
 }
 

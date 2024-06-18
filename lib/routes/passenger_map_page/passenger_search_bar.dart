@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/data_models/google_server.dart';
+import 'package:tawsela_app/models/servers/google_server.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
@@ -57,10 +57,10 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
       },
       showError: true,
       itemClick: (prediction) async {
-        FocusScope.of(context).unfocus();
         if (prediction.description != null) {
-          List<Location> location =
-              await locationFromAddress(prediction.description!);
+          List<Location> location = await locationFromAddress(
+              prediction.description!,
+              localeIdentifier: 'eg');
 
           BlocProvider.of<PassengerBloc>(context).add(GetDestination(
               destinationDescription: prediction.description!,

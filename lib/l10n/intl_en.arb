@@ -1,1 +1,10 @@
-{}
+{
+    "call":"اتصال",
+    "cancel":"الغاء",
+    "directions":"الاتجاهات",
+    "user_information_passenger":"بيانات العميل",
+    "user_information_driver":"بيانات السائق",
+    "receive_orders":"تلقي الطلبات",
+    "accept":"قبول",
+    "reject":"رفض"
+}

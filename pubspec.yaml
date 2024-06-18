@@ -51,6 +51,8 @@ dependencies:
   http:
   connectivity:
   get_it: ^7.7.0
+  url_launcher:
+  
  
  
 
@@ -90,7 +92,8 @@ flutter:
     - assets/JSON/paths/3.json
     - assets/JSON/paths/9.json
     - assets/JSON/paths/7.json
-    - assets/JSON/paths/11.json
+    - assets/JSON/paths/11-f.json
+    - assets/JSON/paths/11-b.json
     - assets/1.png
     - assets/2.png
     - assets/3.png

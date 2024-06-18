@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/models/data_models/request_model.dart';
+import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 
 abstract class PassengerEvent extends GoogleMapEvent {
   const PassengerEvent();

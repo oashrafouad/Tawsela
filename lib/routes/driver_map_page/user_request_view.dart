@@ -58,11 +58,11 @@ class UserRequestListView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                              'name: ${uberDriverProvider.passengerRequests[index].passengerName}'),
+                              'name: ${uberDriverProvider.passengerRequests[index].Passenger_ID}'),
                           Text(
-                              'location: ${uberDriverProvider.passengerRequests[index].currentLocationDescription}'),
+                              'location: ${uberDriverProvider.passengerRequests[index].Current_Location}'),
                           Text(
-                              'destination: ${uberDriverProvider.passengerRequests[index].destinationDescription}')
+                              'destination: ${uberDriverProvider.passengerRequests[index].Desired_Location}')
                         ],
                       ),
                     ),
@@ -73,7 +73,7 @@ class UserRequestListView extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           style: ListTileStyle.list,
-          title: Text(userRequests[index].passengerName),
+          title: Text(uberDriverProvider.passengerRequests[index].Req_ID),
           leading: const CircleAvatar(
             child: Icon(Icons.person),
           ),
@@ -88,7 +88,8 @@ class UserRequestListView extends StatelessWidget {
                     if (uberDriverProvider.acceptedRequest == null) {
                       BlocProvider.of<UberDriverBloc>(context).add(
                           AcceptPassengerRequest(
-                              passengerRequest: userRequests[index]));
+                              passengerRequest:
+                                  uberDriverProvider.passengerRequests[index]));
                     } else {
                       showDialog(
                           context: context,
@@ -114,7 +115,8 @@ class UserRequestListView extends StatelessWidget {
                   onPressed: () {
                     BlocProvider.of<UberDriverBloc>(context).add(
                         RejectPassengerRequest(
-                            passengerRequest: userRequests[index]));
+                            passengerRequest:
+                                uberDriverProvider.passengerRequests[index]));
                   },
                   child: const Text('reject',
                       style: TextStyle(color: Colors.white, fontSize: 14)))

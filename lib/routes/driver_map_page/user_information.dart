@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserInformation extends StatelessWidget {
   bool showDirection;
@@ -58,7 +61,7 @@ class UserInformation extends StatelessWidget {
                                       width: 10,
                                     ),
                                     Text(
-                                        '${uberDriverProvider.acceptedRequest!.passengerName}')
+                                        '${uberDriverProvider.acceptedRequest!.Passenger_ID}')
                                   ],
                                 ),
                                 Divider(
@@ -79,7 +82,7 @@ class UserInformation extends StatelessWidget {
                                         Flexible(
                                           fit: FlexFit.loose,
                                           child: Text(
-                                              '${uberDriverProvider.acceptedRequest!.destinationDescription}'),
+                                              '${uberDriverProvider.acceptedRequest!.Desired_Location}'),
                                         )
                                       ],
                                     ),
@@ -97,7 +100,13 @@ class UserInformation extends StatelessWidget {
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green),
-                              onPressed: () {},
+                              onPressed: () async {
+                                Uri telephoneUrl = Uri(
+                                    scheme: 'tel',
+                                    path:
+                                        '${uberDriverProvider.acceptedRequest!.Passenger_ID}');
+                                await launchUrl(telephoneUrl);
+                              },
                               child: Row(children: [
                                 Icon(
                                   Icons.call,
@@ -114,7 +123,7 @@ class UserInformation extends StatelessWidget {
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red),
-                              onPressed: () {
+                              onPressed: () async {
                                 BlocProvider.of<UberDriverBloc>(context).add(
                                     CancelTrip(
                                         passengerRequest: uberDriverProvider

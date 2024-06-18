@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/data_base.dart';
-import 'package:tawsela_app/models/data_models/request_model.dart';
+import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
 
 class UberCoice extends StatelessWidget {
@@ -14,11 +15,20 @@ class UberCoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late PassengerState currentState;
-    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
+    final state = BlocProvider.of<PassengerBloc>(context).state;
+    if (state is UserErrorState) {
       currentState = passengerLastState;
+    } else if (state is Loading) {
+      return Column(
+        children: [
+          CircularProgressIndicator(
+            backgroundColor: Colors.green,
+          ),
+          Text(state.message)
+        ],
+      );
     } else {
-      currentState =
-          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
+      currentState = state as PassengerState;
     }
     return Center(
         child: LayoutBuilder(
@@ -31,15 +41,23 @@ class UberCoice extends StatelessWidget {
                 backgroundColor: Colors.green,
                 padding: const EdgeInsets.all(20)),
             onPressed: () {
-              userRequests.add(UserRequest(
-                id: Random().nextInt(100),
-                passengerName: 'Ahmed Ibrahim Ali',
-                phone: '01558440191',
-                passengerLocation: currentState.destination!,
-                passengerDestination: currentState.currentPosition,
-                destinationDescription: currentState.currentLocationDescription,
-                currentLocationDescription: currentState.destinationDescription,
-              ));
+              BlocProvider.of<PassengerBloc>(context).add(RequestUberDriver(
+                  passengerRequest: UserRequest(
+                Req_ID: DateTime.now().toString() +
+                    passengerLastState.passengerData.phone,
+                Current_Location: passengerLastState.currentLocationDescription,
+                Desired_Location: passengerLastState.destinationDescription,
+                Current_Location_Latitude:
+                    passengerLastState.currentPosition.latitude.toString(),
+                Current_Location_Longitude:
+                    passengerLastState.currentPosition.longitude.toString(),
+                Desired_Location_Latitude:
+                    passengerLastState.destination!.latitude.toString(),
+                Desired_Location_Longitude:
+                    passengerLastState.destination!.longitude.toString(),
+                Passenger_ID: passengerLastState.passengerData.phone,
+                is_reserved: false,
+              )));
             },
             child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +70,7 @@ class UberCoice extends StatelessWidget {
                     width: 10,
                   ),
                   Text(
-                    "Search for a driver",
+                    'Search for a driver',
                     style: TextStyle(color: Colors.white),
                   )
                 ]),

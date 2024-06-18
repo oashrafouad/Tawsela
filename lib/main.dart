@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
-import 'package:tawsela_app/models/data_models/google_server.dart';
-import 'package:tawsela_app/models/data_models/server.dart';
+import 'package:tawsela_app/models/servers/google_server.dart';
+import 'package:tawsela_app/models/passenger_bloc/server.dart';
 import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/route_generator.dart';
@@ -37,7 +37,8 @@ void main() async {
 
   // register server url into GET_IT
   Server MainServer = Server(server_url);
-  GetIt.instance.registerSingleton<Server>(MainServer);
+  GetIt.instance
+      .registerSingleton<Server>(MainServer, instanceName: 'main-server');
 
   // Bloc.observer = MyBlocObserver();
   runApp(const TawselaApp());
