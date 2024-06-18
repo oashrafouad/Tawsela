@@ -50,7 +50,7 @@ class PassengerPickupLocationPage extends StatelessWidget {
                 children: [
                   InkWell(
                       onTap: () => Navigator.pushNamed(
-                          context, MicrobusSuggestedLinesPage.id),
+                          context, PassengerPage.id),
                       child: const Icon(Icons.map_outlined)),
                   const SizedBox(
                     width: 16,

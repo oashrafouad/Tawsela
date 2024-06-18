@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_state.dart';
+import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
+import 'package:tawsela_app/view/screens/driver_map_page/driver_map_switch.dart';
 
 
 class MicrobusSuggestedLinesPage extends StatelessWidget {
@@ -11,64 +17,31 @@ class MicrobusSuggestedLinesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kGreenBigButtons),
+        
       ),
-      // body: Stack(
-      //   //fit: StackFit.expand,
-      //   children: [
-      //     Image.asset(
-      //       'assets/images/map.png',
-      //       fit: BoxFit.fill,
-      //     ),
-      //     ClipRRect(
-      //       borderRadius: const BorderRadius.only(
-      //           bottomLeft: Radius.circular(32),
-      //           bottomRight: Radius.circular(32)),
-      //       child: Container(
-      //         height: MediaQuery.of(context).size.height * 0.4,
-      //         //width: 45,
-      //         color:  Colors.white,
-      //         child: Row(
-      //           //mainAxisAlignment: MainAxisAlignment.center,
-      //           children: [
-      //             Column(
-      //               children: [
-      //                 WeirdAppBar(
-      //                     icon: Icons.gps_fixed_outlined,
-      //                     hintText: 'موقعك الحالي'),
-      //                 const SizedBox(
-      //                   height: 16,
-      //                 ),
-      //                 WeirdAppBar(
-      //                     icon: Icons.location_on_rounded,
-      //                     hintText: 'جامعة الفيوم'),
-      //               ],
-      //             ),
-      //             InkWell(
-      //               onTap: () {
-      //                 print('object');
-      //               },
-      //               child: Container(
-      //                 decoration: const BoxDecoration(
-      //                   shape: BoxShape.circle,
-      //                   color: Color(0xffCCEBD2),
-      //                 ),
-      //                 child: const Padding(
-      //                   padding: EdgeInsets.all(6.0),
-      //                   child: Icon(
-      //                     Icons.close,
-      //                     fill: 1,
-      //                     size: 22,
-      //                     color: Color(0xff6EAD7C),
-      //                   ),
-      //                 ),
-      //               ),
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
+      body: Stack(
+      
+        children: [
+          Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.all(0),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50))),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              
+                              
+                             
+                            ],
+                          ),
+                        ),
+        ],
+        
+      ),
     );
   }
 }

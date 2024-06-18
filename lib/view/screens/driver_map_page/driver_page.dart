@@ -219,9 +219,7 @@ class _DriverPageState extends State<DriverPage> {
                                             .DetermineSpecificLocation,
                                         onTap: () {
                                           Navigator.pushNamed(context, DriverPickupLocationPage.id);
-                                          //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                                          //implement this here
-                                          //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                      
                                         }),
                                   ],
                                 ),

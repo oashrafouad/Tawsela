@@ -59,9 +59,13 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
       countries: const ['eg'],
       itemBuilder: (context, index, prediction) {
         return ListTile(
+          titleTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
+          subtitleTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
+          leadingAndTrailingTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
+         // subtitle: Text(prediction.secondaryText!),
           leading: const Icon(
             Icons.location_on,
-            color: Colors.red,
+            color: kGreenBigButtons,
           ),
           title: Text(prediction.description!),
         );
