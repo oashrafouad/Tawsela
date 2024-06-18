@@ -3,7 +3,6 @@ import 'dart:convert';
 
 // import 'package:dio/dio.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart' hide Step;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
@@ -56,30 +55,30 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
   // get passenger destination -- begin
   FutureOr<void> onGetDestination(
       GetDestination event, Emitter<MapUserState> emit) async {
-    emit(Loading(getDestinationPlaceHolder));
+    emit(const Loading(getDestinationPlaceHolder));
     final permission = Geolocator.requestPermission();
     final connectivity = Connectivity().checkConnectivity();
     if (permission == LocationPermission.denied) {
-      emit(UserErrorState('Please open location service'));
+      emit(const UserErrorState('Please open location service'));
     } else if (connectivity == ConnectivityResult.none) {
-      emit(UserErrorState('Check your internet Connection'));
+      emit(const UserErrorState('Check your internet Connection'));
     } else if (state is UserErrorState ||
         state is PassengerState ||
         state is Loading) {
       if (event.destination == passengerLastState.destination) {
-        emit(UserErrorState('It is the same destination'));
+        emit(const UserErrorState('It is the same destination'));
       } else if (passengerLastState.currentPosition.latitude ==
               invalidPosition.latitude &&
           passengerLastState.currentPosition.longitude ==
               invalidPosition.longitude) {
-        emit(UserErrorState('Please Provide current Location'));
+        emit(const UserErrorState('Please Provide current Location'));
       } else {
         Set<Marker> newMarkers = passengerLastState.markers;
         newMarkers.removeWhere(
             (element) => element.markerId.value == destinationMarkerId);
 
         newMarkers.add(Marker(
-            markerId: MarkerId(destinationMarkerId),
+            markerId: const MarkerId(destinationMarkerId),
             position: event.destination,
             icon: BitmapDescriptor.defaultMarkerWithHue(
                 BitmapDescriptor.hueGreen)));
@@ -111,19 +110,19 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     final permission = await Geolocator.requestPermission();
     final connectivity = await Connectivity().checkConnectivity();
     if (permission == LocationPermission.denied) {
-      emit(UserErrorState('Please open location service'));
+      emit(const UserErrorState('Please open location service'));
     } else if (connectivity == ConnectivityResult.none) {
-      emit(UserErrorState('Check your internet Connection'));
+      emit(const UserErrorState('Check your internet Connection'));
     } else if (state is UserErrorState ||
         state is PassengerState ||
         state is Loading) {
       if (passengerLastState.destination == null) {
-        emit(UserErrorState('please provide destination'));
+        emit(const UserErrorState('please provide destination'));
       } else if (passengerLastState.currentPosition.latitude ==
               invalidPosition.latitude &&
           passengerLastState.currentPosition.longitude ==
               invalidPosition.longitude) {
-        emit(UserErrorState('Please Provide current Location'));
+        emit(const UserErrorState('Please Provide current Location'));
       }
     } else {
       emit(Loading('Searching for nearby drivers'));
@@ -142,7 +141,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
               firstName: 'Ahmed',
               lastName: 'Ibrahim',
               location: LatLng(0, 0),
-              phone: '014262782',
+              phone: isAccepted.toString(),
               age: 71,
               email: 'akdcbkhaw'),
           currentPosition: passengerLastState.currentPosition,
@@ -195,7 +194,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
   // get current service path begin
   FutureOr<void> GoogleMapGetCurrentPath() async {
-    emit(Loading(getServiceLinePlacHolder));
+    emit(const Loading(getServiceLinePlacHolder));
     await ServicePoints.loadLines(sorted: true);
 
     // NOTE:
@@ -204,9 +203,10 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     List<List<LatLng>> longitudeSorted = ServicePoints.serviceLatPoints;
 
     // these list will contain most approximate point to current position from each line
-    List<LatLng> minLatitude = List.filled(latitudeSorted.length, LatLng(0, 0));
+    List<LatLng> minLatitude =
+        List.filled(latitudeSorted.length, const LatLng(0, 0));
     List<LatLng> minLongitude =
-        List.filled(longitudeSorted.length, LatLng(0, 0));
+        List.filled(longitudeSorted.length, const LatLng(0, 0));
     ;
     // get aligned points to user
     for (int i = 0; i < latitudeSorted.length; i++) {
@@ -309,7 +309,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       response = await http.get(Uri.parse(
           'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${GetIt.instance.get<GoogleServer>().url}'));
     } catch (exception) {
-      emit(UserErrorState('Error caclulating nearest service line'));
+      emit(const UserErrorState('Error caclulating nearest service line'));
     }
 
     Map responseBody = jsonDecode(response!.body);
@@ -425,24 +425,24 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     final permission = await Geolocator.requestPermission();
     final connectivity = await Connectivity().checkConnectivity();
     if (permission == LocationPermission.denied) {
-      emit(UserErrorState('Please open location service'));
+      emit(const UserErrorState('Please open location service'));
     } else if (connectivity == ConnectivityResult.none) {
-      emit(UserErrorState('Check your internet Connection'));
+      emit(const UserErrorState('Check your internet Connection'));
     } else if (state is UserErrorState ||
         state is PassengerState ||
         state is Loading) {
       if (passengerLastState.destination == null) {
-        emit(UserErrorState('Please Provide destination'));
+        emit(const UserErrorState('Please Provide destination'));
       } else if (passengerLastState.currentPosition.latitude ==
               invalidPosition.latitude &&
           passengerLastState.currentPosition.longitude ==
               invalidPosition.longitude) {
-        emit(UserErrorState('Please Provide current Location'));
+        emit(const UserErrorState('Please Provide current Location'));
       } else {
         try {
           DirectionsService.init(GetIt.instance.get<GoogleServer>().url);
           DirectionsService directions = DirectionsService();
-          Polyline path = Polyline(
+          Polyline path = const Polyline(
               polylineId: PolylineId('path'),
               color: Colors.green,
               width: 4,
@@ -486,14 +486,14 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         }
       }
     } else {
-      emit(UserErrorState('An Error has occured please try again'));
+      emit(const UserErrorState('An Error has occured please try again'));
     }
   }
 
 /************* get walk direction for passenger end **************************************** */
   FutureOr<void> getPassengerLocation(
       GoogleMapGetCurrentPosition event, Emitter<MapUserState> emit) async {
-    emit(Loading(getPassengerLocationPlacHolder));
+    emit(const Loading(getPassengerLocationPlacHolder));
     MapUserState temp = await onGetCurrentPosition();
     if (temp is UserErrorState) {
       emit(temp);
@@ -532,24 +532,24 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
       if (permission == LocationPermission.denied) {
-        emit(UserErrorState('Please open location service'));
+        emit(const UserErrorState('Please open location service'));
       } else if (connectivity == ConnectivityResult.none) {
-        emit(UserErrorState('Check your internet Connection'));
+        emit(const UserErrorState('Check your internet Connection'));
       } else if (state is UserErrorState ||
           state is PassengerState ||
           state is Loading) {
         if (passengerLastState.destination == null) {
-          emit(UserErrorState('please provide destination'));
+          emit(const UserErrorState('please provide destination'));
         } else if (passengerLastState.currentPosition.latitude ==
                 invalidPosition.latitude &&
             passengerLastState.currentPosition.longitude ==
                 invalidPosition.longitude) {
-          emit(UserErrorState('Please Provide current Location'));
+          emit(const UserErrorState('Please Provide current Location'));
         } else {
           await GoogleMapGetCurrentPath();
         }
       } else {
-        UserErrorState('An Error has occured');
+        const UserErrorState('An Error has occured');
       }
     });
     on<ShowLine>((event, emit) async {
@@ -586,7 +586,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       }
       BitmapDescriptor? image;
       await BitmapDescriptor.fromAssetImage(
-              ImageConfiguration(size: Size(5, 5)), 'assets/$number.png')
+              const ImageConfiguration(size: Size(5, 5)), 'assets/$number.png')
           .then((value) => image = value);
 
       Set<Marker> newMarkers = {
