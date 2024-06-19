@@ -1,7 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable()
 class UserData {
   final String firstName;
   final String lastName;

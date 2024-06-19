@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 enum SORT_SEARCH_OPTION { LATITUDE, LONGITUDE }
+
+const double latitudeThreshold = 0.0001;
+const double longitudeThreshold = 0.0001;
 
 class ServicePoints {
   static List<List<LatLng>> serviceLatPoints = [];
@@ -11,7 +15,9 @@ class ServicePoints {
     'assets/JSON/paths/3.json',
     'assets/JSON/paths/7.json',
     'assets/JSON/paths/9.json',
-    'assets/JSON/paths/11.json'
+    // 'assets/JSON/paths/11.json',
+    'assets/JSON/paths/11-b.json',
+    'assets/JSON/paths/11-f.json',
   ];
 
   // getters
@@ -39,6 +45,54 @@ class ServicePoints {
       // sort points by longitude and adding it to serviceLngPoints
       if (sorted) _sort(points: line, option: SORT_SEARCH_OPTION.LATITUDE);
       serviceLngPoints.add(line);
+    }
+  }
+
+  static LatLng getNearesPoint(
+      {required LatLng point,
+      required List<LatLng> line,
+      SORT_SEARCH_OPTION option = SORT_SEARCH_OPTION.LATITUDE}) {
+    if (option == SORT_SEARCH_OPTION.LATITUDE) {
+      double latitudeDistance = 1;
+      int latitudeSteps = 0;
+      LatLng bestLatitude = line[0];
+      while (latitudeDistance > latitudeThreshold) {
+        latitudeDistance = point.latitude - bestLatitude.latitude;
+        print('Latitude distance = ' + latitudeDistance.toString());
+        if (latitudeDistance <= latitudeThreshold) {
+          break;
+        }
+        latitudeSteps += (latitudeDistance ~/ latitudeThreshold);
+        if (latitudeSteps < line.length) {
+          bestLatitude = line[latitudeSteps];
+        } else {
+          bestLatitude = line[line.length - 1];
+          break;
+        }
+      }
+      return bestLatitude;
+    } else {
+      LatLng bestLongitude = line[0];
+      double longitudeDistance = 1;
+
+      int longitudeSteps = 0;
+      while (longitudeDistance > longitudeThreshold) {
+        longitudeDistance = point.longitude - bestLongitude.longitude;
+        print('Longitude distance = ' + longitudeDistance.toString());
+
+        if (longitudeDistance <= longitudeThreshold) {
+          break;
+        }
+        longitudeSteps += (longitudeDistance ~/ longitudeThreshold).abs();
+
+        if (longitudeSteps < line.length) {
+          bestLongitude = line[longitudeSteps];
+        } else {
+          bestLongitude = line[line.length - 1];
+          break;
+        }
+      }
+      return bestLongitude;
     }
   }
 
@@ -71,10 +125,35 @@ class ServicePoints {
       required List<LatLng> points}) {
     int start = 0;
     int end = points.length - 1;
-    double error = 100000;
+    double error = double.maxFinite;
     LatLng mostApproximateValue = LatLng(-1, -1);
     while (start <= end) {
       int middle = (start + end) ~/ 2;
+      final current_error = (point.latitude - points[middle].latitude).abs();
+      if (current_error < error) {
+        mostApproximateValue = points[middle];
+        // if error reaches the threshold
+        if (current_error <= latitudeThreshold) {
+          break;
+        }
+        // update error
+        error = current_error;
+
+        // get error from left point in the line
+        final leftPoint = points[middle - 1];
+        final leftError = (leftPoint.latitude - point.latitude).abs();
+        // get error from right point in the line
+        final rightPoint = points[middle + 1];
+        final rightError = (rightPoint.latitude - point.latitude).abs();
+
+        if (rightError < error) {
+          start = middle + 1;
+        } else if (leftError < error) {
+          end = middle - 1;
+        } else {
+          break;
+        }
+      } else if (current_error > error) {}
       if (option == SORT_SEARCH_OPTION.LATITUDE) {
         // check error of the point to get better estimation
         if (error == 100000 && // check if it is initial state

@@ -7,8 +7,8 @@ part of 'path.dart';
 // **************************************************************************
 
 Distance _$DistanceFromJson(Map<String, dynamic> json) => Distance(
-      json['text'] as String,
-      (json['value'] as num).toDouble(),
+      json['text'] as String?,
+      (json['value'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$DistanceToJson(Distance instance) => <String, dynamic>{
@@ -17,8 +17,8 @@ Map<String, dynamic> _$DistanceToJson(Distance instance) => <String, dynamic>{
     };
 
 Duration_t _$Duration_tFromJson(Map<String, dynamic> json) => Duration_t(
-      json['text'] as String,
-      (json['value'] as num).toDouble(),
+      json['text'] as String?,
+      (json['value'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$Duration_tToJson(Duration_t instance) =>
