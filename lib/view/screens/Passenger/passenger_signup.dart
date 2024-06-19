@@ -68,6 +68,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: noColor,
         iconTheme: const IconThemeData(color: kGreenBigButtons),
       ),
       body: Form(
@@ -220,10 +222,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                     SnackBar(
                       content: Center(
                           child: Text(
-                        "${S.of(context).PleaseEnter}${(S.of(context).passengerSignUpTitle).replaceFirst(
-                          isArabic()?remove_ar:remove_en, ""
-                          )
-                        }",
+                        "${S.of(context).PleaseEnter}${(S.of(context).passengerSignUpTitle).replaceFirst(isArabic() ? remove_ar : remove_en, "")}",
                         style: const TextStyle(fontFamily: font),
                       )),
                     ),

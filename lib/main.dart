@@ -134,7 +134,7 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: MicrobusRoutePage.id,
+            initialRoute: WelcomePage.id,
           );
         },
       ),

@@ -19,6 +19,8 @@ class PassengerEditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageCubit = context.read<ImageCubit>();
     final imageState = context.watch<ImageCubit>().state;
+    Image oldImg=imageState.avatarImg;
+    bool isDataSaved = false;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.green),

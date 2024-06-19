@@ -21,7 +21,8 @@ class PassengerPickupLocationPage extends StatelessWidget {
         ),
       ),
       child: GestureDetector(
-        onTap: () { // To dismiss keyboard when tapping anywhere outside search bar
+        onTap: () {
+          // To dismiss keyboard when tapping anywhere outside search bar
           FocusScopeNode currentFocus = FocusScope.of(context);
 
           if (!currentFocus.hasPrimaryFocus) {
@@ -30,18 +31,10 @@ class PassengerPickupLocationPage extends StatelessWidget {
         },
         child: Scaffold(
           appBar: AppBar(
-            iconTheme: IconThemeData(color: kGreenBigButtons),
-// toolbarHeight: 100,
-            // // iconTheme: const IconThemeData(color: kGreenBigButtons),
-             surfaceTintColor: noColor,
-            // // toolbarHeight: 64,
-             centerTitle: true,
-             
+            iconTheme: const IconThemeData(color: kGreenBigButtons),
+            surfaceTintColor: noColor,
+            centerTitle: true,
             title: PassengerSearchBar(),
-            
-
-
-
           ),
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
@@ -49,8 +42,8 @@ class PassengerPickupLocationPage extends StatelessWidget {
               child: Row(
                 children: [
                   InkWell(
-                      onTap: () => Navigator.pushNamed(
-                          context, PassengerPage.id),
+                      onTap: () =>
+                          Navigator.pushNamed(context, PassengerPage.id),
                       child: const Icon(Icons.map_outlined)),
                   const SizedBox(
                     width: 16,
@@ -66,7 +59,8 @@ class PassengerPickupLocationPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
               child: Text(
                 S.of(context).favourite,
                 style: const TextStyle(
@@ -102,7 +96,8 @@ class PassengerPickupLocationPage extends StatelessWidget {
               height: 16,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
               child: Text(
                 S.of(context).recentlyVisited,
                 style: const TextStyle(
