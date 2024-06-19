@@ -131,12 +131,19 @@ class PassengerProfile extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              "$firstName $lastName",
-                              style: const TextStyle(
-                                  fontFamily: font,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
+                            Container(
+                              width: 130,
+                              //height: 12,
+                              child: FittedBox(
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "$firstName $lastName",
+                                  style: const TextStyle(
+                                      fontFamily: font,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               width: 15,
@@ -245,12 +252,15 @@ class PassengerProfile extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                "$firstName $lastName",
-                                style: const TextStyle(
-                                    fontFamily: font,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
+                              Expanded(
+                                child: Text(
+                                  overflow:  TextOverflow.ellipsis,
+                                  "$firstName $lastName",
+                                  style: const TextStyle(
+                                      fontFamily: font,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
                               const SizedBox(
                                 width: 15,

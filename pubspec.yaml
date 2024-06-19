@@ -41,6 +41,7 @@ dependencies:
   flutter_svprogresshud: any
   meta: any
   html: any
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
