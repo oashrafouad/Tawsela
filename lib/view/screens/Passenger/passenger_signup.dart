@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,41 +148,43 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             ),
             CustomButton(
               text: S.of(context).signUp,
-              onTap: () {
+              onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  if (kDebugMode || kIsWeb || kReleaseMode) {
-                    // TODO: Remove this block when the API is ready
-                    Navigator.pushNamed(context, PassengerMainScreen.id);
-                  } else {
-                      loadingStatusHandler.startLoading();
-                    // Call the sign-up API
-                    ApiService.signUp(
-                      phoneNumber: "1104149210",
-                      fname: firstName,
-                      lname: lastName,
-                      Email_ID: null,
-                      password: "passwordhkfdjhe",
-                    ).then((_)  {
-                      loadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
-                        // Then navigate to the main screen
-                        Navigator.pushNamed(context, PassengerMainScreen.id);
-                        });
-                    }).catchError((error) {
-                      // Handle error
-                        loadingStatusHandler.errorLoading(error.toString());
-                      print('Failed to sign-up: $error');
-                    });
+                  loadingStatusHandler.startLoading();
+                  try {
+                  await FirebaseAuth.instance.currentUser!.updatePhotoURL("https://example.com/jane-q-user/profile.jpg");
+                    loadingStatusHandler.completeLoadingWithText("تم التسجيل");
+                  } on FirebaseAuthException catch (e) {
+                    loadingStatusHandler.errorLoading("${e.message}");
+                    print("Failed to sign-up: ${e.code}, ${e.message}");
                   }
+
+                Navigator.pushNamed(context, PassengerMainScreen.id);
+                  // Call the sign-up API
+                  // TODO: Remove this comment when the API is ready
+                  // ApiService.signUp(
+                  //   phoneNumber: "1104149210",
+                  //   fname: firstName,
+                  //   lname: lastName,
+                  //   Email_ID: null,
+                  //   password: "passwordhkfdjhe",
+                  // ).then((_)  {
+                  //   loadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
+                  //     // Then navigate to the main screen
+                  //     Navigator.pushNamed(context, PassengerMainScreen.id);
+                  //     });
+                  // }).catchError((error) {
+                  //   // Handle error
+                  //     loadingStatusHandler.errorLoading(error.toString());
+                  //   print('Failed to sign-up: $error');
+                  // });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Center(
                           child: Text(
-                        "${S.of(context).PleaseEnter}${(S.of(context).passengerSignUpTitle).replaceFirst(
-                          isArabic()?remove_ar:remove_en, ""
-                          )
-                        }",
+                        "${S.of(context).PleaseEnter}${(S.of(context).passengerSignUpTitle).replaceFirst(isArabic() ? remove_ar : remove_en, "")}",
                         style: const TextStyle(fontFamily: font),
                       )),
                     ),

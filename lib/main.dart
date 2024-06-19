@@ -55,10 +55,10 @@ void main() async {
 
   // Initialize SVProgressHUD style throughout the app
   SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.custom);
-  SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.custom);
+  SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black);
   SVProgressHUD.setMinimumDismissTimeInterval(1.5);
   SVProgressHUD.setMaximumDismissTimeInterval(4);
-  SVProgressHUD.setBackgroundLayerColor(Colors.black.withOpacity(0.4));
+  // SVProgressHUD.setBackgroundLayerColor(Colors.black.withOpacity(0.4));
   SVProgressHUD.setHapticsEnabled(true);
   SVProgressHUD.setRingThickness(4);
 

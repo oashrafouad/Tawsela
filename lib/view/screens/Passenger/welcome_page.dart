@@ -202,6 +202,10 @@ class WelcomePage extends StatelessWidget {
                             loadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                             break;
+                          case 'web-context-cancelled':
+                            loadingStatusHandler.completeLoading();
+                            print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
+                            break;
                           default:
                             loadingStatusHandler.errorLoading("${e.message}");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
