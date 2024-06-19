@@ -15,8 +15,8 @@ import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-String firstName = '';
-String lastName = '';
+String firstName ='';
+String lastName = ' ';
 String? email;
 
 enum LoadingStatus {

@@ -103,6 +103,8 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  hintText: firstName,
+                
                   onChanged: (data) => firstName = data,
                   width: 136,
                   height: 46,
@@ -112,6 +114,7 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  hintText: lastName,
                   onChanged: (data) => lastName = data,
                   width: 136,
                   height: 46,
@@ -130,6 +133,7 @@ class PassengerEditProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomTextFormField(
+                    
                     onChanged: (data) => phoneNumber = data,
                     textDirection: TextDirection.ltr,
                     textAlign: isArabic() ? TextAlign.left : TextAlign.right,
@@ -177,6 +181,7 @@ class PassengerEditProfile extends StatelessWidget {
               ),
               Center(
                 child: CustomTextFormField(
+                  hintText: email,
                   onChanged: (data) => email = data,
                   textDirection: TextDirection.ltr,
                   textAlign: TextAlign.start,

@@ -4,6 +4,7 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 
 
@@ -67,6 +68,7 @@ List<String> titlesAboveUploadImgButton = [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  hintText: firstName,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).firstName,
@@ -75,6 +77,7 @@ List<String> titlesAboveUploadImgButton = [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  hintText: lastName,
                   width: 136,
                   height: 46,
                   titleAbove: S.of(context).lastName,
@@ -109,6 +112,7 @@ List<String> titlesAboveUploadImgButton = [
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomTextFormField(
+                      
                       titleAbove: S.of(context).phoneNum,
                       height: 46,
                       width: 213,
@@ -145,7 +149,9 @@ List<String> titlesAboveUploadImgButton = [
                   height: 8,
                 ),
                 Center(
+                  
                   child: CustomTextFormField(
+                    hintText: email,
                     width: 284,
                     height: 46,
                     titleAbove: S.of(context).email,
