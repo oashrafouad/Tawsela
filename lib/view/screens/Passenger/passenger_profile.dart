@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/view/screens/Driver/driver_main_screen.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
@@ -134,14 +133,19 @@ class PassengerProfile extends StatelessWidget {
                             Container(
                               width: 130,
                               //height: 12,
-                              child: FittedBox(
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "$firstName $lastName",
-                                  style: const TextStyle(
-                                      fontFamily: font,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 35,
+                                ),
+                                child: FittedBox(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    "$firstName $lastName",
+                                    style: const TextStyle(
+                                        fontFamily: font,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ),
                             ),
