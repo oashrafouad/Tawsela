@@ -81,8 +81,8 @@ class BottomSheetBuilderIcon extends StatelessWidget {
             )
           ],
         ),
-        onTap: () {
-          imagePick(source, setImage);
+        onTap: () async {
+          await imagePick(source, setImage);
           Navigator.pop(context);
         },
       ),

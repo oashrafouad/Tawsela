@@ -18,8 +18,6 @@ class SmsVerficationPage extends StatelessWidget {
   String phoneNumber;
   String smsCode = '123456';
 
-  LoadingStatusHandler loadingStatusHandler = LoadingStatusHandler();
-
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
@@ -77,26 +75,26 @@ class SmsVerficationPage extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () async {
-                            loadingStatusHandler.startLoading();
+                            LoadingStatusHandler.startLoading();
                             // The expected behavior is that Firebase sends same SMS code 3 times, then it sends a different one
                             await FirebaseAuth.instance.verifyPhoneNumber(
                               phoneNumber: "+20$phoneNumber",
                               verificationFailed: (FirebaseAuthException e) {
                                 switch (e.code) {
                                   case 'invalid-phone-number':
-                                    loadingStatusHandler.errorLoading(
+                                    LoadingStatusHandler.errorLoading(
                                         "الرقم الذي ادخلته غير صحيح");
                                     print(
                                         "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                                     break;
                                   case 'network-request-failed':
-                                    loadingStatusHandler.errorLoading(
+                                    LoadingStatusHandler.errorLoading(
                                         "تأكد من اتصالك بالانترنت");
                                     print(
                                         "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                                     break;
                                   default:
-                                    loadingStatusHandler
+                                    LoadingStatusHandler
                                         .errorLoading("${e.message}");
                                     print(
                                         "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
@@ -105,7 +103,7 @@ class SmsVerficationPage extends StatelessWidget {
                               codeSent:
                                   (String verificationId, int? resendToken) {
                                 print("SUCCESSFULLY SENT SMS CODE");
-                                loadingStatusHandler.completeLoadingWithText(
+                                LoadingStatusHandler.completeLoadingWithText(
                                     "تم ارسال الكود مرة اخرى");
                               },
                               // implementation not needed
@@ -141,7 +139,7 @@ class SmsVerficationPage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     // print(smsCode);
 
-                    loadingStatusHandler.startLoading();
+                    LoadingStatusHandler.startLoading();
 
                     // Create a PhoneAuthCredential with the code
                     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
@@ -149,21 +147,21 @@ class SmsVerficationPage extends StatelessWidget {
                     // Sign the user in (or link) with the credential
                     try {
                       await FirebaseAuth.instance.signInWithCredential(credential);
-                      loadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) {
+                      LoadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) {
                         Navigator.pushNamed(context, PassengerSignUpPage.id);
                       });
                     } on FirebaseAuthException catch (e) {
                       switch (e.code) {
                         case 'invalid-verification-code':
-                          loadingStatusHandler.errorLoading("الكود الذي ادخلته غير صحيح");
+                          LoadingStatusHandler.errorLoading("الكود الذي ادخلته غير صحيح");
                           print("ERROR SIGNING IN: ${e.code}, ${e.message}");
                           break;
                         case 'network-request-failed':
-                          loadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
+                          LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
                           print("ERROR SIGNING IN: ${e.code}, ${e.message}");
                           break;
                         default:
-                          loadingStatusHandler.errorLoading("${e.message}");
+                          LoadingStatusHandler.errorLoading("${e.message}");
                           print("ERROR SIGNING IN: ${e.code}, ${e.message}");
                       }
                     }

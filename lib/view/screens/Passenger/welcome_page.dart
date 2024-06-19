@@ -14,8 +14,6 @@ import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
 String phoneNumber = '1104149286'; // This will contain the phone number WITHOUT country code! "+20"
 
-LoadingStatusHandler loadingStatusHandler = LoadingStatusHandler();
-
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
@@ -186,7 +184,7 @@ class WelcomePage extends StatelessWidget {
                 text: S.of(context).continuee,
                 onTap: () async {
                   if (formKey.currentState!.validate()) {
-                    loadingStatusHandler.startLoading();
+                    LoadingStatusHandler.startLoading();
                     // print("+20$phoneNumber");
 
                     // proceed with authentication
@@ -195,25 +193,25 @@ class WelcomePage extends StatelessWidget {
                       verificationFailed: (FirebaseAuthException e) {
                         switch (e.code) {
                           case 'invalid-phone-number':
-                            loadingStatusHandler.errorLoading("الرقم الذي ادخلته غير صحيح");
+                            LoadingStatusHandler.errorLoading("الرقم الذي ادخلته غير صحيح");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                             break;
                           case 'network-request-failed':
-                            loadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
+                            LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                             break;
                           case 'web-context-cancelled':
-                            loadingStatusHandler.completeLoading();
+                            LoadingStatusHandler.completeLoading();
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                             break;
                           default:
-                            loadingStatusHandler.errorLoading("${e.message}");
+                            LoadingStatusHandler.errorLoading("${e.message}");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                         }
                       },
                       codeSent: (String verificationId, int? resendToken) {
                         print("SUCCESSFULLY SENT SMS CODE");
-                        loadingStatusHandler.completeLoading();
+                        LoadingStatusHandler.completeLoading();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

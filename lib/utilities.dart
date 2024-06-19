@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tawsela_app/constants.dart';
+import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
@@ -109,6 +111,7 @@ _cropImage(File imgFile, Function(Image) setImage) async {
 
   if (croppedFile != null) {
     imageCache.clear();
+    await uploadImage(croppedFile);
     setImage(Image.file(File(croppedFile.path)));
   }
 }
@@ -123,7 +126,22 @@ var splashEffect = kIsWeb ? InkSplash.splashFactory : (Platform.isIOS ? NoSplash
 User? currentUser = FirebaseAuth.instance.currentUser;
 
 // Firebase Storage
-// final storageRef = FirebaseStorage.instance.ref();
-uploadProfileImage() {
+final storage = FirebaseStorage.instance;
+final storageRef = storage.ref();
+final profileImagesRef = storageRef.child("profile_images");
+final imageRef = profileImagesRef.child("profile_image_${currentUser!.uid}.jpg");
 
+uploadImage(CroppedFile croppedFile) async {
+  LoadingStatusHandler.startLoading();
+  try {
+    await imageRef.putFile(File(croppedFile.path));
+    final imageURL = await imageRef.getDownloadURL();
+    // print("Image URL is $imageURL");
+    await currentUser!.updatePhotoURL(imageURL);
+    print("SUCCESSFULLY UPLOADED IMAGE");
+    LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
+  } on FirebaseException catch (e) {
+    LoadingStatusHandler.errorLoading("${e.message}");
+    print("ERROR UPLOADING IMAGE: ${e.code}, ${e.message}");
+  }
 }

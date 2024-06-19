@@ -19,8 +19,6 @@ String firstName = '';
 String lastName = '';
 String? email;
 
-LoadingStatusHandler loadingStatusHandler = LoadingStatusHandler();
-
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
@@ -33,7 +31,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(FirebaseAuth.instance.currentUser!.phoneNumber);
+    // print(currentUser?.phoneNumber);
+
     GlobalKey<FormState> formKey = GlobalKey();
 
     final imageCubit = context.read<ImageCubit>();
@@ -122,6 +121,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       children: [
                         CustomTextButton(
                           onTap: () {
+
+
                             showImagePicker(context, (Image newImage) {
                               imageCubit.setAvatarImg(newImage);
                             });
@@ -150,15 +151,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  loadingStatusHandler.startLoading();
-                  try {
-                  await FirebaseAuth.instance.currentUser!.updatePhotoURL("https://example.com/jane-q-user/profile.jpg");
-                    loadingStatusHandler.completeLoadingWithText("تم التسجيل");
-                  } on FirebaseAuthException catch (e) {
-                    loadingStatusHandler.errorLoading("${e.message}");
-                    print("Failed to sign-up: ${e.code}, ${e.message}");
-                  }
-
                 Navigator.pushNamed(context, PassengerMainScreen.id);
                   // Call the sign-up API
                   // TODO: Remove this comment when the API is ready
@@ -169,13 +161,13 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   //   Email_ID: null,
                   //   password: "passwordhkfdjhe",
                   // ).then((_)  {
-                  //   loadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
+                  //   LoadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
                   //     // Then navigate to the main screen
                   //     Navigator.pushNamed(context, PassengerMainScreen.id);
                   //     });
                   // }).catchError((error) {
                   //   // Handle error
-                  //     loadingStatusHandler.errorLoading(error.toString());
+                  //     LoadingStatusHandler.errorLoading(error.toString());
                   //   print('Failed to sign-up: $error');
                   // });
                 } else {
