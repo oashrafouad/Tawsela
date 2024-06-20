@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
@@ -19,6 +19,7 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tawsela_app/utilities.dart';
 import 'firebase_options.dart';
 
 
@@ -53,14 +54,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Initialize SVProgressHUD style throughout the app
-  SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.custom);
-  SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black);
-  SVProgressHUD.setMinimumDismissTimeInterval(1.5);
-  SVProgressHUD.setMaximumDismissTimeInterval(4);
-  // SVProgressHUD.setBackgroundLayerColor(Colors.black.withOpacity(0.4));
-  SVProgressHUD.setHapticsEnabled(true);
-  SVProgressHUD.setRingThickness(4);
+  // Initialize SVProgressHUD
+  LoadingStatusHandler.initialize();
 
   sharedPreferences = await SharedPreferences.getInstance();
 
@@ -151,7 +146,7 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: WelcomePage.id,
+            initialRoute: PassengerSignUpPage.id,
           );
         },
       ),

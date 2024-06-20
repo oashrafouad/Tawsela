@@ -132,16 +132,44 @@ final profileImagesRef = storageRef.child("profile_images");
 final imageRef = profileImagesRef.child("profile_image_${currentUser!.uid}.jpg");
 
 uploadImage(CroppedFile croppedFile) async {
-  LoadingStatusHandler.startLoading();
-  try {
-    await imageRef.putFile(File(croppedFile.path));
-    final imageURL = await imageRef.getDownloadURL();
-    // print("Image URL is $imageURL");
-    await currentUser!.updatePhotoURL(imageURL);
-    print("SUCCESSFULLY UPLOADED IMAGE");
-    LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
-  } on FirebaseException catch (e) {
-    LoadingStatusHandler.errorLoading("${e.message}");
-    print("ERROR UPLOADING IMAGE: ${e.code}, ${e.message}");
-  }
+    imageRef.putFile(File(croppedFile.path)).snapshotEvents.listen((taskSnapshot) async {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          LoadingStatusHandler.startLoadingWithProgressAndText(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes, "جاري رفع الصورة");
+          break;
+        case TaskState.paused:
+          LoadingStatusHandler.errorLoading("تم ايقاف رفع الصورة");
+          print("UPLOAD PAUSED");
+          break;
+        case TaskState.success:
+          final imageURL = await imageRef.getDownloadURL();
+          // print("Image URL is $imageURL");
+          await currentUser!.updatePhotoURL(imageURL);
+          print("SUCCESSFULLY UPLOADED IMAGE");
+          LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
+          break;
+        case TaskState.canceled:
+          LoadingStatusHandler.errorLoading("تم الغاء رفع الصورة");
+          print("UPLOAD CANCELED");
+          break;
+        case TaskState.error:
+          LoadingStatusHandler.errorLoading();
+          break;
+      }
+    });
+
+
+  // LoadingStatusHandler.startLoading();
+  // try {
+  //   await imageRef.putFile(File(croppedFile.path));
+  //
+  //   final imageURL = await imageRef.getDownloadURL();
+  //   // print("Image URL is $imageURL");
+  //   await currentUser!.updatePhotoURL(imageURL);
+  //   print("SUCCESSFULLY UPLOADED IMAGE");
+  //   LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
+  // } on FirebaseException catch (e) {
+  //   LoadingStatusHandler.errorLoading("${e.message}");
+  //   print("ERROR UPLOADING IMAGE: ${e.code}, ${e.message}");
+  // }
 }

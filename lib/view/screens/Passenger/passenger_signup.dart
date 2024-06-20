@@ -152,6 +152,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               onTap: () async {
                 if (formKey.currentState!.validate()) {
                 Navigator.pushNamed(context, PassengerMainScreen.id);
+                //   LoadingStatusHandler.startLoading();
                   // Call the sign-up API
                   // TODO: Remove this comment when the API is ready
                   // ApiService.signUp(
