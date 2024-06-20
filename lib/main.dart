@@ -146,7 +146,7 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: PassengerSignUpPage.id,
+            initialRoute: WelcomePage.id,
           );
         },
       ),
