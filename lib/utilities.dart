@@ -1,15 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
+
+import 'models/data_models/google_server.dart';
+import 'models/data_models/server.dart';
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
 
@@ -145,6 +150,7 @@ uploadImage(CroppedFile croppedFile) async {
           final imageURL = await imageRef.getDownloadURL();
           // print("Image URL is $imageURL");
           await currentUser!.updatePhotoURL(imageURL);
+          profileImageURL = imageURL;
           print("SUCCESSFULLY UPLOADED IMAGE");
           LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
           break;
@@ -173,3 +179,38 @@ uploadImage(CroppedFile croppedFile) async {
   //   print("ERROR UPLOADING IMAGE: ${e.code}, ${e.message}");
   // }
 }
+
+// Google Maps API
+initializeGoogleMapsAPI() async {
+  // loading google map api key
+  final json = await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
+  // decoding json string
+  Map mapObject = jsonDecode(json) as Map;
+  // fetching google map api key value
+  String apiKey = mapObject['Google_Map_Api'];
+  // register google map api key into GET_IT
+  GoogleServer APIKEY = GoogleServer(apiKey);
+  GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
+}
+
+// Our API
+String server_url = '';
+
+initializeServerAPI() async {
+  // loading server url
+  final json = await rootBundle.loadString('assets/JSON/keys/server_url.json');
+  // decoding json string
+  Map mapObject = jsonDecode(json) as Map;
+  // fetching server url  value
+  server_url = mapObject['server_url'];
+  // register server url into GET_IT
+  Server MainServer = Server(server_url);
+  GetIt.instance.registerSingleton<Server>(MainServer);
+}
+
+// User data
+String firstName ='';
+String lastName = '';
+String? email;
+String phoneNumber = '1104149286'; // Without '+20'
+String profileImageURL = '';

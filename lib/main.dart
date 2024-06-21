@@ -86,6 +86,8 @@ void main() async {
   LocalServer MainServer = LocalServer(server_url);
   KeyChain.chain
       .registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
+  await initializeGoogleMapsAPI();
+  await initializeServerAPI();
 
   // Bloc.observer = MyBlocObserver();
   // lock orientation to portrait only
@@ -199,10 +201,7 @@ class TawselaApp extends StatelessWidget {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       WelcomePage.id: (context) => WelcomePage(),
-      SmsVerficationPage.id: (context) => SmsVerficationPage(
-            verificationId: '',
-            phoneNumber: '',
-          ),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(verificationId: '', phoneNumber: '',),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),

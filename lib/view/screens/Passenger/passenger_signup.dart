@@ -6,18 +6,16 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/services/signUp.dart';
+import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-String firstName ='';
-String lastName = ' ';
-String? email;
 
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
@@ -153,26 +151,28 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, PassengerMainScreen.id);
-                //   LoadingStatusHandler.startLoading();
+                  LoadingStatusHandler.startLoading();
                   // Call the sign-up API
-                  // TODO: Remove this comment when the API is ready
-                  // ApiService.signUp(
-                  //   phoneNumber: "1104149210",
-                  //   fname: firstName,
-                  //   lname: lastName,
-                  //   Email_ID: null,
-                  //   password: "passwordhkfdjhe",
-                  // ).then((_)  {
-                  //   LoadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
-                  //     // Then navigate to the main screen
-                  //     Navigator.pushNamed(context, PassengerMainScreen.id);
-                  //     });
-                  // }).catchError((error) {
-                  //   // Handle error
-                  //     LoadingStatusHandler.errorLoading(error.toString());
-                  //   print('Failed to sign-up: $error');
-                  // });
+                  ApiService.signUp(
+                    // phoneNumber: phoneNumber,
+                    phoneNumber: "1103258287",
+                    fname: firstName,
+                    lname: lastName,
+                    Email_ID: email,
+                    password: "password",
+                    typeUser: "Passenger"
+                  ).then((_) {
+                    LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
+                        .then((_) {
+                      print('Signed up successfully');
+                      // Then navigate to the main screen
+                      Navigator.pushNamed(context, PassengerMainScreen.id);
+                    });
+                  }).catchError((error) {
+                    // Handle error
+                    LoadingStatusHandler.errorLoading(error.toString());
+                    print('Failed to sign-up: $error');
+                  });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
                   ScaffoldMessenger.of(context).showSnackBar(

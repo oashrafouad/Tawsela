@@ -12,9 +12,6 @@ import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-String phoneNumber = '1104149286'; // This will contain the phone number WITHOUT country code! "+20"
-
-
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
