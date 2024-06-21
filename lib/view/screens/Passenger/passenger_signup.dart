@@ -1,13 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
+import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/services/signUp.dart';
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
@@ -19,15 +19,6 @@ String firstName ='';
 String lastName = ' ';
 String? email;
 
-enum LoadingStatus {
-  idle,
-  inProgress,
-  completed,
-  error
-} // Flag to track loading status
-
-String HUDError = '';
-
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
@@ -37,34 +28,14 @@ class PassengerSignUpPage extends StatefulWidget {
 }
 
 class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
-  LoadingStatus _loadingStatus = LoadingStatus.idle;
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey();
-    final imageCubit = context.read<ImageCubit>();
-    SVProgressHUD.setDefaultStyle(SVProgressHUDStyle.custom);
-    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.custom);
-    SVProgressHUD.setMinimumDismissTimeInterval(1.5);
-    SVProgressHUD.setMaximumDismissTimeInterval(1.5);
-    SVProgressHUD.setBackgroundLayerColor(Colors.black.withOpacity(0.4));
-    SVProgressHUD.setHapticsEnabled(true);
-    SVProgressHUD.setRingThickness(4);
+    // print(currentUser?.phoneNumber);
 
-    switch (_loadingStatus) {
-      case LoadingStatus.idle:
-        SVProgressHUD.dismiss();
-      case LoadingStatus.inProgress:
-        SVProgressHUD.show();
-      case LoadingStatus.completed:
-        SVProgressHUD.showSuccess(status: "تم تسجيل الدخول");
-        _loadingStatus =
-            LoadingStatus.idle; // Reset status to idle after success
-      case LoadingStatus.error:
-        SVProgressHUD.showError(
-            status: "حدث خطأ، الرجاء المحاولة مرة اخرى\n$HUDError");
-        _loadingStatus = LoadingStatus.idle; // Reset status to idle after error
-    }
+    GlobalKey<FormState> formKey = GlobalKey();
+
+    final imageCubit = context.read<ImageCubit>();
 
     return Scaffold(
       appBar: AppBar(),
@@ -152,6 +123,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       children: [
                         CustomTextButton(
                           onTap: () {
+
+
                             showImagePicker(context, (Image newImage) {
                               imageCubit.setAvatarImg(newImage);
                             });
@@ -178,44 +151,28 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             ),
             CustomButton(
               text: S.of(context).signUp,
-              onTap: () {
+              onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  if (kDebugMode || kIsWeb || kReleaseMode) {
-                    // TODO: Remove this block when the API is ready
-                    Navigator.pushNamed(context, PassengerMainScreen.id);
-                  } else {
-                    setState(() {
-                      _loadingStatus = LoadingStatus
-                          .inProgress; // Set status to inProgress when sign-up is initiated
-                    });
-                    // Call the sign-up API
-                    ApiService.signUp(
-                      phoneNumber: phoneNumber,
-                      fname: firstName,
-                      lname: lastName,
-                      Email_ID: null,
-                      password: "passwordhkfdjhe",
-                    ).then((_) {
-                      setState(() {
-                        _loadingStatus = LoadingStatus
-                            .completed; // Set status to completed when sign-up is successful
-                      });
-                      // Add delay of 1.5 seconds to match the duration of the success HUD
-                      Future.delayed(const Duration(milliseconds: 1500))
-                          .then((value) {
-                        // Then navigate to the main screen
-                        Navigator.pushNamed(context, PassengerMainScreen.id);
-                      });
-                    }).catchError((error) {
-                      // Handle error
-                      setState(() {
-                        _loadingStatus = LoadingStatus
-                            .error; // Set status to error when sign-up fails
-                        HUDError = error.toString();
-                      });
-                      print('Failed to sign-up: $error');
-                    });
-                  }
+                Navigator.pushNamed(context, PassengerMainScreen.id);
+                //   LoadingStatusHandler.startLoading();
+                  // Call the sign-up API
+                  // TODO: Remove this comment when the API is ready
+                  // ApiService.signUp(
+                  //   phoneNumber: "1104149210",
+                  //   fname: firstName,
+                  //   lname: lastName,
+                  //   Email_ID: null,
+                  //   password: "passwordhkfdjhe",
+                  // ).then((_)  {
+                  //   LoadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
+                  //     // Then navigate to the main screen
+                  //     Navigator.pushNamed(context, PassengerMainScreen.id);
+                  //     });
+                  // }).catchError((error) {
+                  //   // Handle error
+                  //     LoadingStatusHandler.errorLoading(error.toString());
+                  //   print('Failed to sign-up: $error');
+                  // });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
                   ScaffoldMessenger.of(context).showSnackBar(
