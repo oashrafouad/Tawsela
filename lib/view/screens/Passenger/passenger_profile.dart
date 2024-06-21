@@ -7,7 +7,8 @@ import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 

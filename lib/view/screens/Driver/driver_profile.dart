@@ -6,7 +6,8 @@ import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
