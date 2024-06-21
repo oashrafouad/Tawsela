@@ -124,8 +124,7 @@ class WelcomePage extends StatelessWidget {
                       CustomTextFormField(
                         textAlign: TextAlign.left,
                         textDirection: TextDirection.ltr,
-                        //textDirection: TextDirection.ltr,
-                        //textAlign: isArabic() ? TextAlign.left : TextAlign.left,
+                        
                         titleAbove: S.of(context).phoneNum,
                         height: 46,
                         width: 230,

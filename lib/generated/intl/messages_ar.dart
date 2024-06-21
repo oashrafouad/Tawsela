@@ -41,7 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("انت لا تستقبل طلبات الركاب"),
         "YouEarnedToday": MessageLookupByLibrary.simpleMessage("كسبت اليوم"),
         "YouReceivePassengerRequeststTheMoment":
-            MessageLookupByLibrary.simpleMessage("انت  تستقبل طلبات الركاب"),
+            MessageLookupByLibrary.simpleMessage("انت تستقبل طلبات الركاب"),
         "add": MessageLookupByLibrary.simpleMessage("اضف"),
         "appName": MessageLookupByLibrary.simpleMessage("توصيلة"),
         "camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
@@ -80,7 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sendCodeAgain":
             MessageLookupByLibrary.simpleMessage("ارسل الكود مرة اخرى"),
         "showAll": MessageLookupByLibrary.simpleMessage("اظهار الجميع"),
-        "signIn": MessageLookupByLibrary.simpleMessage(" تسجيل"),
+        "signIn": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "signUp": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
             "افتح حساب سائق بتقديم\nبعض المعلومات الإضافية"),
@@ -107,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "verifyCode": MessageLookupByLibrary.simpleMessage("كود التحقق"),
         "verifycode": MessageLookupByLibrary.simpleMessage("كود التحقق"),
         "welcomeMsg": MessageLookupByLibrary.simpleMessage(
-            "توصيلة هيساعدك تروح اي مكان في\nالفيوم بسهولة، اختار المكان اللي عايز\nتروحه والتطبيق هيختارلك انسب\nمواصلات تركبها,"),
+            "توصيلة هيساعدك تروح اي مكان في\nالفيوم بسهولة، اختار المكان اللي عايز\nتروحه والتطبيق هيختارلك انسب\nمواصلات تركبها"),
         "whereUwantoGo": MessageLookupByLibrary.simpleMessage("عايز تروح فين؟")
       };
 }

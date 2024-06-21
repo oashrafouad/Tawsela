@@ -110,10 +110,10 @@ class S {
     );
   }
 
-  /// `E-mail (otpinal)`
+  /// `E-mail (optional)`
   String get email {
     return Intl.message(
-      'E-mail (otpinal)',
+      'E-mail (optional)',
       name: 'email',
       desc: '',
       args: [],
@@ -130,10 +130,10 @@ class S {
     );
   }
 
-  /// `Fill in the following information to create \nyour account`
+  /// `Fill in the following information to create your account`
   String get passengerSignUpTitle {
     return Intl.message(
-      'Fill in the following information to create \nyour account',
+      'Fill in the following information to create your account',
       name: 'passengerSignUpTitle',
       desc: '',
       args: [],
@@ -150,10 +150,10 @@ class S {
     );
   }
 
-  /// `You will receive a message containing the verification code\nPlease write it here.`
+  /// `You will receive a message containing the verification code. Please write it here.`
   String get smsVerificationScreenTitle {
     return Intl.message(
-      'You will receive a message containing the verification code\nPlease write it here.',
+      'You will receive a message containing the verification code. Please write it here.',
       name: 'smsVerificationScreenTitle',
       desc: '',
       args: [],
@@ -170,10 +170,10 @@ class S {
     );
   }
 
-  /// `verifycode`
+  /// `Verify Code`
   String get verifycode {
     return Intl.message(
-      'verifycode',
+      'Verify Code',
       name: 'verifycode',
       desc: '',
       args: [],
@@ -220,10 +220,10 @@ class S {
     );
   }
 
-  /// `Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you`
+  /// `Tawsela will help you go anywhere in Faiyum with ease. Choose the place you want to go and the application will select the most suitable transportation for you.`
   String get welcomeMsg {
     return Intl.message(
-      'Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you',
+      'Tawsela will help you go anywhere in Faiyum with ease. Choose the place you want to go and the application will select the most suitable transportation for you.',
       name: 'welcomeMsg',
       desc: '',
       args: [],
@@ -370,10 +370,10 @@ class S {
     );
   }
 
-  /// `Where You want to go?`
+  /// `Where do you want to go?`
   String get whereUwantoGo {
     return Intl.message(
-      'Where You want to go?',
+      'Where do you want to go?',
       name: 'whereUwantoGo',
       desc: '',
       args: [],
@@ -390,10 +390,10 @@ class S {
     );
   }
 
-  /// `Open a driver account by submitting Some\nadditional information`
+  /// `Open a driver account by submitting some additional information`
   String get signUpDriverMsg {
     return Intl.message(
-      'Open a driver account by submitting Some\nadditional information',
+      'Open a driver account by submitting some additional information',
       name: 'signUpDriverMsg',
       desc: '',
       args: [],
@@ -590,10 +590,10 @@ class S {
     );
   }
 
-  /// `You dont receive requests`
+  /// `You don''t receive requests at the moment`
   String get YouDoNotReceivePassengerRequeststTheMoment {
     return Intl.message(
-      'You dont receive requests',
+      'You don\'\'t receive requests at the moment',
       name: 'YouDoNotReceivePassengerRequeststTheMoment',
       desc: '',
       args: [],

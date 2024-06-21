@@ -38,7 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Uber": MessageLookupByLibrary.simpleMessage("Uber"),
         "Walk": MessageLookupByLibrary.simpleMessage("Walk"),
         "YouDoNotReceivePassengerRequeststTheMoment":
-            MessageLookupByLibrary.simpleMessage("You dont receive requests"),
+            MessageLookupByLibrary.simpleMessage(
+                "You don\'\'t receive requests at the moment"),
         "YouEarnedToday":
             MessageLookupByLibrary.simpleMessage("You earned today"),
         "YouReceivePassengerRequeststTheMoment":
@@ -54,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tawseela will help you go anywhere in"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
-        "email": MessageLookupByLibrary.simpleMessage("E-mail (otpinal)"),
+        "email": MessageLookupByLibrary.simpleMessage("E-mail (optional)"),
         "favPlaces": MessageLookupByLibrary.simpleMessage("Favorite Places"),
         "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
         "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
@@ -69,7 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "numberoftrips": MessageLookupByLibrary.simpleMessage("Trips"),
         "or": MessageLookupByLibrary.simpleMessage("OR"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
-            "Fill in the following information to create \nyour account"),
+            "Fill in the following information to create your account"),
         "personalImage": MessageLookupByLibrary.simpleMessage("Personal Image"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("Mobile Number"),
         "recentlyVisited":
@@ -81,7 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
         "signUp": MessageLookupByLibrary.simpleMessage("Register"),
         "signUpDriverMsg": MessageLookupByLibrary.simpleMessage(
-            "Open a driver account by submitting Some\nadditional information"),
+            "Open a driver account by submitting some additional information"),
         "singInApple":
             MessageLookupByLibrary.simpleMessage("Sign in with Apple"),
         "singInFaceBook":
@@ -89,7 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "singInGoogle":
             MessageLookupByLibrary.simpleMessage("Sign in with Google"),
         "smsVerificationScreenTitle": MessageLookupByLibrary.simpleMessage(
-            "You will receive a message containing the verification code\nPlease write it here."),
+            "You will receive a message containing the verification code. Please write it here."),
         "specifyASpecificLocationToPickUpPassengers":
             MessageLookupByLibrary.simpleMessage(
                 "Specify a location to pick up passengers"),
@@ -105,10 +106,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "tripLog": MessageLookupByLibrary.simpleMessage("Trip Log"),
         "uploadImg": MessageLookupByLibrary.simpleMessage("Upload Image"),
         "verifyCode": MessageLookupByLibrary.simpleMessage("Verification Code"),
-        "verifycode": MessageLookupByLibrary.simpleMessage("verifycode"),
+        "verifycode": MessageLookupByLibrary.simpleMessage("Verify Code"),
         "welcomeMsg": MessageLookupByLibrary.simpleMessage(
-            "Tawsela will help you go anywhere in Faiyum with ease, choose the place you want to go and the application will select the most suitable transportation for you"),
+            "Tawsela will help you go anywhere in Faiyum with ease. Choose the place you want to go and the application will select the most suitable transportation for you."),
         "whereUwantoGo":
-            MessageLookupByLibrary.simpleMessage("Where You want to go?")
+            MessageLookupByLibrary.simpleMessage("Where do you want to go?")
       };
 }
