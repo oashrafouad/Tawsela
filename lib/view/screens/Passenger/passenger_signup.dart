@@ -67,11 +67,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: noColor,
-        iconTheme: const IconThemeData(color: kGreenBigButtons),
-      ),
+      appBar: AppBar(),
       body: Form(
         key: formKey,
         child: ListView(
@@ -94,6 +90,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
+                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => firstName = data,
                     width: 136,
                     height: 46,
@@ -103,6 +101,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
+                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => lastName = data,
                     width: 136,
                     height: 46,

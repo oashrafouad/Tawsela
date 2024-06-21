@@ -21,8 +21,6 @@ class WelcomePage extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        surfaceTintColor: noColor,
-        shadowColor: Colors.black,
         leading: PopupMenuButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -59,7 +57,7 @@ class WelcomePage extends StatelessWidget {
             }
           },
         ),
-        iconTheme: const IconThemeData(color: kGreenBigButtons),
+        
       ),
 
 
@@ -120,8 +118,10 @@ class WelcomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextFormField(
+                        textAlign: TextAlign.left,
                         textDirection: TextDirection.ltr,
-                        textAlign: isArabic() ? TextAlign.left : TextAlign.right,
+                        //textDirection: TextDirection.ltr,
+                        //textAlign: isArabic() ? TextAlign.left : TextAlign.left,
                         titleAbove: S.of(context).phoneNum,
                         height: 46,
                         width: 230,
@@ -173,6 +173,7 @@ class WelcomePage extends StatelessWidget {
               child: CustomButton(
                 width: 300,
                 radius: 10,
+                paddingHorizontal: 70,
                 buttonColor: kGreenBigButtons,
                 textColor: kWhite,
                 text: S.of(context).continuee,

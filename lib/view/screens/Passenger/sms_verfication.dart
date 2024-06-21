@@ -8,18 +8,15 @@ import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-
 class SmsVerficationPage extends StatelessWidget {
-   SmsVerficationPage({super.key});
+  SmsVerficationPage({super.key});
   static String id = 'SmsVerficationPage';
-   String verifyCode='';
-    GlobalKey<FormState> formKey = GlobalKey();
+  String verifyCode = '';
+  GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: kGreenBigButtons),
-      ),
+      appBar: AppBar(),
       body: Form(
         key: formKey,
         child: Column(
@@ -50,10 +47,10 @@ class SmsVerficationPage extends StatelessWidget {
                   maxLength: 6, //verification code should be 6 digits
                   titleAbove: S.of(context).verifyCode,
                   keyboardType: TextInputType.phone,
-                  onChanged: (value) => verifyCode=value,
+                  onChanged: (value) => verifyCode = value,
                   inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        ],
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -96,15 +93,18 @@ class SmsVerficationPage extends StatelessWidget {
                 text: S.of(context).continuee,
                 onTap: () {
                   if (formKey.currentState!.validate()) {
-                       Navigator.pushNamed(context, PassengerSignUpPage.id);
-                    }else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(
-                          content: Center(child: Text("${S.of(context).PleaseEnter} ${S.of(context).verifyCode}",style: TextStyle(fontFamily: font),)),
-                        ),
-                      );
-                    }
-                 
+                    Navigator.pushNamed(context, PassengerSignUpPage.id);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Center(
+                            child: Text(
+                          "${S.of(context).PleaseEnter} ${S.of(context).verifyCode}",
+                          style: TextStyle(fontFamily: font),
+                        )),
+                      ),
+                    );
+                  }
                 },
               ),
             )

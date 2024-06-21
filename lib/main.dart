@@ -124,10 +124,20 @@ class TawselaApp extends StatelessWidget {
 
           return MaterialApp(
             theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: kGreenBigButtons),
+                //backgroundColor: Colors.white,
+                elevation: 0,
+                 surfaceTintColor: noColor,
+        shadowColor: Colors.black,
+                //centerTitle: true,
+                //iconTheme: 
+              ),
               textSelectionTheme: const TextSelectionThemeData(
                 cursorColor: kGreenBigButtons,
                 selectionColor: kGreenSmallButton, // Text selection color
                 selectionHandleColor: kGreenBigButtons,
+                
               ),
             ),
             locale: _getLocale(langState),

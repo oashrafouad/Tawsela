@@ -16,11 +16,9 @@ class MicrobusGuideStationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       
         surfaceTintColor: color,
-        iconTheme: const IconThemeData(color: kGreenBigButtons),
         title: Padding(
-          padding: EdgeInsets.only(left: isArabic() ? 50 : 0, right: isArabic() ? 0 : 50),
+          padding: EdgeInsets.only(left: isArabic() ? 10 : 0, right: isArabic() ? 0 : 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
