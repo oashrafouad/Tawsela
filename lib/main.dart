@@ -63,29 +63,6 @@ void main() async {
 
   sharedPreferences = await SharedPreferences.getInstance();
 
-  // loading google map api key
-  var json =
-      await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
-  // decoding json string
-  Map mapObject = jsonDecode(json) as Map;
-  // fetching google map api key value
-  String apiKey = mapObject['Google_Map_Api'];
-  // register goole map api key into GET_IT
-  GoogleServer APIKEY = GoogleServer(apiKey);
-  // GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
-  KeyChain.chain.registerSingleton<GoogleServer>(APIKEY);
-
-  // loading server url
-  json = await rootBundle.loadString('assets/JSON/keys/server_url.json');
-  // decoding json string
-  mapObject = jsonDecode(json) as Map;
-  // fetching server url  value
-  String server_url = mapObject['server_url'];
-
-  // register server url into GET_IT
-  LocalServer MainServer = LocalServer(server_url);
-  KeyChain.chain
-      .registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
   await initializeGoogleMapsAPI();
   await initializeServerAPI();
 
