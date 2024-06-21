@@ -150,6 +150,7 @@ uploadImage(CroppedFile croppedFile) async {
           final imageURL = await imageRef.getDownloadURL();
           // print("Image URL is $imageURL");
           await currentUser!.updatePhotoURL(imageURL);
+          profileImageURL = imageURL;
           print("SUCCESSFULLY UPLOADED IMAGE");
           LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
           break;
@@ -179,6 +180,7 @@ uploadImage(CroppedFile croppedFile) async {
   // }
 }
 
+// Google Maps API
 initializeGoogleMapsAPI() async {
   // loading google map api key
   final json = await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
@@ -191,6 +193,7 @@ initializeGoogleMapsAPI() async {
   GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
 }
 
+// Our API
 String server_url = '';
 
 initializeServerAPI() async {
@@ -204,3 +207,10 @@ initializeServerAPI() async {
   Server MainServer = Server(server_url);
   GetIt.instance.registerSingleton<Server>(MainServer);
 }
+
+// User data
+String firstName ='';
+String lastName = '';
+String? email;
+String phoneNumber = '1104149286'; // Without '+20'
+String profileImageURL = '';
