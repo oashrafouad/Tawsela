@@ -123,6 +123,13 @@ class TawselaApp extends StatelessWidget {
               context.select((AppLanguageBloc bloc) => bloc.state);
 
           return MaterialApp(
+            theme: ThemeData(
+              textSelectionTheme: const TextSelectionThemeData(
+                cursorColor: kGreenBigButtons,
+                selectionColor: kGreenSmallButton, // Text selection color
+                selectionHandleColor: kGreenBigButtons,
+              ),
+            ),
             locale: _getLocale(langState),
             debugShowCheckedModeBanner: false,
             supportedLocales: const [Locale('ar'), Locale('en')],

@@ -75,7 +75,7 @@ class CustomTextFormField extends StatelessWidget {
             textDirection: textDirection,
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,
-            
+             
             onChanged: onChanged,
             decoration: InputDecoration(
               errorStyle: const TextStyle(fontFamily: font),

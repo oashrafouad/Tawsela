@@ -182,6 +182,8 @@ class PassengerEditProfile extends StatelessWidget {
               Center(
                 child: CustomTextFormField(
                   hintText: email,
+                  keyboardType: TextInputType.emailAddress,
+                  //inputType: TextInputType.emailAddress,
                   onChanged: (data) => email = data,
                   textDirection: TextDirection.ltr,
                   textAlign: TextAlign.start,
