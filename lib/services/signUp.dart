@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:tawsela_app/utilities.dart';
+
 class ApiService {
   static Future<void> signUp( {
     required String phoneNumber,
@@ -12,7 +14,7 @@ class ApiService {
      String? typeUser,
      String? Email_ID,
   }) async {
-    final url = Uri.parse('https://tawselaapp-1.onrender.com/api/users'); 
+    final url = Uri.parse('$server_url/api/users');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

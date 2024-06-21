@@ -153,26 +153,25 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, PassengerMainScreen.id);
-                //   LoadingStatusHandler.startLoading();
+                  LoadingStatusHandler.startLoading();
                   // Call the sign-up API
-                  // TODO: Remove this comment when the API is ready
-                  // ApiService.signUp(
-                  //   phoneNumber: "1104149210",
-                  //   fname: firstName,
-                  //   lname: lastName,
-                  //   Email_ID: null,
-                  //   password: "passwordhkfdjhe",
-                  // ).then((_)  {
-                  //   LoadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
-                  //     // Then navigate to the main screen
-                  //     Navigator.pushNamed(context, PassengerMainScreen.id);
-                  //     });
-                  // }).catchError((error) {
-                  //   // Handle error
-                  //     LoadingStatusHandler.errorLoading(error.toString());
-                  //   print('Failed to sign-up: $error');
-                  // });
+                  ApiService.signUp(
+                    phoneNumber: "1104189287",
+                    fname: firstName,
+                    lname: lastName,
+                    Email_ID: email,
+                    password: "omar",
+                  ).then((_) {
+                    LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
+                        .then((_) {
+                      // Then navigate to the main screen
+                      Navigator.pushNamed(context, PassengerMainScreen.id);
+                    });
+                  }).catchError((error) {
+                    // Handle error
+                    LoadingStatusHandler.errorLoading(error.toString());
+                    print('Failed to sign-up: $error');
+                  });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
                   ScaffoldMessenger.of(context).showSnackBar(
