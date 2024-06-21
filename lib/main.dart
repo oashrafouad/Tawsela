@@ -8,8 +8,8 @@ import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.d
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/data_models/google_server.dart';
 import 'package:tawsela_app/models/data_models/server.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +17,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
+import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
+import 'package:tawsela_app/models/servers/local_server.dart';
 import 'package:tawsela_app/route_generator.dart';
 
 // Import screens
@@ -56,7 +58,8 @@ void main() async {
   String apiKey = mapObject['Google_Map_Api'];
   // register goole map api key into GET_IT
   GoogleServer APIKEY = GoogleServer(apiKey);
-  GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
+  // GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
+  KeyChain.chain.registerSingleton<GoogleServer>(APIKEY);
 
   // loading server url
   json = await rootBundle.loadString('assets/JSON/keys/server_url.json');
@@ -66,8 +69,9 @@ void main() async {
   String server_url = mapObject['server_url'];
 
   // register server url into GET_IT
-  Server MainServer = Server(server_url);
-  GetIt.instance.registerSingleton<Server>(MainServer);
+  LocalServer MainServer = LocalServer(server_url);
+  KeyChain.chain
+      .registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
 
   // Bloc.observer = MyBlocObserver();
   // lock orientation to portrait only

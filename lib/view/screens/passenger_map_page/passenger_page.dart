@@ -13,9 +13,9 @@ import 'package:tawsela_app/view/screens/passenger_map_page/passenger_google_map
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_gps_icon.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_search_bar.dart';
 import 'package:tawsela_app/view/widgets/handle.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 
 class PassengerPage extends StatefulWidget {
   static const String id = 'PassengerPage';

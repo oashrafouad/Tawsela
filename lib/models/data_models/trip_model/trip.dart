@@ -5,18 +5,18 @@ part 'trip.g.dart';
 
 @JsonSerializable()
 class Trip {
-  final String Driver_ID;
-  final String Start_Time;
-  final String End_Time;
-  final String Trip_Status;
-  final String Price;
-  final String Trip_type;
-  final String Current_Location;
-  final String Desired_Location;
-  final String Current_Location_Latitude;
-  final String Current_Location_Longitude;
-  final String Desired_Location_Latitude;
-  final String Desired_Location_Longitude;
+  final String? Driver_ID;
+  final String? Start_Time;
+  final String? End_Time;
+  final String? Trip_Status;
+  final String? Price;
+  final String? Trip_type;
+  final String? Current_Location;
+  final String? Desired_Location;
+  final String? Current_Location_Latitude;
+  final String? Current_Location_Longitude;
+  final String? Desired_Location_Latitude;
+  final String? Desired_Location_Longitude;
   const Trip({
     required this.Driver_ID,
     required this.Start_Time,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/data_base.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 
 class UserRequestListView extends StatelessWidget {
   const UserRequestListView({super.key});
@@ -58,11 +60,11 @@ class UserRequestListView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                              'name: ${uberDriverProvider.passengerRequests[index].passengerName}'),
+                              'name: ${uberDriverProvider.passengerRequests[index].f_name}'),
                           Text(
-                              'location: ${uberDriverProvider.passengerRequests[index].currentLocationDescription}'),
+                              'location: ${uberDriverProvider.passengerRequests[index].Current_Location}'),
                           Text(
-                              'destination: ${uberDriverProvider.passengerRequests[index].destinationDescription}')
+                              'destination: ${uberDriverProvider.passengerRequests[index].Desired_Location}')
                         ],
                       ),
                     ),
@@ -73,7 +75,7 @@ class UserRequestListView extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           style: ListTileStyle.list,
-          title: Text(userRequests[index].passengerName),
+          title: Text(uberLastState.passengerRequests[index].f_name ?? 'User'),
           leading: const CircleAvatar(
             child: Icon(Icons.person),
           ),
@@ -88,7 +90,8 @@ class UserRequestListView extends StatelessWidget {
                     if (uberDriverProvider.acceptedRequest == null) {
                       BlocProvider.of<UberDriverBloc>(context).add(
                           AcceptPassengerRequest(
-                              passengerRequest: userRequests[index]));
+                              passengerRequest:
+                                  uberDriverProvider.passengerRequests[index]));
                     } else {
                       showDialog(
                           context: context,
@@ -114,7 +117,8 @@ class UserRequestListView extends StatelessWidget {
                   onPressed: () {
                     BlocProvider.of<UberDriverBloc>(context).add(
                         RejectPassengerRequest(
-                            passengerRequest: userRequests[index]));
+                            passengerRequest:
+                                uberLastState.passengerRequests[index]));
                   },
                   child: const Text('reject',
                       style: TextStyle(color: Colors.white, fontSize: 14)))

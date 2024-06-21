@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:html/parser.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 
 class WalkChoice extends StatefulWidget {
   const WalkChoice({super.key});
@@ -33,7 +34,7 @@ class _WalkChoiceState extends State<WalkChoice> {
                   child: SingleChildScrollView(
                     child: Stepper(
                         physics: const ClampingScrollPhysics(),
-                        connectorColor: WidgetStateProperty.resolveWith(
+                        connectorColor: MaterialStateProperty.resolveWith(
                             (states) => Colors.green),
                         currentStep: current_step,
                         onStepCancel: () {

@@ -37,8 +37,8 @@ class CustomButton extends StatelessWidget {
           child: OutlinedButton(
             style: ButtonStyle(
               splashFactory: splashEffect,
-                side: WidgetStateProperty.all(BorderSide(color: buttonColor)),
-                backgroundColor: WidgetStateProperty.all(buttonColor)),
+                side: MaterialStateProperty.all(BorderSide(color: buttonColor)),
+                backgroundColor: MaterialStateProperty.all(buttonColor)),
             onPressed: () {
               onTap();
             },

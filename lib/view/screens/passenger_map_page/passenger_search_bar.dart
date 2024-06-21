@@ -8,9 +8,10 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/data_models/google_server.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_events.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 class PassengerSearchBar extends StatefulWidget {
   PassengerSearchBar({super.key});
@@ -36,7 +37,6 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
     return GooglePlaceAutoCompleteTextField(
       textStyle: const TextStyle(fontFamily: font),
       inputDecoration: InputDecoration(
-       
         prefixIcon: const Icon(Icons.search),
         focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -44,25 +44,25 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
         enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             borderSide: BorderSide(color: kSearchBarColor)),
-            
         contentPadding: const EdgeInsets.only(left: 0),
         hintText: S.of(context).whereUwantoGo,
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
             borderSide: BorderSide()),
-            
       ),
       textEditingController: textController,
-      googleAPIKey: GetIt.instance.get<GoogleServer>().url,
+      googleAPIKey: KeyChain.chain.get<GoogleServer>().url,
       boxDecoration: BoxDecoration(
           color: kSearchBarColor, borderRadius: BorderRadius.circular(20)),
       countries: const ['eg'],
       itemBuilder: (context, index, prediction) {
         return ListTile(
-          titleTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
-          subtitleTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
-          leadingAndTrailingTextStyle: const TextStyle(fontFamily: font,color: kGreyFont),
-         // subtitle: Text(prediction.secondaryText!),
+          titleTextStyle: const TextStyle(fontFamily: font, color: kGreyFont),
+          subtitleTextStyle:
+              const TextStyle(fontFamily: font, color: kGreyFont),
+          leadingAndTrailingTextStyle:
+              const TextStyle(fontFamily: font, color: kGreyFont),
+          // subtitle: Text(prediction.secondaryText!),
           leading: const Icon(
             Icons.location_on,
             color: kGreenBigButtons,

@@ -7,9 +7,9 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_state.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_events.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_states.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 
 // import 'package:location/location.dart';
 
@@ -121,8 +121,6 @@ class _DriverPageState extends State<DriverPage> {
                 ),
             ],
           ),
-
-
           body: Stack(
               // alignment: Alignment.bottomCenter,
               children: [
@@ -182,29 +180,31 @@ class _DriverPageState extends State<DriverPage> {
                                 ),
                               )),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    BlocBuilder<DriverStateTextBloc, DriverStateTextState>(
-                                      builder: (context, state) {
-                                        return Text(
-                                          state.text,
-                                          style:  TextStyle(
-                                              fontFamily: font,
-                                              color: state.color,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600),
-                                        );
-                                      }
-                                    ),
+                                    BlocBuilder<DriverStateTextBloc,
+                                            DriverStateTextState>(
+                                        builder: (context, state) {
+                                      return Text(
+                                        state.text,
+                                        style: TextStyle(
+                                            fontFamily: font,
+                                            color: state.color,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600),
+                                      );
+                                    }),
                                     const DriverMapSwitch(),
                                   ],
                                 ),
                               ),
                               Padding(
-                                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -218,8 +218,8 @@ class _DriverPageState extends State<DriverPage> {
                                             .of(context)
                                             .DetermineSpecificLocation,
                                         onTap: () {
-                                          Navigator.pushNamed(context, DriverPickupLocationPage.id);
-                                      
+                                          Navigator.pushNamed(context,
+                                              DriverPickupLocationPage.id);
                                         }),
                                   ],
                                 ),
@@ -246,7 +246,7 @@ class _DriverPageState extends State<DriverPage> {
                                     child:
                                         (uberDriverProvider.acceptedRequest ==
                                                 null)
-                                            ? const UserRequestListView()
+                                            ? UserRequestListView()
                                             : UserInformation(true))
                             ],
                           ),

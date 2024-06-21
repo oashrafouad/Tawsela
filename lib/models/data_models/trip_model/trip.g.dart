@@ -7,18 +7,18 @@ part of 'trip.dart';
 // **************************************************************************
 
 Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
-      Driver_ID: json['driver_id'] as String,
-      Start_Time: json['start_time'] as String,
-      End_Time: json['end_time'] as String,
-      Trip_Status: json['trip_status'] as String,
-      Price: json['price'] as String,
-      Trip_type: json['trip_type'] as String,
-      Current_Location: json['current_location'] as String,
-      Desired_Location: json['desired_location'] as String,
-      Current_Location_Latitude: json['current_location_latitude'] as String,
-      Current_Location_Longitude: json['current_location_longitude'] as String,
-      Desired_Location_Latitude: json['desired_location_latitude'] as String,
-      Desired_Location_Longitude: json['desired_location_longitude'] as String,
+      Driver_ID: json['Driver_ID'] as String?,
+      Start_Time: json['Start_Time'] as String?,
+      End_Time: json['End_Time'] as String?,
+      Trip_Status: json['Trip_Status'] as String?,
+      Price: json['Price'] as String?,
+      Trip_type: json['Trip_type'] as String?,
+      Current_Location: json['Current_Location'] as String?,
+      Desired_Location: json['Desired_Location'] as String?,
+      Current_Location_Latitude: json['Current_Location_Latitude'] as String?,
+      Current_Location_Longitude: json['Current_Location_Longitude'] as String?,
+      Desired_Location_Latitude: json['Desired_Location_Latitude'] as String?,
+      Desired_Location_Longitude: json['Desired_Location_Longitude'] as String?,
     );
 
 Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{

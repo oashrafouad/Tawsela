@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 
 import 'package:tawsela_app/view/screens/driver_map_page/directions.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';

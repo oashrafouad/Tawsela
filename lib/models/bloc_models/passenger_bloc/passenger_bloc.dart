@@ -13,7 +13,10 @@ import 'package:http/http.dart' as http;
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_place_holder.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/data_models/accepted_request_model.dart/accepted_request.dart';
 import 'package:tawsela_app/models/data_models/uber_driver.dart';
+import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 import 'package:tawsela_app/models/servers/google_server.dart';
 
 import 'package:tawsela_app/models/data_models/passenger.dart';
@@ -22,7 +25,6 @@ import 'package:tawsela_app/models/data_models/path_model/path.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
 import 'package:tawsela_app/models/service_points.dart';
-import 'package:tawsela_app/models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 
@@ -39,12 +41,12 @@ const List<Color> lineColor = [
 
 PassengerState passengerLastState = PassengerState(
     passengerData: Passenger(
-        lastName: 'Unknown',
+        lastName: 'User',
         email: 'Hello ahmed',
         age: 17,
         location: invalidPosition,
-        firstName: 'Unkown',
-        phone: '#'),
+        firstName: 'User',
+        phone: '736363'),
     currentPosition: invalidPosition,
     lines: <Polyline>[],
     markers: <Marker>{},
@@ -123,39 +125,48 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           passengerLastState.currentPosition.longitude ==
               invalidPosition.longitude) {
         emit(const UserErrorState('Please Provide current Location'));
+      } else {
+        emit(Loading('Searching for nearby drivers'));
+
+        try {
+          await MainServer.createRequest(request: event.passengerRequest);
+          emit(Loading('Request has been sent'));
+        } catch (error) {
+          emit(UserErrorState('can not create request'));
+        }
+        AcceptedRequest? accepted_request = null;
+        do {
+          try {
+            accepted_request = await MainServer.isAcceptedRequest(
+                request_id: event.passengerRequest.Req_ID!);
+          } catch (error) {
+            accepted_request = null;
+          }
+          Future.delayed(Duration(seconds: 5));
+        } while (accepted_request == null);
+
+        final newState = PassengerState(
+            driverData: UberDriver(
+                rating: 0.5,
+                firstName: accepted_request.f_name!,
+                lastName: accepted_request.l_name!,
+                location: LatLng(0, 0),
+                phone: accepted_request.phone_num!,
+                age: 71,
+                email: 'akdcbkhaw'),
+            currentPosition: passengerLastState.currentPosition,
+            lines: [],
+            markers: passengerLastState.markers,
+            controller: passengerLastState.controller,
+            directions: [],
+            destination: passengerLastState.destination,
+            currentLocationDescription:
+                passengerLastState.currentLocationDescription,
+            destinationDescription: passengerLastState.destinationDescription,
+            passengerData: passengerLastState.passengerData);
+        passengerLastState = newState;
+        emit(newState);
       }
-    } else {
-      emit(Loading('Searching for nearby drivers'));
-
-      await MainServer.createRequest(request: event.passengerRequest);
-      int? isAccepted = null;
-      do {
-        isAccepted = await MainServer.isAcceptedRequest(
-            request_id: event.passengerRequest.Req_ID);
-        Future.delayed(Duration(seconds: 5));
-      } while (isAccepted == null);
-
-      final newState = PassengerState(
-          driverData: UberDriver(
-              rating: 0.5,
-              firstName: 'Ahmed',
-              lastName: 'Ibrahim',
-              location: LatLng(0, 0),
-              phone: isAccepted.toString(),
-              age: 71,
-              email: 'akdcbkhaw'),
-          currentPosition: passengerLastState.currentPosition,
-          lines: [],
-          markers: passengerLastState.markers,
-          controller: passengerLastState.controller,
-          directions: [],
-          destination: passengerLastState.destination,
-          currentLocationDescription:
-              passengerLastState.currentLocationDescription,
-          destinationDescription: passengerLastState.destinationDescription,
-          passengerData: passengerLastState.passengerData);
-      passengerLastState = newState;
-      emit(newState);
     }
   }
 
@@ -306,7 +317,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     http.Response? response;
     try {
       response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${GetIt.instance.get<GoogleServer>().url}'));
+          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
     } catch (exception) {
       emit(const UserErrorState('Error caclulating nearest service line'));
     }
@@ -372,7 +383,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
         try {
           response = await http.get(Uri.parse(
-              'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=walking&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${GetIt.instance.get<GoogleServer>().url}'));
+              'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=walking&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
         } catch (exception) {
           emit(UserErrorState('Error caclulating nearest service line'));
         }
@@ -400,7 +411,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
               userFinalLocalDestination ?? passengerLastState.currentPosition));
       // try {
       //   response = await http.get(Uri.parse(
-      //       'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${GetIt.instance.get<GoogleServer>().url}'));
+      //       'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
       // } catch (exception) {
       //   emit(UserErrorState('Error caclulating nearest service line'));
       // }
@@ -439,7 +450,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(const UserErrorState('Please Provide current Location'));
       } else {
         try {
-          DirectionsService.init(GetIt.instance.get<GoogleServer>().url);
+          DirectionsService.init(KeyChain.chain.get<GoogleServer>().url);
           DirectionsService directions = DirectionsService();
           Polyline path = const Polyline(
               polylineId: PolylineId('path'),

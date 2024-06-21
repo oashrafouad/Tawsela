@@ -3,26 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class UserInformation extends StatelessWidget {
-  bool showDirection;
-  UserInformation([this.showDirection = false]);
+class DriverInfo extends StatelessWidget {
+  DriverInfo();
   @override
   Widget build(BuildContext context) {
-    final driverMapProvider = BlocProvider.of<DriverMapBloc>(context);
+    late PassengerState passengerProvider;
 
-    late UberDriverState uberDriverProvider;
-    if (BlocProvider.of<UberDriverBloc>(context).state is UserErrorState) {
-      uberDriverProvider = uberLastState;
-    } else if (BlocProvider.of<UberDriverBloc>(context).state is Loading) {
-      uberDriverProvider = uberLastState;
+    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
+      passengerProvider = passengerLastState;
+    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
+      passengerProvider = passengerLastState;
     } else {
-      uberDriverProvider =
-          BlocProvider.of<UberDriverBloc>(context).state as UberDriverState;
+      passengerProvider =
+          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
     }
 
     return Column(
@@ -58,35 +59,14 @@ class UserInformation extends StatelessWidget {
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    Text(uberDriverProvider
-                                        .acceptedRequest!.f_name!)
+                                    Text(passengerLastState
+                                        .driverData!.firstName)
                                   ],
                                 ),
                                 const Divider(
                                   color: Colors.grey,
                                   thickness: 2,
                                 ),
-                                Card(
-                                  shadowColor: Colors.green,
-                                  color: Colors.white,
-                                  surfaceTintColor: Colors.white,
-                                  elevation: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          fit: FlexFit.loose,
-                                          child: Text(uberDriverProvider
-                                              .acceptedRequest!
-                                              .Desired_Location!),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
                               ],
                             )
                           ]),
@@ -102,8 +82,7 @@ class UserInformation extends StatelessWidget {
                               onPressed: () async {
                                 final url = Uri(
                                     scheme: 'tel',
-                                    host: uberDriverProvider
-                                        .acceptedRequest!.phone_num);
+                                    host: passengerProvider.driverData!.phone);
                                 await launchUrl(url);
                               },
                               child: const Row(children: [
@@ -123,10 +102,9 @@ class UserInformation extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red),
                               onPressed: () {
-                                BlocProvider.of<UberDriverBloc>(context).add(
-                                    CancelTrip(
-                                        passengerRequest: uberDriverProvider
-                                            .acceptedRequest!));
+                                // BlocProvider.of<UberDriverBloc>(context).add(
+                                //     CancelTrip(
+                                //         passengerRequest: ));
                                 BlocProvider.of<UberDriverBloc>(context)
                                     .add(const GetPassengerRequests());
                               },
@@ -150,33 +128,6 @@ class UserInformation extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      if (showDirection == true)
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue),
-                            onPressed: () {
-                              driverMapProvider.add(const HideTopSheet());
-                              Future.delayed(const Duration(seconds: 2));
-                              BlocProvider.of<UberDriverBloc>(context)
-                                  .add(const GetPassengerDirections());
-                              driverMapProvider.add(const ShowBottomSheet());
-                            },
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.directions,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  'Directions',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            )),
                     ],
                   ),
                 ),
