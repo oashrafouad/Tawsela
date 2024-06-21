@@ -66,65 +66,6 @@ class SmsVerficationPage extends StatelessWidget {
                       left: isArabic() ? 32 : 0,
                       right: isArabic() ? 0 : 32,
                       top: 8),
-                  child: SizedBox(
-                    width: 320,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            LoadingStatusHandler.startLoading();
-                            // The expected behavior is that Firebase sends same SMS code 3 times, then it sends a different one
-                            await FirebaseAuth.instance.verifyPhoneNumber(
-                              phoneNumber: "+20$phoneNumber",
-                              verificationFailed: (FirebaseAuthException e) {
-                                switch (e.code) {
-                                  case 'invalid-phone-number':
-                                    LoadingStatusHandler.errorLoading(
-                                        "الرقم الذي ادخلته غير صحيح");
-                                    print(
-                                        "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                                    break;
-                                  case 'network-request-failed':
-                                    LoadingStatusHandler.errorLoading(
-                                        "تأكد من اتصالك بالانترنت");
-                                    print(
-                                        "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                                    break;
-                                  default:
-                                    LoadingStatusHandler
-                                        .errorLoading("${e.message}");
-                                    print(
-                                        "ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                                }
-                              },
-                              codeSent:
-                                  (String verificationId, int? resendToken) {
-                                print("SUCCESSFULLY SENT SMS CODE");
-                                LoadingStatusHandler.completeLoadingWithText(
-                                    "تم ارسال الكود مرة اخرى");
-                              },
-                              // implementation not needed
-                              verificationCompleted: (PhoneAuthCredential credential) {},
-                              // implementation not needed
-                              codeAutoRetrievalTimeout: (String verificationId) {},
-                            );
-                          },
-                          splashFactory: splashEffect,
-                          child: Text(
-                            S.of(context).sendCodeAgain,
-                            style: const TextStyle(
-                                decoration: TextDecoration.underline,
-                                decorationColor: kGreenBigButtons,
-                                fontFamily: font,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: kGreenBigButtons),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ],
             ),
