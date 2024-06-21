@@ -292,8 +292,9 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
             double.parse(
                 uberLastState.acceptedRequest!.Current_Location_Longitude!),
           );
-          uberLastState.controller!.moveCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(zoom: 50, target: target_location)));
+          uberLastState.controller!.animateCamera(
+              CameraUpdate.newCameraPosition(
+                  CameraPosition(zoom: 50, target: target_location)));
           Set<Marker> newMarkers = {
             ...uberLastState.markers,
             Marker(
