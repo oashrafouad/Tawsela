@@ -25,9 +25,7 @@ class MicrobusRoutePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.green),
-      ),
+      appBar: AppBar(),
       body: Stack(
         fit: StackFit.expand,
         //map

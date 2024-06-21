@@ -19,11 +19,9 @@ class PassengerEditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageCubit = context.read<ImageCubit>();
     final imageState = context.watch<ImageCubit>().state;
-    Image oldImg=imageState.avatarImg;
-    bool isDataSaved = false;
+
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.green),
         centerTitle: true,
         title: Text(
           S.of(context).editProfile,
@@ -103,6 +101,10 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  hintText: firstName,
+                  textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textAlign: isArabic() ? TextAlign.right : TextAlign.left,
+                
                   onChanged: (data) => firstName = data,
                   width: 136,
                   height: 46,
@@ -112,6 +114,9 @@ class PassengerEditProfile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextFormField(
+                  textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textAlign: isArabic() ? TextAlign.right : TextAlign.left,
+                  hintText: lastName,
                   onChanged: (data) => lastName = data,
                   width: 136,
                   height: 46,
@@ -130,9 +135,10 @@ class PassengerEditProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomTextFormField(
+                    
                     onChanged: (data) => phoneNumber = data,
                     textDirection: TextDirection.ltr,
-                    textAlign: isArabic() ? TextAlign.left : TextAlign.right,
+                    textAlign:  TextAlign.left ,
                     titleAbove: S.of(context).phoneNum,
                     height: 46,
                     width: 213,
@@ -177,6 +183,9 @@ class PassengerEditProfile extends StatelessWidget {
               ),
               Center(
                 child: CustomTextFormField(
+                  hintText: email,
+                  keyboardType: TextInputType.emailAddress,
+                  
                   onChanged: (data) => email = data,
                   textDirection: TextDirection.ltr,
                   textAlign: TextAlign.start,

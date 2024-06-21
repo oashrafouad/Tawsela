@@ -14,20 +14,20 @@ import '../Passenger/welcome_page.dart';
 
 class DriverProfilePage extends StatelessWidget {
   const DriverProfilePage({super.key});
-static String id ='DriverProfilePage';
+  static String id = 'DriverProfilePage';
   @override
   Widget build(BuildContext context) {
     final imageState = context.watch<ImageCubit>().state;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xffF8F8F8),
-          //centerTitle: true,
+        
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomTextButton(
-                onTap: (){
-                 Navigator.popUntil(
+                onTap: () {
+                  Navigator.popUntil(
                       context, ModalRoute.withName(PassengerMainScreen.id));
                 },
                 text: S.of(context).switchPassengermode,
@@ -37,52 +37,50 @@ static String id ='DriverProfilePage';
                 paddingVerti: 6,
                 icon: Icons.swap_vertical_circle_outlined,
                 iconSize: 20,
-                
               ),
-              const SizedBox(width: 8,),
-
+              const SizedBox(
+                width: 8,
+              ),
               CustomPopupMenuButton(
-                    icon: Icons.language,
-                    popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
-                    buttonColor: const Color(0xffE0E0E0),
-                    iconColor: const Color(0xff3E3E3E),
-                    borderColor: const Color(0xffB4B4B4),
-                    itemBuilder: (context) => [
-                          const PopupMenuItem(
-                            value: 1,
-                            child: Center(
-                                child: Text("English",
-                                    style: TextStyle(
-                                        fontFamily: font,
-                                        color: kGreenBigButtons))),
-                          ),
-                          const PopupMenuItem(
-                            value: 2,
-                            child: Center(
-                                child: Text(
-                              "العربية",
-                              style: TextStyle(
-                                  fontFamily: font, color: kGreenBigButtons),
-                            )),
-                          ),
-                        ],
-                    onSelected: (value) {
-                      if (value == 1) {
-                        BlocProvider.of<AppLanguageBloc>(context)
-                            .add(EnglishLanguageEvent());
-                      } else if (value == 2) {
-                        BlocProvider.of<AppLanguageBloc>(context)
-                            .add(ArabicLanguageEvent());
-                      }
-                    },
-                    radius: 10,
-                    iconSize: 20
-                ),
+                  icon: Icons.language,
+                  popUpAnimationStyle: AnimationStyle(curve: Curves.easeIn),
+                  buttonColor: const Color(0xffE0E0E0),
+                  iconColor: const Color(0xff3E3E3E),
+                  borderColor: const Color(0xffB4B4B4),
+                  itemBuilder: (context) => [
+                        const PopupMenuItem(
+                          value: 1,
+                          child: Center(
+                              child: Text("English",
+                                  style: TextStyle(
+                                      fontFamily: font,
+                                      color: kGreenBigButtons))),
+                        ),
+                        const PopupMenuItem(
+                          value: 2,
+                          child: Center(
+                              child: Text(
+                            "العربية",
+                            style: TextStyle(
+                                fontFamily: font, color: kGreenBigButtons),
+                          )),
+                        ),
+                      ],
+                  onSelected: (value) {
+                    if (value == 1) {
+                      BlocProvider.of<AppLanguageBloc>(context)
+                          .add(EnglishLanguageEvent());
+                    } else if (value == 2) {
+                      BlocProvider.of<AppLanguageBloc>(context)
+                          .add(ArabicLanguageEvent());
+                    }
+                  },
+                  radius: 10,
+                  iconSize: 20),
               const SizedBox(
                 width: 8,
               ),
               CustomTextButton(
-              
                 radius: 10,
                 textColor: kLogOutButtonContent,
                 iconColor: kLogOutButtonContent,
@@ -94,10 +92,10 @@ static String id ='DriverProfilePage';
                 iconSize: 20,
                 onTap: () {
                   //to pop all screen in the stack and return to welcome page
-                    Navigator.popUntil(
-                      context,
-                      ModalRoute.withName(WelcomePage.id),
-                    );
+                  Navigator.popUntil(
+                    context,
+                    ModalRoute.withName(WelcomePage.id),
+                  );
                 },
               ),
             ],
@@ -112,7 +110,7 @@ static String id ='DriverProfilePage';
               child: Column(
                 children: [
                   Row(children: [
-                     CircleAvatar(
+                    CircleAvatar(
                       radius: 40,
                       backgroundImage: imageState.avatarImg.image,
                     ),
@@ -124,12 +122,19 @@ static String id ='DriverProfilePage';
                       children: [
                         Row(
                           children: [
-                             Text(
-                              '$firstName $lastName',
-                              style: const TextStyle(
-                                  fontFamily: font,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
+                            Container(
+                              width: 130,
+                             
+                              child: FittedBox(
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "$firstName $lastName",
+                                  style: const TextStyle(
+                                      fontFamily: font,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               width: 15,
@@ -145,22 +150,21 @@ static String id ='DriverProfilePage';
                                   ),
                                   shape: BoxShape.circle,
                                 ),
-                                child:  InkWell(
-                                    focusColor: noColor,
-                                    splashColor: noColor,
-                                    hoverColor: noColor,
-                                    highlightColor: noColor,
-                                    child: const Icon(Icons.edit_outlined)
-                                    , onTap: (){
-                                  Navigator.pushNamed(context, DriverEditProfilePage.id);
-                                },)
-                               
-
-                                ),
+                                child: InkWell(
+                                  focusColor: noColor,
+                                  splashColor: noColor,
+                                  hoverColor: noColor,
+                                  highlightColor: noColor,
+                                  child: const Icon(Icons.edit_outlined),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, DriverEditProfilePage.id);
+                                  },
+                                )),
                           ],
                         ),
                         const Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          
                           children: [
                             Icon(
                               Icons.star,
@@ -178,11 +182,10 @@ static String id ='DriverProfilePage';
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                       Column(
+                      Column(
                         children: [
                           Text(
                             S.of(context).YouEarnedToday,
-
                             style: const TextStyle(
                                 color: Color(0xff525252),
                                 fontFamily: font,
@@ -193,8 +196,8 @@ static String id ='DriverProfilePage';
                             height: 8,
                           ),
                           const Text(
-                            '٧٦٠ جنيهًا',  //you get That from API
-                            
+                            '٧٦٠ جنيهًا', //you get That from API
+
                             style: TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,
@@ -203,14 +206,13 @@ static String id ='DriverProfilePage';
                           ),
                         ],
                       ),
-                      
-                        Container(
-            width: 2,
-            height: 49,
-            color: const Color(0xff9C9C9C),
-            transform: Matrix4.rotationY(3.14159), // Rotate 180 degrees
-          ),
-                      
+                      Container(
+                        width: 2,
+                        height: 49,
+                        color: const Color(0xff9C9C9C),
+                        transform:
+                            Matrix4.rotationY(3.14159), // Rotate 180 degrees
+                      ),
                       Column(
                         children: [
                           Text(
@@ -237,7 +239,7 @@ static String id ='DriverProfilePage';
                     ],
                   ),
 
-                  //Text('Ahme')
+                  
                 ],
               ),
             ),
@@ -259,7 +261,7 @@ static String id ='DriverProfilePage';
                       fontWeight: FontWeight.w500),
                 ),
                 CustomTextButton(
-                  //onTap: (){},
+                 
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,
@@ -271,10 +273,10 @@ static String id ='DriverProfilePage';
             ),
           ),
           for (int i = 0; i < 3; i++)
-             Column(
+            Column(
               children: [
                 ListTile(
-                  //contentPadding:EdgeInsets.symmetric(vertical: 16,horizontal: 16) ,
+                
                   leading: CircleAvatar(
                     radius: 40,
                     backgroundImage: imageState.avatarImg.image,
@@ -284,12 +286,15 @@ static String id ='DriverProfilePage';
                     children: [
                       Row(
                         children: [
-                          Text(
-                            '$firstName $lastName',
-                            style: const TextStyle(
-                                fontFamily: font,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
+                          Expanded(
+                            child: Text(
+                              overflow: TextOverflow.ellipsis,
+                              "$firstName $lastName",
+                              style: const TextStyle(
+                                  fontFamily: font,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
                           const SizedBox(
                             width: 15,
@@ -319,7 +324,7 @@ static String id ='DriverProfilePage';
                   trailing: const Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Column(
-                      //crossAxisAlignment: CrossAxisAlignment.end,
+                     
                       children: [
                         SizedBox(
                           width: 120,

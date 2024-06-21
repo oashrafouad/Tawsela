@@ -1,4 +1,6 @@
 
+//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:tawsela_app/constants.dart';
@@ -8,6 +10,7 @@ class CustomButton extends StatelessWidget {
   CustomButton({
     super.key,
     required this.onTap,
+    this.paddingHorizontal = 85,
     this.text = '',
     this.buttonColor = kGreenBigButtons,
     this.textColor = Colors.white,
@@ -22,6 +25,7 @@ class CustomButton extends StatelessWidget {
   Function onTap;
   Color buttonColor, textColor;
   double? height, width;
+  double paddingHorizontal;
   double radius, fontSize;
   FontWeight fontWeight;
 
@@ -43,7 +47,7 @@ class CustomButton extends StatelessWidget {
               onTap();
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 12),
+              padding:  EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: 12),
               child: Text(
                 text,
                 style: TextStyle(
