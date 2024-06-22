@@ -81,7 +81,8 @@ void main() async {
   // bool isLoggedIn = sharedPreferencesService.isLoggedIn;
 
   sharedPreferences = await SharedPreferences.getInstance();
-  print("Shared preferences initialized");
+  //print("Shared preferences initialized");
+  initValues();
 
   // await initializeSharedPreferences();
 
