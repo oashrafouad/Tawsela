@@ -39,6 +39,23 @@ class ApiService {
     }
   }
 
+  static Future<void> logIn({
+    required String phoneNumber,
+  }) async {
+    final url = Uri.parse('$server_url/api/auth/login');
+    final response = await post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'Phone_Num': phoneNumber,
+      }),
+    );
+    final error = handleError(response);
+    if (error != null) {
+      throw error;
+    }
+  }
+
   static String? handleError(Response response) {
     String? error;
     switch (response.statusCode) {

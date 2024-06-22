@@ -218,3 +218,4 @@ String lastName = '';
 String? email;
 String phoneNumber = '1104149286'; // Without '+20'
 String profileImageURL = '';
+bool isLoggedIn = false; // Should get from shared preferences

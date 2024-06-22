@@ -23,11 +23,14 @@ class PassengerPickupLocationPage extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           // To dismiss keyboard when tapping anywhere outside search bar
-          FocusScopeNode currentFocus = FocusScope.of(context);
+          FocusManager.instance.primaryFocus?.unfocus();
 
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
+          // FocusScopeNode currentFocus = FocusScope.of(context);
+          // FocusScope.of(context).unfocus();
+
+          // if (!currentFocus.hasPrimaryFocus) {
+          //   currentFocus.unfocus();
+          // }
         },
         child: Scaffold(
           appBar: AppBar(

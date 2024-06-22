@@ -8,6 +8,7 @@ import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbus_guide_station.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
+import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_circle_container.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
@@ -62,7 +63,7 @@ class PassengerMainScreen extends StatelessWidget {
                         readOnly: true, // prevent user from entering input as tapping will go to another screen anyways
                         onTap: () {
                           Navigator.pushNamed(
-                              context, PassengerPickupLocationPage.id);
+                              context, PassengerPage.id);
                         },
                         decoration: InputDecoration(
                           constraints: const BoxConstraints(maxWidth: 300),

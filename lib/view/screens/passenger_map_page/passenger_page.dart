@@ -5,6 +5,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 
 import 'package:tawsela_app/view/screens/passenger_map_page/bottom_sheet.dart';
@@ -59,19 +60,38 @@ class _PassengerPageState extends State<PassengerPage> {
               BlocProvider.of<PassengerBloc>(context).state as PassengerState;
         }
         return Scaffold(
+          // add back button
+          appBar: AppBar(
+            titleSpacing: 10,
+            // leadingWidth: 30,
+            title: PassengerSearchBar(),
+            leading: IconButton(
+              padding: const EdgeInsets.all(10),
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+                splashFactory: splashEffect,
+              ),
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniStartFloat,
           floatingActionButton: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<UserPreferenceBloc>(context)
-                      .add(const SwitchUserMode());
-                  Navigator.pushNamed(context, HomePage.id);
-                },
-                child: const Text('SM'),
-              ),
+              // FloatingActionButton(
+              //   onPressed: () {
+              //     BlocProvider.of<UserPreferenceBloc>(context)
+              //         .add(const SwitchUserMode());
+              //     Navigator.pushNamed(context, HomePage.id);
+              //   },
+              //   child: const Text('SM'),
+              // ),
               const SizedBox(
                 height: 20,
               ),
@@ -137,10 +157,6 @@ class _PassengerPageState extends State<PassengerPage> {
                 SafeArea(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: PassengerSearchBar(),
-                      ),
                       const PassengerGpsIcon()
                     ],
                   ),
