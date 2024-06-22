@@ -3,7 +3,10 @@ import 'dart:convert';
 
 import 'package:tawsela_app/utilities.dart';
 
-//TODO: add variables for all url endpoints
+enum APIRequestType {
+  signUp // Add more request types here
+}
+
 class ApiService {
   static Future<void> signUp({
     required String phoneNumber,
@@ -39,29 +42,34 @@ class ApiService {
   static String? handleError(Response response) {
     String? error;
     switch (response.statusCode) {
-      case 200:
+      case 200: // Success
         error = null;
         break;
-      case 201:
+      case 201: // Created or updated
         error = null;
         break;
-      case 409: // TODO: add another switch case inside that for each API request type
-        // error = 'Phone already exists';
-      error = response.body;
-        break;
-      case 404:
+      case 404: // Not found
         error = 'Not found';
         break;
-      case 500:
+      case 409: // Already exists error (conflict)
+        switch (APIRequestType) { // Another switch case for personalized error messages based on the request type
+          case signUp:
+            error = 'Phone already exists';
+            break;
+          default:
+            error = response.body;
+            break;
+        }
+        error = response.body;
+        break;
+      case 500: // Internal server error (no internet connection, server down, etc.)
         error = 'Internal server error';
         break;
       default:
-        print("default case");
         error = response.body;
         break;
     }
     print(error);
-    // print(response.body);
     return error;
 
     //
@@ -74,5 +82,4 @@ class ApiService {
     //   throw (response.body);
     // }
   }
-
 }
