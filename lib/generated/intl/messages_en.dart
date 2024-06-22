@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Fill in the following information to create your account"),
         "personalImage": MessageLookupByLibrary.simpleMessage("Personal Image"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("Mobile Number"),
+        "pounds": MessageLookupByLibrary.simpleMessage("EGP"),
         "recentlyVisited":
             MessageLookupByLibrary.simpleMessage("Recently Visited"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),

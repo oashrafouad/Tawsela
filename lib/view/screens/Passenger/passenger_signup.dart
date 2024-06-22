@@ -139,7 +139,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   LoadingStatusHandler.startLoading();
                   // Call the sign-up API
                   ApiService.signUp(
-                    // phoneNumber: phoneNumber,
                     phoneNumber: phoneNumber,
                     fname: firstName,
                     lname: lastName,

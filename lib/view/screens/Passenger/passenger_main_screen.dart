@@ -32,7 +32,7 @@ class PassengerMainScreen extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           bottom: false,
-          child: Column(
+          child: ListView(
             children: [
               Stack(
                 alignment: AlignmentDirectional.topEnd,
