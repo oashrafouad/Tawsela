@@ -3,6 +3,8 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tawsela_app/constants.dart';
 
+import '../../../utilities.dart';
+
 part 'app_theme_event.dart';
 part 'app_theme_state.dart';
 

@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
@@ -194,7 +195,6 @@ initializeGoogleMapsAPI() async {
   GoogleServer APIKEY = GoogleServer(apiKey);
   // GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
   KeyChain.chain.registerSingleton<GoogleServer>(APIKEY);
-
 }
 
 // Our API
@@ -212,10 +212,23 @@ initializeServerAPI() async {
   KeyChain.chain.registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
 }
 
+// Shared preferences
+SharedPreferences? sharedPreferences;
+
 // User data
-String firstName ='';
+String firstName = '';
 String lastName = '';
-String? email;
-String phoneNumber = '1104149286'; // Without '+20'
+// String phoneNumber = '1104149286'; // Without '+20'
+String phoneNumber = ''; // Without '+20'
 String profileImageURL = '';
 bool isLoggedIn = false; // Should get from shared preferences
+
+updateData() async {
+  print("1. $isLoggedIn");
+  await sharedPreferences!.setString('firstName', firstName);
+  await sharedPreferences!.setString('lastName', lastName);
+  await sharedPreferences!.setString('phoneNumber', phoneNumber);
+  await sharedPreferences!.setString('profileImageURL', profileImageURL);
+  await sharedPreferences!.setBool('isLoggedIn', isLoggedIn);
+  print("Shared: $isLoggedIn");
+}

@@ -19,6 +19,7 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tawsela_app/services/shared_preferences_service.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'firebase_options.dart';
 
@@ -61,7 +62,28 @@ void main() async {
   // Initialize SVProgressHUD
   LoadingStatusHandler.initialize();
 
+  // var sharedPreferences = SharedPreferencesService.getInstance();
+
+  // var sharedPreferencesService = await SharedPreferencesService.getInstance();
+  //
+  // // Set values
+  // sharedPreferencesService.firstName = 'John';
+  // sharedPreferencesService.lastName = 'Doe';
+  // sharedPreferencesService.phoneNumber = '1234567890';
+  // sharedPreferencesService.profileImageURL = 'http://example.com/image.jpg';
+  // sharedPreferencesService.isLoggedIn = true;
+  //
+  // // Get values
+  // String firstName = sharedPreferencesService.firstName;
+  // String lastName = sharedPreferencesService.lastName;
+  // String phoneNumber = sharedPreferencesService.phoneNumber;
+  // String profileImageURL = sharedPreferencesService.profileImageURL;
+  // bool isLoggedIn = sharedPreferencesService.isLoggedIn;
+
   sharedPreferences = await SharedPreferences.getInstance();
+  print("Shared preferences initialized");
+
+  // await initializeSharedPreferences();
 
   await initializeGoogleMapsAPI();
   await initializeServerAPI();
@@ -71,6 +93,11 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const TawselaApp());
 }
+
+// Future<void> initializeSharedPreferences() async {
+//   sharedPreferences = await SharedPreferences.getInstance();
+//   print("Shared preferences initialized");
+// }
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -147,7 +174,11 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: WelcomePage.id,
+            initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
+                ? WelcomePage.id
+                : sharedPreferences!.getBool('isLoggedIn')!
+                ? PassengerMainScreen.id
+                : WelcomePage.id,
           );
         },
       ),

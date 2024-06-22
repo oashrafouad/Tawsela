@@ -83,21 +83,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             const SizedBox(
               height: 16,
             ),
-            Center(
-              child: CustomTextFormField(
-                useValidator: false,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.start,
-                onChanged: (data) => email = data,
-                width: 284,
-                height: 46,
-                titleAbove: S.of(context).email,
-                keyboardType: TextInputType.emailAddress,
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -155,19 +140,31 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   // Call the sign-up API
                   ApiService.signUp(
                     // phoneNumber: phoneNumber,
-                    phoneNumber: "1103258287",
+                    phoneNumber: phoneNumber,
                     fname: firstName,
                     lname: lastName,
-                    Email_ID: email,
-                    password: "password",
                     typeUser: "Passenger"
                   ).then((_) {
                     LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
                         .then((_) {
                       print('Signed up successfully');
-                      isLoggedIn = true;
-                      // Then navigate to the main screen
-                      Navigator.pushNamed(context, PassengerMainScreen.id);
+                          ApiService.logIn(phoneNumber: phoneNumber).then((_) async {
+                            // isLoggedIn = true;
+                            print("2. $isLoggedIn");
+                            await updateData();
+                            // print values from shared preferences
+                            print("First Name: ${sharedPreferences!.getString('firstName')}");
+                            print("Last Name: ${sharedPreferences!.getString('lastName')}");
+                            print("Phone Numbrr: ${sharedPreferences!.getString('phoneNumber')}");
+                            print("Profile iamge url: ${sharedPreferences!.getString('profileImageURL')}");
+                            print("3. Is logged in: ${sharedPreferences!.getBool('isLoggedIn')}");
+                            // Then navigate to the main screen
+                            Navigator.pushNamed(context, PassengerMainScreen.id);
+                          }).catchError((error) {
+                            // Handle error
+                            LoadingStatusHandler.errorLoading(error.toString());
+                            print('Failed to log-in: $error');
+                          });
                     });
                   }).catchError((error) {
                     // Handle error

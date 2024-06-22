@@ -143,7 +143,7 @@ class PassengerEditProfile extends StatelessWidget {
                     height: 46,
                     width: 213,
                     maxLength: 10,
-                    hintText: "1234567890",
+                    hintText: phoneNumber,
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
                       // prevent the first number inputted to be 0, to force the user to input the correct number format
@@ -177,22 +177,6 @@ class PassengerEditProfile extends StatelessWidget {
                         child: Image.asset('assets/images/flag.png')),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Center(
-                child: CustomTextFormField(
-                  hintText: email,
-                  keyboardType: TextInputType.emailAddress,
-                  
-                  onChanged: (data) => email = data,
-                  textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.start,
-                  width: 284,
-                  height: 46,
-                  titleAbove: S.of(context).email,
-                ),
               ),
             ],
           ),

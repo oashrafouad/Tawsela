@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:tawsela_app/utilities.dart';
 
 enum APIRequestType {
-  signUp // Add more request types here
+  signUp,
+  logIn,
 }
 
 class ApiService {
@@ -12,11 +13,8 @@ class ApiService {
     required String phoneNumber,
     required String fname,
     required String lname,
-    String? gender,
-    int? age,
-    required String password,
     required String typeUser,
-    String? Email_ID,
+    String? overallRating
   }) async {
     final url = Uri.parse('$server_url/api/users');
     final response = await post(
@@ -26,16 +24,14 @@ class ApiService {
         'Phone_Num': phoneNumber,
         'F_Name': fname,
         'L_Name': lname,
-        'Gender': gender,
-        'Age': age,
-        'Password': password,
         'Type_User': typeUser,
-        'Email_ID': Email_ID,
       }),
     );
     final error = handleError(response);
     if (error != null) {
       throw error;
+    } else {
+      await updateData();
     }
   }
 
@@ -50,9 +46,13 @@ class ApiService {
         'Phone_Num': phoneNumber,
       }),
     );
+    print(response.body);
     final error = handleError(response);
     if (error != null) {
       throw error;
+    } else {
+      // Set the user as logged in
+      isLoggedIn = true;
     }
   }
 
@@ -86,17 +86,6 @@ class ApiService {
         error = response.body;
         break;
     }
-    print(error);
     return error;
-
-    //
-    // if (response.statusCode == 201) {
-    //   // Handle successful response
-    //   print('Sign-up successful');
-    // } else {
-    //   print(response.statusCode)
-    //   // Throw an error if sign-up fails
-    //   throw (response.body);
-    // }
   }
 }

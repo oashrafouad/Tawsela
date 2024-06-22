@@ -90,19 +90,6 @@ class DriverEditProfilePage extends StatelessWidget {
             ],
           ),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: Text(
-              S
-                  .of(context)
-                  .ToEditTheNameAndProfilePictureContactTechnicalSupport,
-              style: const TextStyle(
-                  color: Color(0xff9D9D9D),
-                  fontFamily: font,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
           const SizedBox(
             height: 16,
           ),
@@ -155,20 +142,6 @@ class DriverEditProfilePage extends StatelessWidget {
                           child: Image.asset('assets/images/flag.png')),
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Center(
-                  child: CustomTextFormField(
-                    hintText: email,
-                    keyboardType: TextInputType.emailAddress,
-                    textDirection: TextDirection.ltr,
-                    textAlign:  TextAlign.left ,
-                    width: 284,
-                    height: 46,
-                    titleAbove: S.of(context).email,
-                  ),
                 ),
               ],
             ),

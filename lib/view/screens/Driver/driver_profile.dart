@@ -9,6 +9,7 @@ import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
 import 'package:tawsela_app/utilities.dart';
 
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
+import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import '../Passenger/welcome_page.dart';
@@ -36,7 +37,7 @@ class DriverProfilePage extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 paddingVerti: 6,
-                icon: Icons.swap_vertical_circle_outlined,
+                icon: CustomSwitchIcon.icon,
                 iconSize: 20,
               ),
               const SizedBox(
