@@ -82,7 +82,12 @@ void main() async {
 
   sharedPreferences = await SharedPreferences.getInstance();
   //print("Shared preferences initialized");
-  initValues();
+  isLoggedIn = sharedPreferences!.getBool('isLoggedIn') ?? false;
+  isDriver = sharedPreferences!.getBool('isDriver') ?? false;
+
+  if (isLoggedIn) {
+    await initValues();
+  } //to make fname and lname apper in UI if he already logged in
 
   // await initializeSharedPreferences();
 
@@ -143,45 +148,47 @@ class TawselaApp extends StatelessWidget {
         ),
       ],
       child: Builder(
-
         builder: (context) {
           final langState =
               context.select((AppLanguageBloc bloc) => bloc.state);
 
           return MaterialApp(
-            theme: ThemeData(
-              appBarTheme: const AppBarTheme(
-                iconTheme: IconThemeData(color: kGreenBigButtons),
-                //backgroundColor: Colors.white,
-                elevation: 0,
-                surfaceTintColor: noColor,
-                shadowColor: Colors.black,
-                //centerTitle: true,
-                //iconTheme:
+              theme: ThemeData(
+                appBarTheme: const AppBarTheme(
+                  iconTheme: IconThemeData(color: kGreenBigButtons),
+                  //backgroundColor: Colors.white,
+                  elevation: 0,
+                  surfaceTintColor: noColor,
+                  shadowColor: Colors.black,
+                  //centerTitle: true,
+                  //iconTheme:
+                ),
+                textSelectionTheme: const TextSelectionThemeData(
+                  cursorColor: kGreenBigButtons,
+                  selectionColor: kGreenSmallButton, // Text selection color
+                  selectionHandleColor: kGreenBigButtons,
+                ),
               ),
-              textSelectionTheme: const TextSelectionThemeData(
-                cursorColor: kGreenBigButtons,
-                selectionColor: kGreenSmallButton, // Text selection color
-                selectionHandleColor: kGreenBigButtons,
-              ),
-            ),
-            locale: _getLocale(langState),
-            debugShowCheckedModeBanner: false,
-            supportedLocales: const [Locale('ar'), Locale('en')],
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            localeResolutionCallback: _localeResolutionCallback,
-            routes: _buildRoutes(),
-            initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
-                ? WelcomePage.id
-                : sharedPreferences!.getBool('isLoggedIn')!
-                ? PassengerMainScreen.id
-                : WelcomePage.id,
-          );
+              locale: _getLocale(langState),
+              debugShowCheckedModeBanner: false,
+              supportedLocales: const [Locale('ar'), Locale('en')],
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              localeResolutionCallback: _localeResolutionCallback,
+              routes: _buildRoutes(),
+              initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
+                  ? WelcomePage.id
+                  : sharedPreferences!.getBool("isLoggedIn")!
+                      ? sharedPreferences!.getBool("isDriver") == null
+                          ? WelcomePage.id
+                          : sharedPreferences!.getBool("isDriver")!
+                              ? DriverPage.id
+                              : PassengerMainScreen.id
+                      : WelcomePage.id);
         },
       ),
     );
@@ -211,7 +218,10 @@ class TawselaApp extends StatelessWidget {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       WelcomePage.id: (context) => WelcomePage(),
-      SmsVerficationPage.id: (context) => SmsVerficationPage(verificationId: '', phoneNumber: '',),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(
+            verificationId: '',
+            phoneNumber: '',
+          ),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),

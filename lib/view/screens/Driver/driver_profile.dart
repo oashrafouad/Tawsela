@@ -23,14 +23,17 @@ class DriverProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xffF8F8F8),
-        
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomTextButton(
                 onTap: () {
-                  Navigator.popUntil(
-                      context, ModalRoute.withName(PassengerMainScreen.id));
+                  isDriver = false;
+                    updateData();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PassengerMainScreen()),
+                        (Route<dynamic> route) => false);
                 },
                 text: S.of(context).switchPassengermode,
                 radius: 10,
@@ -93,11 +96,15 @@ class DriverProfilePage extends StatelessWidget {
                 paddingHorzin: 2,
                 iconSize: 20,
                 onTap: () {
-                  //to pop all screen in the stack and return to welcome page
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(WelcomePage.id),
-                  );
+
+                  isLoggedIn = false;
+                  resetData();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => WelcomePage()),
+                      (Route<dynamic> route) => false);
+                 
+                 
                 },
               ),
             ],
@@ -126,7 +133,6 @@ class DriverProfilePage extends StatelessWidget {
                           children: [
                             Container(
                               width: 130,
-                             
                               child: FittedBox(
                                 child: Text(
                                   overflow: TextOverflow.ellipsis,
@@ -166,7 +172,6 @@ class DriverProfilePage extends StatelessWidget {
                           ],
                         ),
                         const Row(
-                          
                           children: [
                             Icon(
                               Icons.star,
@@ -197,8 +202,8 @@ class DriverProfilePage extends StatelessWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                           Text(
-                            "200 "+S.of(context).pounds,
+                          Text(
+                            "200 " + S.of(context).pounds,
                             //'٧٦٠ جنيهًا', //you get That from API
 
                             style: TextStyle(
@@ -241,8 +246,6 @@ class DriverProfilePage extends StatelessWidget {
                       )
                     ],
                   ),
-
-                  
                 ],
               ),
             ),
@@ -264,7 +267,6 @@ class DriverProfilePage extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 CustomTextButton(
-                 
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,
@@ -279,7 +281,6 @@ class DriverProfilePage extends StatelessWidget {
             Column(
               children: [
                 ListTile(
-                
                   leading: CircleAvatar(
                     radius: 40,
                     backgroundImage: imageState.avatarImg.image,
@@ -323,11 +324,9 @@ class DriverProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   trailing: const Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Column(
-                     
                       children: [
                         SizedBox(
                           width: 120,

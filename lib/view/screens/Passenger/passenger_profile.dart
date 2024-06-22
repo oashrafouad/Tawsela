@@ -43,7 +43,12 @@ class PassengerProfile extends StatelessWidget {
                   onTap: () {
                     //TODO: pop all screen in the stack
                     //if the user uploaded the licesense and the id card switched to driverMainScreen
-                    Navigator.pushNamed(context, DriverPage.id);
+                    isDriver = true;
+                    updateData();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => DriverPage()),
+                        (Route<dynamic> route) => false);
                   },
                 ),
                 const SizedBox(width: 8),
@@ -82,8 +87,7 @@ class PassengerProfile extends StatelessWidget {
                       }
                     },
                     radius: 10,
-                    iconSize: 20
-                ),
+                    iconSize: 20),
                 const SizedBox(width: 8),
                 CustomTextButton(
                   radius: 10,
@@ -97,11 +101,12 @@ class PassengerProfile extends StatelessWidget {
                   iconSize: 20,
                   containsIconOnly: true,
                   onTap: () {
-                    //to pop all screen in the stack and return to welcome page
-                    Navigator.popUntil(
-                      context,
-                      ModalRoute.withName(WelcomePage.id),
-                    );
+                    isLoggedIn = false;
+                    resetData();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => WelcomePage()),
+                        (Route<dynamic> route) => false);
                   },
                 ),
               ],
@@ -115,13 +120,13 @@ class PassengerProfile extends StatelessWidget {
             color: const Color(0xffF8F8F8),
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
               child: Column(
                 children: [
                   Row(children: [
                     CircleAvatar(
                         radius: 50,
-                        backgroundImage:  imageState.avatarImg.image,
+                        backgroundImage: imageState.avatarImg.image,
                         backgroundColor: kGreyFont),
                     const SizedBox(
                       width: 16,
@@ -259,7 +264,7 @@ class PassengerProfile extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  overflow:  TextOverflow.ellipsis,
+                                  overflow: TextOverflow.ellipsis,
                                   "$firstName $lastName",
                                   style: const TextStyle(
                                       fontFamily: font,
@@ -309,7 +314,8 @@ class PassengerProfile extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 2),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2),
                                     child: Icon(
                                       Icons.arrow_forward,
                                       size: 15,

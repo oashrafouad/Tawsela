@@ -225,14 +225,14 @@ bool isLoggedIn = false; // Should get from shared preferences
 bool isDriver=false; // to check if the user is a driver or passenger
 
 updateData() async { //that will update the shared preferences values
-  print("1. $isLoggedIn");
+ // print("1. $isLoggedIn");
   await sharedPreferences!.setString('firstName', firstName);
   await sharedPreferences!.setString('lastName', lastName);
   await sharedPreferences!.setString('phoneNumber', phoneNumber);
   await sharedPreferences!.setString('profileImageURL', profileImageURL);
   await sharedPreferences!.setBool('isLoggedIn', isLoggedIn);
   await sharedPreferences!.setBool('isDriver', isDriver);
-  print("Shared: $isLoggedIn");
+  //print("Shared: $isLoggedIn");
 }
 
 initValues() async {
@@ -240,7 +240,16 @@ initValues() async {
   lastName = await sharedPreferences!.getString('lastName') ?? '';
   phoneNumber = await sharedPreferences!.getString('phoneNumber') ?? '';
   profileImageURL = await sharedPreferences!.getString('profileImageURL') ?? '';
+
   //isLoggedIn = await sharedPreferences!.getBool('isLoggedIn') ?? false;
- // isDriver = await sharedPreferences!.getBool('isDriver') ?? false;
+ //isDriver = await sharedPreferences!.getBool('isDriver') ?? false;
   //print("2. $isLoggedIn");
+}
+
+resetData() async { // use when user logs out
+  await sharedPreferences!.clear();
+}
+
+initRoute(){
+  
 }
