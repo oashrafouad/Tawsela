@@ -41,3 +41,7 @@ class EndTrip extends DriverEvent {
 class GetPassengerDirections extends DriverEvent {
   const GetPassengerDirections();
 }
+
+class PassengerCancelledRequest extends DriverEvent {
+  const PassengerCancelledRequest();
+}

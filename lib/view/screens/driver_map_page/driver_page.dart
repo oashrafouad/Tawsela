@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +21,8 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/models/servers/main_server.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
@@ -42,11 +46,44 @@ class DriverPage extends StatefulWidget {
 
 class _DriverPageState extends State<DriverPage> {
   List<String> tripStates = ['Start Trip', 'End Trip'];
+  late TripRequestTimer timer;
   bool isTripStarted = false;
-
+  late Timer isRequestCancelled;
+  late Timer isTripEnded;
   @override
   void initState() {
     super.initState();
+    timer = TripRequestTimer(
+      requestCallback: checkRequest,
+      tripCallback: checkTrip,
+      duration: Duration(seconds: 5),
+    );
+  }
+
+  Future<bool> checkRequest() async {
+    bool result = false;
+    try {
+      result = await MainServer.isRequestCancelled(
+          uberLastState.acceptedRequest!.Req_ID!);
+      BlocProvider.of<UberDriverBloc>(context).add(RejectPassengerRequest(
+          passengerRequest: uberLastState.acceptedRequest!));
+    } catch (error) {
+      result = false;
+    }
+    return result;
+  }
+
+  Future<bool> checkTrip() async {
+    bool result = false;
+    try {
+      result = await MainServer.isTripCancelled(
+          uberLastState.acceptedRequest!.Req_ID!);
+      BlocProvider.of<UberDriverBloc>(context)
+          .add(CancelTrip(passengerRequest: uberLastState.acceptedRequest!));
+    } catch (error) {
+      result = false;
+    }
+    return result;
   }
 
   @override
@@ -98,6 +135,7 @@ class _DriverPageState extends State<DriverPage> {
               if (uberDriverProvider.destination != null &&
                   uberDriverProvider.directions.isNotEmpty)
                 FloatingActionButton(
+                  shape: CircleBorder(side: BorderSide(color: Colors.white)),
                   backgroundColor: Colors.blue,
                   onPressed: () {
                     if (isTripStarted == false) {
@@ -105,11 +143,13 @@ class _DriverPageState extends State<DriverPage> {
                       BlocProvider.of<UberDriverBloc>(context).add(StartTrip(
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
+                      timer.startTripTimer();
                     } else {
                       isTripStarted = false;
                       BlocProvider.of<UberDriverBloc>(context).add(EndTrip(
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
+                      timer.stopTripTimer();
                       BlocProvider.of<UberDriverBloc>(context)
                           .add(const GoogleMapGetCurrentPosition());
                     }
@@ -129,7 +169,9 @@ class _DriverPageState extends State<DriverPage> {
                 ),
                 if (uberDriverProvider.destination != null &&
                     driverMapProvider.state.bottomSheet == true)
-                  const DriverDraggableSheet(),
+                  DriverDraggableSheet(
+                    timer: timer,
+                  ),
                 BlocConsumer<DriverMapBloc, DriverMapState>(
                   listener: (context, state) {
                     // TODO: implement listener
@@ -246,8 +288,11 @@ class _DriverPageState extends State<DriverPage> {
                                     child:
                                         (uberDriverProvider.acceptedRequest ==
                                                 null)
-                                            ? UserRequestListView()
-                                            : UserInformation(true))
+                                            ? UserRequestListView(timer: timer)
+                                            : UserInformation(
+                                                showDirection: true,
+                                                timer: timer,
+                                              ))
                             ],
                           ),
                         ),

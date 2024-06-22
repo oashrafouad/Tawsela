@@ -6,11 +6,13 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserInformation extends StatelessWidget {
   bool showDirection;
-  UserInformation([this.showDirection = false]);
+  TripRequestTimer timer;
+  UserInformation({this.showDirection = false, required this.timer});
   @override
   Widget build(BuildContext context) {
     final driverMapProvider = BlocProvider.of<DriverMapBloc>(context);
@@ -127,6 +129,7 @@ class UserInformation extends StatelessWidget {
                                     CancelTrip(
                                         passengerRequest: uberDriverProvider
                                             .acceptedRequest!));
+                                timer.stopTripTimer();
                                 BlocProvider.of<UberDriverBloc>(context)
                                     .add(const GetPassengerRequests());
                               },
@@ -156,10 +159,10 @@ class UserInformation extends StatelessWidget {
                                 backgroundColor: Colors.blue),
                             onPressed: () {
                               driverMapProvider.add(const HideTopSheet());
-                              Future.delayed(const Duration(seconds: 2));
+                              Future.delayed(Duration(seconds: 2));
                               BlocProvider.of<UberDriverBloc>(context)
-                                  .add(const GetPassengerDirections());
-                              driverMapProvider.add(const ShowBottomSheet());
+                                  .add(GetPassengerDirections());
+                              driverMapProvider.add(ShowBottomSheet());
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

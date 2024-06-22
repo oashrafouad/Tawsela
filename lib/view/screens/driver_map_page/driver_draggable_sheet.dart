@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_buttom_sheet.dart';
 import 'package:tawsela_app/view/widgets/handle.dart';
 
 class DriverDraggableSheet extends StatelessWidget {
-  const DriverDraggableSheet({super.key});
+  TripRequestTimer timer;
+  DriverDraggableSheet({required this.timer, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,14 @@ class DriverDraggableSheet extends StatelessWidget {
             child: ListView(
               physics: const ClampingScrollPhysics(),
               controller: scrollableController,
-              children: const [
+              children: [
                 Column(
                   children: [BottomSheetHandle()],
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                DriverButtomSheet(),
+                DriverButtomSheet(timer: timer),
               ],
             ),
           );

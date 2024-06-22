@@ -35,3 +35,11 @@ class ShowLine extends PassengerEvent {
   final int lineNumber;
   const ShowLine(this.lineNumber);
 }
+
+class DriverCancelledRequest extends PassengerEvent {
+  const DriverCancelledRequest();
+}
+
+class DriverEndedTrip extends PassengerEvent {
+  const DriverEndedTrip();
+}

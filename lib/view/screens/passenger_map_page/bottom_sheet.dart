@@ -7,13 +7,15 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 
 import 'package:tawsela_app/view/screens/passenger_map_page/service_choice.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/uber_choice.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/walk_choice.dart';
 
 class UserActionsPanel extends StatefulWidget {
-  const UserActionsPanel({super.key});
+  TripRequestTimer timer;
+  UserActionsPanel({required this.timer, super.key});
 
   @override
   State<UserActionsPanel> createState() => _UserActionsPanelState();
@@ -82,7 +84,6 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                       Icons.check,
                       color: Colors.white,
                     ),
-
                     segments: [
                       ButtonSegment(
                         value: items[0],
@@ -129,7 +130,9 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
               builder: (context, state) {
                 return Container(
                   child: (selectedItem == 0)
-                      ? const UberCoice()
+                      ? UberCoice(
+                          timer: widget.timer,
+                        )
                       : (selectedItem == 1)
                           ? const ServiceChoice()
                           : (selectedItem == 2)

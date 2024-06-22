@@ -6,7 +6,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:flutter/material.dart' hide Step;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_directions_api/google_directions_api.dart' hide Distance;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
@@ -20,7 +19,6 @@ import 'package:tawsela_app/models/data_models/uber_driver.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
-import 'package:tawsela_app/models/servers/google_server.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
 // import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 
@@ -206,20 +204,20 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         } else {
           try {
             // checkking user request if it is reserved or not
-            UserRequest? request;
-            try {
-              request = await MainServer.getRequestById(
-                  userRequestId: event.passengerRequest.Req_ID!);
-            } catch (error) {
-              print(error);
-            }
-            print(request?.toJson());
-            String? isValid = request?.is_reserved;
+            // UserRequest? request;
+            // try {
+            //   request = await MainServer.getRequestById(
+            //       userRequestId: event.passengerRequest.Req_ID!);
+            // } catch (error) {
+            //   print(error);
+            // }
+            // print(request?.toJson());
+            String? isValid = event.passengerRequest.is_reserved;
             if (isValid == 'true') {
               emit(UserErrorState('Another driver has accepted the trip'));
             } else {
               await MainServer.acceptRequest(
-                  request_id: request!.Req_ID!,
+                  request_id: event.passengerRequest.Req_ID!,
                   Phone_Num: uberLastState.driver!.phone);
 
               final newState = UberDriverState(
@@ -287,10 +285,10 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           final LatLng target_location = LatLng(
             // Latitude value
             double.parse(
-                uberLastState.acceptedRequest!.Current_Location_Latitude!),
+                uberLastState.acceptedRequest!.Desired_Location_Latitude!),
             // Longitude Value
             double.parse(
-                uberLastState.acceptedRequest!.Current_Location_Longitude!),
+                uberLastState.acceptedRequest!.Desired_Location_Longitude!),
           );
           uberLastState.controller!.animateCamera(
               CameraUpdate.newCameraPosition(
@@ -299,13 +297,13 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
             ...uberLastState.markers,
             Marker(
                 markerId: MarkerId(
-                    '${uberLastState.acceptedRequest!.Current_Location}'),
+                    '${uberLastState.acceptedRequest!.Desired_Location}'),
                 position: target_location,
                 icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueGreen)),
           };
 
-          DirectionsService.init(KeyChain.chain.get<GoogleServer>().url);
+          DirectionsService.init(KeyChain.google_server_key!);
           DirectionsService directions = DirectionsService();
           Polyline path = Polyline(
               polylineId: PolylineId('path'), color: Colors.green, points: []);
@@ -348,7 +346,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('An error has occured'));
+          emit(UserErrorState(exception.toString()));
         }
       }
     });
@@ -366,7 +364,14 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
             ...uberLastState.markers
                 .where((element) => element.markerId.value == positionMarkerId)
           };
-
+          try {
+            await MainServer.cancelRequest(
+                phone_num: uberLastState.acceptedRequest!.phone_num!,
+                request_id: uberLastState.acceptedRequest!.Req_ID!,
+                canceller: 'Driver');
+          } catch (error) {
+            emit(UserErrorState('Error cancelling trip'));
+          }
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,
               lines: [],
@@ -383,7 +388,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
           uberLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('an error has occured'));
+          emit(UserErrorState(exception.toString()));
         }
       }
     });
@@ -396,31 +401,31 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('Please open location service'));
       } else {
         try {
-          MainServer.createTrip(
-              trip: Trip(
-                  Driver_ID: uberLastState.driver!.phone,
-                  Start_Time: DateTime.now().toString(),
-                  End_Time: DateTime.now().toString(),
-                  Trip_Status: 'Uber',
-                  Price: '200 LE',
-                  Trip_type: 'accepted',
-                  Current_Location:
-                      uberLastState.acceptedRequest!.Current_Location,
-                  Desired_Location:
-                      uberLastState.acceptedRequest!.Desired_Location,
-                  Current_Location_Latitude:
-                      uberLastState.acceptedRequest!.Current_Location_Latitude,
-                  Current_Location_Longitude:
-                      uberLastState.acceptedRequest!.Current_Location_Longitude,
-                  Desired_Location_Latitude:
-                      uberLastState.acceptedRequest!.Desired_Location_Latitude,
-                  Desired_Location_Longitude: uberLastState
-                      .acceptedRequest!.Desired_Location_Longitude));
+          Trip? trip = Trip(
+              Driver_ID: uberLastState.driver!.phone,
+              Start_Time: DateTime.now().toString(),
+              End_Time: DateTime.now().toString(),
+              Trip_Status: 'Uber',
+              Price: '200 LE',
+              Trip_type: 'accepted',
+              Current_Location: uberLastState.acceptedRequest!.Current_Location,
+              Desired_Location: uberLastState.acceptedRequest!.Desired_Location,
+              Current_Location_Latitude:
+                  uberLastState.acceptedRequest!.Current_Location_Latitude,
+              Current_Location_Longitude:
+                  uberLastState.acceptedRequest!.Current_Location_Longitude,
+              Desired_Location_Latitude:
+                  uberLastState.acceptedRequest!.Desired_Location_Latitude,
+              Desired_Location_Longitude:
+                  uberLastState.acceptedRequest!.Desired_Location_Longitude);
+          await MainServer.createTrip(trip: trip);
 
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,
               lines: uberLastState.lines,
               markers: uberLastState.markers,
+              startedTrip:
+                  trip, // error argument of type Trip can not be assigned to paramater of type Trip?
               controller: uberLastState.controller,
               directions: uberLastState.directions,
               destination: uberLastState.destination,
@@ -438,6 +443,10 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         }
       }
     });
+    on<PassengerCancelledRequest>((event, emit) {
+      emit(UserErrorState('Passenger has cancelled the request'));
+      add(GoogleMapGetCurrentPosition());
+    });
     on<EndTrip>((event, emit) async {
       final permission = await Geolocator.requestPermission();
       final connectivity = await Connectivity().checkConnectivity();
@@ -447,6 +456,11 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('Please open location service'));
       } else {
         try {
+          try {
+            await MainServer.endTrip('1');
+          } catch (error) {
+            emit(UserErrorState('Error ending trip'));
+          }
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,
               lines: [],

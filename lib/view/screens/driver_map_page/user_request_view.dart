@@ -7,9 +7,11 @@ import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_even
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 
 class UserRequestListView extends StatelessWidget {
-  const UserRequestListView({super.key});
+  TripRequestTimer timer;
+  UserRequestListView({required this.timer, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +94,7 @@ class UserRequestListView extends StatelessWidget {
                           AcceptPassengerRequest(
                               passengerRequest:
                                   uberDriverProvider.passengerRequests[index]));
+                      timer.startRequestTimer();
                     } else {
                       showDialog(
                           context: context,

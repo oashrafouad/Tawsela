@@ -3,15 +3,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:tawsela_app/models/data_models/uber_driver.dart';
+import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 import 'package:tawsela_app/models/data_models/user_states.dart';
 
 class PassengerState extends GoogleMapState {
   final Passenger passengerData;
   final UberDriver? driverData;
+  final UserRequest? passengerRequest;
   PassengerState({
     required GoogleMapController? controller,
     required LatLng currentPosition,
     this.driverData,
+    this.passengerRequest,
     LatLng? destination,
     String currentLocationDescription = 'Unknown',
     String destinationDescription = 'Unknown',

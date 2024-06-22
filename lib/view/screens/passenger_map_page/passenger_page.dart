@@ -5,6 +5,8 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
+import 'package:tawsela_app/models/servers/main_server.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 
 import 'package:tawsela_app/view/screens/passenger_map_page/bottom_sheet.dart';
@@ -28,10 +30,41 @@ class _PassengerPageState extends State<PassengerPage> {
   final textController = TextEditingController();
   List<String> tripStates = ['Start Trip', 'End Trip'];
   bool isTripStarted = false;
+  late TripRequestTimer timer;
 
   @override
   void initState() {
     super.initState();
+    timer = TripRequestTimer(
+        requestCallback: checkRequest,
+        tripCallback: checkTrip,
+        duration: Duration(seconds: 5));
+  }
+
+  Future<bool> checkRequest() async {
+    bool result = false;
+    try {
+      result = await MainServer.isRequestCancelled(
+          passengerLastState.passengerRequest!.Req_ID!);
+      BlocProvider.of<PassengerBloc>(context).add(DriverCancelledRequest());
+      timer.stopRequestTimer();
+    } catch (error) {
+      result = false;
+    }
+    return result;
+  }
+
+  Future<bool> checkTrip() async {
+    bool result = false;
+    try {
+      result = await MainServer.isTripCancelled(
+          passengerLastState.passengerRequest!.Req_ID!);
+      BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
+      timer.stopTripTimer();
+    } catch (error) {
+      result = false;
+    }
+    return result;
   }
 
   @override
@@ -122,14 +155,14 @@ class _PassengerPageState extends State<PassengerPage> {
                           child: ListView(
                             physics: const ClampingScrollPhysics(),
                             controller: scrollableController,
-                            children: const [
+                            children: [
                               Column(
                                 children: [BottomSheetHandle()],
                               ),
                               SizedBox(
                                 height: 10,
                               ),
-                              UserActionsPanel()
+                              UserActionsPanel(timer: timer)
                             ],
                           ),
                         );

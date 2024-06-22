@@ -5,13 +5,14 @@ import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dar
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
+import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/driver_info.dart';
 
 class UberCoice extends StatelessWidget {
   static const String id = 'uber_choice';
-
-  const UberCoice({super.key});
+  TripRequestTimer timer;
+  UberCoice({required this.timer, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +71,9 @@ class UberCoice extends StatelessWidget {
                                 Desired_Location_Longitude: passengerLastState
                                     .currentPosition.longitude
                                     .toString(),
-                                Req_ID: '414141',
+                                Req_ID: DateTime.now().toString(),
                                 is_reserved: 'false')));
+                    timer.startRequestTimer();
                   },
                   child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,

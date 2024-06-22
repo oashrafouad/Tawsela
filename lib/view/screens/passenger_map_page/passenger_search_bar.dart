@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:tawsela_app/constants.dart';
@@ -51,7 +50,7 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
             borderSide: BorderSide()),
       ),
       textEditingController: textController,
-      googleAPIKey: KeyChain.chain.get<GoogleServer>().url,
+      googleAPIKey: KeyChain.google_server_key!,
       boxDecoration: BoxDecoration(
           color: kSearchBarColor, borderRadius: BorderRadius.circular(20)),
       countries: const ['eg'],

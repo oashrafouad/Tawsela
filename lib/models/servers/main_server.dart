@@ -1,34 +1,30 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
 
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:tawsela_app/models/data_models/accepted_request_model.dart/accepted_request.dart';
 import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 import 'package:tawsela_app/models/data_models/trip_model/trip.dart';
 import 'package:http/http.dart' as http;
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
-import 'package:tawsela_app/models/servers/local_server.dart';
-import 'package:tawsela_app/models/servers/server.dart';
 
 class MainServer {
-  static final serverUrl =
-      KeyChain.chain.get<LocalServer>(instanceName: 'main-server').url;
+  static final serverUrl = KeyChain.main_server_url;
 
   /* CREATE TRIP */
 
-  static Future<void> createTrip({required Trip trip}) async {
+  static Future<void> createTrip({required Trip? trip}) async {
     // forming url
-    final String endPoint = MainServer.serverUrl + '/api/trips';
+    final String endPoint = MainServer.serverUrl! + '/api/trips';
     // posting request data
-    http.post(Uri.parse(endPoint), body: trip.toJson());
+    http.post(Uri.parse(endPoint), body: trip!.toJson());
     print('Trip created');
   }
 
   /* GET_TRIP_BY_ID */
   static Future<Trip> getTripById({required String trip_id}) async {
     // forming url
-    final String endPoint = MainServer.serverUrl + '/api/trips/' + trip_id;
+    final String endPoint = MainServer.serverUrl! + '/api/trips/' + trip_id;
     //fetching data from server
     http.Response response = await http.get(Uri.parse(endPoint));
     // decoding json string
@@ -42,7 +38,7 @@ class MainServer {
   /* CREATE A USER REQUEST */
   static Future<void> createRequest({required UserRequest request}) async {
     // forming url
-    final String endPoint = MainServer.serverUrl + '/api/requests';
+    final String endPoint = MainServer.serverUrl! + '/api/requests';
     print(endPoint);
     // posting trip data\
     print('creating request');
@@ -67,7 +63,7 @@ class MainServer {
   /* ACCEPT REQUEST */
   static Future<void> acceptRequest(
       {required String request_id, required String Phone_Num}) async {
-    final String endPoint = MainServer.serverUrl + '/api/accept-req';
+    final String endPoint = MainServer.serverUrl! + '/api/accept-req';
     http.Response? response;
     try {
       response = await http.post(Uri.parse(endPoint),
@@ -92,7 +88,7 @@ class MainServer {
   static Future<AcceptedRequest> isAcceptedRequest(
       {required String request_id}) async {
     final String endPoint =
-        MainServer.serverUrl + '/api/accept-req/' + request_id;
+        MainServer.serverUrl! + '/api/accept-req/' + request_id;
     final http.Response response = await http.get(Uri.parse(endPoint));
     Map<String, dynamic> json = jsonDecode(response.body);
     return AcceptedRequest.fromJson(json);
@@ -100,7 +96,7 @@ class MainServer {
 
   static Future<List<UserRequest>> getAllRequests() async {
     // forming url
-    final String endPoint = MainServer.serverUrl + '/api/requests';
+    final String endPoint = MainServer.serverUrl! + '/api/requests';
     //fetching data from server
     http.Response response = await http.get(Uri.parse(endPoint));
     // decoding json string
@@ -116,7 +112,7 @@ class MainServer {
       {required String userRequestId}) async {
     // forming url
     final String endPoint =
-        MainServer.serverUrl + '/api/requests/' + userRequestId;
+        MainServer.serverUrl! + '/api/requests/' + userRequestId;
     //fetching data from server
     http.Response response = await http.get(Uri.parse(endPoint));
     // decoding json string
@@ -130,7 +126,7 @@ class MainServer {
   static Future<void> deleteRequestById({required String userRequestId}) async {
     // forming url
     final String endPoint =
-        MainServer.serverUrl + '/api/requests/' + userRequestId;
+        MainServer.serverUrl! + '/api/requests/' + userRequestId;
     //fetching data from server
     http.Response response = await http.delete(Uri.parse(endPoint));
     // decoding json string
@@ -138,5 +134,64 @@ class MainServer {
     //     jsonDecode(response.body) as Map<String, dynamic>;
     // // deserialize json object to Trip class
     // UserRequest userRequest = UserRequest.fromJson(json);
+  }
+
+  static Future<bool> isRequestCancelled(String request_id) async {
+    final String endPoint =
+        MainServer.serverUrl! + '/api/cancel-req/' + request_id;
+    try {
+      http.Response? response = await http.get(Uri.parse(endPoint));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  static Future<bool> isTripEnded(String tripId) async {
+    final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
+    try {
+      http.Response? response = await http.get(Uri.parse(endPoint));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  static Future<bool> isTripCancelled(String tripId) async {
+    final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
+    try {
+      http.Response? response = await http.get(Uri.parse(endPoint));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  static Future<void> endTrip(String tripId) async {
+    final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
+
+    http.Response? response = await http.put(Uri.parse(endPoint),
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        body: jsonEncode({'End_Time': DateTime.now()}));
+  }
+
+  static Future<void> cancelRequest(
+      {required String phone_num,
+      required String request_id,
+      required String canceller}) async {
+    final String endPoint =
+        MainServer.serverUrl! + '/api/cancel-req/' + request_id;
+
+    http.Response? response = await http.post(Uri.parse(endPoint),
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        body: jsonEncode({
+          "reqId": request_id,
+          "Phone_Num": phone_num,
+          "penalty": "5",
+          "cancelledBy": canceller
+        }));
   }
 }

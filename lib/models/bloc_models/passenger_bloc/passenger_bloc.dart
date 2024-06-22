@@ -6,7 +6,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' hide Step;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_directions_api/google_directions_api.dart' hide Distance;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +16,6 @@ import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc
 import 'package:tawsela_app/models/data_models/accepted_request_model.dart/accepted_request.dart';
 import 'package:tawsela_app/models/data_models/uber_driver.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
-import 'package:tawsela_app/models/servers/google_server.dart';
 
 import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:tawsela_app/models/data_models/path_model/path.dart';
@@ -31,7 +29,8 @@ import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.d
 const String getServiceLinePlacHolder = 'Getting Nearest service Line';
 const String getDestinationPlaceHolder = 'Getting destination';
 const String getPassengerLocationPlacHolder = 'getting current Location';
-
+const String tripHasEnded = 'Trip has ended';
+const String driverCancelledRequest = 'Driver cancelled request';
 const List<Color> lineColor = [
   Colors.green,
   Colors.blue,
@@ -146,6 +145,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         } while (accepted_request == null);
 
         final newState = PassengerState(
+            passengerRequest: event.passengerRequest,
             driverData: UberDriver(
                 rating: 0.5,
                 firstName: accepted_request.f_name!,
@@ -317,7 +317,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     http.Response? response;
     try {
       response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
+          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${KeyChain.google_server_key}'));
     } catch (exception) {
       emit(const UserErrorState('Error caclulating nearest service line'));
     }
@@ -383,7 +383,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
         try {
           response = await http.get(Uri.parse(
-              'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=walking&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
+              'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=walking&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.google_server_key}'));
         } catch (exception) {
           emit(UserErrorState('Error caclulating nearest service line'));
         }
@@ -450,7 +450,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(const UserErrorState('Please Provide current Location'));
       } else {
         try {
-          DirectionsService.init(KeyChain.chain.get<GoogleServer>().url);
+          DirectionsService.init(KeyChain.google_server_key!);
           DirectionsService directions = DirectionsService();
           Polyline path = const Polyline(
               polylineId: PolylineId('path'),
@@ -627,5 +627,24 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     });
 
     on<GetWalkDirections>(getWalkDirections);
+    on<DriverCancelledRequest>((event, emit) {
+      emit(UserErrorState(driverCancelledRequest));
+      passengerLastState = PassengerState(
+          currentLocationDescription:
+              passengerLastState.currentLocationDescription,
+          destination: passengerLastState.destination,
+          destinationDescription: passengerLastState.destinationDescription,
+          controller: passengerLastState.controller,
+          currentPosition: passengerLastState.currentPosition,
+          lines: [],
+          markers: passengerLastState.markers,
+          directions: [],
+          passengerData: passengerLastState.passengerData);
+      emit(passengerLastState);
+    });
+    on<DriverEndedTrip>((event, emit) {
+      emit(UserErrorState(tripHasEnded));
+      add(GoogleMapGetCurrentPosition());
+    });
   }
 }
