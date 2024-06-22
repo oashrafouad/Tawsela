@@ -115,6 +115,7 @@ class TawselaApp extends StatelessWidget {
         ),
       ],
       child: Builder(
+
         builder: (context) {
           final langState =
               context.select((AppLanguageBloc bloc) => bloc.state);

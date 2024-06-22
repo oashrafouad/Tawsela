@@ -205,7 +205,7 @@ class PassengerProfile extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    S.of(context).trip,
+                    "12  ${S.of(context).trip}",
                     style: const TextStyle(
                         color: Colors.black,
                         fontFamily: font,

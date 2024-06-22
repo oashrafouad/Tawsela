@@ -196,8 +196,9 @@ class DriverProfilePage extends StatelessWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                          const Text(
-                            '٧٦٠ جنيهًا', //you get That from API
+                           Text(
+                            "200 "+S.of(context).pounds,
+                            //'٧٦٠ جنيهًا', //you get That from API
 
                             style: TextStyle(
                                 color: Colors.black,
@@ -228,7 +229,7 @@ class DriverProfilePage extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            S.of(context).trip,
+                            "12  ${S.of(context).trip}",
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,

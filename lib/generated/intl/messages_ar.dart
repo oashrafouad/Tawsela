@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "املأ البيانات الآتية لتسجيل\nحسابك"),
         "personalImage": MessageLookupByLibrary.simpleMessage("الصورة الشخصية"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("رقم الهاتف المحمول"),
+        "pounds": MessageLookupByLibrary.simpleMessage("جنيه"),
         "recentlyVisited":
             MessageLookupByLibrary.simpleMessage("تمت زيارته مؤخرًا"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
