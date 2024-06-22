@@ -183,7 +183,24 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   );
                 }
               },
-            )
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CustomButton(
+              text: "Delete Account",
+              onTap: () {
+                LoadingStatusHandler.startLoading();
+                ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) {
+                  LoadingStatusHandler.completeLoadingWithText("تم حذف الحساب");
+                  print('Account deleted successfully');
+                }).catchError((error) {
+                  // Handle error
+                  LoadingStatusHandler.errorLoading(error.toString());
+                  print('Failed to delete account: $error');
+                });
+              },
+            ),
           ],
         ),
       ),

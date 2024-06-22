@@ -56,6 +56,20 @@ class ApiService {
     }
   }
 
+  static Future<void> deleteAccount({
+    required String phoneNumber,
+  }) async {
+    final url = Uri.parse('$server_url/api/users/$phoneNumber');
+    final response = await delete(url);
+
+    final error = handleError(response);
+    if (error != null) {
+      throw error;
+    } else {
+      print("Phone number deleted successfully");
+    }
+  }
+
   static String? handleError(Response response) {
     String? error;
     switch (response.statusCode) {

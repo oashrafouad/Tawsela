@@ -218,8 +218,8 @@ SharedPreferences? sharedPreferences;
 // User data
 String firstName = '';
 String lastName = '';
-// String phoneNumber = '1104149286'; // Without '+20'
-String phoneNumber = ''; // Without '+20'
+String phoneNumber = '1104149286'; // Without '+20'
+// String phoneNumber = ''; // Without '+20'
 String profileImageURL = '';
 bool isLoggedIn = false; // Should get from shared preferences
 
