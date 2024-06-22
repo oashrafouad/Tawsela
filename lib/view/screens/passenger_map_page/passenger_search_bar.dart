@@ -55,7 +55,7 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
       textEditingController: textController,
       googleAPIKey: GetIt.instance.get<GoogleServer>().url,
       boxDecoration: BoxDecoration(
-          color: kSearchBarColor, borderRadius: BorderRadius.circular(20)),
+          color: Colors.white, borderRadius: BorderRadius.circular(15)),
       countries: const ['eg'],
       itemBuilder: (context, index, prediction) {
         return ListTile(

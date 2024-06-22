@@ -165,6 +165,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                     LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
                         .then((_) {
                       print('Signed up successfully');
+                      isLoggedIn = true;
                       // Then navigate to the main screen
                       Navigator.pushNamed(context, PassengerMainScreen.id);
                     });
