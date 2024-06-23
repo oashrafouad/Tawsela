@@ -48,7 +48,8 @@ class PassengerMainScreen extends StatelessWidget {
                 //const EdgeInsets.only(top: 16,left: 16),
                 child: InkWell(
                   onTap: () => Navigator.pushNamed(context, PassengerProfile.id),
-                  child: CircleAvatar(backgroundImage: imageState.avatarImg.image,radius: 25,
+                  //this i modified
+                  child: CircleAvatar(backgroundImage: isLoggedIn? NetworkImage(profileImageURL): imageState.avatarImg.image,radius: 25,
                   ),
                 ),),
 

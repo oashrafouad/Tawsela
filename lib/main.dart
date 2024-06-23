@@ -61,26 +61,10 @@ void main() async {
   // Initialize SVProgressHUD
   LoadingStatusHandler.initialize();
 
-  // var sharedPreferences = SharedPreferencesService.getInstance();
-
-  // var sharedPreferencesService = await SharedPreferencesService.getInstance();
-  //
-  // // Set values
-  // sharedPreferencesService.firstName = 'John';
-  // sharedPreferencesService.lastName = 'Doe';
-  // sharedPreferencesService.phoneNumber = '1234567890';
-  // sharedPreferencesService.profileImageURL = 'http://example.com/image.jpg';
-  // sharedPreferencesService.isLoggedIn = true;
-  //
-  // // Get values
-  // String firstName = sharedPreferencesService.firstName;
-  // String lastName = sharedPreferencesService.lastName;
-  // String phoneNumber = sharedPreferencesService.phoneNumber;
-  // String profileImageURL = sharedPreferencesService.profileImageURL;
-  // bool isLoggedIn = sharedPreferencesService.isLoggedIn;
+ 
 
   sharedPreferences = await SharedPreferences.getInstance();
-  //print("Shared preferences initialized");
+  
   isLoggedIn = sharedPreferences!.getBool('isLoggedIn') ?? false;
   isDriver = sharedPreferences!.getBool('isDriver') ?? false;
 
@@ -99,10 +83,7 @@ void main() async {
   runApp(const TawselaApp());
 }
 
-// Future<void> initializeSharedPreferences() async {
-//   sharedPreferences = await SharedPreferences.getInstance();
-//   print("Shared preferences initialized");
-// }
+
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -126,8 +107,7 @@ class TawselaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(home: WelcomePage()); // temp return just to avoid compile error
-
+    
     return MultiBlocProvider(
       providers: [
         BlocProvider<PassengerBloc>(create: (context) => PassengerBloc()),
