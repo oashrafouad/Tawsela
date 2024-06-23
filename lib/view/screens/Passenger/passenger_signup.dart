@@ -149,11 +149,10 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       ApiService.logIn(phoneNumber: phoneNumber)
                           .then((_) async {
                         // isLoggedIn = true;
-                        print("2. $isLoggedIn");
-                        await updateData();
+                        await updateDataToSharedPrefs();
 
                         // Then navigate to the main screen
-                        Navigator.pushNamed(context, PassengerMainScreen.id);
+                        Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
                       }).catchError((error) {
                         // Handle error
                         LoadingStatusHandler.errorLoading(error.toString());
@@ -181,25 +180,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             ),
             const SizedBox(
               height: 16,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CustomButton(
-                text: "Delete Account",
-                fontSize: 12,
-                onTap: () {
-                  LoadingStatusHandler.startLoading();
-                  ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) {
-                    LoadingStatusHandler.completeLoadingWithText(
-                        "تم حذف الحساب");
-                    print('Account deleted successfully');
-                  }).catchError((error) {
-                    // Handle error
-                    LoadingStatusHandler.errorLoading(error.toString());
-                    print('Failed to delete account: $error');
-                  });
-                },
-              ),
             ),
           ],
         ),

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -27,9 +30,9 @@ class DriverProfilePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomTextButton(
-                onTap: () {
+                onTap: () async {
                   isDriver = false;
-                    updateData();
+                    await updateDataToSharedPrefs();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => const PassengerMainScreen()),
@@ -95,17 +98,60 @@ class DriverProfilePage extends StatelessWidget {
                 icon: Icons.logout,
                 paddingHorzin: 2,
                 iconSize: 20,
-                onTap: () {
-
-                  isLoggedIn = false;
-                  resetData();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => WelcomePage()),
-                      (Route<dynamic> route) => false);
-                 
-                 
+                containsIconOnly: true,
+                onTap: () async {
+                  if (Platform.isIOS) {
+                    const platform = MethodChannel('logOutDialogChannel');
+                    try {
+                      final result = await platform.invokeMethod<int>('showLogOutDialog');
+                      switch (result) {
+                        case 1:
+                          isLoggedIn = false;
+                          await resetData();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WelcomePage()),
+                                  (Route<dynamic> route) => false);
+                          break;
+                      }
+                    } on PlatformException catch (error) {
+                      print(error.message);
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("هل انت متأكد من تسجيل الخروج؟"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("الغاء")
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                isLoggedIn = false;
+                                await resetData();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WelcomePage()),
+                                        (Route<dynamic> route) => false);
+                              },
+                              child: const Text(
+                                "تسجيل الخروج",
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
+
               ),
             ],
           )),
@@ -133,14 +179,20 @@ class DriverProfilePage extends StatelessWidget {
                           children: [
                             Container(
                               width: 130,
-                              child: FittedBox(
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "$firstName $lastName",
-                                  style: const TextStyle(
-                                      fontFamily: font,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                              //height: 12,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 35,
+                                ),
+                                child: FittedBox(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    "$firstName $lastName",
+                                    style: const TextStyle(
+                                        fontFamily: font,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ),
                             ),

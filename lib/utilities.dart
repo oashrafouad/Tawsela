@@ -133,6 +133,7 @@ var splashEffect = kIsWeb ? InkSplash.splashFactory : (Platform.isIOS ? NoSplash
 
 // Firebase Auth
 User? currentUser = FirebaseAuth.instance.currentUser;
+String userVerificationId = '';
 
 // Firebase Storage
 final storage = FirebaseStorage.instance;
@@ -225,7 +226,7 @@ String profileImageURL = '';
 bool isLoggedIn = false; // Should get from shared preferences
 bool isDriver=false; // to check if the user is a driver or passenger
 
-updateData() async { //that will update the shared preferences values
+updateDataToSharedPrefs() async { //that will update the shared preferences values
  // print("1. $isLoggedIn");
   await sharedPreferences!.setString('firstName', firstName);
   await sharedPreferences!.setString('lastName', lastName);
@@ -233,7 +234,21 @@ updateData() async { //that will update the shared preferences values
   await sharedPreferences!.setString('profileImageURL', profileImageURL);
   await sharedPreferences!.setBool('isLoggedIn', isLoggedIn);
   await sharedPreferences!.setBool('isDriver', isDriver);
-  //print("Shared: $isLoggedIn");
+  print('LOCAL VARIABLES:');
+  print ('First Name: $firstName');
+  print ('Last Name: $lastName');
+  print ('Phone Number: $phoneNumber');
+  print ('Profile Image URL: $profileImageURL');
+  print ('Is Logged In: $isLoggedIn');
+  print ('Is Driver: $isDriver');
+  print('-------------------');
+  print("SHAREDPREF:");
+  print ('First Name: ${await sharedPreferences!.getString('firstName')}');
+  print ('Last Name: ${await sharedPreferences!.getString('lastName')}');
+  print ('Phone Number: ${await sharedPreferences!.getString('phoneNumber')}');
+  print ('Profile Image URL: ${await sharedPreferences!.getString('profileImageURL')}');
+  print ('Is Logged In: ${await sharedPreferences!.getBool('isLoggedIn')}');
+  print ('Is Driver: ${await sharedPreferences!.getBool('isDriver')}');
 }
 
 initValues() async {
@@ -248,23 +263,30 @@ resetData() async { // use when user logs out
   await sharedPreferences!.clear();
 }
 
-void getAllUserInfoAndAssignToVariables({required String phoneNumber}) async {
+getAllUserInfoAndAssignToVariables({required String phoneNumber}) async {
   try {
     final userInfo = await ApiService.getUserInfo(phoneNumber: phoneNumber);
-     userInfo.forEach( (key, value) {
-       if (key == 'F_Name') {
-         firstName = value;
-       } else if (key == 'L_Name') {
-         lastName = value;
-       } else if (key == 'Phone_Num') {
-         phoneNumber = value;
-       } else if (key == 'Profile_Image') {
-         profileImageURL = value;
-       }
-     });
-    //print('User Info: $userInfo');
+    userInfo.forEach((key, value) {
+      if (key == 'f_name') {
+        firstName = value;
+      } else if (key == 'l_name') {
+        lastName = value;
+      } else if (key == 'phone_num') {
+        phoneNumber = value;
+      }
+      // else if (key == 'profile_image_url') {
+      //   profileImageURL = value;
+      // }
+    });
+
+    // get profile image from firebase (temp)
+    //TODO: edit this after we can get the profile image from our server
+    profileImageURL = currentUser!.photoURL!;
+
+    // print("assigned");
+    print('DATA FROM SERVER:');
+    print(userInfo);
   } catch (error) {
     print('Error fetching user info: $error');
   }
 }
-

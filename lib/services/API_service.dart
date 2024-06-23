@@ -25,6 +25,19 @@ class ApiService {
     }
   }
 
+  static Future<bool> checkAccountExists({
+    required String phoneNumber,
+  }) async {
+    final url = Uri.parse('$server_url/api/users/$phoneNumber');
+    final response = await get(url, headers: {'Content-Type': 'application/json'});
+
+    final error = handleError(response);
+    if (error != null) {
+      throw error;
+    } else {
+      return true;
+    }
+  }
 
   static Future<void> signUp({
     required String phoneNumber,
@@ -48,7 +61,7 @@ class ApiService {
     if (error != null) {
       throw error;
     } else {
-      await updateData();
+      await updateDataToSharedPrefs();
     }
   }
 
@@ -83,7 +96,7 @@ class ApiService {
     if (error != null) {
       throw error;
     } else {
-      print("Phone number deleted successfully");
+      print("Account deleted successfully");
     }
   }
 
@@ -100,18 +113,10 @@ class ApiService {
         error = 'Not found';
         break;
       case 409: // Already exists error (conflict)
-        switch (APIRequestType) { // Another switch case for personalized error messages based on the request type
-          case signUp:
-            error = 'Phone already exists';
-            break;
-          default:
-            error = response.body;
-            break;
-        }
-        error = response.body;
+        error = 'هذا الحساب موجود بالفعل';
         break;
       case 500: // Internal server error (no internet connection, server down, etc.)
-        error = 'Internal server error';
+        error = 'تأكد من اتصالك بالانترنت';
         break;
       default:
         error = response.body;

@@ -19,7 +19,6 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tawsela_app/services/shared_preferences_service.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'firebase_options.dart';
 
@@ -177,6 +176,7 @@ class TawselaApp extends StatelessWidget {
               ],
               localeResolutionCallback: _localeResolutionCallback,
               routes: _buildRoutes(),
+              // initialRoute: PassengerProfile.id);
               initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
                   ? WelcomePage.id
                   : sharedPreferences!.getBool("isLoggedIn")!
@@ -215,10 +215,7 @@ class TawselaApp extends StatelessWidget {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       WelcomePage.id: (context) => WelcomePage(),
-      SmsVerficationPage.id: (context) => SmsVerficationPage(
-            verificationId: '',
-            phoneNumber: '',
-          ),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),

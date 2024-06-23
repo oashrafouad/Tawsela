@@ -12,6 +12,8 @@ import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
+import '../../../services/API_service.dart';
+
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
   static String id = 'WelcomePage';
@@ -208,12 +210,12 @@ class WelcomePage extends StatelessWidget {
                       },
                       codeSent: (String verificationId, int? resendToken) {
                         print("SUCCESSFULLY SENT SMS CODE");
+                        userVerificationId = verificationId;
                         LoadingStatusHandler.completeLoading();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SmsVerficationPage(
-                                verificationId: verificationId, phoneNumber: phoneNumber),
+                            builder: (context) => SmsVerficationPage(),
                           ),
                         );
                       },
@@ -237,8 +239,28 @@ class WelcomePage extends StatelessWidget {
                 },
               ),
             ),
-            
-             
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CustomButton(
+                text: "Delete Account",
+                fontSize: 12,
+                onTap: () {
+                  LoadingStatusHandler.startLoading();
+                  ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
+                    await resetData();
+                    LoadingStatusHandler.completeLoadingWithText(
+                        "تم حذف الحساب");
+                  }).catchError((error) {
+                    // Handle error
+                    LoadingStatusHandler.errorLoading(error.toString());
+                    print('Failed to delete account: $error');
+                  });
+                },
+              ),
+            ),
+
+
+
           ],
         ),
       ),

@@ -13,11 +13,9 @@ import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
 class SmsVerficationPage extends StatelessWidget {
-  SmsVerficationPage({super.key, required this.verificationId, required this.phoneNumber});
+  SmsVerficationPage({super.key});
 
   static String id = 'SmsVerficationPage';
-  String verificationId;
-  String phoneNumber;
   String smsCode = '123456';
 
   GlobalKey<FormState> formKey = GlobalKey();
@@ -83,18 +81,28 @@ class SmsVerficationPage extends StatelessWidget {
                     LoadingStatusHandler.startLoading();
 
                     // Create a PhoneAuthCredential with the code
-                    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
-
+                    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationId, smsCode: smsCode);
+                    bool accountExists = false;
                     // Sign the user in (or link) with the credential
                     try {
                       await FirebaseAuth.instance.signInWithCredential(credential);
-                      LoadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) {
-                        getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
+                      LoadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) async {
+                        try {
+                          accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
+                        } catch (e) {
+                          print("ERROR CHECKING ACCOUNT EXISTS: $e");
+                        }
+                        // print(accountExists);
+                        // print("printed");
                         // ApiService.getUserInfo(phoneNumber: phoneNumber);
-                        updateData();
-                        if(isLoggedIn){
+                        // await updateData();
+                        if(accountExists){
+                          print("Profile image URL SECOND: $profileImageURL");
+                          await getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
+                          // print("done");
+                          await updateDataToSharedPrefs();
                           Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
-                        }else {
+                        } else {
                           Navigator.pushNamed(context, PassengerSignUpPage.id);
                         }
                       });

@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -40,11 +44,9 @@ class PassengerProfile extends StatelessWidget {
                   paddingVerti: 6,
                   icon: CustomSwitchIcon.icon,
                   iconSize: 20,
-                  onTap: () {
-                    //TODO: pop all screen in the stack
-                    //if the user uploaded the licesense and the id card switched to driverMainScreen
+                  onTap: () async {
                     isDriver = true;
-                    updateData();
+                    await updateDataToSharedPrefs();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => DriverPage()),
@@ -100,13 +102,57 @@ class PassengerProfile extends StatelessWidget {
                   paddingHorzin: 2,
                   iconSize: 20,
                   containsIconOnly: true,
-                  onTap: () {
-                    isLoggedIn = false;
-                    resetData();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => WelcomePage()),
-                        (Route<dynamic> route) => false);
+                  onTap: () async {
+                    if (Platform.isIOS) {
+                      const platform = MethodChannel('logOutDialogChannel');
+                      try {
+                        final result = await platform.invokeMethod<int>('showLogOutDialog');
+                        switch (result) {
+                          case 1:
+                            isLoggedIn = false;
+                            await resetData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WelcomePage()),
+                                    (Route<dynamic> route) => false);
+                            break;
+                        }
+                      } on PlatformException catch (error) {
+                        print(error.message);
+                      }
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("هل انت متأكد من تسجيل الخروج؟"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("الغاء")
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  isLoggedIn = false;
+                                  await resetData();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => WelcomePage()),
+                                      (Route<dynamic> route) => false);
+                                },
+                                child: const Text(
+                                  "تسجيل الخروج",
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
               ],
