@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
+import 'package:tawsela_app/services/API_service.dart';
 
 import 'package:tawsela_app/utilities.dart';
+import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
@@ -87,7 +89,14 @@ class SmsVerficationPage extends StatelessWidget {
                     try {
                       await FirebaseAuth.instance.signInWithCredential(credential);
                       LoadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) {
-                        Navigator.pushNamed(context, PassengerSignUpPage.id);
+                        getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
+                        // ApiService.getUserInfo(phoneNumber: phoneNumber);
+                        updateData();
+                        if(isLoggedIn){
+                          Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
+                        }else {
+                          Navigator.pushNamed(context, PassengerSignUpPage.id);
+                        }
                       });
                     } on FirebaseAuthException catch (e) {
                       switch (e.code) {

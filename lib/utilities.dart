@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
+import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
 
 import 'models/data_models/google_server.dart';
@@ -241,15 +242,29 @@ initValues() async {
   phoneNumber = await sharedPreferences!.getString('phoneNumber') ?? '';
   profileImageURL = await sharedPreferences!.getString('profileImageURL') ?? '';
 
-  //isLoggedIn = await sharedPreferences!.getBool('isLoggedIn') ?? false;
- //isDriver = await sharedPreferences!.getBool('isDriver') ?? false;
-  //print("2. $isLoggedIn");
 }
 
 resetData() async { // use when user logs out
   await sharedPreferences!.clear();
 }
 
-initRoute(){
-  
+void getAllUserInfoAndAssignToVariables({required String phoneNumber}) async {
+  try {
+    final userInfo = await ApiService.getUserInfo(phoneNumber: phoneNumber);
+     userInfo.forEach( (key, value) {
+       if (key == 'F_Name') {
+         firstName = value;
+       } else if (key == 'L_Name') {
+         lastName = value;
+       } else if (key == 'Phone_Num') {
+         phoneNumber = value;
+       } else if (key == 'Profile_Image') {
+         profileImageURL = value;
+       }
+     });
+    //print('User Info: $userInfo');
+  } catch (error) {
+    print('Error fetching user info: $error');
+  }
 }
+

@@ -101,6 +101,8 @@ class PassengerMainScreen extends StatelessWidget {
                     ),
                     CustomTextButton(
                       onTap: () {
+
+                        //getAllUserInfo(phoneNumber: "01012225001");
                         // TODO: implement add new fav place
                       },
                       icon: Icons.add,

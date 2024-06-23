@@ -9,6 +9,23 @@ enum APIRequestType {
 }
 
 class ApiService {
+  static Future<Map<String, dynamic>> getUserInfo({
+    required String phoneNumber,
+  }) async {
+    final url = Uri.parse('$server_url/api/users/$phoneNumber');
+    final response = await get(url, headers: {'Content-Type': 'application/json'});
+
+    final error = handleError(response);
+    if (error != null) {
+      throw error;
+    } else {
+     
+      isLoggedIn=true;
+      return json.decode(response.body) as Map<String, dynamic>;
+    }
+  }
+
+
   static Future<void> signUp({
     required String phoneNumber,
     required String fname,
@@ -103,3 +120,4 @@ class ApiService {
     return error;
   }
 }
+

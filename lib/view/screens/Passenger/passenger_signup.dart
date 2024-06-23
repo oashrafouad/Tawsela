@@ -16,20 +16,19 @@ import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
 
   @override
+  
   _PassengerSignUpPageState createState() => _PassengerSignUpPageState();
 }
 
 class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
-
   @override
   Widget build(BuildContext context) {
-    // print(currentUser?.phoneNumber);
+    
 
     GlobalKey<FormState> formKey = GlobalKey();
 
@@ -59,7 +58,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
-                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection:
+                        isArabic() ? TextDirection.rtl : TextDirection.ltr,
                     textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => firstName = data,
                     width: 136,
@@ -70,7 +70,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
-                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection:
+                        isArabic() ? TextDirection.rtl : TextDirection.ltr,
                     textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => lastName = data,
                     width: 136,
@@ -106,8 +107,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       children: [
                         CustomTextButton(
                           onTap: () {
-
-
                             showImagePicker(context, (Image newImage) {
                               imageCubit.setAvatarImg(newImage);
                             });
@@ -139,31 +138,27 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   LoadingStatusHandler.startLoading();
                   // Call the sign-up API
                   ApiService.signUp(
-                    phoneNumber: phoneNumber,
-                    fname: firstName,
-                    lname: lastName,
-                    typeUser: "Passenger"
-                  ).then((_) {
+                          phoneNumber: phoneNumber,
+                          fname: firstName,
+                          lname: lastName,
+                          typeUser: "Passenger")
+                      .then((_) {
                     LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
                         .then((_) {
                       print('Signed up successfully');
-                          ApiService.logIn(phoneNumber: phoneNumber).then((_) async {
-                            // isLoggedIn = true;
-                            print("2. $isLoggedIn");
-                            await updateData();
-                            // print values from shared preferences
-                            print("First Name: ${sharedPreferences!.getString('firstName')}");
-                            print("Last Name: ${sharedPreferences!.getString('lastName')}");
-                            print("Phone Numbrr: ${sharedPreferences!.getString('phoneNumber')}");
-                            print("Profile iamge url: ${sharedPreferences!.getString('profileImageURL')}");
-                            print("3. Is logged in: ${sharedPreferences!.getBool('isLoggedIn')}");
-                            // Then navigate to the main screen
-                            Navigator.pushNamed(context, PassengerMainScreen.id);
-                          }).catchError((error) {
-                            // Handle error
-                            LoadingStatusHandler.errorLoading(error.toString());
-                            print('Failed to log-in: $error');
-                          });
+                      ApiService.logIn(phoneNumber: phoneNumber)
+                          .then((_) async {
+                        // isLoggedIn = true;
+                        print("2. $isLoggedIn");
+                        await updateData();
+
+                        // Then navigate to the main screen
+                        Navigator.pushNamed(context, PassengerMainScreen.id);
+                      }).catchError((error) {
+                        // Handle error
+                        LoadingStatusHandler.errorLoading(error.toString());
+                        print('Failed to log-in: $error');
+                      });
                     });
                   }).catchError((error) {
                     // Handle error
@@ -190,12 +185,13 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: CustomButton(
-                text: "Delete Account" ,
+                text: "Delete Account",
                 fontSize: 12,
                 onTap: () {
                   LoadingStatusHandler.startLoading();
                   ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) {
-                    LoadingStatusHandler.completeLoadingWithText("تم حذف الحساب");
+                    LoadingStatusHandler.completeLoadingWithText(
+                        "تم حذف الحساب");
                     print('Account deleted successfully');
                   }).catchError((error) {
                     // Handle error

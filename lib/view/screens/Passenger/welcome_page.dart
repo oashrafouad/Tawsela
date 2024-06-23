@@ -182,7 +182,7 @@ class WelcomePage extends StatelessWidget {
                 onTap: () async {
                   if (formKey.currentState!.validate()) {
                     LoadingStatusHandler.startLoading();
-                    // print("+20$phoneNumber");
+                   
 
                     // proceed with authentication
                     await FirebaseAuth.instance.verifyPhoneNumber(
