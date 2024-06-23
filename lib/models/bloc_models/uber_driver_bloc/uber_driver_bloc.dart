@@ -20,8 +20,9 @@ import 'package:tawsela_app/models/data_models/user_states.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
-// import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 
+// import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
+const fetchignPassengerRequests = 'fetchign Passenger Requests';
 const gettingCurrentLocationPlaceHolder = 'Getting Current Location';
 UberDriverState uberLastState = UberDriverState(
     controller: null,
@@ -115,7 +116,6 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
               markers: temp.markers,
               directions: [],
               driver: uberLastState.driver,
-              passengerRequests: uberLastState.passengerRequests,
               userState: UserState.DRIVER);
 
           uberLastState = newState;
@@ -169,6 +169,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('check your Internet Connection'));
       } else if (state is UserErrorState || state is UberDriverState) {
         List<UserRequest> userRequests = [];
+        emit(Loading(fetchignPassengerRequests));
         try {
           userRequests = await MainServer.getAllRequests();
         } catch (error) {
@@ -364,14 +365,19 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
             ...uberLastState.markers
                 .where((element) => element.markerId.value == positionMarkerId)
           };
-          try {
-            await MainServer.cancelRequest(
-                phone_num: uberLastState.acceptedRequest!.phone_num!,
-                request_id: uberLastState.acceptedRequest!.Req_ID!,
-                canceller: 'Driver');
-          } catch (error) {
-            emit(UserErrorState('Error cancelling trip'));
-          }
+          bool allRight = false;
+          do {
+            try {
+              await MainServer.cancelRequest(
+                  phone_num: uberLastState.acceptedRequest!.phone_num!,
+                  request_id: uberLastState.acceptedRequest!.Req_ID!,
+                  canceller: 'Driver');
+              allRight = true;
+            } catch (error) {
+              emit(UserErrorState('Error cancelling trip'));
+              allRight = false;
+            }
+          } while (!allRight);
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,
               lines: [],
@@ -401,7 +407,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(UserErrorState('Please open location service'));
       } else {
         try {
-          Trip? trip = Trip(
+          final Trip trip = Trip(
               Driver_ID: uberLastState.driver!.phone,
               Start_Time: DateTime.now().toString(),
               End_Time: DateTime.now().toString(),
@@ -444,7 +450,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       }
     });
     on<PassengerCancelledRequest>((event, emit) {
-      emit(UserErrorState('Passenger has cancelled the request'));
+      // emit(UserErrorState('Passenger has cancelled the request'));
       add(GoogleMapGetCurrentPosition());
     });
     on<EndTrip>((event, emit) async {

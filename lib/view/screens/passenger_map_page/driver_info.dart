@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
-import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
-import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
-import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DriverInfo extends StatelessWidget {
@@ -105,8 +101,8 @@ class DriverInfo extends StatelessWidget {
                                 // BlocProvider.of<UberDriverBloc>(context).add(
                                 //     CancelTrip(
                                 //         passengerRequest: ));
-                                BlocProvider.of<UberDriverBloc>(context)
-                                    .add(const GetPassengerRequests());
+                                BlocProvider.of<PassengerBloc>(context)
+                                    .add(CancelUberRequest());
                               },
                               child: const Row(
                                 children: [

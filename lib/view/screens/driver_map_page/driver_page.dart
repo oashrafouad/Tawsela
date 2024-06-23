@@ -65,8 +65,23 @@ class _DriverPageState extends State<DriverPage> {
     try {
       result = await MainServer.isRequestCancelled(
           uberLastState.acceptedRequest!.Req_ID!);
-      BlocProvider.of<UberDriverBloc>(context).add(RejectPassengerRequest(
-          passengerRequest: uberLastState.acceptedRequest!));
+
+      if (result) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Container(
+                  width: 100,
+                  height: 100,
+                  child: Text('Passenger has cancelled Request'),
+                ),
+              );
+            });
+        BlocProvider.of<UberDriverBloc>(context)
+            .add(PassengerCancelledRequest());
+        timer.stopRequestTimer();
+      }
     } catch (error) {
       result = false;
     }
@@ -78,8 +93,11 @@ class _DriverPageState extends State<DriverPage> {
     try {
       result = await MainServer.isTripCancelled(
           uberLastState.acceptedRequest!.Req_ID!);
-      BlocProvider.of<UberDriverBloc>(context)
-          .add(CancelTrip(passengerRequest: uberLastState.acceptedRequest!));
+      if (result) {
+        BlocProvider.of<UberDriverBloc>(context)
+            .add(PassengerCancelledRequest());
+        timer.stopTripTimer();
+      }
     } catch (error) {
       result = false;
     }
@@ -143,13 +161,12 @@ class _DriverPageState extends State<DriverPage> {
                       BlocProvider.of<UberDriverBloc>(context).add(StartTrip(
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
-                      timer.startTripTimer();
                     } else {
                       isTripStarted = false;
                       BlocProvider.of<UberDriverBloc>(context).add(EndTrip(
                           passengerRequest:
                               uberDriverProvider.acceptedRequest!));
-                      timer.stopTripTimer();
+
                       BlocProvider.of<UberDriverBloc>(context)
                           .add(const GoogleMapGetCurrentPosition());
                     }

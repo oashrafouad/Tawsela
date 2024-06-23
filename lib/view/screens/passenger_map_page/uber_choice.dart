@@ -42,55 +42,55 @@ class UberCoice extends StatelessWidget {
               width: constraints.maxWidth * 0.7,
               child: Center(
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      padding: const EdgeInsets.all(20)),
-                  onPressed: () {
-                    BlocProvider.of<PassengerBloc>(context).add(
-                        RequestUberDriver(
-                            passengerRequest: UserRequest(
-                                f_name:
-                                    passengerLastState.passengerData.firstName,
-                                l_name:
-                                    passengerLastState.passengerData.lastName,
-                                phone_num:
-                                    passengerLastState.passengerData.phone,
-                                Current_Location: passengerLastState
-                                    .currentLocationDescription,
-                                Desired_Location:
-                                    passengerLastState.destinationDescription,
-                                Current_Location_Latitude: passengerLastState
-                                    .currentPosition.latitude
-                                    .toString(),
-                                Current_Location_Longitude: passengerLastState
-                                    .currentPosition.longitude
-                                    .toString(),
-                                Desired_Location_Latitude: passengerLastState
-                                    .currentPosition.latitude
-                                    .toString(),
-                                Desired_Location_Longitude: passengerLastState
-                                    .currentPosition.longitude
-                                    .toString(),
-                                Req_ID: DateTime.now().toString(),
-                                is_reserved: 'false')));
-                    timer.startRequestTimer();
-                  },
-                  child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.car_crash_sharp,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Search for a driver",
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ]),
-                ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        padding: const EdgeInsets.all(20)),
+                    onPressed: () {
+                      BlocProvider.of<PassengerBloc>(context).add(
+                          RequestUberDriver(
+                              passengerRequest: UserRequest(
+                                  f_name: passengerLastState
+                                      .passengerData.firstName,
+                                  l_name: passengerLastState
+                                      .passengerData.lastName,
+                                  phone_num: passengerLastState
+                                      .passengerData.phone,
+                                  Current_Location: passengerLastState
+                                      .currentLocationDescription,
+                                  Desired_Location:
+                                      passengerLastState.destinationDescription,
+                                  Current_Location_Latitude: passengerLastState
+                                      .currentPosition.latitude
+                                      .toString(),
+                                  Current_Location_Longitude: passengerLastState
+                                      .currentPosition.longitude
+                                      .toString(),
+                                  Desired_Location_Latitude: passengerLastState
+                                      .currentPosition.latitude
+                                      .toString(),
+                                  Desired_Location_Longitude: passengerLastState
+                                      .currentPosition.longitude
+                                      .toString(),
+                                  Req_ID: DateTime.now().toString(),
+                                  is_reserved: 'false')));
+                      timer.startRequestTimer();
+                      timer.startTripTimer();
+                    },
+                    child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.car_crash_sharp,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Search for a driver",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ])),
               ),
             ),
           ));

@@ -36,10 +36,18 @@ class ShowLine extends PassengerEvent {
   const ShowLine(this.lineNumber);
 }
 
+class CancelUberRequest extends PassengerEvent {
+  const CancelUberRequest();
+}
+
 class DriverCancelledRequest extends PassengerEvent {
   const DriverCancelledRequest();
 }
 
 class DriverEndedTrip extends PassengerEvent {
   const DriverEndedTrip();
+}
+
+class DriverStartedTrip extends PassengerEvent {
+  const DriverStartedTrip();
 }

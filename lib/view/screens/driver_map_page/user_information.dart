@@ -129,7 +129,7 @@ class UserInformation extends StatelessWidget {
                                     CancelTrip(
                                         passengerRequest: uberDriverProvider
                                             .acceptedRequest!));
-                                timer.stopTripTimer();
+                                timer.stopRequestTimer();
                                 BlocProvider.of<UberDriverBloc>(context)
                                     .add(const GetPassengerRequests());
                               },

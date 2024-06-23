@@ -16,8 +16,8 @@ class ServicePoints {
     'assets/JSON/paths/7.json',
     'assets/JSON/paths/9.json',
     // 'assets/JSON/paths/11.json',
-    'assets/JSON/paths/11-b.json',
-    'assets/JSON/paths/11-f.json',
+    'assets/JSON/paths/11.json',
+    // 'assets/JSON/paths/11-f.json',
   ];
 
   // getters

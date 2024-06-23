@@ -29,8 +29,9 @@ import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.d
 const String getServiceLinePlacHolder = 'Getting Nearest service Line';
 const String getDestinationPlaceHolder = 'Getting destination';
 const String getPassengerLocationPlacHolder = 'getting current Location';
-const String tripHasEnded = 'Trip has ended';
+const String tripHasEnded = 'Trip has ended by driver';
 const String driverCancelledRequest = 'Driver cancelled request';
+const driverStartedTrip = 'Trip has started';
 const List<Color> lineColor = [
   Colors.green,
   Colors.blue,
@@ -138,10 +139,14 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           try {
             accepted_request = await MainServer.isAcceptedRequest(
                 request_id: event.passengerRequest.Req_ID!);
+            print(accepted_request.f_name);
           } catch (error) {
             accepted_request = null;
+            print('request has not been cancelled');
           }
-          Future.delayed(Duration(seconds: 5));
+          if (accepted_request == null) {
+            await Future.delayed(Duration(seconds: 5));
+          }
         } while (accepted_request == null);
 
         final newState = PassengerState(
@@ -452,7 +457,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         try {
           DirectionsService.init(KeyChain.google_server_key!);
           DirectionsService directions = DirectionsService();
-          Polyline path = const Polyline(
+          Polyline path = Polyline(
               polylineId: PolylineId('path'),
               color: Colors.green,
               width: 4,
@@ -628,23 +633,66 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
     on<GetWalkDirections>(getWalkDirections);
     on<DriverCancelledRequest>((event, emit) {
-      emit(UserErrorState(driverCancelledRequest));
+      // emit(UserErrorState(driverCancelledRequest));
+      add(GoogleMapGetCurrentPosition());
+      // passengerLastState = PassengerState(
+      //     currentLocationDescription:
+      //         passengerLastState.currentLocationDescription,
+      //     destination: passengerLastState.destination,
+      //     destinationDescription: passengerLastState.destinationDescription,
+      //     controller: passengerLastState.controller,
+      //     currentPosition: passengerLastState.currentPosition,
+      //     lines: [],
+      //     markers: passengerLastState.markers,
+      //     directions: [],
+      //     passengerData: passengerLastState.passengerData);
+      // emit(passengerLastState);
+    });
+    on<DriverEndedTrip>((event, emit) {
+      // emit(UserErrorState(tripHasEnded));
+      add(GoogleMapGetCurrentPosition());
+    });
+    on<DriverStartedTrip>((event, emit) {
+      // emit(UserErrorState(driverStartedTrip));
+    });
+
+    on<CancelUberRequest>((event, emit) async {
+      bool allRight1 = false;
+      bool allRight2 = false;
+      do {
+        // cancel request
+        try {
+          await MainServer.cancelRequest(
+              phone_num: passengerLastState.passengerData.phone,
+              request_id: passengerLastState.passengerRequest!.Req_ID!,
+              canceller: 'Passenger');
+          allRight1 = true;
+        } catch (error) {
+          allRight2 = false;
+        }
+
+        try {
+          await MainServer.deleteRequestById(
+              userRequestId: passengerLastState.passengerRequest!.Req_ID!);
+          allRight2 = true;
+        } catch (error) {
+          allRight2 = false;
+        }
+      } while (!allRight2 && !allRight1);
       passengerLastState = PassengerState(
-          currentLocationDescription:
-              passengerLastState.currentLocationDescription,
-          destination: passengerLastState.destination,
-          destinationDescription: passengerLastState.destinationDescription,
           controller: passengerLastState.controller,
           currentPosition: passengerLastState.currentPosition,
           lines: [],
           markers: passengerLastState.markers,
           directions: [],
-          passengerData: passengerLastState.passengerData);
+          passengerData: passengerLastState.passengerData,
+          currentLocationDescription:
+              passengerLastState.currentLocationDescription,
+          destination: passengerLastState.destination,
+          destinationDescription: passengerLastState.destinationDescription,
+          driverData: null,
+          passengerRequest: null);
       emit(passengerLastState);
-    });
-    on<DriverEndedTrip>((event, emit) {
-      emit(UserErrorState(tripHasEnded));
-      add(GoogleMapGetCurrentPosition());
     });
   }
 }

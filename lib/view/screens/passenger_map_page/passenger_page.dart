@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
@@ -46,8 +47,17 @@ class _PassengerPageState extends State<PassengerPage> {
     try {
       result = await MainServer.isRequestCancelled(
           passengerLastState.passengerRequest!.Req_ID!);
-      BlocProvider.of<PassengerBloc>(context).add(DriverCancelledRequest());
-      timer.stopRequestTimer();
+      if (result) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Container(child: Text('Driver Cancelled request')),
+              );
+            });
+        BlocProvider.of<PassengerBloc>(context).add(CancelUberRequest());
+        timer.stopRequestTimer();
+      }
     } catch (error) {
       result = false;
     }
@@ -57,10 +67,12 @@ class _PassengerPageState extends State<PassengerPage> {
   Future<bool> checkTrip() async {
     bool result = false;
     try {
-      result = await MainServer.isTripCancelled(
+      result = await MainServer.isTripEnded(
           passengerLastState.passengerRequest!.Req_ID!);
-      BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
-      timer.stopTripTimer();
+      if (result) {
+        BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
+        timer.stopTripTimer();
+      }
     } catch (error) {
       result = false;
     }
@@ -72,13 +84,24 @@ class _PassengerPageState extends State<PassengerPage> {
     return BlocConsumer<PassengerBloc, MapUserState>(
       listener: (context, state) {
         if (state is UserErrorState) {
-          Flushbar(
-            message: state.message,
-            backgroundColor: Colors.red,
-            messageColor: Colors.white,
-            flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: const Duration(seconds: 2),
-          ).show(context);
+          if (state.message == driverStartedTrip) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                      content: Container(
+                    child: Text(driverStartedTrip),
+                  ));
+                });
+          } else {
+            Flushbar(
+              message: state.message,
+              backgroundColor: Colors.red,
+              messageColor: Colors.white,
+              flushbarPosition: FlushbarPosition.BOTTOM,
+              duration: const Duration(seconds: 2),
+            ).show(context);
+          }
         } else {}
       },
       builder: (context, state) {

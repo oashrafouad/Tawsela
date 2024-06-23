@@ -13,7 +13,7 @@ class MainServer {
 
   /* CREATE TRIP */
 
-  static Future<void> createTrip({required Trip? trip}) async {
+  static Future<void> createTrip({required Trip trip}) async {
     // forming url
     final String endPoint = MainServer.serverUrl! + '/api/trips';
     // posting request data
@@ -74,7 +74,7 @@ class MainServer {
             'Charset': 'utf-8'
           },
           body: jsonEncode({
-            "Accept_Req_ID": DateTime.now(),
+            "Accept_Req_ID": DateTime.now().toString(),
             "Req_ID": request_id,
             "Phone_Num": Phone_Num,
           }));
@@ -91,6 +91,7 @@ class MainServer {
         MainServer.serverUrl! + '/api/accept-req/' + request_id;
     final http.Response response = await http.get(Uri.parse(endPoint));
     Map<String, dynamic> json = jsonDecode(response.body);
+    print(json);
     return AcceptedRequest.fromJson(json);
   }
 
@@ -141,8 +142,12 @@ class MainServer {
         MainServer.serverUrl! + '/api/cancel-req/' + request_id;
     try {
       http.Response? response = await http.get(Uri.parse(endPoint));
-      Map<String, dynamic> json = jsonDecode(response.body);
-      return true;
+      List json = jsonDecode(response.body);
+      if (json.isEmpty) {
+        return false;
+      } else {
+        return true;
+      }
     } catch (error) {
       return false;
     }
@@ -153,7 +158,12 @@ class MainServer {
     try {
       http.Response? response = await http.get(Uri.parse(endPoint));
       Map<String, dynamic> json = jsonDecode(response.body);
-      return true;
+      Trip trip = Trip.fromJson(json);
+      if (trip.End_Time == '' || trip.End_Time == null) {
+        return false;
+      } else {
+        return true;
+      }
     } catch (error) {
       return false;
     }
@@ -174,7 +184,12 @@ class MainServer {
     final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
 
     http.Response? response = await http.put(Uri.parse(endPoint),
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        headers: <String, String>{
+          'Authorization':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Charset': 'utf-8'
+        },
         body: jsonEncode({'End_Time': DateTime.now()}));
   }
 
@@ -186,9 +201,13 @@ class MainServer {
         MainServer.serverUrl! + '/api/cancel-req/' + request_id;
 
     http.Response? response = await http.post(Uri.parse(endPoint),
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        headers: <String, String>{
+          'Authorization':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Charset': 'utf-8'
+        },
         body: jsonEncode({
-          "reqId": request_id,
           "Phone_Num": phone_num,
           "penalty": "5",
           "cancelledBy": canceller
