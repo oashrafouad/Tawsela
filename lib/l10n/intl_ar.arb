@@ -60,6 +60,7 @@
     "YouEarnedToday": "كسبت اليوم",
     "PleaseEnter": "من فضلك، أدخل",
     "FieldIsRequired": "هذا الحقل مطلوب",
-    "pounds": "جنيه"
+    "pounds": "جنيه",
+    "optional": "اختياري"
   }
   

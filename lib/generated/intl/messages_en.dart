@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("Microbuses Lines Guide"),
         "numberoftrips": MessageLookupByLibrary.simpleMessage("Trips"),
+        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "or": MessageLookupByLibrary.simpleMessage("OR"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
             "Fill in the following information to create your account"),

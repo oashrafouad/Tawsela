@@ -94,7 +94,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                         bottom: 8,
                       ),
                       child: Text(
-                        S.of(context).personalImage,
+                        "${S.of(context).personalImage} (${S.of(context).optional})",
                         style: const TextStyle(
                             fontFamily: font,
                             fontSize: 12,

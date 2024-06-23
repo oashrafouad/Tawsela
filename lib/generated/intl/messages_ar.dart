@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("دليل الخطوط"),
         "numberoftrips": MessageLookupByLibrary.simpleMessage("عدد الرحلات"),
+        "optional": MessageLookupByLibrary.simpleMessage("اختياري"),
         "or": MessageLookupByLibrary.simpleMessage("أو"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
             "املأ البيانات الآتية لتسجيل\nحسابك"),

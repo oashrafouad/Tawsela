@@ -60,6 +60,7 @@
     "YouEarnedToday": "You earned today",
     "PleaseEnter": "Please enter",
     "FieldIsRequired": "Field is required",
-    "pounds": "EGP"
+    "pounds": "EGP",
+    "optional": "Optional"
   }
   
