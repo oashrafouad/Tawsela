@@ -67,11 +67,28 @@ flutter:
   assets:
     - assets/images/
     - assets/JSON/keys/server_url.json
-    - assets/JSON/keys/google_map_key.json
-    - assets/JSON/paths/3.json
-    - assets/JSON/paths/9.json
-    - assets/JSON/paths/7.json
-    - assets/JSON/paths/11.json
+    - assets/JSON/paths/1f.json
+    - assets/JSON/paths/2f.json
+    - assets/JSON/paths/3f.json
+    - assets/JSON/paths/4f.json
+    - assets/JSON/paths/5f.json
+    - assets/JSON/paths/6f.json
+    - assets/JSON/paths/7f.json
+    - assets/JSON/paths/8f.json
+    - assets/JSON/paths/9f.json
+    - assets/JSON/paths/1b.json
+    - assets/JSON/paths/2b.json
+    - assets/JSON/paths/3b.json
+    - assets/JSON/paths/4b.json
+    - assets/JSON/paths/5b.json
+    - assets/JSON/paths/6b.json
+    - assets/JSON/paths/7b.json
+    - assets/JSON/paths/8b.json
+    - assets/JSON/paths/9b.json
+    - assets/JSON/paths/13f.json
+    - assets/JSON/paths/17f.json
+    - assets/JSON/paths/13b.json
+    - assets/JSON/paths/17b.json
     - assets/1.png
     - assets/2.png
     - assets/3.png

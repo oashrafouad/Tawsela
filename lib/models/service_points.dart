@@ -12,12 +12,29 @@ class ServicePoints {
   static List<List<LatLng>> serviceLatPoints = [];
   static List<List<LatLng>> serviceLngPoints = [];
   static const List<String> lines = [
-    'assets/JSON/paths/3.json',
-    'assets/JSON/paths/7.json',
-    'assets/JSON/paths/9.json',
+    'assets/JSON/paths/1f.json',
+    'assets/JSON/paths/2f.json',
+    'assets/JSON/paths/3f.json',
+    'assets/JSON/paths/4f.json',
+    'assets/JSON/paths/5f.json',
+    'assets/JSON/paths/6f.json',
+    'assets/JSON/paths/7f.json',
+    'assets/JSON/paths/8f.json',
+    'assets/JSON/paths/9f.json',
+    'assets/JSON/paths/1b.json',
+    'assets/JSON/paths/2b.json',
+    'assets/JSON/paths/3b.json',
+    'assets/JSON/paths/4b.json',
+    'assets/JSON/paths/5b.json',
+    'assets/JSON/paths/6b.json',
+    'assets/JSON/paths/7b.json',
+    'assets/JSON/paths/8b.json',
+    'assets/JSON/paths/9b.json',
+    'assets/JSON/paths/13f.json',
+    'assets/JSON/paths/17f.json',
+    'assets/JSON/paths/13b.json',
+    'assets/JSON/paths/17b.json',
     'assets/JSON/paths/11.json',
-    // 'assets/JSON/paths/11-b.json',
-    // 'assets/JSON/paths/11-f.json',
   ];
 
   // getters
@@ -57,7 +74,7 @@ class ServicePoints {
       int latitudeSteps = 0;
       LatLng bestLatitude = line[0];
       while (latitudeDistance > latitudeThreshold) {
-        latitudeDistance = point.latitude - bestLatitude.latitude;
+        latitudeDistance = (point.latitude - bestLatitude.latitude).abs();
         print('Latitude distance = ' + latitudeDistance.toString());
         if (latitudeDistance <= latitudeThreshold) {
           break;
@@ -77,7 +94,7 @@ class ServicePoints {
 
       int longitudeSteps = 0;
       while (longitudeDistance > longitudeThreshold) {
-        longitudeDistance = point.longitude - bestLongitude.longitude;
+        longitudeDistance = (point.longitude - bestLongitude.longitude).abs();
         print('Longitude distance = ' + longitudeDistance.toString());
 
         if (longitudeDistance <= longitudeThreshold) {
