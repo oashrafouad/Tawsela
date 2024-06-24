@@ -110,30 +110,30 @@ class TawselaApp extends StatelessWidget {
               context.select((AppLanguageBloc bloc) => bloc.state);
 
           return MaterialApp(
-            theme: ThemeData(
-              appBarTheme: const AppBarTheme(
-                iconTheme: IconThemeData(color: kGreenBigButtons),
-                elevation: 0,
-                surfaceTintColor: noColor,
-                shadowColor: Colors.black,
+              theme: ThemeData(
+                appBarTheme: const AppBarTheme(
+                  iconTheme: IconThemeData(color: kGreenBigButtons),
+                  elevation: 0,
+                  surfaceTintColor: noColor,
+                  shadowColor: Colors.black,
+                ),
+                textSelectionTheme: const TextSelectionThemeData(
+                  cursorColor: kGreenBigButtons,
+                  selectionColor: kGreenSmallButton, // Text selection color
+                  selectionHandleColor: kGreenBigButtons,
+                ),
               ),
-              textSelectionTheme: const TextSelectionThemeData(
-                cursorColor: kGreenBigButtons,
-                selectionColor: kGreenSmallButton, // Text selection color
-                selectionHandleColor: kGreenBigButtons,
-              ),
-            ),
-            locale: _getLocale(langState),
-            debugShowCheckedModeBanner: false,
-            supportedLocales: const [Locale('ar'), Locale('en')],
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            localeResolutionCallback: _localeResolutionCallback,
-            routes: _buildRoutes(),
+              locale: _getLocale(langState),
+              debugShowCheckedModeBanner: false,
+              supportedLocales: const [Locale('ar'), Locale('en')],
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              localeResolutionCallback: _localeResolutionCallback,
+              routes: _buildRoutes(),
               // initialRoute: PassengerProfile.id);
               initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
                   ? WelcomePage.id
