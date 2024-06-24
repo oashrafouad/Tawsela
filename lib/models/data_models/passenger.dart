@@ -8,8 +8,8 @@ class Passenger extends UserData {
       required String lastName,
       required LatLng location,
       required String phone,
-      required int age,
-      required String email})
+       int? age,
+       String? email})
       : super(
             firstName: firstName,
             location: location,

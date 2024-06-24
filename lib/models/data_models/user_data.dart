@@ -6,13 +6,13 @@ class UserData {
   final String lastName;
   final LatLng location;
   final String phone;
-  final int age;
-  final String email;
+  final int? age;
+  final String? email;
   const UserData(
       {required this.firstName,
       required this.lastName,
       required this.location,
       required this.phone,
-      required this.age,
-      required this.email});
+      this.age,
+      this.email});
 }

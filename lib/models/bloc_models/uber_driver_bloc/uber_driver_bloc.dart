@@ -20,6 +20,7 @@ import 'package:tawsela_app/models/data_models/user_states.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
+import 'package:tawsela_app/utilities.dart';
 
 // import 'package:plugin_wifi_connect/plugin_wifi_connect.dart';
 const fetchignPassengerRequests = 'fetchign Passenger Requests';
@@ -32,13 +33,11 @@ UberDriverState uberLastState = UberDriverState(
     markers: {},
     directions: [],
     driver: UberDriver(
-        lastName: 'last name',
-        age: 18,
-        email: 'email',
+        lastName: lastName,
         rating: 9,
-        firstName: 'name',
+        firstName: firstName,
         location: invalidPosition,
-        phone: '67363653'));
+        phone: phoneNumber));
 Future<LatLng> getCurrentPosition() async {
   try {
     LocationPermission permission = await Geolocator.requestPermission();

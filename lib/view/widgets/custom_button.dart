@@ -1,4 +1,3 @@
-
 //import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 
 import 'package:flutter/material.dart';
@@ -40,14 +39,15 @@ class CustomButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius), color: buttonColor),
           child: OutlinedButton(
             style: ButtonStyle(
-              splashFactory: splashEffect,
-                side: WidgetStateProperty.all(BorderSide(color: buttonColor)),
-                backgroundColor: WidgetStateProperty.all(buttonColor)),
+                splashFactory: splashEffect,
+                side: MaterialStateProperty.all(BorderSide(color: buttonColor)),
+                backgroundColor: MaterialStateProperty.all(buttonColor)),
             onPressed: () {
               onTap();
             },
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: 12),
+              padding: EdgeInsets.symmetric(
+                  horizontal: paddingHorizontal, vertical: 12),
               child: Text(
                 text,
                 style: TextStyle(

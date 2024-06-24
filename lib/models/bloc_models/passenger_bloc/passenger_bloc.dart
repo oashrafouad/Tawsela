@@ -25,6 +25,7 @@ import 'package:tawsela_app/models/servers/main_server.dart';
 import 'package:tawsela_app/models/service_points.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/utilities.dart';
 
 const String getServiceLinePlacHolder = 'Getting Nearest service Line';
 const String getDestinationPlaceHolder = 'Getting destination';
@@ -41,12 +42,10 @@ const List<Color> lineColor = [
 
 PassengerState passengerLastState = PassengerState(
     passengerData: Passenger(
-        lastName: 'User',
-        email: 'Hello ahmed',
-        age: 17,
+        lastName: lastName,
         location: invalidPosition,
-        firstName: 'User',
-        phone: '736363'),
+        firstName: firstName,
+        phone: phoneNumber),
     currentPosition: invalidPosition,
     lines: <Polyline>[],
     markers: <Marker>{},
