@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +13,9 @@ import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
+import '../../../loading_status_handler.dart';
+import '../../../services/API_service.dart';
+
 class PassengerEditProfile extends StatelessWidget {
   const PassengerEditProfile({super.key});
   static String id = 'passengerEditProfilePage';
@@ -22,6 +27,90 @@ class PassengerEditProfile extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          ButtonBar(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.delete,
+                ),
+                color: Colors.red[400],
+                onPressed: () async {
+                  if (Platform.isIOS) {
+                    const platform = MethodChannel('deleteAccountDialogChannel');
+                    try {
+                      final result = await platform.invokeMethod<int>('showDeleteAccountDialog');
+                      switch (result) {
+                        case 1:
+                          LoadingStatusHandler.startLoading();
+                          ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
+                            await resetData();
+                            LoadingStatusHandler.completeLoadingWithText(
+                                "تم حذف الحساب").then((_) {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WelcomePage()),
+                                      (Route<dynamic> route) => false);
+                            });
+                          }).catchError((error) {
+                            // Handle error
+                            LoadingStatusHandler.errorLoading(error.toString());
+                            print('Failed to delete account: $error');
+                          });
+                          break;
+                      }
+                    } on PlatformException catch (error) {
+                      print(error.message);
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("هل انت متأكد انك تريد حذف الحساب؟"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("الغاء")
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                LoadingStatusHandler.startLoading();
+                                ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
+                                  await resetData();
+                                  LoadingStatusHandler.completeLoadingWithText(
+                                      "تم حذف الحساب");
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => WelcomePage()),
+                                          (Route<dynamic> route) => false);
+                                }).catchError((error) {
+                                  // Handle error
+                                  LoadingStatusHandler.errorLoading(error.toString());
+                                  print('Failed to delete account: $error');
+                                });
+                              },
+                              child: const Text(
+                                "حذف الحساب",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  )
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          )
+        ],
         centerTitle: true,
         title: Text(
           S.of(context).editProfile,
@@ -143,7 +232,7 @@ class PassengerEditProfile extends StatelessWidget {
                     height: 46,
                     width: 213,
                     maxLength: 10,
-                    hintText: "1234567890",
+                    hintText: phoneNumber,
                     keyboardType: TextInputType.phone,
                     inputFormatters: [
                       // prevent the first number inputted to be 0, to force the user to input the correct number format
@@ -177,22 +266,6 @@ class PassengerEditProfile extends StatelessWidget {
                         child: Image.asset('assets/images/flag.png')),
                   ),
                 ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Center(
-                child: CustomTextFormField(
-                  hintText: email,
-                  keyboardType: TextInputType.emailAddress,
-                  
-                  onChanged: (data) => email = data,
-                  textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.start,
-                  width: 284,
-                  height: 46,
-                  titleAbove: S.of(context).email,
-                ),
               ),
             ],
           ),

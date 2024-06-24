@@ -659,6 +659,26 @@ class S {
       args: [],
     );
   }
+
+  /// `EGP`
+  String get pounds {
+    return Intl.message(
+      'EGP',
+      name: 'pounds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional`
+  String get optional {
+    return Intl.message(
+      'Optional',
+      name: 'optional',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

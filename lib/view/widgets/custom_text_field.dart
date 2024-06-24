@@ -72,6 +72,7 @@ class CustomTextFormField extends StatelessWidget {
             keyboardType: keyboardType,
             style: const TextStyle(
                 color: Colors.black, fontFamily: font, fontSize: 13),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: useValidator ? (value) {
               if (  value == null || value.isEmpty) {
                 return S.of(context).FieldIsRequired;
@@ -84,8 +85,12 @@ class CustomTextFormField extends StatelessWidget {
              
             onChanged: onChanged,
             decoration: InputDecoration(
-              errorStyle: const TextStyle(fontFamily: font),
+              errorStyle: const TextStyle(fontFamily: font, height: 0.05),
               hintText: hintText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(radius)),
+                borderSide: const BorderSide(color: kGreyBorderLight),
+              ),
               labelText: labelText,
               counterText: '',
               contentPadding: const EdgeInsets.symmetric(
@@ -94,14 +99,15 @@ class CustomTextFormField extends StatelessWidget {
               ),
               hintStyle:
                   const TextStyle(color: kGreyFontLight, fontFamily: font),
-              
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(radius)),
                 borderSide: const BorderSide(color: kGreyBorderLight),
               ),
-
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: kGreenButtonBorder),
+              ),
+              errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: kRed),
               ),
             ),
             maxLength: maxLength,

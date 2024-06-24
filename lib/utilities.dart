@@ -1,15 +1,24 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
+import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
+
+import 'models/data_models/google_server.dart';
+import 'models/data_models/server.dart';
+import 'models/get_it.dart/key_chain.dart';
+import 'models/servers/local_server.dart';
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
 
@@ -124,6 +133,7 @@ var splashEffect = kIsWeb ? InkSplash.splashFactory : (Platform.isIOS ? NoSplash
 
 // Firebase Auth
 User? currentUser = FirebaseAuth.instance.currentUser;
+String userVerificationId = '';
 
 // Firebase Storage
 final storage = FirebaseStorage.instance;
@@ -145,6 +155,7 @@ uploadImage(CroppedFile croppedFile) async {
           final imageURL = await imageRef.getDownloadURL();
           // print("Image URL is $imageURL");
           await currentUser!.updatePhotoURL(imageURL);
+          profileImageURL = imageURL;
           print("SUCCESSFULLY UPLOADED IMAGE");
           LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
           break;
@@ -172,4 +183,110 @@ uploadImage(CroppedFile croppedFile) async {
   //   LoadingStatusHandler.errorLoading("${e.message}");
   //   print("ERROR UPLOADING IMAGE: ${e.code}, ${e.message}");
   // }
+}
+
+// Google Maps API
+initializeGoogleMapsAPI() async {
+  // loading google map api key
+  final json = await rootBundle.loadString('assets/JSON/keys/google_map_key.json');
+  // decoding json string
+  Map mapObject = jsonDecode(json) as Map;
+  // fetching google map api key value
+  String apiKey = mapObject['Google_Map_Api'];
+  // register google map api key into GET_IT
+  GoogleServer APIKEY = GoogleServer(apiKey);
+  // GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
+  KeyChain.chain.registerSingleton<GoogleServer>(APIKEY);
+}
+
+// Our API
+String server_url = '';
+
+initializeServerAPI() async {
+  // loading server url
+  final json = await rootBundle.loadString('assets/JSON/keys/server_url.json');
+  // decoding json string
+  Map mapObject = jsonDecode(json) as Map;
+  // fetching server url  value
+  server_url = mapObject['server_url'];
+  // register server url into GET_IT
+  LocalServer MainServer = LocalServer(server_url);
+  KeyChain.chain.registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
+}
+
+// Shared preferences
+SharedPreferences? sharedPreferences;
+
+// User data
+String firstName = '';
+String lastName = '';
+String phoneNumber = '1104149286'; // Without '+20'
+// String phoneNumber = ''; // Without '+20'
+String profileImageURL = '';
+bool isLoggedIn = false; // Should get from shared preferences
+bool isDriver=false; // to check if the user is a driver or passenger
+
+updateDataToSharedPrefs() async { //that will update the shared preferences values
+ // print("1. $isLoggedIn");
+  await sharedPreferences!.setString('firstName', firstName);
+  await sharedPreferences!.setString('lastName', lastName);
+  await sharedPreferences!.setString('phoneNumber', phoneNumber);
+  await sharedPreferences!.setString('profileImageURL', profileImageURL);
+  await sharedPreferences!.setBool('isLoggedIn', isLoggedIn);
+  await sharedPreferences!.setBool('isDriver', isDriver);
+  print('LOCAL VARIABLES:');
+  print ('First Name: $firstName');
+  print ('Last Name: $lastName');
+  print ('Phone Number: $phoneNumber');
+  print ('Profile Image URL: $profileImageURL');
+  print ('Is Logged In: $isLoggedIn');
+  print ('Is Driver: $isDriver');
+  print('-------------------');
+  print("SHAREDPREF:");
+  print ('First Name: ${await sharedPreferences!.getString('firstName')}');
+  print ('Last Name: ${await sharedPreferences!.getString('lastName')}');
+  print ('Phone Number: ${await sharedPreferences!.getString('phoneNumber')}');
+  print ('Profile Image URL: ${await sharedPreferences!.getString('profileImageURL')}');
+  print ('Is Logged In: ${await sharedPreferences!.getBool('isLoggedIn')}');
+  print ('Is Driver: ${await sharedPreferences!.getBool('isDriver')}');
+}
+
+initValues() async {
+  firstName = await sharedPreferences!.getString('firstName') ?? '';
+  lastName = await sharedPreferences!.getString('lastName') ?? '';
+  phoneNumber = await sharedPreferences!.getString('phoneNumber') ?? '';
+  profileImageURL = await sharedPreferences!.getString('profileImageURL') ?? '';
+
+}
+
+resetData() async { // use when user logs out
+  await sharedPreferences!.clear();
+}
+
+getAllUserInfoAndAssignToVariables({required String phoneNumber}) async {
+  try {
+    final userInfo = await ApiService.getUserInfo(phoneNumber: phoneNumber);
+    userInfo.forEach((key, value) {
+      if (key == 'f_name') {
+        firstName = value;
+      } else if (key == 'l_name') {
+        lastName = value;
+      } else if (key == 'phone_num') {
+        phoneNumber = value;
+      }
+      // else if (key == 'profile_image_url') {
+      //   profileImageURL = value;
+      // }
+    });
+
+    // get profile image from firebase (temp)
+    //TODO: edit this after we can get the profile image from our server
+    profileImageURL = currentUser!.photoURL!;
+
+    // print("assigned");
+    print('DATA FROM SERVER:');
+    print(userInfo);
+  } catch (error) {
+    print('Error fetching user info: $error');
+  }
 }

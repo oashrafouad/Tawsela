@@ -59,6 +59,8 @@
     "YouReceivePassengerRequeststTheMoment": "You receive requests",
     "YouEarnedToday": "You earned today",
     "PleaseEnter": "Please enter",
-    "FieldIsRequired": "Field is required"
+    "FieldIsRequired": "Field is required",
+    "pounds": "EGP",
+    "optional": "Optional"
   }
   

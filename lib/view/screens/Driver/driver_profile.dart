@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -6,8 +9,10 @@ import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_edit_profile.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
+import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import '../Passenger/welcome_page.dart';
@@ -21,21 +26,24 @@ class DriverProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xffF8F8F8),
-        
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomTextButton(
-                onTap: () {
-                  Navigator.popUntil(
-                      context, ModalRoute.withName(PassengerMainScreen.id));
+                onTap: () async {
+                  isDriver = false;
+                    await updateDataToSharedPrefs();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PassengerMainScreen()),
+                        (Route<dynamic> route) => false);
                 },
                 text: S.of(context).switchPassengermode,
                 radius: 10,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 paddingVerti: 6,
-                icon: Icons.swap_vertical_circle_outlined,
+                icon: CustomSwitchIcon.icon,
                 iconSize: 20,
               ),
               const SizedBox(
@@ -90,13 +98,60 @@ class DriverProfilePage extends StatelessWidget {
                 icon: Icons.logout,
                 paddingHorzin: 2,
                 iconSize: 20,
-                onTap: () {
-                  //to pop all screen in the stack and return to welcome page
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(WelcomePage.id),
-                  );
+                containsIconOnly: true,
+                onTap: () async {
+                  if (Platform.isIOS) {
+                    const platform = MethodChannel('logOutDialogChannel');
+                    try {
+                      final result = await platform.invokeMethod<int>('showLogOutDialog');
+                      switch (result) {
+                        case 1:
+                          isLoggedIn = false;
+                          await resetData();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WelcomePage()),
+                                  (Route<dynamic> route) => false);
+                          break;
+                      }
+                    } on PlatformException catch (error) {
+                      print(error.message);
+                    }
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("هل انت متأكد من تسجيل الخروج؟"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("الغاء")
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                isLoggedIn = false;
+                                await resetData();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WelcomePage()),
+                                        (Route<dynamic> route) => false);
+                              },
+                              child: const Text(
+                                "تسجيل الخروج",
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
+
               ),
             ],
           )),
@@ -124,15 +179,20 @@ class DriverProfilePage extends StatelessWidget {
                           children: [
                             Container(
                               width: 130,
-                             
-                              child: FittedBox(
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "$firstName $lastName",
-                                  style: const TextStyle(
-                                      fontFamily: font,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                              //height: 12,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: 35,
+                                ),
+                                child: FittedBox(
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    "$firstName $lastName",
+                                    style: const TextStyle(
+                                        fontFamily: font,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                               ),
                             ),
@@ -164,7 +224,6 @@ class DriverProfilePage extends StatelessWidget {
                           ],
                         ),
                         const Row(
-                          
                           children: [
                             Icon(
                               Icons.star,
@@ -195,8 +254,9 @@ class DriverProfilePage extends StatelessWidget {
                           const SizedBox(
                             height: 8,
                           ),
-                          const Text(
-                            '٧٦٠ جنيهًا', //you get That from API
+                          Text(
+                            "200 " + S.of(context).pounds,
+                            //'٧٦٠ جنيهًا', //you get That from API
 
                             style: TextStyle(
                                 color: Colors.black,
@@ -227,7 +287,7 @@ class DriverProfilePage extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            S.of(context).trip,
+                            "12  ${S.of(context).trip}",
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,
@@ -238,8 +298,6 @@ class DriverProfilePage extends StatelessWidget {
                       )
                     ],
                   ),
-
-                  
                 ],
               ),
             ),
@@ -261,7 +319,6 @@ class DriverProfilePage extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 CustomTextButton(
-                 
                   icon: Icons.arrow_forward_ios,
                   text: S.of(context).showAll,
                   fontSize: 12,
@@ -276,7 +333,6 @@ class DriverProfilePage extends StatelessWidget {
             Column(
               children: [
                 ListTile(
-                
                   leading: CircleAvatar(
                     radius: 40,
                     backgroundImage: imageState.avatarImg.image,
@@ -320,11 +376,9 @@ class DriverProfilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   trailing: const Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Column(
-                     
                       children: [
                         SizedBox(
                           width: 120,

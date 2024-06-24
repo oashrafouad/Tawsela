@@ -86,8 +86,6 @@ class TawselaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(home: WelcomePage()); // temp return just to avoid compile error
-
     return MultiBlocProvider(
       providers: [
         BlocProvider<PassengerBloc>(create: (context) => PassengerBloc()),
@@ -115,12 +113,9 @@ class TawselaApp extends StatelessWidget {
             theme: ThemeData(
               appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(color: kGreenBigButtons),
-                //backgroundColor: Colors.white,
                 elevation: 0,
                 surfaceTintColor: noColor,
                 shadowColor: Colors.black,
-                //centerTitle: true,
-                //iconTheme:
               ),
               textSelectionTheme: const TextSelectionThemeData(
                 cursorColor: kGreenBigButtons,
@@ -139,8 +134,16 @@ class TawselaApp extends StatelessWidget {
             ],
             localeResolutionCallback: _localeResolutionCallback,
             routes: _buildRoutes(),
-            initialRoute: WelcomePage.id,
-          );
+              // initialRoute: PassengerProfile.id);
+              initialRoute: sharedPreferences!.getBool('isLoggedIn') == null
+                  ? WelcomePage.id
+                  : sharedPreferences!.getBool("isLoggedIn")!
+                      ? sharedPreferences!.getBool("isDriver") == null
+                          ? WelcomePage.id
+                          : sharedPreferences!.getBool("isDriver")!
+                              ? DriverPage.id
+                              : PassengerMainScreen.id
+                      : WelcomePage.id);
         },
       ),
     );
@@ -170,10 +173,7 @@ class TawselaApp extends StatelessWidget {
   Map<String, WidgetBuilder> _buildRoutes() {
     return {
       WelcomePage.id: (context) => WelcomePage(),
-      SmsVerficationPage.id: (context) => SmsVerficationPage(
-            verificationId: '',
-            phoneNumber: '',
-          ),
+      SmsVerficationPage.id: (context) => SmsVerficationPage(),
       PassengerSignUpPage.id: (context) => const PassengerSignUpPage(),
       PassengerProfile.id: (context) => const PassengerProfile(),
       PassengerEditProfile.id: (context) => const PassengerEditProfile(),

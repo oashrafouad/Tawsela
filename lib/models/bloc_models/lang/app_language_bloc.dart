@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/constants.dart';
 
 part 'app_language_event.dart';

@@ -68,11 +68,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "microbusesLinesGuide":
             MessageLookupByLibrary.simpleMessage("Microbuses Lines Guide"),
         "numberoftrips": MessageLookupByLibrary.simpleMessage("Trips"),
+        "optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "or": MessageLookupByLibrary.simpleMessage("OR"),
         "passengerSignUpTitle": MessageLookupByLibrary.simpleMessage(
             "Fill in the following information to create your account"),
         "personalImage": MessageLookupByLibrary.simpleMessage("Personal Image"),
         "phoneNum": MessageLookupByLibrary.simpleMessage("Mobile Number"),
+        "pounds": MessageLookupByLibrary.simpleMessage("EGP"),
         "recentlyVisited":
             MessageLookupByLibrary.simpleMessage("Recently Visited"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),

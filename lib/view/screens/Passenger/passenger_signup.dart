@@ -6,32 +6,29 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:tawsela_app/services/signUp.dart';
+import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
+import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-String firstName ='';
-String lastName = ' ';
-String? email;
-
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
   static String id = 'PassengerSignUpPage';
 
   @override
+  
   _PassengerSignUpPageState createState() => _PassengerSignUpPageState();
 }
 
 class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
-
   @override
   Widget build(BuildContext context) {
-    // print(currentUser?.phoneNumber);
+    
 
     GlobalKey<FormState> formKey = GlobalKey();
 
@@ -61,7 +58,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
-                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection:
+                        isArabic() ? TextDirection.rtl : TextDirection.ltr,
                     textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => firstName = data,
                     width: 136,
@@ -72,7 +70,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
-                    textDirection: isArabic() ? TextDirection.rtl : TextDirection.ltr,
+                    textDirection:
+                        isArabic() ? TextDirection.rtl : TextDirection.ltr,
                     textAlign: isArabic() ? TextAlign.right : TextAlign.left,
                     onChanged: (data) => lastName = data,
                     width: 136,
@@ -81,21 +80,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   ),
                 )
               ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Center(
-              child: CustomTextFormField(
-                useValidator: false,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.start,
-                onChanged: (data) => email = data,
-                width: 284,
-                height: 46,
-                titleAbove: S.of(context).email,
-                keyboardType: TextInputType.emailAddress,
-              ),
             ),
             const SizedBox(
               height: 16,
@@ -110,7 +94,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                         bottom: 8,
                       ),
                       child: Text(
-                        S.of(context).personalImage,
+                        "${S.of(context).personalImage} (${S.of(context).optional})",
                         style: const TextStyle(
                             fontFamily: font,
                             fontSize: 12,
@@ -123,8 +107,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       children: [
                         CustomTextButton(
                           onTap: () {
-
-
                             showImagePicker(context, (Image newImage) {
                               imageCubit.setAvatarImg(newImage);
                             });
@@ -153,26 +135,35 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, PassengerMainScreen.id);
-                //   LoadingStatusHandler.startLoading();
+                  LoadingStatusHandler.startLoading();
                   // Call the sign-up API
-                  // TODO: Remove this comment when the API is ready
-                  // ApiService.signUp(
-                  //   phoneNumber: "1104149210",
-                  //   fname: firstName,
-                  //   lname: lastName,
-                  //   Email_ID: null,
-                  //   password: "passwordhkfdjhe",
-                  // ).then((_)  {
-                  //   LoadingStatusHandler.completeLoadingWithText("تم التسجيل").then((_) {
-                  //     // Then navigate to the main screen
-                  //     Navigator.pushNamed(context, PassengerMainScreen.id);
-                  //     });
-                  // }).catchError((error) {
-                  //   // Handle error
-                  //     LoadingStatusHandler.errorLoading(error.toString());
-                  //   print('Failed to sign-up: $error');
-                  // });
+                  ApiService.signUp(
+                          phoneNumber: phoneNumber,
+                          fname: firstName,
+                          lname: lastName,
+                          typeUser: "Passenger")
+                      .then((_) {
+                    LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
+                        .then((_) {
+                      print('Signed up successfully');
+                      ApiService.logIn(phoneNumber: phoneNumber)
+                          .then((_) async {
+                        // isLoggedIn = true;
+                        await updateDataToSharedPrefs();
+
+                        // Then navigate to the main screen
+                        Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
+                      }).catchError((error) {
+                        // Handle error
+                        LoadingStatusHandler.errorLoading(error.toString());
+                        print('Failed to log-in: $error');
+                      });
+                    });
+                  }).catchError((error) {
+                    // Handle error
+                    LoadingStatusHandler.errorLoading(error.toString());
+                    print('Failed to sign-up: $error');
+                  });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -186,7 +177,10 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   );
                 }
               },
-            )
+            ),
+            const SizedBox(
+              height: 16,
+            ),
           ],
         ),
       ),

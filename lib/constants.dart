@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-SharedPreferences? sharedPreferences;
-
 const Color kGreenBigButtons = Color(0xff28AA45);
 const Color kGreenFont = Color(0xff339949);
 

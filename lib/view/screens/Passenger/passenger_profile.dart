@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
@@ -7,7 +11,8 @@ import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_edit_profile.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_page.dart';
 import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
+import 'package:tawsela_app/utilities.dart';
+
 import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
@@ -39,10 +44,13 @@ class PassengerProfile extends StatelessWidget {
                   paddingVerti: 6,
                   icon: CustomSwitchIcon.icon,
                   iconSize: 20,
-                  onTap: () {
-                    //TODO: pop all screen in the stack
-                    //if the user uploaded the licesense and the id card switched to driverMainScreen
-                    Navigator.pushNamed(context, DriverPage.id);
+                  onTap: () async {
+                    isDriver = true;
+                    await updateDataToSharedPrefs();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => DriverPage()),
+                        (Route<dynamic> route) => false);
                   },
                 ),
                 const SizedBox(width: 8),
@@ -81,8 +89,7 @@ class PassengerProfile extends StatelessWidget {
                       }
                     },
                     radius: 10,
-                    iconSize: 20
-                ),
+                    iconSize: 20),
                 const SizedBox(width: 8),
                 CustomTextButton(
                   radius: 10,
@@ -95,12 +102,57 @@ class PassengerProfile extends StatelessWidget {
                   paddingHorzin: 2,
                   iconSize: 20,
                   containsIconOnly: true,
-                  onTap: () {
-                    //to pop all screen in the stack and return to welcome page
-                    Navigator.popUntil(
-                      context,
-                      ModalRoute.withName(WelcomePage.id),
-                    );
+                  onTap: () async {
+                    if (Platform.isIOS) {
+                      const platform = MethodChannel('logOutDialogChannel');
+                      try {
+                        final result = await platform.invokeMethod<int>('showLogOutDialog');
+                        switch (result) {
+                          case 1:
+                            isLoggedIn = false;
+                            await resetData();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WelcomePage()),
+                                    (Route<dynamic> route) => false);
+                            break;
+                        }
+                      } on PlatformException catch (error) {
+                        print(error.message);
+                      }
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("هل انت متأكد من تسجيل الخروج؟"),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("الغاء")
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  isLoggedIn = false;
+                                  await resetData();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => WelcomePage()),
+                                      (Route<dynamic> route) => false);
+                                },
+                                child: const Text(
+                                  "تسجيل الخروج",
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
               ],
@@ -114,13 +166,13 @@ class PassengerProfile extends StatelessWidget {
             color: const Color(0xffF8F8F8),
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
               child: Column(
                 children: [
                   Row(children: [
                     CircleAvatar(
                         radius: 50,
-                        backgroundImage:  imageState.avatarImg.image,
+                        backgroundImage: imageState.avatarImg.image,
                         backgroundColor: kGreyFont),
                     const SizedBox(
                       width: 16,
@@ -204,7 +256,7 @@ class PassengerProfile extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    S.of(context).trip,
+                    "12  ${S.of(context).trip}",
                     style: const TextStyle(
                         color: Colors.black,
                         fontFamily: font,
@@ -258,7 +310,7 @@ class PassengerProfile extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  overflow:  TextOverflow.ellipsis,
+                                  overflow: TextOverflow.ellipsis,
                                   "$firstName $lastName",
                                   style: const TextStyle(
                                       fontFamily: font,
@@ -308,7 +360,8 @@ class PassengerProfile extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 2),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 2),
                                     child: Icon(
                                       Icons.arrow_forward,
                                       size: 15,
