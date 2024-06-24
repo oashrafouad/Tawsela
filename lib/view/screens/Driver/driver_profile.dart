@@ -166,8 +166,9 @@ class DriverProfilePage extends StatelessWidget {
                 children: [
                   Row(children: [
                     CircleAvatar(
+                      backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
                       radius: 40,
-                      backgroundImage: imageState.avatarImg.image,
+                      backgroundColor: kGreenSmallButtonBorder,
                     ),
                     const SizedBox(
                       width: 16,
@@ -334,8 +335,9 @@ class DriverProfilePage extends StatelessWidget {
               children: [
                 ListTile(
                   leading: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: imageState.avatarImg.image,
+                    backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                    radius: 25,
+                    backgroundColor: kGreenSmallButtonBorder,
                   ),
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

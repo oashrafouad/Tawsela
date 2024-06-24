@@ -39,31 +39,33 @@ class ApiService {
     }
   }
 
-  static Future<void> signUp({
-    required String phoneNumber,
-    required String fname,
-    required String lname,
-    required String typeUser,
-    String? overallRating
-  }) async {
-    final url = Uri.parse('$server_url/api/users');
-    final response = await post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'Phone_Num': phoneNumber,
-        'F_Name': fname,
-        'L_Name': lname,
-        'Type_User': typeUser,
-      }),
-    );
-    final error = handleError(response);
-    if (error != null) {
-      throw error;
-    } else {
-      await updateDataToSharedPrefs();
-    }
+static Future<void> signUp({
+  required String phoneNumber,
+  required String fname,
+  required String lname,
+  required String typeUser,
+  // String? profileImageURL,
+  String? overallRating
+}) async {
+  final url = Uri.parse('$server_url/api/users');
+  final response = await post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode({
+      'Phone_Num': phoneNumber,
+      'F_Name': fname,
+      'L_Name': lname,
+      'Type_User': typeUser,
+      // 'profile_image_url': profileImageURL, // Include this line
+    }),
+  );
+  final error = handleError(response);
+  if (error != null) {
+    throw error;
+  } else {
+    await updateDataToSharedPrefs();
   }
+}
 
   static Future<void> logIn({
     required String phoneNumber,
@@ -116,6 +118,7 @@ class ApiService {
         error = 'هذا الحساب موجود بالفعل';
         break;
       case 500: // Internal server error (no internet connection, server down, etc.)
+        print(response.body);
         error = 'تأكد من اتصالك بالانترنت';
         break;
       default:

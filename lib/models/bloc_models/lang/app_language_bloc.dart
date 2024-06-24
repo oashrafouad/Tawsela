@@ -28,7 +28,7 @@ emit(AppChangeLanguage(languageCode: 'ar'));
 
       else if (event is EnglishLanguageEvent){
         sharedPreferences!.setString('lang', 'en');
-emit(AppChangeLanguage(languageCode: 'en'));
+        emit(AppChangeLanguage(languageCode: 'en'));
       }
     });
   }

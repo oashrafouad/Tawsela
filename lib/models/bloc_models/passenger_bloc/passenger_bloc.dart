@@ -455,7 +455,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(const UserErrorState('Please Provide current Location'));
       } else {
         try {
-          DirectionsService.init(KeyChain.google_server_key!);
+          DirectionsService.init('***REMOVED***');
           DirectionsService directions = DirectionsService();
           Polyline path = Polyline(
               polylineId: PolylineId('path'),

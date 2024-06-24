@@ -49,8 +49,11 @@ class PassengerMainScreen extends StatelessWidget {
                 child: InkWell(
                   onTap: () => Navigator.pushNamed(context, PassengerProfile.id),
                   //this i modified
-                  child: CircleAvatar(backgroundImage: isLoggedIn? NetworkImage(profileImageURL): imageState.avatarImg.image,radius: 25,
-                  ),
+                    child: CircleAvatar(
+                      backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                      radius: 25,
+                      backgroundColor: kGreenSmallButtonBorder,
+                    ),
                 ),),
 
                 Padding(

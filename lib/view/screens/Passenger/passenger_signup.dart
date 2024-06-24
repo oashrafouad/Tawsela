@@ -91,7 +91,7 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        bottom: 8,
+                        bottom: 8, right: 40.0,
                       ),
                       child: Text(
                         "${S.of(context).personalImage} (${S.of(context).optional})",
@@ -135,13 +135,16 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
+                  // print("HELLO: $profileImageURL");
                   LoadingStatusHandler.startLoading();
                   // Call the sign-up API
                   ApiService.signUp(
-                          phoneNumber: phoneNumber,
-                          fname: firstName,
-                          lname: lastName,
-                          typeUser: "Passenger")
+                      phoneNumber: phoneNumber,
+                      fname: firstName,
+                      lname: lastName,
+                      typeUser: "Passenger",
+                      // profileImageURL: profileImageURL
+                  )
                       .then((_) {
                     LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
                         .then((_) {

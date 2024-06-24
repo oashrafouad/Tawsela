@@ -30,7 +30,7 @@ dependencies:
   equatable: "2.0.5"
   http:
   connectivity:
-  # get_it: ^7.7.0
+  get_it: any
   cupertino_icons: ^1.0.6
   top_modal_sheet: ^2.1.0
   image_picker: any

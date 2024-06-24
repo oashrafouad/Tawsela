@@ -171,9 +171,10 @@ class PassengerProfile extends StatelessWidget {
                 children: [
                   Row(children: [
                     CircleAvatar(
-                        radius: 50,
-                        backgroundImage: imageState.avatarImg.image,
-                        backgroundColor: kGreyFont),
+                      backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                      radius: 50,
+                      backgroundColor: kGreenSmallButtonBorder,
+                    ),
                     const SizedBox(
                       width: 16,
                     ),
@@ -300,8 +301,9 @@ class PassengerProfile extends StatelessWidget {
                       ),
                     ListTile(
                       leading: CircleAvatar(
-                        radius: 40,
-                        backgroundImage: imageState.avatarImg.image,
+                        backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                        radius: 25,
+                        backgroundColor: kGreenSmallButtonBorder,
                       ),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

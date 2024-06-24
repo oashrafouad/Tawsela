@@ -18,7 +18,6 @@ import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
 import 'models/data_models/google_server.dart';
 import 'models/data_models/server.dart';
 import 'models/get_it.dart/key_chain.dart';
-import 'models/servers/local_server.dart';
 
 bool isArabic() => Intl.getCurrentLocale() == 'ar';
 
@@ -196,7 +195,6 @@ initializeGoogleMapsAPI() async {
   // register google map api key into GET_IT
   GoogleServer APIKEY = GoogleServer(apiKey);
   // GetIt.instance.registerSingleton<GoogleServer>(APIKEY);
-  KeyChain.chain.registerSingleton<GoogleServer>(APIKEY);
 }
 
 // Our API
@@ -209,9 +207,8 @@ initializeServerAPI() async {
   Map mapObject = jsonDecode(json) as Map;
   // fetching server url  value
   server_url = mapObject['server_url'];
+  // print(server_url);
   // register server url into GET_IT
-  LocalServer MainServer = LocalServer(server_url);
-  KeyChain.chain.registerSingleton<LocalServer>(MainServer, instanceName: 'main-server');
 }
 
 // Shared preferences

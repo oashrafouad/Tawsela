@@ -17,6 +17,7 @@ import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tawsela_app/utilities.dart';
 
 import 'firebase_options.dart';
 
@@ -54,7 +55,18 @@ void main() async {
   // Initialize SVProgressHUD
   LoadingStatusHandler.initialize();
 
+  await initializeGoogleMapsAPI();
+  await initializeServerAPI();
+  //print("Shared preferences initialized");
   sharedPreferences = await SharedPreferences.getInstance();
+  isLoggedIn = sharedPreferences!.getBool('isLoggedIn') ?? false;
+  isDriver = sharedPreferences!.getBool('isDriver') ?? false;
+
+  if (isLoggedIn) {
+    await initValues();
+  }
+
+
 
   // loading google map api key
 

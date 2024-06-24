@@ -37,6 +37,8 @@ import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
+import '../../../utilities.dart';
+
 class DriverPage extends StatefulWidget {
   static const String id = 'DriverPage';
   const DriverPage({super.key});
@@ -217,9 +219,9 @@ class _DriverPageState extends State<DriverPage> {
                                       onTap: () => Navigator.pushNamed(
                                           context, DriverProfilePage.id),
                                       child: CircleAvatar(
-                                        backgroundImage:
-                                            imageState.avatarImg.image,
+                                        backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
                                         radius: 25,
+                                        backgroundColor: kGreenSmallButtonBorder,
                                       ),
                                     ),
                                   ),
