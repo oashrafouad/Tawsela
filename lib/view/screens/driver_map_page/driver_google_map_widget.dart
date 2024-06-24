@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
+import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 class DriverGoogleMapWidget extends StatelessWidget {
   final bool isTripStarted;
@@ -41,8 +42,9 @@ class DriverGoogleMapWidget extends StatelessWidget {
                               markerId: const MarkerId('my-pos'),
                               position: LatLng(snapshot.data!.latitude,
                                   snapshot.data!.longitude),
-                              icon: BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueYellow))
+                              icon: KeyChain.driver_image ??
+                                  BitmapDescriptor.defaultMarkerWithHue(
+                                      BitmapDescriptor.hueAzure))
                         },
                         polylines: (uberDriverProvider.lines.isNotEmpty)
                             ? {...uberDriverProvider.lines}

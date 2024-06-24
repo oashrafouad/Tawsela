@@ -57,7 +57,7 @@ class _DriverPageState extends State<DriverPage> {
     super.initState();
     timer = TripRequestTimer(
       requestCallback: checkRequest,
-      tripCallback: checkTrip,
+      tripCallback: () async {},
       duration: Duration(seconds: 5),
     );
   }
@@ -73,12 +73,24 @@ class _DriverPageState extends State<DriverPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: Container(
-                  width: 100,
-                  height: 100,
-                  child: Text('Passenger has cancelled Request'),
-                ),
-              );
+                  actions: [
+                    IconButton(
+                      icon: Icon(Icons.exit_to_app, color: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                  content: Container(
+                    color: Colors.red,
+                    width: 200,
+                    height: 200,
+                    child: Center(
+                        child: Text(
+                      'Passenger Cancelled Request',
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  ));
             });
         BlocProvider.of<UberDriverBloc>(context)
             .add(PassengerCancelledRequest());
@@ -90,21 +102,20 @@ class _DriverPageState extends State<DriverPage> {
     return result;
   }
 
-  Future<bool> checkTrip() async {
-    bool result = false;
-    try {
-      result = await MainServer.isTripCancelled(
-          uberLastState.acceptedRequest!.Req_ID!);
-      if (result) {
-        BlocProvider.of<UberDriverBloc>(context)
-            .add(PassengerCancelledRequest());
-        timer.stopTripTimer();
-      }
-    } catch (error) {
-      result = false;
-    }
-    return result;
-  }
+  // Future<bool> checkTrip() async {
+  // bool result = false;
+  // try {
+  //   result = await MainServer.isTripEnded();
+  //   if (result) {
+  //     BlocProvider.of<UberDriverBloc>(context)
+  //         .add(PassengerCancelledRequest());
+  //     timer.stopTripTimer();
+  //   }
+  // } catch (error) {
+  //   result = false;
+  // }
+  // return result;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +130,7 @@ class _DriverPageState extends State<DriverPage> {
             backgroundColor: Colors.red,
             messageColor: Colors.white,
             flushbarPosition: FlushbarPosition.BOTTOM,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 5),
           ).show(context);
         } else {}
       },
@@ -219,9 +230,12 @@ class _DriverPageState extends State<DriverPage> {
                                       onTap: () => Navigator.pushNamed(
                                           context, DriverProfilePage.id),
                                       child: CircleAvatar(
-                                        backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                                        backgroundImage: isLoggedIn
+                                            ? NetworkImage(profileImageURL)
+                                            : imageState.avatarImg.image,
                                         radius: 25,
-                                        backgroundColor: kGreenSmallButtonBorder,
+                                        backgroundColor:
+                                            kGreenSmallButtonBorder,
                                       ),
                                     ),
                                   ),

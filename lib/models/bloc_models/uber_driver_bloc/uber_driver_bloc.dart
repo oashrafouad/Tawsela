@@ -407,11 +407,13 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       } else {
         try {
           final Trip trip = Trip(
-              Driver_ID: uberLastState.driver!.phone,
+              Req_ID: uberLastState.acceptedRequest!.Req_ID,
+              TripID: DateTime.now().toString() + uberLastState.driver!.phone,
+              Phone_Num: uberLastState.driver!.phone,
               Start_Time: DateTime.now().toString(),
               End_Time: DateTime.now().toString(),
               Trip_Status: 'Uber',
-              Price: '200 LE',
+              Price: 'Negotiable',
               Trip_type: 'accepted',
               Current_Location: uberLastState.acceptedRequest!.Current_Location,
               Desired_Location: uberLastState.acceptedRequest!.Desired_Location,

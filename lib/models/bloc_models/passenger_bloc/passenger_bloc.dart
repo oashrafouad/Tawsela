@@ -45,7 +45,7 @@ PassengerState passengerLastState = PassengerState(
         lastName: lastName,
         location: invalidPosition,
         firstName: firstName,
-        phone: phoneNumber),
+        phone: 'phoneNumber'),
     currentPosition: invalidPosition,
     lines: <Polyline>[],
     markers: <Marker>{},
@@ -177,39 +177,21 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
   /************ request uber driver end *********************** */
 
   // get Min index begin
-  List<int> getMinPathIndex(List<Path_t> paths) {
-    List<int> lines = [];
-    List<Path_t> points = [];
-    for (int i = 0; i < paths.length; i++) {
-      if (paths[i].distance.value != null) {
-        lines.add(i);
-        points.add(paths[i]);
+  int getMinPathIndex(List<Path_t> paths) {
+    int minIndex = 0;
+    for (int i = 1; i < paths.length; i++) {
+      if (paths[i].distance.value! < paths[minIndex].distance.value!) {
+        minIndex = i;
       }
     }
-    for (int i = 1; i < points.length; i++) {
-      for (int j = 0; j < points.length - 1; j++) {
-        if (points[j].distance.value != null &&
-            points[j].distance.value != null &&
-            points[j].distance.value! > points[j + 1].distance.value!) {
-          double temp = points[j].distance.value!;
-          points[j].distance.value = points[j + 1].distance.value!;
-          points[j + 1].distance.value = temp;
-
-          // sort lines
-          int tempLine = lines[j];
-          lines[j] = lines[j + 1];
-          lines[j + 1] = tempLine;
-        }
-      }
-    }
-    return lines;
+    return minIndex;
   }
 
   /************ get min index end ****************************** */
 
   // get current service path begin
   FutureOr<void> GoogleMapGetCurrentPath() async {
-    emit(const Loading(getServiceLinePlacHolder));
+    emit(Loading(getServiceLinePlacHolder));
     await ServicePoints.loadLines(sorted: true);
 
     // NOTE:
@@ -224,83 +206,43 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     ;
     // get aligned points to user
     for (int i = 0; i < latitudeSorted.length; i++) {
-      LatLng latitude = ServicePoints.getNearesPoint(
+      LatLng latitude = ServicePoints.LatLngBinarySearch(
           point: passengerLastState.destination!,
-          line: latitudeSorted[i],
+          points: latitudeSorted[i],
           option: SORT_SEARCH_OPTION.LATITUDE);
       minLatitude[i] = latitude;
-      LatLng longitude = ServicePoints.getNearesPoint(
+      LatLng longitude = ServicePoints.LatLngBinarySearch(
           point: passengerLastState.destination!,
-          line: longitudeSorted[i],
+          points: longitudeSorted[i],
           option: SORT_SEARCH_OPTION.LONGITUDE);
       minLongitude[i] = longitude;
     }
-    // first line equation
-    List<double> slopes = List.filled(minLatitude.length, 0);
-
-    int i = 0;
-    while (i < minLatitude.length) {
-      slopes[i] = (minLatitude[i].latitude - minLongitude[i].latitude) /
-          (minLatitude[i].longitude - minLongitude[i].longitude);
-
-      i += 1;
+    LatLng minLatitudePoint = minLatitude[0];
+    LatLng minLongitudePoint = minLongitude[0];
+    int minLatitudeIndex = 0;
+    int minLongitudeIndex = 0;
+    double minLatitudeValue = double.maxFinite;
+    double minLongitudeValue = double.maxFinite;
+    for (int i = 0; i < minLatitude.length; i++) {
+      if ((minLatitude[i].longitude - passengerLastState.destination!.longitude)
+              .abs() <
+          minLatitudeValue) {
+        minLatitudeValue = (minLatitude[i].longitude -
+                passengerLastState.destination!.longitude)
+            .abs();
+        minLatitudePoint = minLatitude[i];
+        minLatitudeIndex = i;
+      }
+      if ((minLongitude[i].latitude - passengerLastState.destination!.latitude)
+              .abs() <
+          minLongitudeValue) {
+        minLongitudeValue = (minLongitude[i].latitude -
+                passengerLastState.destination!.latitude)
+            .abs();
+        minLongitudePoint = minLongitude[i];
+        minLongitudeIndex = i;
+      }
     }
-    // b part of the equation
-    List<double> yb = List.filled(slopes.length, 0);
-    for (int i = 0; i < minLatitude.length; i += 1) {
-      yb[i] = -slopes[i] * minLatitude[i].longitude + minLatitude[i].latitude;
-    }
-    // perpendicular line
-    List<double> perpenSlope = List.filled(slopes.length, 0);
-    for (int i = 0; i < slopes.length; i++) {
-      perpenSlope[i] = -1 / slopes[i];
-    }
-    // perpendicular perpenYb
-    List<double> perpenYb = List.filled(slopes.length, 0);
-    for (int i = 0; i < perpenSlope.length; i++) {
-      perpenYb[i] =
-          -perpenSlope[i] * passengerLastState.destination!.longitude +
-              passengerLastState.destination!.latitude;
-    }
-    // intersetion points
-    List<double> intersectionPoints = List.filled(slopes.length, 0);
-    for (int i = 0; i < slopes.length; i++) {
-      intersectionPoints[i] =
-          (perpenYb[i] - yb[i]) / (slopes[i] - perpenSlope[i]);
-    }
-    List<LatLng> shortPoints =
-        List.filled(intersectionPoints.length, LatLng(0, 0));
-    for (int i = 0; i < intersectionPoints.length; i++) {
-      shortPoints[i] = LatLng(
-          slopes[i] * intersectionPoints[i] + yb[i], intersectionPoints[i]);
-    }
-
-    // LatLng minLatitudePoint = minLatitude[0];
-    // LatLng minLongitudePoint = minLongitude[0];
-    // int minLatitudeIndex = 0;
-    // int minLongitudeIndex = 0;
-    // double minLatitudeValue = 10000000;
-    // double minLongitudeValue = 1000000;
-    // for (int i = 0; i < minLatitude.length; i++) {
-    //   if ((minLatitude[i].longitude - passengerLastState.destination!.longitude)
-    //           .abs() <
-    //       minLatitudeValue) {
-    //     minLatitudeValue = (minLatitude[i].longitude -
-    //             passengerLastState.destination!.longitude)
-    //         .abs();
-    //     minLatitudePoint = minLatitude[i];
-    //     minLatitudeIndex = i;
-    //   }
-    //   if ((minLongitude[i].latitude - passengerLastState.destination!.latitude)
-    //           .abs() <
-    //       minLongitudeValue) {
-    //     minLongitudeValue = (minLongitude[i].latitude -
-    //             passengerLastState.destination!.latitude)
-    //         .abs();
-    //     minLongitudePoint = minLongitude[i];
-    //     minLongitudeIndex = i;
-    //   }
-    // }
     // initializing values of min algorithm for longitude and latitude
     // int minErrorLatitudeIndex = 0;
     // double minLatitudeError =
@@ -310,42 +252,34 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     // double minLongitudeError =
     //     (minLongitude[0].longitude - passengerLastState.destination!.longitude)
     //         .abs();
-    String destinationParameter = '';
-    for (int i = 0; i < shortPoints.length; i++) {
-      destinationParameter +=
-          '${shortPoints[i].latitude},${shortPoints[i].longitude}%7C';
-      // destinationParameter +=
-      //     '${minLongitude[i].latitude},${minLongitude[i].longitude}%7C';
-    }
+    String destinationParameter =
+        '${minLatitudePoint.latitude},${minLatitudePoint.longitude}%7C' +
+            '${minLongitudePoint.latitude},${minLongitudePoint.longitude}%7C';
+    // for (int i = 1; i < minLatitude.length; i++) {
+    //   destinationParameter +=
+    //       '${minLatitude[i].latitude},${minLatitude[i].longitude}%7C';
+    //   destinationParameter +=
+    //       '${minLongitude[i].latitude},${minLongitude[i].longitude}%7C';
+    // }
 
     http.Response? response;
     try {
       response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=${KeyChain.google_server_key}'));
+          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=***REMOVED***'));
     } catch (exception) {
-      emit(const UserErrorState('Error caclulating nearest service line'));
+      emit(UserErrorState('Error caclulating nearest service line'));
     }
-
     Map responseBody = jsonDecode(response!.body);
     List rows = responseBody['rows'];
 
+    LatLng? target;
+    int? index;
     if (rows.length != 0) {
       List paths = responseBody['rows'][0]['elements'];
+      List<Path_t> distances = paths.map((e) => Path_t.fromJson(e)).toList();
+      index = getMinPathIndex(distances);
+      target = index == 0 ? minLatitudePoint : minLongitudePoint;
 
-      print(paths);
-      List<Path_t> distances = paths.map((e) {
-        if (e['distance'] == null) {
-          return Path_t(Distance(null, null), Duration_t(null, null));
-        } else {
-          return Path_t.fromJson(e);
-        }
-      }).toList();
-      List<int> lines = getMinPathIndex(distances);
-
-      // int row = index ~/ 2;
-      // int col = (index % 2 == 0) ? 0 : 1;
-
-      // int lineNumber = (index - col) ~/ 2;
       // if (index % 2 == 0) {
       //   index ~/= 2;
       //   target = minLatitude[index];
@@ -354,83 +288,40 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       //   target = minLongitude[index];
       // }
 
+      add(ShowLine(index == 0 ? minLatitudeIndex : minLongitudeIndex));
       /*********************************************** */
-      int minLine = -1;
-      LatLng? userFinalLocalDestination;
-      double totalDistance = double.maxFinite;
-      for (int i = 0; i < lines.length; i++) {
-        double dd = distances[lines[i]].distance.value!;
-        double sd = double.maxFinite;
+      int lineNumber = index == 0 ? minLatitudeIndex : minLongitudeIndex;
 
-        LatLng latValue = ServicePoints.getNearesPoint(
-            option: SORT_SEARCH_OPTION.LATITUDE,
-            point: passengerLastState.currentPosition,
-            line: ServicePoints.serviceLatPoints[lines[i]]);
-        LatLng lngValue = ServicePoints.getNearesPoint(
-            option: SORT_SEARCH_OPTION.LONGITUDE,
-            point: passengerLastState.currentPosition,
-            line: ServicePoints.serviceLngPoints[lines[i]]);
-
-        final double slope = (latValue.latitude - lngValue.latitude) /
-            (latValue.longitude - lngValue.longitude);
-
-        final double ybb = -slope * latValue.longitude + latValue.latitude;
-        final double pSlope = -1 / slope;
-        final double pybb =
-            -pSlope * passengerLastState.currentPosition.longitude +
-                passengerLastState.currentPosition.latitude;
-        final double intersection = (pybb - ybb) / (slope - pSlope);
-        LatLng userLocalDestination =
-            LatLng(slope * intersection + ybb, intersection);
-        final String localDestination =
-            '${userLocalDestination.latitude},${userLocalDestination.longitude}%7C';
-
-        try {
-          response = await http.get(Uri.parse(
-              'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=walking&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.google_server_key}'));
-        } catch (exception) {
-          emit(UserErrorState('Error caclulating nearest service line'));
-        }
-        responseBody = jsonDecode(response!.body);
-        if (rows.length != 0) {
-          List paths = responseBody['rows'][0]['elements'];
-          if (paths[0]['distance'] != null) {
-            print('one path = ' + paths.toString());
-            List<Path_t> distances =
-                paths.map((e) => Path_t.fromJson(e)).toList();
-            sd = distances[0].distance.value ?? double.maxFinite;
-          } else {
-            emit(UserErrorState('No Valid path for line ${lines[i]}'));
-          }
-          if (dd + sd < totalDistance) {
-            totalDistance = dd + sd;
-            minLine = lines[i];
-            userFinalLocalDestination = userLocalDestination;
-          }
-        }
+      LatLng latValue = ServicePoints.LatLngBinarySearch(
+          option: SORT_SEARCH_OPTION.LATITUDE,
+          point: passengerLastState.currentPosition,
+          points: ServicePoints.serviceLatPoints[lineNumber]);
+      LatLng lngValue = ServicePoints.LatLngBinarySearch(
+          option: SORT_SEARCH_OPTION.LONGITUDE,
+          point: passengerLastState.currentPosition,
+          points: ServicePoints.serviceLngPoints[lineNumber]);
+      final String localDestination =
+          '${latValue.latitude},${latValue.longitude}%7C' +
+              '${lngValue.latitude},${lngValue.longitude}%7C';
+      try {
+        response = await http.get(Uri.parse(
+            'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=***REMOVED***'));
+      } catch (exception) {
+        emit(UserErrorState('Error caclulating nearest service line'));
       }
-      add(ShowLine(minLine));
-      add(GetWalkDirections(
-          passengerDestination:
-              userFinalLocalDestination ?? passengerLastState.currentPosition));
-      // try {
-      //   response = await http.get(Uri.parse(
-      //       'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=${KeyChain.chain.get<GoogleServer>().url}'));
-      // } catch (exception) {
-      //   emit(UserErrorState('Error caclulating nearest service line'));
-      // }
-      // responseBody = jsonDecode(response!.body);
-      // rows = responseBody['rows'];
-      // if (rows.length != 0) {
-      //   List paths = responseBody['rows'][0]['elements'];
-      //   List<Path_t> distances = paths.map((e) => Path_t.fromJson(e)).toList();
-      //   index = getMinPathIndex(distances);
-      // } else {
-      //   emit(UserErrorState('Error caclulating nearest service line'));
-      // }
+      responseBody = jsonDecode(response!.body);
+      rows = responseBody['rows'];
+      if (rows.length != 0) {
+        List paths = responseBody['rows'][0]['elements'];
+        List<Path_t> distances = paths.map((e) => Path_t.fromJson(e)).toList();
+        index = getMinPathIndex(distances);
+        add(GetWalkDirections(
+            passengerDestination: index == 0 ? latValue : lngValue));
+      } else {
+        emit(UserErrorState('Error caclulating nearest service line'));
+      }
     }
   }
-
   /****************** get current service path end ******************************** */
 
   // get walk direction for passenger begin
@@ -583,17 +474,52 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       int number;
       switch (event.lineNumber) {
         case 0:
-          number = 3;
-          break;
         case 1:
-          number = 7;
+          number = 1;
           break;
         case 2:
+        case 3:
+          number = 2;
+          break;
+        case 4:
+        case 5:
+          number = 3;
+          break;
+        case 6:
+        case 7:
+          number = 4;
+          break;
+        case 8:
+        case 9:
+          number = 5;
+          break;
+        case 10:
+        case 11:
+          number = 6;
+          break;
+        case 12:
+        case 13:
+          number = 7;
+          break;
+        case 14:
+        case 15:
+          number = 8;
+          break;
+        case 16:
+        case 17:
           number = 9;
           break;
-        case 3:
+        case 18:
+        case 19:
           number = 11;
           break;
+        case 20:
+        case 21:
+          number = 13;
+          break;
+        case 22:
+        case 23:
+          number = 17;
         default:
           number = 1;
           break;

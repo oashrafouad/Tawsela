@@ -65,8 +65,11 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/driver.png
+    - assets/user.png
     - assets/images/
     - assets/JSON/keys/server_url.json
+    - assets/JSON/keys/google_map_key.json
     - assets/JSON/paths/1f.json
     - assets/JSON/paths/2f.json
     - assets/JSON/paths/3f.json

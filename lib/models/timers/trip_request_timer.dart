@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:http/http.dart';
+
 class TripRequestTimer {
   Timer? _requestTimer;
   Timer? _tripTimer;
@@ -12,6 +14,20 @@ class TripRequestTimer {
     required this.tripCallback,
     required this.duration,
   });
+
+  bool isRequestTimerOn() {
+    if (_requestTimer == null) {
+      return false;
+    }
+    return _requestTimer!.isActive;
+  }
+
+  bool isTripTimerOn() {
+    if (_tripTimer == null) {
+      return false;
+    }
+    return _tripTimer!.isActive;
+  }
 
   void startTripTimer() {
     _tripTimer = Timer.periodic(duration, (timer) async {

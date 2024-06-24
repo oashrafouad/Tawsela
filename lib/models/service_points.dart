@@ -5,8 +5,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 enum SORT_SEARCH_OPTION { LATITUDE, LONGITUDE }
 
-const double latitudeThreshold = 0.0001;
-const double longitudeThreshold = 0.0001;
+const double latitudeThreshold = 0.00005;
+const double longitudeThreshold = 0.00005;
 
 class ServicePoints {
   static List<List<LatLng>> serviceLatPoints = [];
@@ -34,15 +34,15 @@ class ServicePoints {
     'assets/JSON/paths/17f.json',
     'assets/JSON/paths/13b.json',
     'assets/JSON/paths/17b.json',
-    'assets/JSON/paths/11.json',
   ];
 
   // getters
 
   // load service lines from json files
+  // load service lines from json files
   static Future<void> loadLines({bool sorted = false}) async {
-    serviceLatPoints = [];
-    serviceLngPoints = [];
+    serviceLatPoints = List.empty(growable: true);
+    serviceLngPoints = List.empty(growable: true);
     // for each path of a file load file
     for (int i = 0; i < lines.length; i++) {
       // load file data from path
@@ -60,7 +60,7 @@ class ServicePoints {
       serviceLatPoints.add(line);
 
       // sort points by longitude and adding it to serviceLngPoints
-      if (sorted) _sort(points: line, option: SORT_SEARCH_OPTION.LATITUDE);
+      if (sorted) _sort(points: line, option: SORT_SEARCH_OPTION.LONGITUDE);
       serviceLngPoints.add(line);
     }
   }
@@ -74,12 +74,12 @@ class ServicePoints {
       int latitudeSteps = 0;
       LatLng bestLatitude = line[0];
       while (latitudeDistance > latitudeThreshold) {
-        latitudeDistance = (point.latitude - bestLatitude.latitude).abs();
+        latitudeDistance = point.latitude - bestLatitude.latitude;
         print('Latitude distance = ' + latitudeDistance.toString());
         if (latitudeDistance <= latitudeThreshold) {
           break;
         }
-        latitudeSteps += (latitudeDistance ~/ latitudeThreshold);
+        latitudeSteps += (latitudeDistance ~/ latitudeThreshold).abs();
         if (latitudeSteps < line.length) {
           bestLatitude = line[latitudeSteps];
         } else {
@@ -94,7 +94,7 @@ class ServicePoints {
 
       int longitudeSteps = 0;
       while (longitudeDistance > longitudeThreshold) {
-        longitudeDistance = (point.longitude - bestLongitude.longitude).abs();
+        longitudeDistance = point.longitude - bestLongitude.longitude;
         print('Longitude distance = ' + longitudeDistance.toString());
 
         if (longitudeDistance <= longitudeThreshold) {
@@ -117,18 +117,18 @@ class ServicePoints {
       {SORT_SEARCH_OPTION option = SORT_SEARCH_OPTION.LATITUDE,
       required List<LatLng> points}) {
     // performing sorting on points by latitude
-    for (int i = 0; i < points.length - 1; i++) {
-      for (int j = i + 1; j < points.length; j++) {
+    for (int i = 1; i <= points.length; i++) {
+      for (int j = 0; j < points.length - 1; j++) {
         if (option == SORT_SEARCH_OPTION.LATITUDE) {
-          if (points[i].latitude > points[j].latitude) {
-            LatLng temp = points[i];
-            points[i] = points[j];
+          if (points[j].latitude > points[j + 1].latitude) {
+            LatLng temp = points[j + 1];
+            points[j + 1] = points[j];
             points[j] = temp;
           }
         } else {
-          if (points[i].longitude > points[j].longitude) {
-            LatLng temp = points[i];
-            points[i] = points[j];
+          if (points[j].longitude > points[j + 1].longitude) {
+            LatLng temp = points[j + 1];
+            points[j + 1] = points[j];
             points[j] = temp;
           }
         }
@@ -173,7 +173,7 @@ class ServicePoints {
       } else if (current_error > error) {}
       if (option == SORT_SEARCH_OPTION.LATITUDE) {
         // check error of the point to get better estimation
-        if (error == 100000 && // check if it is initial state
+        if (error == double.maxFinite && // check if it is initial state
             mostApproximateValue.latitude == -1 &&
             mostApproximateValue.longitude == -1) {
           mostApproximateValue = points[middle];
@@ -198,7 +198,7 @@ class ServicePoints {
         }
       } else {
         // same sequence but for option longitude
-        if (error == 100000 &&
+        if (error == double.maxFinite &&
             mostApproximateValue.latitude == -1 &&
             mostApproximateValue.longitude == -1) {
           mostApproximateValue = points[middle];

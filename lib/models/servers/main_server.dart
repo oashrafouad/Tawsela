@@ -153,8 +153,21 @@ class MainServer {
     }
   }
 
-  static Future<bool> isTripEnded(String tripId) async {
-    final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
+  static Future<bool> isTripStarted(String requestId) async {
+    final String endPoint = MainServer.serverUrl! + 'api/trips' + requestId;
+    try {
+      http.Response? response = await http.get(Uri.parse(endPoint));
+      Map<String, dynamic> json = jsonDecode(response.body);
+      Trip trip = Trip.fromJson(json);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  static Future<bool> isTripEnded(String requestId) async {
+    final String endPoint = MainServer.serverUrl! + 'api/trips' + requestId;
     try {
       http.Response? response = await http.get(Uri.parse(endPoint));
       Map<String, dynamic> json = jsonDecode(response.body);
@@ -164,17 +177,6 @@ class MainServer {
       } else {
         return true;
       }
-    } catch (error) {
-      return false;
-    }
-  }
-
-  static Future<bool> isTripCancelled(String tripId) async {
-    final String endPoint = MainServer.serverUrl! + 'api/trips' + tripId;
-    try {
-      http.Response? response = await http.get(Uri.parse(endPoint));
-      Map<String, dynamic> json = jsonDecode(response.body);
-      return true;
     } catch (error) {
       return false;
     }

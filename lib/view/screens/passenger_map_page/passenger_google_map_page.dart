@@ -6,6 +6,7 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
+import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 class PassengerGoogleMapWidget extends StatelessWidget {
   final isTripStarted;
@@ -41,8 +42,9 @@ class PassengerGoogleMapWidget extends StatelessWidget {
                                 markerId: const MarkerId('moving-passenger'),
                                 position: LatLng(snapshot.data!.latitude,
                                     snapshot.data!.longitude),
-                                icon: BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueYellow))
+                                icon: KeyChain.passenger_image ??
+                                    BitmapDescriptor.defaultMarkerWithHue(
+                                        BitmapDescriptor.hueAzure))
                           },
                           polylines: (passengerState.lines.isNotEmpty)
                               ? {...passengerState.lines}
@@ -55,7 +57,7 @@ class PassengerGoogleMapWidget extends StatelessWidget {
                     }
                   })
               : GoogleMap(
-                  onMapCreated: (GoogleMapController controller) { 
+                  onMapCreated: (GoogleMapController controller) {
                     passengerState.controller = controller;
                   },
                   markers: passengerState.markers,

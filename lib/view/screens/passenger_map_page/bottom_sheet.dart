@@ -134,7 +134,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                           timer: widget.timer,
                         )
                       : (selectedItem == 1)
-                          ? const ServiceChoice()
+                          ? ServiceChoice()
                           : (selectedItem == 2)
                               ? BlocConsumer<PassengerBloc, MapUserState>(
                                   buildWhen: (previous, current) {
@@ -145,7 +145,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                                     // TODO: implement listener
                                   },
                                   builder: (context, state) {
-                                    return const WalkChoice();
+                                    return WalkChoice();
                                   },
                                 )
                               : Container(

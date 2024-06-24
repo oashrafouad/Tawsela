@@ -30,7 +30,7 @@ class PassengerPage extends StatefulWidget {
 
 class _PassengerPageState extends State<PassengerPage> {
   final textController = TextEditingController();
-  List<String> tripStates = ['Start Trip', 'End Trip'];
+  List<String> tripStates = ['Start', 'End'];
   bool isTripStarted = false;
   late TripRequestTimer timer;
 
@@ -53,7 +53,25 @@ class _PassengerPageState extends State<PassengerPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                content: Container(child: Text('Driver Cancelled request')),
+                actions: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+                content: Container(
+                    color: Colors.red,
+                    width: 200,
+                    height: 200,
+                    child: Text(
+                      'Driver Cancelled request',
+                      style: TextStyle(color: Colors.white),
+                    )),
               );
             });
         BlocProvider.of<PassengerBloc>(context).add(CancelUberRequest());
@@ -67,17 +85,77 @@ class _PassengerPageState extends State<PassengerPage> {
 
   Future<bool> checkTrip() async {
     bool result = false;
-    try {
-      result = await MainServer.isTripEnded(
-          passengerLastState.passengerRequest!.Req_ID!);
-      if (result) {
-        BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
-        timer.stopTripTimer();
+    if (timer.isTripTimerOn()) {
+      try {
+        result = await MainServer.isTripEnded(
+            passengerLastState.passengerRequest!.Req_ID!);
+        if (result) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.exit_to_app, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                    content: Container(
+                      color: Colors.red,
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                          child: Text(
+                        'Driver Ended trip',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ));
+              });
+          BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
+          timer.stopTripTimer();
+        }
+      } catch (error) {
+        result = false;
       }
-    } catch (error) {
-      result = false;
+      return result;
+    } else {
+      try {
+        result = await MainServer.isTripStarted(
+            passengerLastState.passengerRequest!.Req_ID!);
+        if (result) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.exit_to_app, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                    content: Container(
+                      color: Colors.green,
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                          child: Text(
+                        driverStartedTrip,
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ));
+              });
+          BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
+          timer.stopTripTimer();
+        }
+      } catch (error) {
+        result = false;
+      }
+      return result;
     }
-    return result;
   }
 
   @override
@@ -90,9 +168,24 @@ class _PassengerPageState extends State<PassengerPage> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
+                      actions: [
+                        IconButton(
+                          icon: Icon(Icons.exit_to_app, color: Colors.white),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
                       content: Container(
-                    child: Text(driverStartedTrip),
-                  ));
+                        color: Colors.red,
+                        width: 200,
+                        height: 200,
+                        child: Center(
+                            child: Text(
+                          driverStartedTrip,
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      ));
                 });
           } else {
             Flushbar(
@@ -100,7 +193,7 @@ class _PassengerPageState extends State<PassengerPage> {
               backgroundColor: Colors.red,
               messageColor: Colors.white,
               flushbarPosition: FlushbarPosition.BOTTOM,
-              duration: const Duration(seconds: 2),
+              duration: const Duration(seconds: 5),
             ).show(context);
           }
         } else {}
@@ -137,23 +230,9 @@ class _PassengerPageState extends State<PassengerPage> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniStartFloat,
-          floatingActionButton: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // FloatingActionButton(
-              //   onPressed: () {
-              //     BlocProvider.of<UserPreferenceBloc>(context)
-              //         .add(const SwitchUserMode());
-              //     Navigator.pushNamed(context, HomePage.id);
-              //   },
-              //   child: const Text('SM'),
-              // ),
-              const SizedBox(
-                height: 20,
-              ),
-              if (passengerState.destination != null &&
+          floatingActionButton: (passengerState.destination != null &&
                   passengerState.directions.isNotEmpty)
-                FloatingActionButton(
+              ? FloatingActionButton(
                   backgroundColor: Colors.blue,
                   onPressed: () {
                     if (isTripStarted == false) {
@@ -165,13 +244,14 @@ class _PassengerPageState extends State<PassengerPage> {
                           .add(const GoogleMapGetCurrentPosition());
                     }
                   },
-                  child: Text(
-                    (isTripStarted) ? tripStates[1] : tripStates[0],
-                    style: const TextStyle(color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      (isTripStarted) ? tripStates[1] : tripStates[0],
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-            ],
-          ),
+                )
+              : null,
           resizeToAvoidBottomInset: false,
           extendBodyBehindAppBar: true,
           body: Stack(
@@ -214,17 +294,6 @@ class _PassengerPageState extends State<PassengerPage> {
                   child: Column(
                     children: [const PassengerGpsIcon()],
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<PassengerBloc>(context)
-                              .add(const ShowLine(0));
-                        },
-                        child: const Text('Show lines')),
-                  ],
                 ),
                 if (state is Loading) LoadingPage(state.message),
               ]),

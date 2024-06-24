@@ -7,7 +7,9 @@ part of 'trip.dart';
 // **************************************************************************
 
 Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
-      Driver_ID: json['Driver_ID'] as String?,
+      TripID: json['TripID'] as String?,
+      Req_ID: json['Req_ID'] as String?,
+      Phone_Num: json['Phone_Num'] as String?,
       Start_Time: json['Start_Time'] as String?,
       End_Time: json['End_Time'] as String?,
       Trip_Status: json['Trip_Status'] as String?,
@@ -22,7 +24,9 @@ Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
     );
 
 Map<String, dynamic> _$TripToJson(Trip instance) => <String, dynamic>{
-      'Driver_ID': instance.Driver_ID,
+      'TripID': instance.TripID,
+      'Phone_Num': instance.Phone_Num,
+      'Req_ID': instance.Req_ID,
       'Start_Time': instance.Start_Time,
       'End_Time': instance.End_Time,
       'Trip_Status': instance.Trip_Status,
