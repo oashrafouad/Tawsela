@@ -52,6 +52,7 @@ import 'view/screens/passenger_map_page/uber_choice.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await KeyChain.Key_Chain_Initialize();
 
   // Initialize firebase
   await Firebase.initializeApp(
