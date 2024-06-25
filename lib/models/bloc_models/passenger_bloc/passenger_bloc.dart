@@ -135,19 +135,19 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         }
         AcceptedRequest? accepted_request = null;
         final timer = Timer(Duration(minutes: 7), () async {
-        do {
-          try {
-            accepted_request = await MainServer.isAcceptedRequest(
-                request_id: event.passengerRequest.Req_ID!);
+          do {
+            try {
+              accepted_request = await MainServer.isAcceptedRequest(
+                  request_id: event.passengerRequest.Req_ID!);
               // print(accepted_request!.f_name);
-          } catch (error) {
-            accepted_request = null;
+            } catch (error) {
+              accepted_request = null;
               // print('request has not been cancelled');
-          }
-          if (accepted_request == null) {
-            await Future.delayed(Duration(seconds: 5));
-          }
-        } while (accepted_request == null);
+            }
+            if (accepted_request == null) {
+              await Future.delayed(Duration(seconds: 5));
+            }
+          } while (accepted_request == null);
         });
         if (accepted_request == null) {
           final newState = PassengerState(
@@ -181,31 +181,31 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         // } while (accepted_request == null);
 
         else {
-        final newState = PassengerState(
-            passengerRequest: event.passengerRequest,
-            driverData: UberDriver(
-                rating: 0.5,
+          final newState = PassengerState(
+              passengerRequest: event.passengerRequest,
+              driverData: UberDriver(
+                  rating: 0.5,
                   firstName: accepted_request!.f_name!,
                   lastName: accepted_request!.l_name!,
-                location: LatLng(0, 0),
+                  location: LatLng(0, 0),
                   phone: accepted_request!.phone_num!,
-                age: 71,
+                  age: 71,
                   email: 'email'),
-            currentPosition: passengerLastState.currentPosition,
-            lines: [],
-            markers: passengerLastState.markers,
-            controller: passengerLastState.controller,
-            directions: [],
-            destination: passengerLastState.destination,
-            currentLocationDescription:
-                passengerLastState.currentLocationDescription,
-            destinationDescription: passengerLastState.destinationDescription,
-            passengerData: passengerLastState.passengerData);
-        passengerLastState = newState;
-        emit(newState);
+              currentPosition: passengerLastState.currentPosition,
+              lines: [],
+              markers: passengerLastState.markers,
+              controller: passengerLastState.controller,
+              directions: [],
+              destination: passengerLastState.destination,
+              currentLocationDescription:
+                  passengerLastState.currentLocationDescription,
+              destinationDescription: passengerLastState.destinationDescription,
+              passengerData: passengerLastState.passengerData);
+          passengerLastState = newState;
+          emit(newState);
+        }
       }
     }
-  }
   }
 
   /************ request uber driver end *********************** */

@@ -47,7 +47,7 @@ class DriverPage extends StatefulWidget {
 }
 
 class _DriverPageState extends State<DriverPage> {
-  List<String> tripStates = ['Start Trip', 'End Trip'];
+  List<String> tripStates = ['Start', 'End'];
   late TripRequestTimer timer;
   bool isTripStarted = false;
   late Timer isRequestCancelled;
@@ -152,17 +152,17 @@ class _DriverPageState extends State<DriverPage> {
           floatingActionButton: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<UserPreferenceBloc>(context)
-                      .add(const SwitchUserMode());
-                  Navigator.pushNamed(context, HomePage.id);
-                },
-                child: const Text('SM'),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              // FloatingActionButton(
+              //   onPressed: () {
+              //     BlocProvider.of<UserPreferenceBloc>(context)
+              //         .add(const SwitchUserMode());
+              //     Navigator.pushNamed(context, HomePage.id);
+              //   },
+              //   child: const Text('SM'),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
               if (uberDriverProvider.destination != null &&
                   uberDriverProvider.directions.isNotEmpty)
                 FloatingActionButton(
@@ -184,9 +184,11 @@ class _DriverPageState extends State<DriverPage> {
                           .add(const GoogleMapGetCurrentPosition());
                     }
                   },
-                  child: Text(
-                    (isTripStarted) ? tripStates[1] : tripStates[0],
-                    style: const TextStyle(color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      (isTripStarted) ? tripStates[1] : tripStates[0],
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
             ],

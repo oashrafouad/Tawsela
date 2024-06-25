@@ -115,7 +115,7 @@ class _PassengerPageState extends State<PassengerPage> {
               });
           BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
           timer.stopTripTimer();
-    } else {
+        } else {
           showDialog(
               context: context,
               builder: (context) {
