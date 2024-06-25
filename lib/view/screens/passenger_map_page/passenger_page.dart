@@ -115,16 +115,7 @@ class _PassengerPageState extends State<PassengerPage> {
               });
           BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
           timer.stopTripTimer();
-        }
-      } catch (error) {
-        result = false;
-      }
-      return result;
     } else {
-      try {
-        result = await MainServer.isTripStarted(
-            passengerLastState.passengerRequest!.Req_ID!);
-        if (result) {
           showDialog(
               context: context,
               builder: (context) {
@@ -149,13 +140,48 @@ class _PassengerPageState extends State<PassengerPage> {
                     ));
               });
           BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
-          timer.stopTripTimer();
         }
       } catch (error) {
         result = false;
       }
-      return result;
+
+      // } else {
+      //   try {
+      //     result = await MainServer.isTripStarted(
+      //         passengerLastState.passengerRequest!.Req_ID!);
+      //     if (result) {
+      //       showDialog(
+      //           context: context,
+      //           builder: (context) {
+      //             return AlertDialog(
+      //                 actions: [
+      //                   IconButton(
+      //                     icon: Icon(Icons.exit_to_app, color: Colors.white),
+      //                     onPressed: () {
+      //                       Navigator.pop(context);
+      //                     },
+      //                   )
+      //                 ],
+      //                 content: Container(
+      //                   color: Colors.green,
+      //                   width: 200,
+      //                   height: 200,
+      //                   child: Center(
+      //                       child: Text(
+      //                     driverStartedTrip,
+      //                     style: TextStyle(color: Colors.white),
+      //                   )),
+      //                 ));
+      //           });
+      //       BlocProvider.of<PassengerBloc>(context).add(DriverEndedTrip());
+      //     }
+      //   } catch (error) {
+      //     result = false;
+      //   }
+      //   return result;
+      // }
     }
+    return result;
   }
 
   @override
