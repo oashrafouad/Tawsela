@@ -51,7 +51,7 @@ class _ServiceChoiceState extends State<ServiceChoice> {
                   }
                 },
                 onStepContinue: () {
-                  if (current_step < passengerState.directions.length) {
+                  if (current_step < passengerState.directions.length-1) {
                     current_step += 1;
                     setState(() {});
                   }

@@ -134,11 +134,12 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           emit(UserErrorState('$error'));
         }
         AcceptedRequest? accepted_request = null;
-        final timer = Timer(Duration(minutes: 7), () async {
+        var timer = Timer(Duration(minutes: 7), () async {
           do {
             try {
               accepted_request = await MainServer.isAcceptedRequest(
                   request_id: event.passengerRequest.Req_ID!);
+
               // print(accepted_request!.f_name);
             } catch (error) {
               accepted_request = null;

@@ -16,7 +16,7 @@ class SmsVerficationPage extends StatelessWidget {
   SmsVerficationPage({super.key});
 
   static String id = 'SmsVerficationPage';
-  String smsCode = '123456';
+  String smsCode = '';
 
   GlobalKey<FormState> formKey = GlobalKey();
 

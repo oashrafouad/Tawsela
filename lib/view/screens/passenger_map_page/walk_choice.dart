@@ -45,7 +45,7 @@ class _WalkChoiceState extends State<WalkChoice> {
                         },
                         onStepContinue: () {
                           if (current_step <
-                              googleMapProvider.directions.length) {
+                              googleMapProvider.directions.length-1) {
                             current_step += 1;
                             setState(() {});
                           }

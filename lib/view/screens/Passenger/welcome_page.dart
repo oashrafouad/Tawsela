@@ -239,25 +239,6 @@ class WelcomePage extends StatelessWidget {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CustomButton(
-                text: "Delete Account",
-                fontSize: 12,
-                onTap: () {
-                  LoadingStatusHandler.startLoading();
-                  ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
-                    await resetData();
-                    LoadingStatusHandler.completeLoadingWithText(
-                        "تم حذف الحساب");
-                  }).catchError((error) {
-                    // Handle error
-                    LoadingStatusHandler.errorLoading(error.toString());
-                    print('Failed to delete account: $error');
-                  });
-                },
-              ),
-            ),
 
 
 
