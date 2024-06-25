@@ -408,8 +408,8 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         try {
           final Trip trip = Trip(
               Req_ID: uberLastState.acceptedRequest!.Req_ID,
-              TripID: DateTime.now().toString() + uberLastState.driver!.phone,
-              Phone_Num: uberLastState.driver!.phone,
+              TripID: "testtest",
+              Phone_Num: phoneNumber,
               Start_Time: DateTime.now().toString(),
               End_Time: DateTime.now().toString(),
               Trip_Status: 'Uber',
@@ -426,6 +426,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
               Desired_Location_Longitude:
                   uberLastState.acceptedRequest!.Desired_Location_Longitude);
           await MainServer.createTrip(trip: trip);
+
 
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,
@@ -464,7 +465,7 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
       } else {
         try {
           try {
-            await MainServer.endTrip('1');
+            await MainServer.endTrip(uberLastState.acceptedRequest!.Req_ID!);
           } catch (error) {
             emit(UserErrorState('Error ending trip'));
           }
@@ -473,9 +474,8 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
               lines: [],
               markers: uberLastState.markers,
               controller: uberLastState.controller,
-              directions: uberLastState.directions,
-              destination: uberLastState.destination,
-              destinationDescription: uberLastState.destinationDescription,
+              directions: [],
+              destination: null,
               currentLocationDescription:
                   uberLastState.currentLocationDescription,
               driver: uberLastState.driver,

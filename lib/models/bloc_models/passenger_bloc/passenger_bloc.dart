@@ -131,7 +131,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           await MainServer.createRequest(request: event.passengerRequest);
           emit(Loading('Request has been sent'));
         } catch (error) {
-          emit(UserErrorState('can not create request'));
+          emit(UserErrorState('$error'));
         }
         AcceptedRequest? accepted_request = null;
         do {

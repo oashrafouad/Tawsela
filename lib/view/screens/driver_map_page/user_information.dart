@@ -61,7 +61,7 @@ class UserInformation extends StatelessWidget {
                                       width: 10,
                                     ),
                                     Text(uberDriverProvider
-                                        .acceptedRequest!.f_name!)
+                                        .acceptedRequest!.f_name!),
                                   ],
                                 ),
                                 const Divider(

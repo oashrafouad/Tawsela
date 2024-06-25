@@ -7,7 +7,7 @@ part of 'trip.dart';
 // **************************************************************************
 
 Trip _$TripFromJson(Map<String, dynamic> json) => Trip(
-      TripID: json['trip_id'] as String?,
+      TripID: json['trip_id'] as String,
       Req_ID: json['req_id'] as String?,
       Phone_Num: json['phone_num'] as String?,
       Start_Time: json['start_time'] as String?,
