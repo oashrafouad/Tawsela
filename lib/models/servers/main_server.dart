@@ -18,11 +18,10 @@ class MainServer {
     // forming url
     final String endPoint = MainServer.serverUrl! + '/api/trips';
     // posting request data
-    var response = await http.post(
-        Uri.parse(endPoint),
+    var response = await http.post(Uri.parse(endPoint),
         headers: <String, String>{
           'Authorization':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNzc2MjIsImV4cCI6MTcxOTI3NzkyMn0.yAIQj_ANHbErwvQQe-SHWJnYoz-87UD3YbYjhdaloxo',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNzc2MjIsImV4cCI6MTcxOTI3NzkyMn0.yAIQj_ANHbErwvQQe-SHWJnYoz-87UD3YbYjhdaloxo',
           'Content-Type': 'application/json;charset=UTF-8',
           'Charset': 'utf-8'
         },
@@ -54,14 +53,14 @@ class MainServer {
     print('creating request');
     http.Response? response;
 
-      // Dio().post(Uri.parse(endPoint),data: )
-      response = await http.post(Uri.parse(endPoint),
-          headers: <String, String>{
-            'Authorization':
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNzc2MjIsImV4cCI6MTcxOTI3NzkyMn0.yAIQj_ANHbErwvQQe-SHWJnYoz-87UD3YbYjhdaloxo',
-            'Content-Type': 'application/json;charset=UTF-8',
-          },
-          body: jsonEncode(request.toJson()));
+    // Dio().post(Uri.parse(endPoint),data: )
+    response = await http.post(Uri.parse(endPoint),
+        headers: <String, String>{
+          'Authorization':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNzc2MjIsImV4cCI6MTcxOTI3NzkyMn0.yAIQj_ANHbErwvQQe-SHWJnYoz-87UD3YbYjhdaloxo',
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: jsonEncode(request.toJson()));
     print('${response?.statusCode}');
     print('${response!.body}');
     print('Request has been made');
@@ -75,8 +74,8 @@ class MainServer {
     try {
       response = await http.post(Uri.parse(endPoint),
           headers: <String, String>{
-            // 'Authorization':
-            //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
+            'Authorization':
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
             'Content-Type': 'application/json;charset=UTF-8',
             'Charset': 'utf-8'
           },
@@ -200,7 +199,6 @@ class MainServer {
           'Charset': 'utf-8'
         },
         body: jsonEncode({'End_Time': DateTime.now()}));
-    print("ENDTRIP: ${response.body}");
   }
 
   static Future<void> cancelRequest(
@@ -212,8 +210,8 @@ class MainServer {
 
     http.Response? response = await http.post(Uri.parse(endPoint),
         headers: <String, String>{
-          // 'Authorization':
-          //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
+          'Authorization':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg5MjQ1OTAsImV4cCI6MTcxODkyNDg5MH0.D_aHDiEX32MCXef9wbu13ZFxeCKTXvcJaDJsnOxaRj8',
           'Content-Type': 'application/json;charset=UTF-8',
           'Charset': 'utf-8'
         },

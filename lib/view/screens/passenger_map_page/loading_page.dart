@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
+import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
+import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
+import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
+import 'package:tawsela_app/models/data_models/uber_driver.dart';
+import 'package:tawsela_app/models/data_models/user_states.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage(this.message, {super.key});
@@ -15,7 +23,34 @@ class LoadingPage extends StatelessWidget {
               Text(message, style: const TextStyle(fontSize: 20)),
               const CircularProgressIndicator(
                 color: Colors.green,
-              )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              (BlocProvider.of<UberDriverBloc>(context).stream.last
+                          is GoogleMapGetCurrentPosition ||
+                      BlocProvider.of<PassengerBloc>(context).stream.last
+                          is GoogleMapGetCurrentPosition)
+                  ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      onPressed: () {
+                        if (BlocProvider.of<UserPreferenceBloc>(context)
+                                .state
+                                .userState ==
+                            UserState.DRIVER) {
+                          BlocProvider.of<UberDriverBloc>(context)
+                              .add(GoogleMapGetCurrentPosition());
+                        } else {
+                          BlocProvider.of<PassengerBloc>(context)
+                              .add(GoogleMapGetCurrentPosition());
+                        }
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.white),
+                      ))
+                  : Text('')
             ],
           ),
         ),

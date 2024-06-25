@@ -408,8 +408,8 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
         try {
           final Trip trip = Trip(
               Req_ID: uberLastState.acceptedRequest!.Req_ID,
-              TripID: "testtest",
-              Phone_Num: phoneNumber,
+              TripID: DateTime.now().toString() + uberLastState.driver!.phone,
+              Phone_Num: uberLastState.driver!.phone,
               Start_Time: DateTime.now().toString(),
               End_Time: DateTime.now().toString(),
               Trip_Status: 'Uber',
@@ -426,7 +426,6 @@ class UberDriverBloc extends Bloc<GoogleMapEvent, MapUserState> {
               Desired_Location_Longitude:
                   uberLastState.acceptedRequest!.Desired_Location_Longitude);
           await MainServer.createTrip(trip: trip);
-
 
           final newState = UberDriverState(
               currentPosition: uberLastState.currentPosition,

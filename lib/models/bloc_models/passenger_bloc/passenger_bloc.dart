@@ -134,30 +134,63 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           emit(UserErrorState('$error'));
         }
         AcceptedRequest? accepted_request = null;
+        final timer = Timer(Duration(minutes: 7), () async {
         do {
           try {
             accepted_request = await MainServer.isAcceptedRequest(
                 request_id: event.passengerRequest.Req_ID!);
-            print(accepted_request.f_name);
+              // print(accepted_request!.f_name);
           } catch (error) {
             accepted_request = null;
-            print('request has not been cancelled');
+              // print('request has not been cancelled');
           }
           if (accepted_request == null) {
             await Future.delayed(Duration(seconds: 5));
           }
         } while (accepted_request == null);
+        });
+        if (accepted_request == null) {
+          final newState = PassengerState(
+              passengerRequest: null,
+              currentPosition: passengerLastState.currentPosition,
+              lines: [],
+              markers: passengerLastState.markers,
+              controller: passengerLastState.controller,
+              directions: [],
+              destination: passengerLastState.destination,
+              currentLocationDescription:
+                  passengerLastState.currentLocationDescription,
+              destinationDescription: passengerLastState.destinationDescription,
+              passengerData: passengerLastState.passengerData);
+          passengerLastState = newState;
+        }
 
+        // do {
+
+        //   try {
+        //     accepted_request = await MainServer.isAcceptedRequest(
+        //         request_id: event.passengerRequest.Req_ID!);
+        //     print(accepted_request.f_name);
+        //   } catch (error) {
+        //     accepted_request = null;
+        //     print('request has not been cancelled');
+        //   }
+        //   if (accepted_request == null) {
+        //     await Future.delayed(Duration(seconds: 5));
+        //   }
+        // } while (accepted_request == null);
+
+        else {
         final newState = PassengerState(
             passengerRequest: event.passengerRequest,
             driverData: UberDriver(
                 rating: 0.5,
-                firstName: accepted_request.f_name!,
-                lastName: accepted_request.l_name!,
+                  firstName: accepted_request!.f_name!,
+                  lastName: accepted_request!.l_name!,
                 location: LatLng(0, 0),
-                phone: accepted_request.phone_num!,
+                  phone: accepted_request!.phone_num!,
                 age: 71,
-                email: 'akdcbkhaw'),
+                  email: 'email'),
             currentPosition: passengerLastState.currentPosition,
             lines: [],
             markers: passengerLastState.markers,
@@ -172,6 +205,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(newState);
       }
     }
+  }
   }
 
   /************ request uber driver end *********************** */
