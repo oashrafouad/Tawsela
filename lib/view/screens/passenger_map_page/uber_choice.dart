@@ -71,7 +71,8 @@ class UberCoice extends StatelessWidget {
                                   Desired_Location_Longitude: passengerLastState
                                       .currentPosition.longitude
                                       .toString(),
-                                  Req_ID: DateTime.now().toString(),
+                                  Req_ID: DateTime.now().toString() +
+                                      passengerLastState.passengerData.phone,
                                   is_reserved: 'false')));
                       timer.startRequestTimer();
                       timer.startTripTimer();
