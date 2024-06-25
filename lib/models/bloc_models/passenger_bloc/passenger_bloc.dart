@@ -45,7 +45,7 @@ PassengerState passengerLastState = PassengerState(
         lastName: lastName,
         location: invalidPosition,
         firstName: firstName,
-        phone: 'phoneNumber'),
+        phone: phoneNumber),
     currentPosition: invalidPosition,
     lines: <Polyline>[],
     markers: <Marker>{},
