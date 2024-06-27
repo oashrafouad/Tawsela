@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "190565541011-34trummt7rb9g32epamba7uerqbutckr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.tawsela_app",
-            "certificate_hash": "08776eb5d87949da939d7d12f230ac56406b3fa4"
-          }
-        },
-        {
           "client_id": "190565541011-v8aipkbqil6e4r5vopchm166s1raadbu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
