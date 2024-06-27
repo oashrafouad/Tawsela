@@ -57,6 +57,8 @@ void main() async {
 
   await initializeGoogleMapsAPI();
   await initializeServerAPI();
+  initializeAppwrite();
+
   //print("Shared preferences initialized");
   sharedPreferences = await SharedPreferences.getInstance();
   isLoggedIn = sharedPreferences!.getBool('isLoggedIn') ?? false;

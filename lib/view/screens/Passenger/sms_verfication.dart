@@ -82,13 +82,19 @@ class SmsVerficationPage extends StatelessWidget {
 
 
                     // Create a PhoneAuthCredential with the code
-                    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationId, smsCode: smsCode);
+                    // PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationId, smsCode: smsCode);
                     bool accountExists = false;
                     // Sign the user in (or link) with the credential
                     // LoadingStatusHandler.startLoadingWithText("قد يستغرق التحقق الى 50 ثانية، الرجاء الانتظار...");
                     LoadingStatusHandler.startLoading();
                     try {
-                        await FirebaseAuth.instance.signInWithCredential(credential);
+                        // await FirebaseAuth.instance.signInWithCredential(credential);
+                        // final session = await account!.createSession(
+                        //   userId: userId,
+                        //   secret: smsCode,
+                        // );
+                        // print(session.secret);
+
                         accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
                         await LoadingStatusHandler.completeLoadingWithText("تم التحقق");
                         if(accountExists){

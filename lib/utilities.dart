@@ -14,6 +14,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
 import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/view/widgets/custom_buttom_sheet_img_pick.dart';
+import 'package:appwrite/appwrite.dart';
+
 
 import 'models/data_models/google_server.dart';
 import 'models/data_models/server.dart';
@@ -209,6 +211,19 @@ initializeServerAPI() async {
   server_url = mapObject['server_url'];
   // print(server_url);
   // register server url into GET_IT
+}
+
+// Appwrite
+Account? account;
+String userId = '';
+
+initializeAppwrite() {
+  Client client = Client();
+  client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('667d6094000ed16eed70');
+
+  account = Account(client);
 }
 
 // Shared preferences
