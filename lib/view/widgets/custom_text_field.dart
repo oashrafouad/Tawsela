@@ -20,8 +20,10 @@ class CustomTextFormField extends StatelessWidget {
   final TextAlign textAlign;
   final TextDirection textDirection;
   final Function(String)? onChanged;
-  final bool useValidator ;
+  final bool useValidator;
   final TextEditingController? controller;
+  final TextInputAction? textInputAction;
+  final Iterable<String>? autofillHints;
 
   const CustomTextFormField({
     super.key,
@@ -42,6 +44,8 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines = 1,
     this.controller,
     this.useValidator = true,
+    this.textInputAction,
+    this.autofillHints,
   });
 
   @override
@@ -76,6 +80,9 @@ class CustomTextFormField extends StatelessWidget {
             validator: useValidator ? (value) {
               if (  value == null || value.isEmpty) {
                 return S.of(context).FieldIsRequired;
+              } else if (maxLength != null && value.length != maxLength!) {
+                return "ادخل 10 ارقام بدون كود الدولة";
+
               }
               return null;
             }: null,

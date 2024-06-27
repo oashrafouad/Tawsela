@@ -45,14 +45,13 @@ class PassengerEditProfile extends StatelessWidget {
                           LoadingStatusHandler.startLoading();
                           ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
                             await resetData();
-                            LoadingStatusHandler.completeLoadingWithText(
-                                "تم حذف الحساب").then((_) {
+                            await LoadingStatusHandler.completeLoadingWithText(
+                                "تم حذف الحساب");
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => WelcomePage()),
                                       (Route<dynamic> route) => false);
-                            });
                           }).catchError((error) {
                             // Handle error
                             LoadingStatusHandler.errorLoading(error.toString());
@@ -81,7 +80,7 @@ class PassengerEditProfile extends StatelessWidget {
                                 LoadingStatusHandler.startLoading();
                                 ApiService.deleteAccount(phoneNumber: phoneNumber).then((_) async {
                                   await resetData();
-                                  LoadingStatusHandler.completeLoadingWithText(
+                                  await LoadingStatusHandler.completeLoadingWithText(
                                       "تم حذف الحساب");
                                   Navigator.pushAndRemoveUntil(
                                       context,

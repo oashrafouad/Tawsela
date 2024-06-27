@@ -145,9 +145,8 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       typeUser: "Passenger",
                       // profileImageURL: profileImageURL
                   )
-                      .then((_) {
-                    LoadingStatusHandler.completeLoadingWithText("تم التسجيل")
-                        .then((_) {
+                      .then((_) async {
+                    await LoadingStatusHandler.completeLoadingWithText("تم التسجيل");
                       print('Signed up successfully');
                       ApiService.logIn(phoneNumber: phoneNumber)
                           .then((_) async {
@@ -161,7 +160,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                         LoadingStatusHandler.errorLoading(error.toString());
                         print('Failed to log-in: $error');
                       });
-                    });
                   }).catchError((error) {
                     // Handle error
                     LoadingStatusHandler.errorLoading(error.toString());

@@ -156,7 +156,7 @@ uploadImage(CroppedFile croppedFile) async {
           await currentUser!.updatePhotoURL(imageURL);
           profileImageURL = imageURL;
           print("SUCCESSFULLY UPLOADED IMAGE");
-          LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
+          await LoadingStatusHandler.completeLoadingWithText("تم رفع الصورة بنجاح");
           break;
         case TaskState.canceled:
           LoadingStatusHandler.errorLoading("تم الغاء رفع الصورة");

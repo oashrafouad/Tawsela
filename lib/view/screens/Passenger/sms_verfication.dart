@@ -57,6 +57,8 @@ class SmsVerficationPage extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   initialValue: smsCode,
                   onChanged: (value) => smsCode = value,
+                  autofillHints: [AutofillHints.oneTimeCode],
+                  textInputAction: TextInputAction.done,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                   ],
@@ -78,47 +80,40 @@ class SmsVerficationPage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     // print(smsCode);
 
-                    LoadingStatusHandler.startLoading();
 
                     // Create a PhoneAuthCredential with the code
                     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationId, smsCode: smsCode);
                     bool accountExists = false;
                     // Sign the user in (or link) with the credential
+                    // LoadingStatusHandler.startLoadingWithText("قد يستغرق التحقق الى 50 ثانية، الرجاء الانتظار...");
+                    LoadingStatusHandler.startLoading();
                     try {
-                      await FirebaseAuth.instance.signInWithCredential(credential);
-                      LoadingStatusHandler.completeLoadingWithText("تم التحقق").then((_) async {
-                        try {
-                          accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
-                        } catch (e) {
-                          print("ERROR CHECKING ACCOUNT EXISTS: $e");
-                        }
-                        // print(accountExists);
-                        // print("printed");
-                        // ApiService.getUserInfo(phoneNumber: phoneNumber);
-                        // await updateData();
+                        await FirebaseAuth.instance.signInWithCredential(credential);
+                        accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
+                        await LoadingStatusHandler.completeLoadingWithText("تم التحقق");
                         if(accountExists){
                           print("Profile image URL SECOND: $profileImageURL");
                           await getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
-                          // print("done");
                           await updateDataToSharedPrefs();
                           Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
                         } else {
                           Navigator.pushNamed(context, PassengerSignUpPage.id);
                         }
-                      });
-                    } on FirebaseAuthException catch (e) {
-                      switch (e.code) {
-                        case 'invalid-verification-code':
-                          LoadingStatusHandler.errorLoading("الكود الذي ادخلته غير صحيح");
-                          print("ERROR SIGNING IN: ${e.code}, ${e.message}");
-                          break;
-                        case 'network-request-failed':
-                          LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
-                          print("ERROR SIGNING IN: ${e.code}, ${e.message}");
-                          break;
-                        default:
-                          LoadingStatusHandler.errorLoading("${e.message}");
-                          print("ERROR SIGNING IN: ${e.code}, ${e.message}");
+                    } catch (e) {
+                      if (e is FirebaseAuthException) {
+                        switch (e.code) {
+                          case 'invalid-verification-code':
+                            LoadingStatusHandler.errorLoading("الكود الذي ادخلته غير صحيح");
+                            break;
+                          case 'network-request-failed':
+                            LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
+                            break;
+                          default:
+                            LoadingStatusHandler.errorLoading("${e.message}");
+                        }
+                      } else {
+                        LoadingStatusHandler.errorLoading(e.toString());
+                        print("ERROR CHECKING ACCOUNT EXISTS: $e");
                       }
                     }
                   } else {

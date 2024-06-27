@@ -22,7 +22,7 @@ class LoadingStatusHandler {
   }
 
   static void startLoadingWithText(String text) {
-    SVProgressHUD.show(status: 'text');
+    SVProgressHUD.show(status: text);
   }
 
   static void startLoadingWithProgress(num progress) {

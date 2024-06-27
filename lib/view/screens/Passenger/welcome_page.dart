@@ -184,7 +184,6 @@ class WelcomePage extends StatelessWidget {
                 onTap: () async {
                   if (formKey.currentState!.validate()) {
                     LoadingStatusHandler.startLoading();
-                   
 
                     // proceed with authentication
                     await FirebaseAuth.instance.verifyPhoneNumber(
@@ -201,6 +200,10 @@ class WelcomePage extends StatelessWidget {
                             break;
                           case 'web-context-cancelled':
                             LoadingStatusHandler.completeLoading();
+                            print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
+                            break;
+                          case 'quota-exceeded':
+                            LoadingStatusHandler.errorLoading("لقد وصلنا للعدد الاقصى لمحاولات ارسال الكود اليوم, الرجاء المحاولة مرة اخرى غدا");
                             print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
                             break;
                           default:
