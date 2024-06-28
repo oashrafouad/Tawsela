@@ -7,12 +7,12 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
+import '../../../app_logger.dart';
 import '../../../loading_status_handler.dart';
 import '../../../services/API_service.dart';
 
@@ -55,12 +55,12 @@ class PassengerEditProfile extends StatelessWidget {
                           }).catchError((error) {
                             // Handle error
                             LoadingStatusHandler.errorLoading(error.toString());
-                            print('Failed to delete account: $error');
+                            AppLogger.log('Failed to delete account: $error');
                           });
                           break;
                       }
                     } on PlatformException catch (error) {
-                      print(error.message);
+                      AppLogger.log(error.message);
                     }
                   } else {
                     showDialog(
@@ -90,7 +90,7 @@ class PassengerEditProfile extends StatelessWidget {
                                 }).catchError((error) {
                                   // Handle error
                                   LoadingStatusHandler.errorLoading(error.toString());
-                                  print('Failed to delete account: $error');
+                                  AppLogger.log('Failed to delete account: $error');
                                 });
                               },
                               child: const Text(
@@ -224,7 +224,6 @@ class PassengerEditProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomTextFormField(
-                    
                     onChanged: (data) => phoneNumber = data,
                     textDirection: TextDirection.ltr,
                     textAlign:  TextAlign.left ,

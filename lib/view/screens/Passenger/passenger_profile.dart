@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +16,7 @@ import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
+import '../../../app_logger.dart';
 import '../../../models/bloc_models/lang/app_language_bloc.dart';
 
 class PassengerProfile extends StatelessWidget {
@@ -50,7 +50,7 @@ class PassengerProfile extends StatelessWidget {
                     await updateDataToSharedPrefs();
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => DriverPage()),
+                        MaterialPageRoute(builder: (context) => const DriverPage()),
                         (Route<dynamic> route) => false);
                   },
                 ),
@@ -115,9 +115,9 @@ class PassengerProfile extends StatelessWidget {
                             try {
                               await account!.deleteSession(
                                   sessionId: 'current');
-                              print("DELETED");
+                              AppLogger.log("DELETED");
                             } on AppwriteException catch (e) {
-                              print(e.message);
+                              AppLogger.log(e.message);
                             }
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -127,7 +127,7 @@ class PassengerProfile extends StatelessWidget {
                             break;
                         }
                       } on PlatformException catch (error) {
-                        print(error.message);
+                        AppLogger.log(error.message);
                       }
                     } else {
                       showDialog(
@@ -149,9 +149,9 @@ class PassengerProfile extends StatelessWidget {
                                   try {
                                     await account!.deleteSession(
                                         sessionId: 'current');
-                                    print("DELETED");
+                                    AppLogger.log("DELETED");
                                   } on AppwriteException catch (e) {
-                                    print(e.message);
+                                    AppLogger.log(e.message);
                                   }
                                   Navigator.pushAndRemoveUntil(
                                       context,
@@ -198,11 +198,11 @@ class PassengerProfile extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 130,
                               //height: 12,
                               child: ConstrainedBox(
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   maxHeight: 35,
                                 ),
                                 child: FittedBox(

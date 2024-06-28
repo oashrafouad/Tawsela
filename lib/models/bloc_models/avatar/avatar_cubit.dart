@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
+import 'package:tawsela_app/app_logger.dart';
 
 part 'avatar_state.dart';
 
@@ -15,7 +16,7 @@ class AvatarCubit extends Cubit<AvatarState> {
         emit(AvatarChangedState(imgPath: pickedImage.path));
       }
     } catch(e){
-        print(e.toString());
+          AppLogger.log(e.toString());
     }
   }
 }

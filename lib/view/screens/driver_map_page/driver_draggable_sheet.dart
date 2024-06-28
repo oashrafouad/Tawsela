@@ -26,10 +26,10 @@ class DriverDraggableSheet extends StatelessWidget {
               physics: const ClampingScrollPhysics(),
               controller: scrollableController,
               children: [
-                Column(
+                const Column(
                   children: [BottomSheetHandle()],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 DriverButtomSheet(timer: timer),

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-// import 'package:dio/dio.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' hide Step;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +12,6 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_place_holder.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
-import 'package:tawsela_app/models/data_models/accepted_request_model.dart/accepted_request.dart';
-import 'package:tawsela_app/models/data_models/uber_driver.dart';
-import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 import 'package:tawsela_app/models/data_models/passenger.dart';
 import 'package:tawsela_app/models/data_models/path_model/path.dart';
@@ -125,87 +121,28 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
               invalidPosition.longitude) {
         emit(const UserErrorState('Please Provide current Location'));
       } else {
-        emit(Loading('Searching for nearby drivers'));
+        emit(const Loading('Searching for nearby drivers'));
 
         try {
           await MainServer.createRequest(request: event.passengerRequest);
-          emit(Loading('Request has been sent'));
+          emit(const Loading('Request has been sent'));
         } catch (error) {
           emit(UserErrorState('$error'));
         }
-        AcceptedRequest? accepted_request = null;
-        var timer = Timer(Duration(minutes: 7), () async {
-          do {
-            try {
-              accepted_request = await MainServer.isAcceptedRequest(
-                  request_id: event.passengerRequest.Req_ID!);
-
-              // print(accepted_request!.f_name);
-            } catch (error) {
-              accepted_request = null;
-              // print('request has not been cancelled');
+        final newState = PassengerState(
+            passengerRequest: null,
+            currentPosition: passengerLastState.currentPosition,
+            lines: [],
+            markers: passengerLastState.markers,
+            controller: passengerLastState.controller,
+            directions: [],
+            destination: passengerLastState.destination,
+            currentLocationDescription:
+                passengerLastState.currentLocationDescription,
+            destinationDescription: passengerLastState.destinationDescription,
+            passengerData: passengerLastState.passengerData);
+        passengerLastState = newState;
             }
-            if (accepted_request == null) {
-              await Future.delayed(Duration(seconds: 5));
-            }
-          } while (accepted_request == null);
-        });
-        if (accepted_request == null) {
-          final newState = PassengerState(
-              passengerRequest: null,
-              currentPosition: passengerLastState.currentPosition,
-              lines: [],
-              markers: passengerLastState.markers,
-              controller: passengerLastState.controller,
-              directions: [],
-              destination: passengerLastState.destination,
-              currentLocationDescription:
-                  passengerLastState.currentLocationDescription,
-              destinationDescription: passengerLastState.destinationDescription,
-              passengerData: passengerLastState.passengerData);
-          passengerLastState = newState;
-        }
-
-        // do {
-
-        //   try {
-        //     accepted_request = await MainServer.isAcceptedRequest(
-        //         request_id: event.passengerRequest.Req_ID!);
-        //     print(accepted_request.f_name);
-        //   } catch (error) {
-        //     accepted_request = null;
-        //     print('request has not been cancelled');
-        //   }
-        //   if (accepted_request == null) {
-        //     await Future.delayed(Duration(seconds: 5));
-        //   }
-        // } while (accepted_request == null);
-
-        else {
-          final newState = PassengerState(
-              passengerRequest: event.passengerRequest,
-              driverData: UberDriver(
-                  rating: 0.5,
-                  firstName: accepted_request!.f_name!,
-                  lastName: accepted_request!.l_name!,
-                  location: LatLng(0, 0),
-                  phone: accepted_request!.phone_num!,
-                  age: 71,
-                  email: 'email'),
-              currentPosition: passengerLastState.currentPosition,
-              lines: [],
-              markers: passengerLastState.markers,
-              controller: passengerLastState.controller,
-              directions: [],
-              destination: passengerLastState.destination,
-              currentLocationDescription:
-                  passengerLastState.currentLocationDescription,
-              destinationDescription: passengerLastState.destinationDescription,
-              passengerData: passengerLastState.passengerData);
-          passengerLastState = newState;
-          emit(newState);
-        }
-      }
     }
   }
 
@@ -226,7 +163,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
   // get current service path begin
   FutureOr<void> GoogleMapGetCurrentPath() async {
-    emit(Loading(getServiceLinePlacHolder));
+    emit(const Loading(getServiceLinePlacHolder));
     await ServicePoints.loadLines(sorted: true);
 
     // NOTE:
@@ -235,10 +172,9 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     List<List<LatLng>> longitudeSorted = ServicePoints.serviceLatPoints;
 
     // these list will contain most approximate point to current position from each line
-    List<LatLng> minLatitude = List.filled(latitudeSorted.length, LatLng(0, 0));
+    List<LatLng> minLatitude = List.filled(latitudeSorted.length, const LatLng(0, 0));
     List<LatLng> minLongitude =
-        List.filled(longitudeSorted.length, LatLng(0, 0));
-    ;
+        List.filled(longitudeSorted.length, const LatLng(0, 0));
     // get aligned points to user
     for (int i = 0; i < latitudeSorted.length; i++) {
       LatLng latitude = ServicePoints.LatLngBinarySearch(
@@ -278,50 +214,24 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         minLongitudeIndex = i;
       }
     }
-    // initializing values of min algorithm for longitude and latitude
-    // int minErrorLatitudeIndex = 0;
-    // double minLatitudeError =
-    //     (minLatitude[0].latitude - passengerLastState.destination!.latitude)
-    //         .abs();
-    // int minErrorLongitudeIndex = 0;
-    // double minLongitudeError =
-    //     (minLongitude[0].longitude - passengerLastState.destination!.longitude)
-    //         .abs();
     String destinationParameter =
-        '${minLatitudePoint.latitude},${minLatitudePoint.longitude}%7C' +
-            '${minLongitudePoint.latitude},${minLongitudePoint.longitude}%7C';
-    // for (int i = 1; i < minLatitude.length; i++) {
-    //   destinationParameter +=
-    //       '${minLatitude[i].latitude},${minLatitude[i].longitude}%7C';
-    //   destinationParameter +=
-    //       '${minLongitude[i].latitude},${minLongitude[i].longitude}%7C';
-    // }
+        '${minLatitudePoint.latitude},${minLatitudePoint.longitude}%7C' '${minLongitudePoint.latitude},${minLongitudePoint.longitude}%7C';
 
     http.Response? response;
     try {
       response = await http.get(Uri.parse(
           'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=***REMOVED***'));
     } catch (exception) {
-      emit(UserErrorState('Error caclulating nearest service line'));
+      emit(const UserErrorState('Error caclulating nearest service line'));
     }
     Map responseBody = jsonDecode(response!.body);
     List rows = responseBody['rows'];
 
-    LatLng? target;
     int? index;
-    if (rows.length != 0) {
+    if (rows.isNotEmpty) {
       List paths = responseBody['rows'][0]['elements'];
       List<Path_t> distances = paths.map((e) => Path_t.fromJson(e)).toList();
       index = getMinPathIndex(distances);
-      target = index == 0 ? minLatitudePoint : minLongitudePoint;
-
-      // if (index % 2 == 0) {
-      //   index ~/= 2;
-      //   target = minLatitude[index];
-      // } else {
-      //   index = (index - 1) ~/ 2;
-      //   target = minLongitude[index];
-      // }
 
       add(ShowLine(index == 0 ? minLatitudeIndex : minLongitudeIndex));
       /*********************************************** */
@@ -336,24 +246,23 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           point: passengerLastState.currentPosition,
           points: ServicePoints.serviceLngPoints[lineNumber]);
       final String localDestination =
-          '${latValue.latitude},${latValue.longitude}%7C' +
-              '${lngValue.latitude},${lngValue.longitude}%7C';
+          '${latValue.latitude},${latValue.longitude}%7C' '${lngValue.latitude},${lngValue.longitude}%7C';
       try {
         response = await http.get(Uri.parse(
             'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=***REMOVED***'));
       } catch (exception) {
-        emit(UserErrorState('Error caclulating nearest service line'));
+        emit(const UserErrorState('Error caclulating nearest service line'));
       }
       responseBody = jsonDecode(response!.body);
       rows = responseBody['rows'];
-      if (rows.length != 0) {
+      if (rows.isNotEmpty) {
         List paths = responseBody['rows'][0]['elements'];
         List<Path_t> distances = paths.map((e) => Path_t.fromJson(e)).toList();
         index = getMinPathIndex(distances);
         add(GetWalkDirections(
             passengerDestination: index == 0 ? latValue : lngValue));
       } else {
-        emit(UserErrorState('Error caclulating nearest service line'));
+        emit(const UserErrorState('Error caclulating nearest service line'));
       }
     }
   }
@@ -382,7 +291,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         try {
           DirectionsService.init('***REMOVED***');
           DirectionsService directions = DirectionsService();
-          Polyline path = Polyline(
+          Polyline path = const Polyline(
               polylineId: PolylineId('path'),
               color: Colors.green,
               width: 4,
@@ -422,7 +331,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           passengerLastState = newState;
           emit(newState);
         } catch (exception) {
-          emit(UserErrorState('${exception}'));
+          emit(UserErrorState('$exception'));
         }
       }
     } else {
@@ -439,7 +348,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
       emit(temp);
     } else if (temp is GoogleMapState) {
       try {
-        final currentState = temp as GoogleMapState;
+        final currentState = temp;
         await passengerLastState.controller!.animateCamera(
             CameraUpdate.newCameraPosition(CameraPosition(
                 target: currentState.currentPosition, zoom: 50)));
@@ -593,27 +502,12 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
 
     on<GetWalkDirections>(getWalkDirections);
     on<DriverCancelledRequest>((event, emit) {
-      // emit(UserErrorState(driverCancelledRequest));
-      add(GoogleMapGetCurrentPosition());
-      // passengerLastState = PassengerState(
-      //     currentLocationDescription:
-      //         passengerLastState.currentLocationDescription,
-      //     destination: passengerLastState.destination,
-      //     destinationDescription: passengerLastState.destinationDescription,
-      //     controller: passengerLastState.controller,
-      //     currentPosition: passengerLastState.currentPosition,
-      //     lines: [],
-      //     markers: passengerLastState.markers,
-      //     directions: [],
-      //     passengerData: passengerLastState.passengerData);
-      // emit(passengerLastState);
+      add(const GoogleMapGetCurrentPosition());
     });
     on<DriverEndedTrip>((event, emit) {
-      // emit(UserErrorState(tripHasEnded));
-      add(GoogleMapGetCurrentPosition());
+      add(const GoogleMapGetCurrentPosition());
     });
     on<DriverStartedTrip>((event, emit) {
-      // emit(UserErrorState(driverStartedTrip));
     });
 
     on<CancelUberRequest>((event, emit) async {

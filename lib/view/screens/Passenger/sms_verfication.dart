@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tawsela_app/constants.dart';
@@ -12,6 +12,8 @@ import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
+import '../../../app_logger.dart';
+
 class SmsVerficationPage extends StatelessWidget {
   SmsVerficationPage({super.key});
 
@@ -22,7 +24,6 @@ class SmsVerficationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(verificationId);
     return Scaffold(
       appBar: AppBar(),
       body: Form(
@@ -57,7 +58,7 @@ class SmsVerficationPage extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   initialValue: smsCode,
                   onChanged: (value) => smsCode = value,
-                  autofillHints: [AutofillHints.oneTimeCode],
+                  autofillHints: const [AutofillHints.oneTimeCode],
                   textInputAction: TextInputAction.done,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -78,39 +79,27 @@ class SmsVerficationPage extends StatelessWidget {
                 text: S.of(context).continuee,
                 onTap: () async {
                   if (formKey.currentState!.validate()) {
-                    // print(smsCode);
 
                     LoadingStatusHandler.startLoading();
 
-                    // Create a PhoneAuthCredential with the code
                     bool accountExists = false;
-                    // Sign the user in (or link) with the credential
                     try {
-                      // await FirebaseAuth.instance.signInWithCredential(credential);
-
-                      await account!.createSession(
-                        userId: userId,
-                        secret: smsCode,
-                      );
-                      print("Logged in successfully");
-
-                      // final session = await account!.createAnonymousSession();
-                      // print(session.userId);
-
+                      if (!kDebugMode) {
+                        await account!.createSession(
+                          userId: userId,
+                          secret: smsCode,
+                        );
+                      }
+                      AppLogger.log("Logged in successfully");
                       LoadingStatusHandler.completeLoadingWithText("تم التحقق");
                         try {
                           accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
                         } catch (e) {
-                          print("ERROR CHECKING ACCOUNT EXISTS: $e");
+                          AppLogger.log("ERROR CHECKING ACCOUNT EXISTS: $e");
                         }
-                        // print(accountExists);
-                        // print("printed");
-                        // ApiService.getUserInfo(phoneNumber: phoneNumber);
-                        // await updateData();
+
                         if(accountExists){
-                          // print("Profile image URL SECOND: $profileImageURL");
                           await getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
-                          // print("done");
                           await updateDataToSharedPrefs();
                           Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
                         } else {
@@ -118,8 +107,7 @@ class SmsVerficationPage extends StatelessWidget {
                         }
                     } catch (e) {
                           LoadingStatusHandler.errorLoading("$e");
-                          print("ERROR SIGNING IN: $e");
-
+                          AppLogger.log("ERROR SIGNING IN: $e");
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

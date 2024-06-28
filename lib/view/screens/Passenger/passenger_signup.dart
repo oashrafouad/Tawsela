@@ -1,7 +1,3 @@
-import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' as Appwrite;
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/constants.dart';
@@ -11,12 +7,13 @@ import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/services/API_service.dart';
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_main_screen.dart';
-import 'package:tawsela_app/view/screens/Passenger/welcome_page.dart';
 
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
+
+import '../../../app_logger.dart';
 
 class PassengerSignUpPage extends StatefulWidget {
   const PassengerSignUpPage({super.key});
@@ -30,7 +27,7 @@ class PassengerSignUpPage extends StatefulWidget {
 class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
   @override
   Widget build(BuildContext context) {
-    
+
 
     GlobalKey<FormState> formKey = GlobalKey();
 
@@ -137,7 +134,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
               text: S.of(context).signUp,
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  // print("HELLO: $profileImageURL");
                   LoadingStatusHandler.startLoading();
                   // Call the sign-up API
                   ApiService.signUp(
@@ -145,14 +141,12 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       fname: firstName,
                       lname: lastName,
                       typeUser: "Passenger",
-                      // profileImageURL: profileImageURL
                   )
                       .then((_) async {
                     await LoadingStatusHandler.completeLoadingWithText("تم التسجيل");
-                      print('Signed up successfully');
+                    AppLogger.log('Signed up successfully');
                       ApiService.logIn(phoneNumber: phoneNumber)
                           .then((_) async {
-                        // isLoggedIn = true;
                         await updateDataToSharedPrefs();
 
                         // Then navigate to the main screen
@@ -160,12 +154,12 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
                       }).catchError((error) {
                         // Handle error
                         LoadingStatusHandler.errorLoading(error.toString());
-                        print('Failed to log-in: $error');
+                        AppLogger.log('Failed to log-in: $error');
                       });
                   }).catchError((error) {
                     // Handle error
                     LoadingStatusHandler.errorLoading(error.toString());
-                    print('Failed to sign-up: $error');
+                    AppLogger.log('Failed to sign-up: $error');
                   });
                 } else {
                   String remove_en = "Fill in", remove_ar = "املأ";
@@ -184,24 +178,6 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             const SizedBox(
               height: 16,
             ),
-            // ElevatedButton(
-            //     onPressed: () async {
-            //       Appwrite.DocumentList? documents;
-            //       try {
-            //         documents = await databases!.listDocuments(
-            //             databaseId: '667ed11000020e17c007',
-            //             collectionId: '667ed13b000f6bb0b7b8',
-            //             queries: [
-            //               Query.equal('userId', userId)
-            //             ]
-            //         );
-            //       } on AppwriteException catch(e) {
-            //         print(e);
-            //       }
-            //       print(documents!.documents[0].data);
-            //     },
-            //   child: Text("Get"),
-            // )
           ],
         ),
       ),

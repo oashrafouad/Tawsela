@@ -21,4 +21,3 @@ class SwitchMode extends GoogleMapEvent {
 // *********************** Passenger Events *****************
 
 // ************** Driver Events *************************//
-

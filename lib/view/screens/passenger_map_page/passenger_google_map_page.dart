@@ -4,13 +4,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 class PassengerGoogleMapWidget extends StatelessWidget {
   final isTripStarted;
-  PassengerGoogleMapWidget({required this.isTripStarted, super.key});
+  const PassengerGoogleMapWidget({required this.isTripStarted, super.key});
   @override
   Widget build(BuildContext context) {
     late PassengerState passengerState;

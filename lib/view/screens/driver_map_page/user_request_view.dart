@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/data_base.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc.dart';
-import 'package:tawsela_app/models/data_models/uber_driver.dart';
-import 'package:tawsela_app/models/data_models/user_request_model/request_model.dart';
 import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 
 class UserRequestListView extends StatelessWidget {
@@ -15,7 +11,7 @@ class UserRequestListView extends StatelessWidget {
   UserRequestListView({required this.timer, super.key});
 
   void _onRefresh(BuildContext context) {
-    BlocProvider.of<UberDriverBloc>(context).add(GetPassengerRequests());
+    BlocProvider.of<UberDriverBloc>(context).add(const GetPassengerRequests());
   }
 
   @override

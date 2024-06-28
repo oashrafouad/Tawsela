@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:http/http.dart';
+import '../../app_logger.dart';
 
 class TripRequestTimer {
   Timer? _requestTimer;
@@ -34,7 +34,7 @@ class TripRequestTimer {
       try {
         await tripCallback();
       } catch (error) {
-        print('Error in trip timer');
+        AppLogger.log('Error in trip timer');
       }
     });
   }
@@ -44,7 +44,7 @@ class TripRequestTimer {
       try {
         await requestCallback();
       } catch (error) {
-        print('Error in request timer');
+        AppLogger.log('Error in request timer');
       }
     });
   }

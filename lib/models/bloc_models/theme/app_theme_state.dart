@@ -5,8 +5,6 @@ sealed class AppThemeState {}
 
 final class AppThemeInitial extends AppThemeState {}
 
-
-
 class AppChangeTheme extends AppThemeState{
   final String ?appTheme;
 
@@ -18,11 +16,8 @@ class AppLightThemeState extends AppThemeState{
 
   AppLightThemeState({ this.appTheme});
 }
-class AppDarkThemeState extends AppThemeState{
-    final String ?appTheme;
+class AppDarkThemeState extends AppThemeState {
+  final String ?appTheme;
 
   AppDarkThemeState({ this.appTheme});
 }
-
-
-

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
@@ -13,19 +12,14 @@ import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_bloc
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_states.dart';
 
-// import 'package:location/location.dart';
-
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/driver_map_bloc/driver_map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google_map_events.dart';
-import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/user_preferences/user_preference_events.dart';
 import 'package:tawsela_app/models/servers/main_server.dart';
 import 'package:tawsela_app/models/timers/trip_request_timer.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Driver/driver_profile.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 
 import 'package:tawsela_app/view/screens/driver_map_page/driver_draggable_sheet.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/driver_gps_icon.dart';
@@ -33,7 +27,6 @@ import 'package:tawsela_app/view/screens/driver_map_page/driver_map_switch.dart'
 import 'package:tawsela_app/view/screens/driver_map_page/driver_google_map_widget.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_information.dart';
 import 'package:tawsela_app/view/screens/driver_map_page/user_request_view.dart';
-import 'package:tawsela_app/view/screens/home_page/home_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/loading_page.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
@@ -58,7 +51,7 @@ class _DriverPageState extends State<DriverPage> {
     timer = TripRequestTimer(
       requestCallback: checkRequest,
       tripCallback: () async {},
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
     );
   }
 
@@ -75,7 +68,7 @@ class _DriverPageState extends State<DriverPage> {
               return AlertDialog(
                   actions: [
                     IconButton(
-                      icon: Icon(Icons.exit_to_app, color: Colors.white),
+                      icon: const Icon(Icons.exit_to_app, color: Colors.white),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -85,7 +78,7 @@ class _DriverPageState extends State<DriverPage> {
                     color: Colors.red,
                     width: 200,
                     height: 200,
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Passenger Cancelled Request',
                       style: TextStyle(color: Colors.white),
@@ -93,7 +86,7 @@ class _DriverPageState extends State<DriverPage> {
                   ));
             });
         BlocProvider.of<UberDriverBloc>(context)
-            .add(PassengerCancelledRequest());
+            .add(const PassengerCancelledRequest());
         timer.stopRequestTimer();
       }
     } catch (error) {
@@ -101,21 +94,6 @@ class _DriverPageState extends State<DriverPage> {
     }
     return result;
   }
-
-  // Future<bool> checkTrip() async {
-  // bool result = false;
-  // try {
-  //   result = await MainServer.isTripEnded();
-  //   if (result) {
-  //     BlocProvider.of<UberDriverBloc>(context)
-  //         .add(PassengerCancelledRequest());
-  //     timer.stopTripTimer();
-  //   }
-  // } catch (error) {
-  //   result = false;
-  // }
-  // return result;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -152,21 +130,10 @@ class _DriverPageState extends State<DriverPage> {
           floatingActionButton: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // FloatingActionButton(
-              //   onPressed: () {
-              //     BlocProvider.of<UserPreferenceBloc>(context)
-              //         .add(const SwitchUserMode());
-              //     Navigator.pushNamed(context, HomePage.id);
-              //   },
-              //   child: const Text('SM'),
-              // ),
-              // const SizedBox(
-              //   height: 20,
-              // ),
               if (uberDriverProvider.destination != null &&
                   uberDriverProvider.directions.isNotEmpty)
                 FloatingActionButton(
-                  shape: CircleBorder(side: BorderSide(color: Colors.white)),
+                  shape: const CircleBorder(side: BorderSide(color: Colors.white)),
                   backgroundColor: Colors.blue,
                   onPressed: () {
                     if (isTripStarted == false) {
@@ -194,7 +161,6 @@ class _DriverPageState extends State<DriverPage> {
             ],
           ),
           body: Stack(
-              // alignment: Alignment.bottomCenter,
               children: [
                 DriverGoogleMapWidget(
                   isTripStarted: isTripStarted,
@@ -287,7 +253,6 @@ class _DriverPageState extends State<DriverPage> {
                                         paddingVerti: 10,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
-                                        //iconSize: 16,
                                         icon: Icons.tune,
                                         text: S
                                             .of(context)
@@ -340,71 +305,3 @@ class _DriverPageState extends State<DriverPage> {
     );
   }
 }
-
-// class TabListView extends StatefulWidget {
-//   ScrollController controller;
-//   TabListView(this.controller);
-
-//   @override
-//   State<TabListView> createState() => _TabListViewState();
-// }
-
-// class _TabListViewState extends State<TabListView> {
-//   @override
-//   Color? directionColor = Colors.green;
-
-//   Color? infoColor = null;
-
-//   Widget build(BuildContext context) {
-//     return ListView(
-//       controller: widget.controller,
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             TextButton(
-//                 style: TextButton.styleFrom(
-//                     shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(0)),
-//                     backgroundColor: directionColor),
-//                 onPressed: () {
-//                   if (directionColor != Colors.green) {
-//                     directionColor = Colors.green;
-//                     infoColor = null;
-//                     setState(() {});
-//                   }
-//                 },
-//                 child: Text('Directions')),
-//             TextButton(
-//                 style: TextButton.styleFrom(
-//                     shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(0)),
-//                     backgroundColor: infoColor),
-//                 onPressed: () {
-//                   if (infoColor != Colors.green) {
-//                     infoColor = Colors.green;
-//                     directionColor = null;
-//                     setState(() {});
-//                   }
-//                 },
-//                 child: Text('User Information')),
-//           ],
-//         ),
-//         (directionColor == Colors.green)
-//             ? BlocConsumer<UberDriverBloc, MapUserState>(
-//                 listener: (context, state) {
-//                   // TODO: implement listener
-//                 },
-//                 builder: (context, state) {
-//                   return DirectionWidget(widget.controller);
-//                 },
-//               )
-//             : UserInformation()
-//       ],
-//     );
-//   }
-// }
-
-
-
-

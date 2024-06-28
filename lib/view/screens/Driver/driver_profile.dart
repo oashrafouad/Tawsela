@@ -15,6 +15,7 @@ import 'package:tawsela_app/view/widgets/custom_popup_menu_button.dart';
 import 'package:tawsela_app/view/widgets/custom_switch_icon.dart';
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 
+import '../../../app_logger.dart';
 import '../Passenger/welcome_page.dart';
 
 class DriverProfilePage extends StatelessWidget {
@@ -116,7 +117,7 @@ class DriverProfilePage extends StatelessWidget {
                           break;
                       }
                     } on PlatformException catch (error) {
-                      print(error.message);
+                      AppLogger.log(error.message);
                     }
                   } else {
                     showDialog(
@@ -151,7 +152,6 @@ class DriverProfilePage extends StatelessWidget {
                     );
                   }
                 },
-
               ),
             ],
           )),
@@ -178,11 +178,11 @@ class DriverProfilePage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 130,
                               //height: 12,
                               child: ConstrainedBox(
-                                constraints: BoxConstraints(
+                                constraints: const BoxConstraints(
                                   maxHeight: 35,
                                 ),
                                 child: FittedBox(
@@ -256,10 +256,10 @@ class DriverProfilePage extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            "200 " + S.of(context).pounds,
+                            "200 ${S.of(context).pounds}",
                             //'٧٦٠ جنيهًا', //you get That from API
 
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontFamily: font,
                                 fontSize: 16,

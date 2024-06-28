@@ -12,7 +12,7 @@ class UserPreferenceState extends NeverEqualState {
   final bool darkMode;
   final UserState userState;
 
-  UserPreferenceState(
+  const UserPreferenceState(
       {this.darkMode = false, this.userState = UserState.DRIVER});
 
   @override

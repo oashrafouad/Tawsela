@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:tawsela_app/utilities.dart';
 
+import '../app_logger.dart';
+
 enum APIRequestType {
   signUp,
   logIn,
@@ -56,7 +58,6 @@ static Future<void> signUp({
       'F_Name': fname,
       'L_Name': lname,
       'Type_User': typeUser,
-      // 'profile_image_url': profileImageURL, // Include this line
     }),
   );
   final error = handleError(response);
@@ -78,7 +79,7 @@ static Future<void> signUp({
         'Phone_Num': phoneNumber,
       }),
     );
-    print(response.body);
+    AppLogger.log(response.body);
     final error = handleError(response);
     if (error != null) {
       throw error;
@@ -98,7 +99,7 @@ static Future<void> signUp({
     if (error != null) {
       throw error;
     } else {
-      print("Account deleted successfully");
+      AppLogger.log("Account deleted successfully");
     }
   }
 
@@ -118,7 +119,7 @@ static Future<void> signUp({
         error = 'هذا الحساب موجود بالفعل';
         break;
       case 500: // Internal server error (no internet connection, server down, etc.)
-        print(response.body);
+        AppLogger.log(response.body);
         error = 'تأكد من اتصالك بالانترنت';
         break;
       default:
@@ -128,4 +129,3 @@ static Future<void> signUp({
     return error;
   }
 }
-

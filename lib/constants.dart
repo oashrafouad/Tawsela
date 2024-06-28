@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 const Color kGreenBigButtons = Color(0xff28AA45);
 const Color kGreenFont = Color(0xff339949);
@@ -54,7 +53,6 @@ const List<Color> linesColors = [
 ];
 
 // images
-
 var avatarImg = Image.asset('assets/images/avatar.png'),
     licenseImg = Image.asset('assets/images/avatar.png'),
     idImg = Image.asset('assets/images/avatar.png');

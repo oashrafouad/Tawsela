@@ -33,7 +33,6 @@ class CustomListTile extends StatelessWidget {
       borderColor;
   Function onTap;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(

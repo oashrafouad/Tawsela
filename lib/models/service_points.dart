@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../app_logger.dart';
 
 enum SORT_SEARCH_OPTION { LATITUDE, LONGITUDE }
 
@@ -39,7 +40,6 @@ class ServicePoints {
   // getters
 
   // load service lines from json files
-  // load service lines from json files
   static Future<void> loadLines({bool sorted = false}) async {
     serviceLatPoints = List.empty(growable: true);
     serviceLngPoints = List.empty(growable: true);
@@ -75,7 +75,7 @@ class ServicePoints {
       LatLng bestLatitude = line[0];
       while (latitudeDistance > latitudeThreshold) {
         latitudeDistance = point.latitude - bestLatitude.latitude;
-        print('Latitude distance = ' + latitudeDistance.toString());
+        AppLogger.log('Latitude distance = $latitudeDistance');
         if (latitudeDistance <= latitudeThreshold) {
           break;
         }
@@ -95,7 +95,7 @@ class ServicePoints {
       int longitudeSteps = 0;
       while (longitudeDistance > longitudeThreshold) {
         longitudeDistance = point.longitude - bestLongitude.longitude;
-        print('Longitude distance = ' + longitudeDistance.toString());
+        AppLogger.log('Longitude distance = $longitudeDistance');
 
         if (longitudeDistance <= longitudeThreshold) {
           break;
@@ -143,7 +143,7 @@ class ServicePoints {
     int start = 0;
     int end = points.length - 1;
     double error = double.maxFinite;
-    LatLng mostApproximateValue = LatLng(-1, -1);
+    LatLng mostApproximateValue = const LatLng(-1, -1);
     while (start <= end) {
       int middle = (start + end) ~/ 2;
       final current_error = (point.latitude - points[middle].latitude).abs();

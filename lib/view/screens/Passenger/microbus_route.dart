@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tawsela_app/app_logger.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/utilities.dart';
@@ -64,7 +65,7 @@ class MicrobusRoutePage extends StatelessWidget {
                                       horizontal: 16.0),
                                   child: InkWell(
                                     onTap: () {
-                                      print('object');
+                                      AppLogger.log('object');
                                     },
                                     child: Container(
                                       decoration: const BoxDecoration(

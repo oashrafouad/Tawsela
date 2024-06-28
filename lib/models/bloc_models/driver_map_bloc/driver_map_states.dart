@@ -10,7 +10,7 @@ class DriverMapState extends NeverEqualState {
   final bool bottomSheet;
   final bool topSheet;
 
-  DriverMapState({this.bottomSheet = false, this.topSheet = true});
+  const DriverMapState({this.bottomSheet = false, this.topSheet = true});
 
   @override
   List<Object?> get props => [

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 
-import 'package:tawsela_app/view/screens/Passenger/microbus_suggested_lines.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_search_bar.dart';
 import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
@@ -24,13 +23,6 @@ class PassengerPickupLocationPage extends StatelessWidget {
         onTap: () {
           // To dismiss keyboard when tapping anywhere outside search bar
           FocusManager.instance.primaryFocus?.unfocus();
-
-          // FocusScopeNode currentFocus = FocusScope.of(context);
-          // FocusScope.of(context).unfocus();
-
-          // if (!currentFocus.hasPrimaryFocus) {
-          //   currentFocus.unfocus();
-          // }
         },
         child: Scaffold(
           appBar: AppBar(

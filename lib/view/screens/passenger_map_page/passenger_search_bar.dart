@@ -5,15 +5,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
-import 'package:tawsela_app/models/data_models/google_server.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
-import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
 class PassengerSearchBar extends StatefulWidget {
-  PassengerSearchBar({super.key});
+  const PassengerSearchBar({super.key});
 
   @override
   State<PassengerSearchBar> createState() => _PassengerSearchBarState();
@@ -24,15 +21,6 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    late PassengerState googleMapProvider;
-    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
-      googleMapProvider = passengerLastState;
-    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
-      googleMapProvider = passengerLastState;
-    } else {
-      googleMapProvider =
-          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
-    }
     return GooglePlaceAutoCompleteTextField(
       textStyle: const TextStyle(fontFamily: font),
       inputDecoration: InputDecoration(
@@ -61,7 +49,6 @@ class _PassengerSearchBarState extends State<PassengerSearchBar> {
               const TextStyle(fontFamily: font, color: kGreyFont),
           leadingAndTrailingTextStyle:
               const TextStyle(fontFamily: font, color: kGreyFont),
-          // subtitle: Text(prediction.secondaryText!),
           leading: const Icon(
             Icons.location_on,
             color: kGreenBigButtons,

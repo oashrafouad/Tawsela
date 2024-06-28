@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:tawsela_app/app_logger.dart';
 
 class KeyChain {
   static String? main_server_url;
@@ -14,9 +15,9 @@ class KeyChain {
     // loading images
     try {
       driver_image = await BitmapDescriptor.fromAssetImage(
-          ImageConfiguration(size: Size(5, 5)), 'assets/driver.png');
+          const ImageConfiguration(size: Size(5, 5)), 'assets/driver.png');
       passenger_image = await BitmapDescriptor.fromAssetImage(
-          ImageConfiguration(size: Size(5, 5)), 'assets/user.png');
+          const ImageConfiguration(size: Size(5, 5)), 'assets/user.png');
 
       /** Google server part */
       var json =
@@ -36,6 +37,8 @@ class KeyChain {
       String server_url = mapObject['server_url'];
       // initializing main server url
       KeyChain.main_server_url = server_url;
-    } catch (error) {}
+    } catch (error) {
+      AppLogger.log(error);
+    }
   }
 }

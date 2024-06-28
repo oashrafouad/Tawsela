@@ -3,6 +3,8 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/view/widgets/fav_places_item_builder.dart';
 
+import '../../../app_logger.dart';
+
 class DriverPickupLocationPage extends StatelessWidget {
   const DriverPickupLocationPage({super.key});
   static String id = 'DriverPickupLocationPage';
@@ -16,18 +18,18 @@ class DriverPickupLocationPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: SearchBar(
             onSubmitted: (value) {
-              print(value);
+              AppLogger.log(value);
             },
             constraints: const BoxConstraints(maxWidth: 400),
             leading: const Icon(Icons.search),
             hintText: S.of(context).specifyASpecificLocationToPickUpPassengers,
-            textStyle: MaterialStateProperty.all(const TextStyle(
+            textStyle: WidgetStateProperty.all(const TextStyle(
                 fontFamily: font, fontSize: 16, fontWeight: FontWeight.w400)),
-            hintStyle: MaterialStateProperty.all(const TextStyle(
+            hintStyle: WidgetStateProperty.all(const TextStyle(
                 fontFamily: font, fontSize: 16, fontWeight: FontWeight.w400)),
-            padding: MaterialStateProperty.resolveWith((states) =>
-                EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0)),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
+            padding: WidgetStateProperty.resolveWith((states) =>
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0)),
+            backgroundColor: WidgetStateProperty.all(Colors.white),
           ),
         ),
       ),

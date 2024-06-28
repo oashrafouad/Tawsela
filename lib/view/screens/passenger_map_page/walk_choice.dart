@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_states.dart';
 import 'package:html/parser.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
 
 class WalkChoice extends StatefulWidget {
@@ -34,7 +33,7 @@ class _WalkChoiceState extends State<WalkChoice> {
                   child: SingleChildScrollView(
                     child: Stepper(
                         physics: const ClampingScrollPhysics(),
-                        connectorColor: MaterialStateProperty.resolveWith(
+                        connectorColor: WidgetStateProperty.resolveWith(
                             (states) => Colors.green),
                         currentStep: current_step,
                         onStepCancel: () {
@@ -64,30 +63,6 @@ class _WalkChoiceState extends State<WalkChoice> {
                               content: Text(parsedString));
                         }).toList()),
                   ),
-                  // child: ListView.builder(
-                  //     itemCount: googleMapProvider.state.directions.length,
-                  //     itemBuilder: (context, index) {
-                  //       return Column(
-                  //         children: [
-                  //           ListTile(
-                  //             leading: Text(
-                  //                 '${googleMapProvider.state.directions[index].duration!.text}'),
-                  //             title: Text(
-                  //                 '${googleMapProvider.state.directions[index].instructions}'),
-                  //             subtitle: Text(
-                  //                 '${googleMapProvider.state.directions[index].distance!.text}'),
-                  //           ),
-                  //           SizedBox(
-                  //             child: Divider(
-                  //               indent: 30,
-                  //               endIndent: 30,
-                  //               thickness: 1,
-                  //               color: Colors.grey,
-                  //             ),
-                  //           )
-                  //         ],
-                  //       );
-                  //     })),
                 ),
               ));
     } else if (googleMapProvider.destination == null) {

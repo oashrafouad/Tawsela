@@ -34,16 +34,6 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
   Set<String> selectedItems = {};
   @override
   Widget build(BuildContext context) {
-    late PassengerState passengerState;
-    if (BlocProvider.of<PassengerBloc>(context).state is UserErrorState) {
-      passengerState = passengerLastState;
-    } else if (BlocProvider.of<PassengerBloc>(context).state is Loading) {
-      passengerState = passengerLastState;
-    } else {
-      passengerState =
-          BlocProvider.of<PassengerBloc>(context).state as PassengerState;
-    }
-
     return SizedBox(
         width: double.infinity,
         child: Column(
@@ -134,7 +124,7 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                           timer: widget.timer,
                         )
                       : (selectedItem == 1)
-                          ? ServiceChoice()
+                          ? const ServiceChoice()
                           : (selectedItem == 2)
                               ? BlocConsumer<PassengerBloc, MapUserState>(
                                   buildWhen: (previous, current) {
@@ -145,24 +135,23 @@ class _UserActionsPanelState extends State<UserActionsPanel> {
                                     // TODO: implement listener
                                   },
                                   builder: (context, state) {
-                                    return WalkChoice();
+                                    return const WalkChoice();
                                   },
                                 )
-                              : Container(
-                                  child: const Center(
-                                  child: Card(
-                                    margin: EdgeInsets.only(
-                                        top: 50, left: 20, right: 20),
-                                    color: Colors.green,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(20.0),
-                                      child: Text(
-                                        'Choose the way you want to reach your destination from the above',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
+                              : const Center(
+                              child: Card(
+                                margin: EdgeInsets.only(
+                                    top: 50, left: 20, right: 20),
+                                color: Colors.green,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(
+                                    'Choose the way you want to reach your destination from the above',
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                )),
+                                ),
+                              ),
+                                                              ),
                 );
               },
             )

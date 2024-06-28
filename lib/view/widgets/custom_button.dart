@@ -1,5 +1,3 @@
-//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
-
 import 'package:flutter/material.dart';
 
 import 'package:tawsela_app/constants.dart';
@@ -40,8 +38,8 @@ class CustomButton extends StatelessWidget {
           child: OutlinedButton(
             style: ButtonStyle(
                 splashFactory: splashEffect,
-                side: MaterialStateProperty.all(BorderSide(color: buttonColor)),
-                backgroundColor: MaterialStateProperty.all(buttonColor)),
+                side: WidgetStateProperty.all(BorderSide(color: buttonColor)),
+                backgroundColor: WidgetStateProperty.all(buttonColor)),
             onPressed: () {
               onTap();
             },

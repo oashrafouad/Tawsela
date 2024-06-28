@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app_logger.dart';
+
 class SearchLabel extends StatelessWidget {
   SearchLabel(
       {super.key,
@@ -30,7 +32,7 @@ class SearchLabel extends StatelessWidget {
             icon: const Icon(Icons.search),
             onPressed: () {
               // Handle search functionality here
-              print('Searching for: ${onChanged?.call('')}');
+              AppLogger.log('Searching for: ${onChanged?.call('')}');
             },
           ),
           border: OutlineInputBorder(

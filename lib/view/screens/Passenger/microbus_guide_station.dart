@@ -32,7 +32,6 @@ class MicrobusGuideStationPage extends StatelessWidget {
                 line: line,
                 color: color,
               ),
-              // const SizedBox(width: 35),
             ],
           ),
         ),
@@ -61,8 +60,4 @@ class MicrobusGuideStationPage extends StatelessWidget {
       ]),
     );
   }
-  
-
 }
-
-

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tawsela_app/loading_status_handler.dart';
@@ -16,10 +14,9 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/lang/app_language_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:tawsela_app/utilities.dart';
 
-import 'firebase_options.dart';
+import 'app_logger.dart';
 
 import 'package:tawsela_app/models/get_it.dart/key_chain.dart';
 
@@ -47,19 +44,13 @@ import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart'
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await KeyChain.Key_Chain_Initialize();
-  // Initialize firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   // Initialize SVProgressHUD
   LoadingStatusHandler.initialize();
 
-  await initializeGoogleMapsAPI();
   await initializeServerAPI();
   initializeAppwrite();
 
-  //print("Shared preferences initialized");
   sharedPreferences = await SharedPreferences.getInstance();
   isLoggedIn = sharedPreferences!.getBool('isLoggedIn') ?? false;
   isDriver = sharedPreferences!.getBool('isDriver') ?? false;
@@ -69,12 +60,6 @@ void main() async {
     setProfileImage();
   }
 
-
-
-  // loading google map api key
-
-  // Bloc.observer = MyBlocObserver();
-  // lock orientation to portrait only
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const TawselaApp());
 }
@@ -84,15 +69,15 @@ class MyBlocObserver extends BlocObserver {
   void onChange(BlocBase bloc, Change change) {
     // TODO: implement onChange
     super.onChange(bloc, change);
-    print(change.currentState.toString());
-    print(change.nextState.toString());
+    AppLogger.log(change.currentState.toString());
+    AppLogger.log(change.nextState.toString());
   }
 
   @override
   void onEvent(Bloc bloc, Object? event) {
     // TODO: implement onEvent
     super.onEvent(bloc, event);
-    print('Event ${event.toString()} has happened');
+    AppLogger.log('Event ${event.toString()} has happened');
   }
 }
 

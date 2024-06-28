@@ -7,7 +7,8 @@ import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_stat
 
 class DirectionWidget extends StatefulWidget {
   @override
-  DirectionWidget();
+  const DirectionWidget({super.key});
+  @override
   State<DirectionWidget> createState() => _DirectionWidgetState();
 }
 
@@ -54,7 +55,7 @@ class _DirectionWidgetState extends State<DirectionWidget> {
                 }
               },
               connectorColor:
-                  MaterialStateProperty.resolveWith((states) => Colors.green),
+                  WidgetStateProperty.resolveWith((states) => Colors.green),
               currentStep: currentStep,
             ),
           ),

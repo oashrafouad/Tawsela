@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 class UserInformation extends StatelessWidget {
   bool showDirection;
   TripRequestTimer timer;
-  UserInformation({this.showDirection = false, required this.timer});
+  UserInformation({super.key, this.showDirection = false, required this.timer});
   @override
   Widget build(BuildContext context) {
     final driverMapProvider = BlocProvider.of<DriverMapBloc>(context);
@@ -159,10 +159,10 @@ class UserInformation extends StatelessWidget {
                                 backgroundColor: Colors.blue),
                             onPressed: () {
                               driverMapProvider.add(const HideTopSheet());
-                              Future.delayed(Duration(seconds: 2));
+                              Future.delayed(const Duration(seconds: 2));
                               BlocProvider.of<UberDriverBloc>(context)
-                                  .add(GetPassengerDirections());
-                              driverMapProvider.add(ShowBottomSheet());
+                                  .add(const GetPassengerDirections());
+                              driverMapProvider.add(const ShowBottomSheet());
                             },
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,

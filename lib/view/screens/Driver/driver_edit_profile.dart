@@ -7,12 +7,12 @@ import 'package:tawsela_app/constants.dart';
 import 'package:tawsela_app/generated/l10n.dart';
 import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 import 'package:tawsela_app/utilities.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_signup.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 
 import 'package:tawsela_app/view/widgets/custom_text_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
+import '../../../app_logger.dart';
 import '../../../loading_status_handler.dart';
 import '../../../services/API_service.dart';
 import '../Passenger/welcome_page.dart';
@@ -60,12 +60,12 @@ class DriverEditProfilePage extends StatelessWidget {
                           }).catchError((error) {
                             // Handle error
                             LoadingStatusHandler.errorLoading(error.toString());
-                            print('Failed to delete account: $error');
+                            AppLogger.log('Failed to delete account: $error');
                           });
                           break;
                       }
                     } on PlatformException catch (error) {
-                      print(error.message);
+                      AppLogger.log(error.message);
                     }
                   } else {
                     showDialog(
@@ -95,7 +95,7 @@ class DriverEditProfilePage extends StatelessWidget {
                                 }).catchError((error) {
                                   // Handle error
                                   LoadingStatusHandler.errorLoading(error.toString());
-                                  print('Failed to delete account: $error');
+                                  AppLogger.log('Failed to delete account: $error');
                                 });
                               },
                               child: const Text(
@@ -323,8 +323,6 @@ class DriverEditProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-          // SizedBox(height: 32,),
-
           CustomButton(
             onTap: () {
               Navigator.pop(context);

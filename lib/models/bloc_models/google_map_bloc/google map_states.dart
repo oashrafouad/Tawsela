@@ -6,8 +6,6 @@ import 'package:tawsela_app/models/data_models/user_states.dart';
 
 class MapUserState {
   const MapUserState();
-  // @override
-  // List<Object?> get props => [identityHashCode(this)];
 }
 
 class UserErrorState extends MapUserState {
@@ -15,8 +13,6 @@ class UserErrorState extends MapUserState {
   const UserErrorState(this.message);
 
   get destination => null;
-  // @override
-  // List<Object> get props => [message];
 }
 
 class Loading extends MapUserState {
@@ -38,7 +34,7 @@ class GoogleMapState extends MapUserState {
 
   GoogleMapState({
     this.currentPosition = invalidPosition,
-    this.destination = null,
+    this.destination,
     this.lines = const [],
     this.markers = const {},
     this.controller,
@@ -47,10 +43,6 @@ class GoogleMapState extends MapUserState {
     this.currentLocationDescription = 'Unknown',
     this.destinationDescription = 'Unknown',
   });
-
-  // @override
-  // List<Object?> get props =>
-  //     [currentPosition, lines, markers, directions, destination, userState];
 }
 
 enum ErrorStates {
@@ -58,20 +50,3 @@ enum ErrorStates {
   MUST_PROVIDE_CURRENT_LOCATION,
   CAN_NOT_ACCEPT_MORE_THAN_ONE_REQUEST
 }
-
-
-  // @override
-  // List<Object?> get props => [
-  //       currentPosition,
-  //       lines,
-  //       markers,
-  //       directions,
-  //       destination,
-  //       userState,
-  //       driver,
-  //       passengerRequests,
-  //       acceptedRequest
-  //     ];
-
-
-

@@ -1,6 +1,5 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +14,7 @@ import 'package:tawsela_app/view/screens/Passenger/sms_verfication.dart';
 import 'package:tawsela_app/view/widgets/custom_button.dart';
 import 'package:tawsela_app/view/widgets/custom_text_field.dart';
 
-import '../../../services/API_service.dart';
+import '../../../app_logger.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({super.key});
@@ -65,7 +64,6 @@ class WelcomePage extends StatelessWidget {
         ),
         
       ),
-
 
       body: Form(
         key: formKey,
@@ -126,7 +124,6 @@ class WelcomePage extends StatelessWidget {
                       CustomTextFormField(
                         textAlign: TextAlign.left,
                         textDirection: TextDirection.ltr,
-                        
                         titleAbove: S.of(context).phoneNum,
                         height: 46,
                         width: 230,
@@ -138,7 +135,6 @@ class WelcomePage extends StatelessWidget {
                         onChanged: (value) {
                           phoneNumber = value;
                         },
-                        //controller: phoneController,
                         inputFormatters: [
                           // prevent the first number inputted to be 0, to force the user to input the correct number format
                           FilteringTextInputFormatter.deny(RegExp(r'^0')),
@@ -188,19 +184,19 @@ class WelcomePage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     LoadingStatusHandler.startLoading();
                     try {
-                      // Session? session;
-                      // if (kDebugMode) {
-                      //   session = await account!.createAnonymousSession();
-                      //   print("CREATED ANON SESSION");
-                      //   userId = session.userId;
-                      // } else {
+                      Session? session;
+                      if (kDebugMode) {
+                        session = await account!.createAnonymousSession();
+                        AppLogger.log("CREATED ANON SESSION");
+                        userId = session.userId;
+                      } else {
                         final token = await account!.createPhoneToken(
                             userId: ID.unique(), phone: "+20$phoneNumber");
-                          print("CREATED PHONE SESSION");
+                        AppLogger.log("CREATED PHONE SESSION");
                         userId = token.userId;
-                      // }
-                      print(userId);
-                      print("SUCCESSFULLY SENT SMS CODE");
+                      }
+                      AppLogger.log(userId);
+                      AppLogger.log("SUCCESSFULLY SENT SMS CODE");
                       LoadingStatusHandler.completeLoading();
                       Navigator.push(
                         context,
@@ -209,51 +205,8 @@ class WelcomePage extends StatelessWidget {
                         ),
                       );
                     } catch (e) {
-                      print(e);
+                      AppLogger.log(e);
                     }
-
-                    // proceed with authentication
-                    // await FirebaseAuth.instance.verifyPhoneNumber(
-                    //   phoneNumber: "+20$phoneNumber",
-                    //   verificationFailed: (FirebaseAuthException e) {
-                    //     switch (e.code) {
-                    //       case 'invalid-phone-number':
-                    //         LoadingStatusHandler.errorLoading("الرقم الذي ادخلته غير صحيح");
-                    //         print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                    //         break;
-                    //       case 'network-request-failed':
-                    //         LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
-                    //         print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                    //         break;
-                    //       case 'web-context-cancelled':
-                    //         LoadingStatusHandler.completeLoading();
-                    //         print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                    //         break;
-                    //       case 'quota-exceeded':
-                    //         LoadingStatusHandler.errorLoading("لقد وصلنا للعدد الاقصى لمحاولات ارسال الكود اليوم, الرجاء المحاولة مرة اخرى غدا");
-                    //         print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                    //         break;
-                    //       default:
-                    //         LoadingStatusHandler.errorLoading("${e.message}");
-                    //         print("ERROR SENDING SMS CODE: ${e.code}, ${e.message}");
-                    //     }
-                    //   },
-                    //   codeSent: (String verificationId, int? resendToken) {
-                    //     print("SUCCESSFULLY SENT SMS CODE");
-                    //     userVerificationId = verificationId;
-                    //     LoadingStatusHandler.completeLoading();
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //         builder: (context) => SmsVerficationPage(),
-                    //       ),
-                    //     );
-                    //   },
-                    //   // implementation not needed
-                    //   verificationCompleted: (PhoneAuthCredential credential) {},
-                    //   // implementation not needed
-                    //   codeAutoRetrievalTimeout: (String verificationId) {},
-                    // );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tawsela_app/constants.dart';
@@ -82,14 +81,12 @@ class CustomTextFormField extends StatelessWidget {
                 return S.of(context).FieldIsRequired;
               } else if (maxLength != null && value.length != maxLength!) {
                 return "ادخل 10 ارقام بدون كود الدولة";
-
               }
               return null;
             }: null,
             textDirection: textDirection,
             textAlign: textAlign,
             cursorColor: kGreenBigButtons,
-             
             onChanged: onChanged,
             decoration: InputDecoration(
               errorStyle: const TextStyle(fontFamily: font, height: 0.05),

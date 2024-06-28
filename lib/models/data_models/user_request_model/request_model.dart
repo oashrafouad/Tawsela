@@ -1,12 +1,9 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tawsela_app/models/data_models/uber_driver.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'request_model.g.dart';
 
 @JsonSerializable()
 class UserRequest {
   final String? Req_ID;
-  // final String? Passenger_ID;
   final String? f_name;
   final String? l_name;
   final String? phone_num;
@@ -22,7 +19,6 @@ class UserRequest {
     this.f_name,
     this.l_name,
     required this.Req_ID,
-    // required this.Passenger_ID,
     required this.Current_Location,
     required this.Desired_Location,
     required this.Current_Location_Latitude,

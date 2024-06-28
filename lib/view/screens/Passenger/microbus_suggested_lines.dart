@@ -1,11 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tawsela_app/constants.dart';
-import 'package:tawsela_app/generated/l10n.dart';
-import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_bloc.dart';
-import 'package:tawsela_app/models/bloc_models/DriverStateTextBloc/driver_state_text_state.dart';
-import 'package:tawsela_app/view/screens/Driver/driver_pickup_location.dart';
-import 'package:tawsela_app/view/screens/driver_map_page/driver_map_switch.dart';
 
 class MicrobusSuggestedLinesPage extends StatelessWidget {
   const MicrobusSuggestedLinesPage({super.key});

@@ -4,11 +4,10 @@ import 'package:tawsela_app/models/bloc_models/google_map_bloc/google%20map_stat
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_bloc.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_events.dart';
 import 'package:tawsela_app/models/bloc_models/passenger_bloc/passenger_states.dart';
-import 'package:tawsela_app/models/bloc_models/uber_driver_bloc/uber_driver_events.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DriverInfo extends StatelessWidget {
-  DriverInfo();
+  const DriverInfo({super.key});
   @override
   Widget build(BuildContext context) {
     late PassengerState passengerProvider;
@@ -98,11 +97,8 @@ class DriverInfo extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red),
                               onPressed: () {
-                                // BlocProvider.of<UberDriverBloc>(context).add(
-                                //     CancelTrip(
-                                //         passengerRequest: ));
                                 BlocProvider.of<PassengerBloc>(context)
-                                    .add(CancelUberRequest());
+                                    .add(const CancelUberRequest());
                               },
                               child: const Row(
                                 children: [

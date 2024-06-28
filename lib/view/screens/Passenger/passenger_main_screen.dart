@@ -6,7 +6,6 @@ import 'package:tawsela_app/models/bloc_models/imageCubit/image_cubit.dart';
 
 import 'package:tawsela_app/utilities.dart';
 import 'package:tawsela_app/view/screens/Passenger/microbus_guide_station.dart';
-import 'package:tawsela_app/view/screens/Passenger/passenger_pickup_location.dart';
 import 'package:tawsela_app/view/screens/Passenger/passenger_profile.dart';
 import 'package:tawsela_app/view/screens/passenger_map_page/passenger_page.dart';
 
@@ -45,10 +44,8 @@ class PassengerMainScreen extends StatelessWidget {
 
                 Padding(padding:
                 const EdgeInsets.all(16),
-                //const EdgeInsets.only(top: 16,left: 16),
                 child: InkWell(
                   onTap: () => Navigator.pushNamed(context, PassengerProfile.id),
-                  //this i modified
                     child: CircleAvatar(
                       backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                       radius: 25,
@@ -102,8 +99,6 @@ class PassengerMainScreen extends StatelessWidget {
                   ),
                   CustomTextButton(
                     onTap: () {
-
-                      //getAllUserInfo(phoneNumber: "01012225001");
                       // TODO: implement add new fav place
                     },
                     icon: Icons.add,

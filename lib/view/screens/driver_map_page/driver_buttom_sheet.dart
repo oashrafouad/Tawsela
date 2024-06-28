@@ -32,14 +32,11 @@ class _DriverButtomSheet extends State<DriverButtomSheet> {
     // TODO: implement build
     return SizedBox(
         width: double.infinity,
-
-        // color: Colors.red,
         child: Column(
           children: [
             BlocListener<PassengerBloc, MapUserState>(
               listenWhen: (previous, current) {
                 final p = previous as PassengerState;
-                final c = current as PassengerState;
                 return p.destination != p.destination;
               },
               listener: (context, state) {
@@ -92,7 +89,7 @@ class _DriverButtomSheet extends State<DriverButtomSheet> {
                     child: (selectedItem == 0)
                         ? SizedBox(
                             height: MediaQuery.of(context).size.height * 0.5,
-                            child: DirectionWidget())
+                            child: const DirectionWidget())
                         : UserInformation(
                             timer: widget.timer,
                           ));
