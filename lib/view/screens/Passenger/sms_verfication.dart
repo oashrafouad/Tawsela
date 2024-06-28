@@ -91,7 +91,7 @@ class SmsVerficationPage extends StatelessWidget {
                         );
                       }
                       AppLogger.log("Logged in successfully");
-                      LoadingStatusHandler.completeLoadingWithText("تم التحقق");
+                      await LoadingStatusHandler.completeLoadingWithText("تم التحقق");
                         try {
                           accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
                         } catch (e) {
