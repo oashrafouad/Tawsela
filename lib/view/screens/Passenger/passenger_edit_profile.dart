@@ -142,7 +142,7 @@ class PassengerEditProfile extends StatelessWidget {
             child: Center(
               child: Stack(children: [
                 CircleAvatar(
-                  backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                  backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                   radius: 50,
                   backgroundColor: kGreenSmallButtonBorder,
                 ),

@@ -1,3 +1,5 @@
+import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart' as Appwrite;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -182,6 +184,24 @@ class _PassengerSignUpPageState extends State<PassengerSignUpPage> {
             const SizedBox(
               height: 16,
             ),
+            // ElevatedButton(
+            //     onPressed: () async {
+            //       Appwrite.DocumentList? documents;
+            //       try {
+            //         documents = await databases!.listDocuments(
+            //             databaseId: '667ed11000020e17c007',
+            //             collectionId: '667ed13b000f6bb0b7b8',
+            //             queries: [
+            //               Query.equal('userId', userId)
+            //             ]
+            //         );
+            //       } on AppwriteException catch(e) {
+            //         print(e);
+            //       }
+            //       print(documents!.documents[0].data);
+            //     },
+            //   child: Text("Get"),
+            // )
           ],
         ),
       ),

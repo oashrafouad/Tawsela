@@ -166,7 +166,7 @@ class DriverProfilePage extends StatelessWidget {
                 children: [
                   Row(children: [
                     CircleAvatar(
-                      backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                      backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                       radius: 40,
                       backgroundColor: kGreenSmallButtonBorder,
                     ),
@@ -335,7 +335,7 @@ class DriverProfilePage extends StatelessWidget {
               children: [
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                    backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                     radius: 25,
                     backgroundColor: kGreenSmallButtonBorder,
                   ),

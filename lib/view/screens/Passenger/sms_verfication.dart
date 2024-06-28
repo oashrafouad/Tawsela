@@ -80,56 +80,55 @@ class SmsVerficationPage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     // print(smsCode);
 
+                    LoadingStatusHandler.startLoading();
 
                     // Create a PhoneAuthCredential with the code
-                    // PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: userVerificationId, smsCode: smsCode);
                     bool accountExists = false;
                     // Sign the user in (or link) with the credential
-                    // LoadingStatusHandler.startLoadingWithText("قد يستغرق التحقق الى 50 ثانية، الرجاء الانتظار...");
-                    LoadingStatusHandler.startLoading();
                     try {
-                        // await FirebaseAuth.instance.signInWithCredential(credential);
-                        // final session = await account!.createSession(
-                        //   userId: userId,
-                        //   secret: smsCode,
-                        // );
-                        // print(session.secret);
+                      // await FirebaseAuth.instance.signInWithCredential(credential);
 
-                        accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
-                        await LoadingStatusHandler.completeLoadingWithText("تم التحقق");
+                      await account!.createSession(
+                        userId: userId,
+                        secret: smsCode,
+                      );
+                      print("Logged in successfully");
+
+                      // final session = await account!.createAnonymousSession();
+                      // print(session.userId);
+
+                      LoadingStatusHandler.completeLoadingWithText("تم التحقق");
+                        try {
+                          accountExists = await ApiService.checkAccountExists(phoneNumber: phoneNumber);
+                        } catch (e) {
+                          print("ERROR CHECKING ACCOUNT EXISTS: $e");
+                        }
+                        // print(accountExists);
+                        // print("printed");
+                        // ApiService.getUserInfo(phoneNumber: phoneNumber);
+                        // await updateData();
                         if(accountExists){
-                          print("Profile image URL SECOND: $profileImageURL");
+                          // print("Profile image URL SECOND: $profileImageURL");
                           await getAllUserInfoAndAssignToVariables(phoneNumber: phoneNumber);
+                          // print("done");
                           await updateDataToSharedPrefs();
                           Navigator.pushNamedAndRemoveUntil(context, PassengerMainScreen.id, (route) => false);
                         } else {
                           Navigator.pushNamed(context, PassengerSignUpPage.id);
                         }
                     } catch (e) {
-                      if (e is FirebaseAuthException) {
-                        switch (e.code) {
-                          case 'invalid-verification-code':
-                            LoadingStatusHandler.errorLoading("الكود الذي ادخلته غير صحيح");
-                            break;
-                          case 'network-request-failed':
-                            LoadingStatusHandler.errorLoading("تأكد من اتصالك بالانترنت");
-                            break;
-                          default:
-                            LoadingStatusHandler.errorLoading("${e.message}");
-                        }
-                      } else {
-                        LoadingStatusHandler.errorLoading(e.toString());
-                        print("ERROR CHECKING ACCOUNT EXISTS: $e");
-                      }
+                          LoadingStatusHandler.errorLoading("$e");
+                          print("ERROR SIGNING IN: $e");
+
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Center(
                             child: Text(
-                          "${S.of(context).PleaseEnter} ${S.of(context).verifyCode}",
-                          style: const TextStyle(fontFamily: font),
-                        )),
+                              "${S.of(context).PleaseEnter} ${S.of(context).verifyCode}",
+                              style: const TextStyle(fontFamily: font),
+                            )),
                       ),
                     );
                   }

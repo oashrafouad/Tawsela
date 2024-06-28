@@ -232,9 +232,7 @@ class _DriverPageState extends State<DriverPage> {
                                       onTap: () => Navigator.pushNamed(
                                           context, DriverProfilePage.id),
                                       child: CircleAvatar(
-                                        backgroundImage: isLoggedIn
-                                            ? NetworkImage(profileImageURL)
-                                            : imageState.avatarImg.image,
+                                        backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                                         radius: 25,
                                         backgroundColor:
                                             kGreenSmallButtonBorder,

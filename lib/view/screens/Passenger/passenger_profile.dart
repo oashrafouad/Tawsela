@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -111,6 +112,14 @@ class PassengerProfile extends StatelessWidget {
                           case 1:
                             isLoggedIn = false;
                             await resetData();
+                            // log out session appwrite
+                            try {
+                              await account!.deleteSession(
+                                  sessionId: 'current');
+                              print("DELETED");
+                            } on AppwriteException catch (e) {
+                              print(e.message);
+                            }
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -171,7 +180,7 @@ class PassengerProfile extends StatelessWidget {
                 children: [
                   Row(children: [
                     CircleAvatar(
-                      backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                      backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                       radius: 50,
                       backgroundColor: kGreenSmallButtonBorder,
                     ),
@@ -301,7 +310,7 @@ class PassengerProfile extends StatelessWidget {
                       ),
                     ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: isLoggedIn ? NetworkImage(profileImageURL) : imageState.avatarImg.image,
+                        backgroundImage: isLoggedIn ? profileImage : imageState.avatarImg.image,
                         radius: 25,
                         backgroundColor: kGreenSmallButtonBorder,
                       ),

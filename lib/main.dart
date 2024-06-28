@@ -66,6 +66,7 @@ void main() async {
 
   if (isLoggedIn) {
     await initValues();
+    setProfileImage();
   }
 
 

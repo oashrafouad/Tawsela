@@ -1,5 +1,7 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -186,9 +188,17 @@ class WelcomePage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     LoadingStatusHandler.startLoading();
                     try {
-                      final token = await account!.createPhoneToken(
-                          userId: ID.unique(), phone: "+20$phoneNumber");
-                      userId = token.userId;
+                      // Session? session;
+                      // if (kDebugMode) {
+                      //   session = await account!.createAnonymousSession();
+                      //   print("CREATED ANON SESSION");
+                      //   userId = session.userId;
+                      // } else {
+                        final token = await account!.createPhoneToken(
+                            userId: ID.unique(), phone: "+20$phoneNumber");
+                          print("CREATED PHONE SESSION");
+                        userId = token.userId;
+                      // }
                       print(userId);
                       print("SUCCESSFULLY SENT SMS CODE");
                       LoadingStatusHandler.completeLoading();
@@ -258,9 +268,6 @@ class WelcomePage extends StatelessWidget {
                 },
               ),
             ),
-
-
-
           ],
         ),
       ),
