@@ -112,7 +112,6 @@ class PassengerProfile extends StatelessWidget {
                           case 1:
                             isLoggedIn = false;
                             await resetData();
-                            // log out session appwrite
                             try {
                               await account!.deleteSession(
                                   sessionId: 'current');
@@ -147,6 +146,13 @@ class PassengerProfile extends StatelessWidget {
                                 onPressed: () async {
                                   isLoggedIn = false;
                                   await resetData();
+                                  try {
+                                    await account!.deleteSession(
+                                        sessionId: 'current');
+                                    print("DELETED");
+                                  } on AppwriteException catch (e) {
+                                    print(e.message);
+                                  }
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
