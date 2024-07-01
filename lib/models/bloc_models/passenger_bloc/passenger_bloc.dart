@@ -220,7 +220,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
     http.Response? response;
     try {
       response = await http.get(Uri.parse(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=***REMOVED***'));
+          'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$destinationParameter&origins=${passengerLastState.destination!.latitude},${passengerLastState.destination!.longitude}&key=$mapApiKey'));
     } catch (exception) {
       emit(const UserErrorState('Error caclulating nearest service line'));
     }
@@ -249,7 +249,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
           '${latValue.latitude},${latValue.longitude}%7C' '${lngValue.latitude},${lngValue.longitude}%7C';
       try {
         response = await http.get(Uri.parse(
-            'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=***REMOVED***'));
+            'https://maps.googleapis.com/maps/api/distancematrix/json?regionCode=eg&mode=transit&destinations=$localDestination&origins=${passengerLastState.currentPosition.latitude},${passengerLastState.currentPosition.longitude}&key=$mapApiKey'));
       } catch (exception) {
         emit(const UserErrorState('Error caclulating nearest service line'));
       }
@@ -289,7 +289,7 @@ class PassengerBloc extends Bloc<GoogleMapEvent, MapUserState> {
         emit(const UserErrorState('Please Provide current Location'));
       } else {
         try {
-          DirectionsService.init('***REMOVED***');
+          DirectionsService.init(mapApiKey);
           DirectionsService directions = DirectionsService();
           Polyline path = const Polyline(
               polylineId: PolylineId('path'),

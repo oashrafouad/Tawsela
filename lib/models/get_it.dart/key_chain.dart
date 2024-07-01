@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tawsela_app/app_logger.dart';
 
+import '../../utilities.dart';
+
 class KeyChain {
   static String? main_server_url;
   static String? google_server_key;
@@ -25,9 +27,9 @@ class KeyChain {
       // decoding json string
       Map mapObject = jsonDecode(json) as Map;
       // fetching google map api key value
-      String apiKey = mapObject['Google_Map_Api'];
+      mapApiKey = mapObject['Google_Map_Api'];
       // initializing google server api key
-      KeyChain.google_server_key = apiKey;
+      KeyChain.google_server_key = mapApiKey;
 
       /**Main Server part */
       json = await rootBundle.loadString('assets/JSON/keys/server_url.json');

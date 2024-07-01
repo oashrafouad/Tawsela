@@ -181,6 +181,9 @@ uploadImage(CroppedFile croppedFile) async {
   }
 }
 
+// Google Maps API
+String mapApiKey = '';
+
 // Our API
 String server_url = '';
 
