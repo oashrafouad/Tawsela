@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 void main() async {
   test('API Test', () async {
     var response = await http
-        .get(Uri.parse('***REMOVED***/api/requests'));
+        .get(Uri.parse('https://tawselaapp-1-jaet.onrender.com/api/requests'));
     print(response);
   });
 }
